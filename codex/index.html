@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="AI DXによる業務削減時間と投資効果を、実演動画とモデルケースで確認するプレビューサイトです。">
+  <title>AI DX ROI診断｜実演動画プレビュー</title>
+  <style>
+    :root{--ink:#071d2e;--navy:#092b44;--blue:#176b9e;--green:#16775b;--gold:#b67b19;--paper:#f3f6f6;--white:#fff;--muted:#60717c;--line:#dce4e6}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden}body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:"Noto Sans JP","Yu Gothic",Meiryo,sans-serif}a{color:inherit}.hero{position:relative;min-height:760px;display:flex;align-items:center;overflow:hidden;background:#d8e0e3}.heroImage{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.heroShade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,18,29,.12) 0%,rgba(2,18,29,.18) 32%,rgba(2,18,29,.62) 62%,rgba(2,18,29,.92) 100%)}.heroContent{position:relative;z-index:1;width:min(1180px,calc(100% - 48px));margin:auto;padding-left:52%;color:white}.eyebrow{font:700 12px/1.2 Arial,sans-serif;letter-spacing:.2em;margin:0 0 20px;color:#b9e6d6}.hero h1{font-size:clamp(42px,6vw,76px);line-height:1.12;letter-spacing:-.045em;margin:0;max-width:720px}.hero h1 span{color:#84e0bd}.heroLead{font-size:18px;line-height:1.8;max-width:610px;margin:28px 0 34px;color:#dce8ec}.primary{display:inline-flex;gap:44px;align-items:center;padding:18px 24px;background:#fff;color:#0b3047;text-decoration:none;font-weight:800;border-radius:4px;box-shadow:0 14px 30px rgba(0,0,0,.18)}.modelNote{font-size:12px;color:#c3d0d5;margin-top:18px}.proof{padding:110px max(24px,calc((100vw - 1180px)/2))}.sectionHead{max-width:760px}.eyebrow.blue{color:var(--blue)}.sectionHead h2,.diagnosis h2{font-size:clamp(34px,4.5vw,58px);line-height:1.3;letter-spacing:-.04em;margin:0 0 20px}.sectionHead>p:last-child,.diagnosis>div>p:last-child{font-size:17px;line-height:1.9;color:var(--muted)}.demoGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:52px}.demoCard{min-width:0;background:#fff;border:1px solid var(--line);box-shadow:0 8px 30px rgba(3,32,49,.05);overflow:hidden}.demoCard.active{border-top:5px solid var(--green)}.demoVideo{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#0a1c27}.cardBody{padding:28px}.cardTop{display:flex;justify-content:space-between;gap:12px;font:700 11px/1 Arial,sans-serif;letter-spacing:.14em;color:var(--blue)}.state{padding:6px 9px;background:#edf5f2;color:var(--green);letter-spacing:.06em;white-space:nowrap}.demoCard h3{font-size:24px;margin:28px 0 10px}.demoCard p{color:var(--muted);line-height:1.6}.hours{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:12px;border-top:1px solid #e3e9eb;border-bottom:1px solid #e3e9eb;padding:22px 0;margin-top:24px}.hours div{display:grid;grid-template-columns:auto auto;align-items:baseline}.hours small{grid-column:1/-1;color:var(--muted)}.hours strong{font:700 44px/1 Arial,sans-serif}.hours span{font-size:11px;margin-left:4px}.hours b{padding-bottom:8px;color:#91a0a8}.hours .after strong{color:var(--green)}.saved{padding:18px 0;color:var(--navy)}.saved strong{color:var(--green);font-size:20px}.human{font-size:12px;margin:0;padding-left:12px;border-left:3px solid #e0b45d}.industry{padding:0 max(24px,calc((100vw - 1180px)/2)) 110px}.industryGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px}.industryCard{background:#fff;border:1px solid var(--line)}.industryCard img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.industryCard div{padding:22px}.industryCard span{font:700 11px/1 Arial,sans-serif;letter-spacing:.14em;color:var(--green)}.industryCard h3{margin:10px 0 8px}.industryCard p{margin:0;color:var(--muted);line-height:1.7}.diagnosis{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;background:var(--navy);color:white;padding:100px max(24px,calc((100vw - 1180px)/2))}.eyebrow.gold{color:#e4bd68}.diagnosis>div>p:last-child{color:#b9cbd4}.roiPanel{background:#fff;color:var(--ink);padding:38px}.roiPanel>span{font-size:12px;color:var(--muted)}.roiNumber{display:flex;align-items:end;gap:12px;margin:20px 0}.roiNumber strong{font:700 clamp(62px,7vw,92px)/.9 Arial,sans-serif;color:var(--green)}.roiNumber small{padding-bottom:10px}.roiMeta{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid #dfe6e8;padding:20px 0;margin-bottom:24px}.roiMeta span{display:grid;gap:5px;color:var(--muted);font-size:12px}.roiMeta b{color:var(--ink);font-size:18px}.roiPanel button{width:100%;border:0;background:#d5dcdf;color:#65747b;padding:16px;font-weight:800}.roiPanel>small{display:block;color:var(--muted);margin-top:10px}.notice{padding:24px max(24px,calc((100vw - 1180px)/2));background:#e7edee;color:var(--muted);font-size:12px;line-height:1.8}footer{display:flex;justify-content:space-between;gap:30px;padding:28px max(24px,calc((100vw - 1180px)/2));background:#041826;color:#9fb1bb;font-size:11px}footer span:first-child{font-weight:800;letter-spacing:.15em;color:white}
+    @media(max-width:900px){.hero{min-height:720px;align-items:flex-end}.heroImage{object-position:32% center}.heroShade{background:linear-gradient(0deg,rgba(2,18,29,.96) 0%,rgba(2,18,29,.78) 54%,rgba(2,18,29,.08) 100%)}.heroContent{width:calc(100% - 40px);padding:0 0 54px}.hero h1{font-size:clamp(40px,10vw,62px)}.demoGrid,.industryGrid{grid-template-columns:1fr}.diagnosis{grid-template-columns:1fr;gap:30px}.roiPanel{padding:28px}.proof{padding-block:80px}.industry{padding-bottom:80px}}
+    @media(max-width:560px){.hero{min-height:680px}.heroLead{font-size:15px}.primary{width:100%;justify-content:space-between}.proof,.industry,.diagnosis{padding-inline:20px}.roiMeta{gap:16px}.roiNumber strong{font-size:64px}footer{display:grid}.cardBody{padding:22px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="heroImage" src="assets/meeting-minutes-poster.webp" alt="会議終了後、議事録作成に着手する業務責任者">
+      <div class="heroShade"></div>
+      <div class="heroContent">
+        <p class="eyebrow">AI DX ROI DIAGNOSIS</p>
+        <h1 id="hero-title">その作業、AIで<br><span>何時間戻せるか。</span></h1>
+        <p class="heroLead">機能の説明ではなく、入力が成果物へ変わる実演と、回収期間まで。</p>
+        <a class="primary" href="#diagnosis">3分でROIを診断する <span aria-hidden="true">→</span></a>
+        <p class="modelNote">モデルケース：従業員30名・平均時給2,500円</p>
+      </div>
+    </section>
+
+    <section class="proof" aria-labelledby="proof-title">
+      <div class="sectionHead">
+        <p class="eyebrow blue">DEMO LIBRARY</p>
+        <h2 id="proof-title">AIが「できる」ではなく、<br>仕事が「変わる」を見せる。</h2>
+        <p>生成映像で課題を自分事化し、入力・出力・人の確認までを業務別に示します。</p>
+      </div>
+      <div class="demoGrid">
+        <article class="demoCard active">
+          <video class="demoVideo" controls muted playsinline preload="metadata" poster="assets/meeting-minutes-poster.webp"><source src="videos/meeting-minutes.mp4" type="video/mp4"><track kind="captions" src="assets/meeting-minutes-ja.vtt" srclang="ja" label="日本語"></video>
+          <div class="cardBody"><div class="cardTop"><span>DEMO 01</span><span class="state">動画完成</span></div><h3>議事録自動化</h3><p>録音を、決定事項とToDoへ。</p><div class="hours"><div><small>現在</small><strong>60</strong><span>時間/月</span></div><b aria-hidden="true">→</b><div class="after"><small>AI後</small><strong>18</strong><span>時間/月</span></div></div><div class="saved">月 <strong>42時間</strong> を本来の仕事へ</div><p class="human">最終確認と判断は、人が行います。</p></div>
+        </article>
+        <article class="demoCard">
+          <video class="demoVideo" controls muted playsinline preload="metadata" poster="assets/daily-crm-poster.webp"><source src="videos/daily-crm.mp4" type="video/mp4"><track kind="captions" src="assets/daily-crm-ja.vtt" srclang="ja" label="日本語"></video>
+          <div class="cardBody"><div class="cardTop"><span>DEMO 02</span><span class="state">動画完成</span></div><h3>日報・CRM入力補助</h3><p>話した内容を、日報と次の行動へ。</p><div class="hours"><div><small>現在</small><strong>40</strong><span>時間/月</span></div><b aria-hidden="true">→</b><div class="after"><small>AI後</small><strong>20</strong><span>時間/月</span></div></div><div class="saved">月 <strong>20時間</strong> を本来の仕事へ</div><p class="human">最終確認と判断は、人が行います。</p></div>
+        </article>
+        <article class="demoCard">
+          <video class="demoVideo" controls muted playsinline preload="metadata" poster="assets/sales-docs-poster.webp"><source src="videos/sales-docs.mp4" type="video/mp4"><track kind="captions" src="assets/sales-docs-ja.vtt" srclang="ja" label="日本語"></video>
+          <div class="cardBody"><div class="cardTop"><span>DEMO 03</span><span class="state">動画完成</span></div><h3>営業資料・提案書作成</h3><p>顧客課題から、提案の初稿へ。</p><div class="hours"><div><small>現在</small><strong>160</strong><span>時間/月</span></div><b aria-hidden="true">→</b><div class="after"><small>AI後</small><strong>80</strong><span>時間/月</span></div></div><div class="saved">月 <strong>80時間</strong> を本来の仕事へ</div><p class="human">最終確認と判断は、人が行います。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="industry" aria-labelledby="industry-title">
+      <div class="sectionHead"><p class="eyebrow blue">INDUSTRY SCENES</p><h2 id="industry-title">現場ごとの「終わらない作業」から。</h2></div>
+      <div class="industryGrid">
+        <article class="industryCard"><img src="assets/industry-salon-poster.webp" alt="美容サロンの受付で業務を行うスタッフ"><div><span>BEAUTY SALON</span><h3>美容サロン</h3><p>予約返信、口コミ、カルテ。営業後に残っていませんか。</p></div></article>
+        <article class="industryCard"><img src="assets/industry-clinic-poster.webp" alt="クリニック受付で業務を行うスタッフ"><div><span>CLINIC</span><h3>クリニック</h3><p>受付に集中する同じ質問と申し送りを、軽くする。</p></div></article>
+        <article class="industryCard"><img src="assets/industry-craft-poster.webp" alt="現場事務所で報告業務を行う責任者"><div><span>CONSTRUCTION</span><h3>職人・建設</h3><p>現場後の報告書が、売上を生まない残業になっていませんか。</p></div></article>
+      </div>
+    </section>
+
+    <section class="diagnosis" id="diagnosis" aria-labelledby="diagnosis-title">
+      <div><p class="eyebrow gold">ROI SIMULATION</p><h2 id="diagnosis-title">削減時間を、投資判断へ。</h2><p>自社の人数、時給、業務時間を入力すると、年間効果と投資回収期間を試算できます。</p></div>
+      <div class="roiPanel"><span>主要5業務・モデルケース</span><div class="roiNumber"><strong>263.5</strong><small>時間 / 月を削減</small></div><div class="roiMeta"><span>年間効果 <b>790.5万円</b></span><span>回収期間 <b>約3.76ヶ月</b></span></div><button type="button" disabled aria-describedby="preview-note">診断機能を準備中</button><small id="preview-note">本番のROI計算ロジックと接続後に有効化します。</small></div>
+    </section>
+    <div class="notice">表示中の数値はモデルケースであり、実際の効果を保証するものではありません。生成映像は顧客現場や導入実績を表すものではなく、説明用のイメージです。</div>
+  </main>
+  <footer><span>AI DX ROI DIAGNOSIS</span><span>PREVIEW · 2026-07-15</span></footer>
+</body>
+</html>
