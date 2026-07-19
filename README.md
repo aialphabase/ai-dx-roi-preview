@@ -1,8 +1,12 @@
-# AI DX ROI Preview
+# ALPHA Base Project Preview Hub
 
-AI DX ROI診断の確認用公開リポジトリです。
+GitHub Pages上のプロジェクト確認URLをまとめる入口です。
 
-- `codex/` — Codex制作版（動画素材を含む）
-- `claude/` — Claude制作最新版
+- `projects/aidx/` — AIDXプロジェクト入口
+- `codex/` — 既存AIDX Codex版（変更しない）
+- `claude/` — 既存AIDX Claude版（変更しない）
+- `projects/mirai-karute/` — ミライカルテ専用収納先
+- `simulations/aidx/` — AIDX関連シミュレーション
+- `simulations/mirai-karute/` — ミライカルテ関連シミュレーション
 
-ルートURLはCodex制作版へ転送します。比較ラボは含めていません。
+ルートの `index.html` をプロジェクトハブとして使用します。
