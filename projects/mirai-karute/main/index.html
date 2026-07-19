@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ミライカルテ資産構築シミュレーター A/Bプロトタイプ比較。">
+  <title>ミライカルテ｜A/Bプロトタイプ比較</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/base.css?v=20260717-1">
+  <link rel="stylesheet" href="assets/index.css?v=20260717-3">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span class="brand-name">ミライカルテ <span class="brand-sub">資産構築シミュレーター</span></span>
+      </div>
+      <span class="variant-chip">A/B PROTOTYPE</span>
+    </div>
+  </header>
+
+  <main class="app-main comparison-main">
+    <section class="comparison-intro" aria-labelledby="comparison-title">
+      <p class="eyebrow">MIRAI KARTE EXPERIENCE TEST</p>
+      <h1 id="comparison-title">どちらが「自分の未来を見たくなる」か。</h1>
+      <p>同じ診断ロジックを、即時計算型と伴走型の2つの体験にしました。アンケート回答特典としての反応、完了率、相談意向を比較できます。</p>
+    </section>
+
+    <section class="pattern-grid" aria-label="A案とB案を比較">
+      <article class="pattern-card pattern-a">
+        <div class="preview-frame">
+          <img class="preview-image" src="assets/preview-a.png" alt="A案の資産形成ダッシュボード実画面">
+        </div>
+        <div class="pattern-content">
+          <div class="pattern-heading">
+            <div>
+              <span class="pattern-label">PATTERN A</span>
+              <h2>即時計算ダッシュボード</h2>
+            </div>
+            <span class="status-chip good">60秒</span>
+          </div>
+          <p>数値を動かした瞬間に、見込み資産・不足額・必要積立額が変化。金融関心の高いユーザーが自分で比較検討しやすい構成です。</p>
+          <dl class="pattern-facts">
+            <div><dt>強み</dt><dd>速い・比較しやすい・SNSで見せやすい</dd></div>
+            <div><dt>向く導線</dt><dd>アンケート特典、LINEミニ診断後</dd></div>
+            <div><dt>検証KPI</dt><dd>起動率、数値変更率、相談クリック率</dd></div>
+          </dl>
+          <a class="btn btn-primary btn-block" href="pattern-a-dashboard.html">A案を操作する</a>
+        </div>
+      </article>
+
+      <article class="pattern-card pattern-b">
+        <div class="preview-frame">
+          <img class="preview-image" src="assets/preview-b.png" alt="B案の未来ロードマップ実画面">
+        </div>
+        <div class="pattern-content">
+          <div class="pattern-heading">
+            <div>
+              <span class="pattern-label">PATTERN B</span>
+              <h2>伴走型ライフロードマップ</h2>
+            </div>
+            <span class="status-chip accent">約3分</span>
+          </div>
+          <p>住まい・教育・老後を順番に考え、100歳までの資産推移と12か月計画を生成。ミライカルテらしい「自己設計体験」を強く出します。</p>
+          <dl class="pattern-facts">
+            <div><dt>強み</dt><dd>納得感・入力動機・相談につながる文脈</dd></div>
+            <div><dt>向く導線</dt><dd>会員向け診断、セミナー後フォロー</dd></div>
+            <div><dt>検証KPI</dt><dd>完了率、再訪率、面談希望率</dd></div>
+          </dl>
+          <a class="btn btn-primary btn-block" href="pattern-b-roadmap.html">B案を操作する</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="comparison-band" aria-labelledby="comparison-table-title">
+      <div class="comparison-band-head">
+        <div>
+          <p class="eyebrow">TEST DESIGN</p>
+          <h2 id="comparison-table-title">A/Bで見るポイント</h2>
+        </div>
+        <p>診断結果は共通。変えるのは「入力の見せ方」と「価値を感じるタイミング」です。</p>
+      </div>
+      <div class="comparison-table-wrap">
+        <table>
+          <thead>
+            <tr><th>比較軸</th><th>A案</th><th>B案</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>最初の価値</th><td>入力と同時に将来金額が見える</td><td>人生イベントを整理できる</td></tr>
+            <tr><th>主な感情</th><td>「試したい」「比較したい」</td><td>「自分事だ」「相談したい」</td></tr>
+            <tr><th>入力負荷</th><td>低い</td><td>中程度</td></tr>
+            <tr><th>CRM情報量</th><td>基本・資産・関心中心</td><td>家族・イベント・老後まで深い</td></tr>
+            <tr><th>有力な採用形</th><td>入口・再計算ツール</td><td>本診断・会員更新カルテ</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="disclaimer index-note">
+      この一式はバックエンド不要の静的プロトタイプです。GitHub Pagesへそのまま配置でき、実運用時は回答送信先だけLaravel APIまたはGoogle Apps Scriptへ接続できます。
+    </div>
+  </main>
+
+  <footer class="footer">ALPHA Base / ミライカルテ A/B prototype</footer>
+</body>
+</html>

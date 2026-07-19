@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ミライカルテ B案。人生イベントを入力して100歳までの資産推移と12か月ロードマップを作る診断体験。">
+  <title>ミライカルテ B案｜未来ロードマップ</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/base.css?v=20260717-1">
+  <link rel="stylesheet" href="assets/pattern-b.css?v=20260717-1">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <a class="brand-lockup" href="index.html" aria-label="ミライカルテ A/B選択へ戻る">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span class="brand-name">ミライカルテ <span class="brand-sub">人生設計・資産形成ロードマップ</span></span>
+      </a>
+      <span class="variant-chip">B案｜伴走型ロードマップ</span>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="page-intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">MY LIFE ROADMAP</p>
+        <h1 id="page-title">あなたの未来に、先回りして道しるべを。</h1>
+        <p class="lead">家族・住まい・老後まで順番に答えると、資産が動く時期と今から始める12か月プランをまとめます。</p>
+      </div>
+      <a class="btn btn-small" href="pattern-a-dashboard.html">A案も見る</a>
+    </section>
+
+    <nav class="step-nav panel-flat" aria-label="診断の進行状況">
+      <ol>
+        <li><button type="button" class="step-tab is-current" data-step-target="1" aria-current="step"><span>1</span>現在地</button></li>
+        <li><button type="button" class="step-tab" data-step-target="2" disabled><span>2</span>ライフイベント</button></li>
+        <li><button type="button" class="step-tab" data-step-target="3" disabled><span>3</span>資産形成</button></li>
+        <li><button type="button" class="step-tab" data-step-target="4" disabled><span>4</span>関心テーマ</button></li>
+        <li><button type="button" class="step-tab" data-step-target="5" disabled><span>5</span>未来カルテ</button></li>
+      </ol>
+      <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
+    </nav>
+
+    <form id="roadmap-form" novalidate>
+      <section class="wizard-step is-active" data-step="1" aria-labelledby="step1-title">
+        <div class="question-layout">
+          <div class="step-copy">
+            <p class="eyebrow">STEP 1 / 4</p>
+            <h2 id="step1-title">今の暮らしと資産を教えてください</h2>
+            <p>詳細な金額ではなく、おおよその値で大丈夫です。診断の基準点に使います。</p>
+            <div class="draft-note">入力内容はこの端末に一時保存されます。</div>
+          </div>
+          <div class="panel question-panel">
+            <div class="panel-body question-grid">
+              <label class="field">
+                <span class="field-label">現在の年齢</span>
+                <span class="input-group">
+                  <input class="input" id="b-age" name="age" type="number" min="18" max="79" value="39" required>
+                  <span class="input-suffix">歳</span>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field-label">世帯構成</span>
+                <select class="select" id="b-household" name="household">
+                  <option value="single">単身</option>
+                  <option value="couple" selected>夫婦・パートナーあり</option>
+                  <option value="family">子どもと同居</option>
+                  <option value="other">その他</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">本人の手取り年収</span>
+                <span class="input-group">
+                  <input class="input" id="b-income" name="income" type="number" min="0" max="10000" step="10" value="600">
+                  <span class="input-suffix">万円</span>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field-label">配偶者・パートナーの手取り年収</span>
+                <span class="input-group">
+                  <input class="input" id="b-spouse-income" name="spouseIncome" type="number" min="0" max="10000" step="10" value="300">
+                  <span class="input-suffix">万円</span>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field-label">現在の金融資産</span>
+                <span class="input-group">
+                  <input class="input" id="b-assets" name="assets" type="number" min="0" max="100000" step="10" value="500">
+                  <span class="input-suffix">万円</span>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field-label">現在の月間生活費</span>
+                <span class="input-group">
+                  <input class="input" id="b-expenses" name="expenses" type="number" min="0" max="500" step="1" value="32">
+                  <span class="input-suffix">万円</span>
+                </span>
+              </label>
+              <label class="field question-span">
+                <span class="field-label">現在の働き方</span>
+                <select class="select" id="b-business" name="business">
+                  <option value="employee" selected>会社員・公務員</option>
+                  <option value="self">個人事業主・フリーランス</option>
+                  <option value="owner">法人経営者・役員</option>
+                  <option value="other">その他</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="wizard-actions">
+          <span class="small muted">あと3ステップ</span>
+          <button type="button" class="btn btn-primary next-step" data-next="2">ライフイベントへ</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step="2" aria-labelledby="step2-title" hidden>
+        <div class="question-layout">
+          <div class="step-copy">
+            <p class="eyebrow">STEP 2 / 4</p>
+            <h2 id="step2-title">これから予定している大きなイベント</h2>
+            <p>資産が大きく動く時期を先に置くことで、「いつまでに、いくら」が見えます。</p>
+          </div>
+          <div class="panel question-panel">
+            <div class="panel-body event-stack">
+              <div class="event-section">
+                <label class="switch-row">
+                  <input type="checkbox" id="b-home-enabled" name="homeEnabled" checked>
+                  <span><strong>住宅購入・住み替えを予定</strong><small>購入時の自己資金を資産から差し引きます</small></span>
+                </label>
+                <div class="event-fields" id="home-fields">
+                  <label class="field">
+                    <span class="field-label">予定年齢</span>
+                    <span class="input-group">
+                      <input class="input" id="b-home-age" name="homeAge" type="number" min="20" max="85" value="45">
+                      <span class="input-suffix">歳</span>
+                    </span>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">自己資金</span>
+                    <span class="input-group">
+                      <input class="input" id="b-home-cost" name="homeCost" type="number" min="0" max="30000" step="50" value="700">
+                      <span class="input-suffix">万円</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="event-section">
+                <label class="switch-row">
+                  <input type="checkbox" id="b-education-enabled" name="educationEnabled" checked>
+                  <span><strong>子どもの教育費を見込む</strong><small>教育費の山を中心に8年間へ分散計上します</small></span>
+                </label>
+                <div class="event-fields event-fields-three" id="education-fields">
+                  <label class="field">
+                    <span class="field-label">子どもの人数</span>
+                    <span class="input-group">
+                      <input class="input" id="b-children" name="children" type="number" min="0" max="6" value="1">
+                      <span class="input-suffix">人</span>
+                    </span>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">教育費の山</span>
+                    <span class="input-group">
+                      <input class="input" id="b-education-age" name="educationAge" type="number" min="20" max="80" value="50">
+                      <span class="input-suffix">歳</span>
+                    </span>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">1人あたり総額</span>
+                    <span class="input-group">
+                      <input class="input" id="b-education-cost" name="educationCost" type="number" min="0" max="5000" step="50" value="900">
+                      <span class="input-suffix">万円</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="event-section">
+                <label class="switch-row">
+                  <input type="checkbox" id="b-car-enabled" name="carEnabled">
+                  <span><strong>車の購入・買い替えを見込む</strong><small>次回購入から設定周期で計上します</small></span>
+                </label>
+                <div class="event-fields event-fields-three hide" id="car-fields">
+                  <label class="field">
+                    <span class="field-label">次回購入年齢</span>
+                    <span class="input-group">
+                      <input class="input" id="b-car-age" name="carAge" type="number" min="20" max="90" value="43">
+                      <span class="input-suffix">歳</span>
+                    </span>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">1回の予算</span>
+                    <span class="input-group">
+                      <input class="input" id="b-car-cost" name="carCost" type="number" min="0" max="3000" step="10" value="300">
+                      <span class="input-suffix">万円</span>
+                    </span>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">買い替え周期</span>
+                    <span class="input-group">
+                      <input class="input" id="b-car-cycle" name="carCycle" type="number" min="3" max="20" value="8">
+                      <span class="input-suffix">年</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="event-section retirement-fields">
+                <h3>セカンドライフのイメージ</h3>
+                <div class="event-fields">
+                  <label class="field">
+                    <span class="field-label">老後に希望する月間生活費</span>
+                    <span class="input-group">
+                      <input class="input" id="b-retirement-expense" name="retirementExpense" type="number" min="10" max="200" step="1" value="28">
+                      <span class="input-suffix">万円</span>
+                    </span>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">公的年金の月額見込み</span>
+                    <span class="input-group">
+                      <input class="input" id="b-pension" name="pension" type="number" min="0" max="100" step="1" value="22">
+                      <span class="input-suffix">万円</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn previous-step" data-previous="1">戻る</button>
+          <button type="button" class="btn btn-primary next-step" data-next="3">資産形成プランへ</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step="3" aria-labelledby="step3-title" hidden>
+        <div class="question-layout">
+          <div class="step-copy">
+            <p class="eyebrow">STEP 3 / 4</p>
+            <h2 id="step3-title">資産形成のペースを設定します</h2>
+            <p>利回りは保証値ではありません。複数シナリオを比較し、生活を圧迫しない積立額を基準にします。</p>
+          </div>
+          <div class="panel question-panel">
+            <div class="panel-body question-grid">
+              <label class="field">
+                <span class="field-label">リタイア・働き方を変える年齢</span>
+                <span class="input-group">
+                  <input class="input" id="b-retire-age" name="retireAge" type="number" min="40" max="85" value="65">
+                  <span class="input-suffix">歳</span>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field-label">毎月の積立可能額</span>
+                <span class="input-group">
+                  <input class="input" id="b-monthly" name="monthly" type="number" min="0" max="500" step="0.5" value="10">
+                  <span class="input-suffix">万円</span>
+                </span>
+              </label>
+              <fieldset class="question-span">
+                <legend>想定利回り</legend>
+                <div class="segmented" id="b-rate-presets" aria-label="想定利回りを選択">
+                  <button type="button" class="segment" data-rate="3">守り<span>3%</span></button>
+                  <button type="button" class="segment is-active" data-rate="5">標準<span>5%</span></button>
+                  <button type="button" class="segment" data-rate="8">成長<span>8%</span></button>
+                  <button type="button" class="segment" data-rate="12">攻め<span>12%</span></button>
+                  <button type="button" class="segment" data-rate="15">高変動<span>15%</span></button>
+                </div>
+                <label class="field range-field" for="b-rate">
+                  <span class="field-label">詳細調整 <span class="field-value" id="b-rate-value">5.0%</span></span>
+                  <input id="b-rate" name="rate" type="range" min="0" max="15" step="0.5" value="5">
+                </label>
+              </fieldset>
+              <label class="field">
+                <span class="field-label">投資経験</span>
+                <select class="select" id="b-experience" name="experience">
+                  <option value="0">未経験</option>
+                  <option value="1">1年未満</option>
+                  <option value="2" selected>1〜3年</option>
+                  <option value="3">3〜5年</option>
+                  <option value="4">5年以上</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">リスク許容度</span>
+                <select class="select" id="b-risk" name="risk">
+                  <option value="conservative">安定重視</option>
+                  <option value="balanced" selected>バランス</option>
+                  <option value="growth">成長重視</option>
+                </select>
+              </label>
+              <label class="field question-span">
+                <span class="field-label">暗号資産など高変動資産の上限 <span class="field-value" id="b-crypto-ratio-value">10%</span></span>
+                <input id="b-crypto-ratio" name="cryptoRatio" type="range" min="0" max="40" step="5" value="10">
+                <span class="caption">資産全体に占める上限として診断に反映します。</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn previous-step" data-previous="2">戻る</button>
+          <button type="button" class="btn btn-primary next-step" data-next="4">関心テーマへ</button>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step="4" aria-labelledby="step4-title" hidden>
+        <div class="question-layout">
+          <div class="step-copy">
+            <p class="eyebrow">STEP 4 / 4</p>
+            <h2 id="step4-title">これから深めたいテーマを選んでください</h2>
+            <p>結果ページの優先テーマと学習コンテンツ、運営側の提案カテゴリに反映します。</p>
+          </div>
+          <div class="panel question-panel">
+            <div class="panel-body interest-stack">
+              <fieldset>
+                <legend>関心テーマ（複数選択可）</legend>
+                <div class="topic-grid">
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="investment" checked><strong>資産形成</strong><span>積立・分散・運用設計</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="crypto"><strong>暗号資産</strong><span>保有比率とリスク管理</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="realestate"><strong>不動産</strong><span>購入・活用・出口戦略</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="ai" checked><strong>AI活用</strong><span>収入拡張・業務効率化</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="sidejob"><strong>副業・独立</strong><span>追加収入とキャリア設計</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="corporate"><strong>法人化</strong><span>事業成長・法人資産運用</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="tax"><strong>節税</strong><span>制度と資産の持ち方</span></label>
+                  <label class="topic-option"><input type="checkbox" name="bInterest" value="inheritance"><strong>相続</strong><span>承継・家族への備え</span></label>
+                </div>
+              </fieldset>
+              <div class="question-grid">
+                <label class="field">
+                  <span class="field-label">相談したい時期</span>
+                  <select class="select" id="b-consult" name="consult">
+                    <option value="none" selected>まだ決めていない</option>
+                    <option value="month">1か月以内</option>
+                    <option value="quarter">3か月以内</option>
+                    <option value="year">1年以内</option>
+                  </select>
+                </label>
+                <label class="meeting-toggle-b">
+                  <input type="checkbox" id="b-meeting" name="meeting">
+                  <span><strong>個別相談を希望する</strong><small>担当者から案内を受け取る</small></span>
+                </label>
+              </div>
+              <label class="consent-row">
+                <input type="checkbox" id="b-consent" required>
+                <span>プライバシーポリシーと、入力情報を診断・案内に利用することに同意します。</span>
+              </label>
+              <p class="validation-message hide" id="consent-error" role="alert">結果を見るには同意が必要です。</p>
+            </div>
+          </div>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn previous-step" data-previous="3">戻る</button>
+          <button type="button" class="btn btn-primary" id="show-result">未来カルテを作成</button>
+        </div>
+      </section>
+
+      <section class="wizard-step result-step" data-step="5" aria-labelledby="result-title" hidden>
+        <div class="result-heading">
+          <div>
+            <p class="eyebrow">YOUR MIRAI KARTE</p>
+            <h2 id="result-title">あなたの未来ロードマップ</h2>
+            <p class="muted">現在の回答から、100歳までの資産推移と優先テーマを整理しました。</p>
+          </div>
+          <button type="button" class="btn btn-small" id="edit-answers">回答を見直す</button>
+        </div>
+
+        <div class="result-metrics">
+          <article class="result-metric">
+            <span>リタイア時の見込み資産</span>
+            <strong id="b-retire-assets">-</strong>
+            <small id="b-retire-assets-note">-</small>
+          </article>
+          <article class="result-metric">
+            <span>100歳時点の見込み</span>
+            <strong id="b-age100-assets">-</strong>
+            <small id="b-age100-note">-</small>
+          </article>
+          <article class="result-metric">
+            <span>診断タイプ</span>
+            <strong id="b-diagnosis">-</strong>
+            <small id="b-stage">-</small>
+          </article>
+        </div>
+
+        <section class="panel roadmap-chart-panel" aria-labelledby="roadmap-chart-title">
+          <div class="panel-head">
+            <div>
+              <h2 id="roadmap-chart-title">100歳までの資産ロードマップ</h2>
+              <span class="small muted">ライフイベントと老後収支を反映</span>
+            </div>
+            <span class="status-chip" id="b-health-status">-</span>
+          </div>
+          <div class="panel-body">
+            <div class="roadmap-chart-shell">
+              <svg id="roadmap-chart" viewBox="0 0 900 330" role="img" aria-labelledby="roadmap-chart-title roadmap-chart-description">
+                <desc id="roadmap-chart-description">現在から100歳までの資産推移と、住宅・教育・車・リタイアなどの出来事を示すグラフです。</desc>
+                <g id="b-retirement-band"></g>
+                <g id="b-chart-grid"></g>
+                <path id="b-zero-line"></path>
+                <path id="b-roadmap-area"></path>
+                <path id="b-roadmap-line"></path>
+                <g id="b-event-markers"></g>
+                <g id="b-chart-labels"></g>
+              </svg>
+            </div>
+            <div class="event-legend" id="b-event-legend"></div>
+            <p class="caption">老後は想定利回りを最大4%に抑えて計算し、公的年金との差額を毎年取り崩す概算です。</p>
+          </div>
+        </section>
+
+        <div class="result-columns">
+          <section class="panel priority-panel" aria-labelledby="priority-title">
+            <div class="panel-head">
+              <div>
+                <h2 id="priority-title">今の優先テーマ</h2>
+                <span class="small muted">未来カルテから見えた順番</span>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div class="callout" id="b-position-callout">
+                <h3>現在地</h3>
+                <p id="b-position-text">-</p>
+              </div>
+              <hr class="divider">
+              <ol class="action-list" id="b-action-list"></ol>
+            </div>
+          </section>
+
+          <section class="panel annual-panel" aria-labelledby="annual-title">
+            <div class="panel-head">
+              <div>
+                <h2 id="annual-title">次の12か月プラン</h2>
+                <span class="small muted">小さく始めて、四半期ごとに更新</span>
+              </div>
+            </div>
+            <div class="annual-roadmap" id="annual-roadmap"></div>
+          </section>
+        </div>
+
+        <section class="panel result-crm-panel" aria-labelledby="result-crm-title">
+          <div class="panel-head">
+            <div>
+              <h2 id="result-crm-title">提案・フォロー判定</h2>
+              <span class="small muted">この結果の裏側で運営に蓄積されるシグナル</span>
+            </div>
+            <span class="status-chip" id="b-notification">-</span>
+          </div>
+          <div class="panel-body crm-layout-b">
+            <div class="score-list" id="b-score-list"></div>
+            <div>
+              <h3>提案カテゴリ・タグ</h3>
+              <div class="tag-list" id="b-tag-list"></div>
+              <div class="support-box" id="b-support-box">
+                <strong id="b-support-title">-</strong>
+                <span id="b-support-text">-</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="disclaimer">
+          本シミュレーションは入力値をもとにした概算であり、将来の運用成果を保証するものではありません。税金・手数料・物価上昇・保険・ローン条件などは簡略化しています。特定の金融商品を推奨する投資助言ではありません。
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer class="footer">MIRAI KARTE prototype / Pattern B</footer>
+  <script src="assets/sim-core.js?v=20260717-2"></script>
+  <script src="assets/pattern-b.js?v=20260717-2"></script>
+</body>
+</html>

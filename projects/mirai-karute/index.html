@@ -4,32 +4,207 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="description" content="ミライカルテの公開準備用スペースです。">
-  <title>ミライカルテ｜公開準備スペース</title>
+  <meta name="description" content="ミライカルテ本体と暗号資産ストレス検証の確認用プロジェクトページです。">
+  <title>ミライカルテ｜プロジェクトプレビュー</title>
   <style>
-    :root { color-scheme: dark; --bg:#07111d; --text:#f3f8fb; --sub:#9db3c4; --accent:#61dfc8; }
+    :root {
+      color-scheme: dark;
+      --bg: #07111d;
+      --panel: #102234;
+      --panel-2: #0c1b2a;
+      --line: rgba(160, 188, 214, .18);
+      --text: #f3f8fb;
+      --sub: #9db3c4;
+      --mint: #61dfc8;
+      --blue: #65aaff;
+      --amber: #f0c56b;
+    }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
-    body { display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 50% 0, #153b50, transparent 38rem), var(--bg); color: var(--text); font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif; }
-    main { width: min(720px,100%); padding: clamp(28px,6vw,58px); border: 1px solid rgba(157,179,196,.2); border-radius: 24px; background: rgba(16,34,52,.86); box-shadow: 0 30px 80px rgba(0,0,0,.25); }
-    .status { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .16em; }
-    h1 { margin: 18px 0 12px; font-size: clamp(38px,8vw,68px); letter-spacing: -.05em; }
-    p { color: var(--sub); line-height: 1.8; }
-    ul { margin: 26px 0; padding-left: 20px; color: #c4d3df; line-height: 1.9; }
-    a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 16px; border: 1px solid rgba(157,179,196,.25); border-radius: 11px; color: var(--text); text-decoration: none; }
+    body {
+      background:
+        radial-gradient(circle at 14% 0, rgba(38, 113, 168, .22), transparent 30rem),
+        radial-gradient(circle at 92% 18%, rgba(53, 203, 179, .10), transparent 26rem),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+    }
+    a { color: inherit; }
+    .shell { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 34px 0 68px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      min-height: 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { font-size: 12px; font-weight: 800; color: var(--mint); letter-spacing: .12em; }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      color: var(--sub);
+      font-size: 12px;
+      text-decoration: none;
+    }
+    .back:hover { color: var(--text); }
+    .overview { padding: 54px 0 34px; border-bottom: 1px solid var(--line); }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--mint);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    h1 { margin: 16px 0 12px; font-size: clamp(38px, 7vw, 62px); line-height: 1.08; letter-spacing: 0; }
+    .lead { max-width: 720px; margin: 0; color: var(--sub); font-size: 17px; line-height: 1.8; }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 30px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+    }
+    .fact { min-height: 84px; padding: 17px 18px; background: var(--panel-2); }
+    .fact strong { display: block; margin-bottom: 5px; font-size: 22px; letter-spacing: 0; }
+    .fact span { color: var(--sub); font-size: 11px; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px; padding-top: 38px; }
+    .section-head { margin-bottom: 15px; }
+    .section-head p { margin: 6px 0 0; color: var(--sub); font-size: 13px; line-height: 1.65; }
+    h2 { margin: 0; font-size: 20px; letter-spacing: 0; }
+    .list { display: grid; gap: 10px; }
+    .item {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 13px;
+      min-height: 78px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(16, 34, 52, .78);
+      text-decoration: none;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+    .item:hover { transform: translateY(-2px); border-color: rgba(101, 170, 255, .65); background: var(--panel); }
+    .code {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 7px;
+      background: rgba(97, 223, 200, .10);
+      color: var(--mint);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .crypto .code { color: var(--amber); background: rgba(240, 197, 107, .10); }
+    .item strong { display: block; font-size: 14px; letter-spacing: 0; }
+    .item small { display: block; margin-top: 5px; color: var(--sub); font-size: 11px; line-height: 1.45; }
+    .arrow { color: var(--blue); font-size: 18px; }
+    .note {
+      margin-top: 38px;
+      padding: 20px 22px;
+      border: 1px dashed rgba(157, 179, 196, .28);
+      border-radius: 8px;
+      color: var(--sub);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+    .note strong { color: var(--text); }
+    footer { margin-top: 30px; color: #71879a; font-size: 10px; letter-spacing: .08em; }
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 28px, 1080px); padding-bottom: 48px; }
+      .overview { padding-top: 38px; }
+      .catalog { grid-template-columns: 1fr; gap: 32px; }
+      .facts { grid-template-columns: 1fr; }
+      .fact { min-height: 68px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <div class="status">STORAGE READY</div>
-    <h1>ミライカルテ</h1>
-    <p>サイト本体と診断・シミュレーションを安全に追加するための専用収納先を準備しました。</p>
-    <ul>
-      <li>サイト本体：このフォルダの <code>index.html</code></li>
-      <li>関連素材：<code>assets/</code></li>
-      <li>診断・シミュレーション：共通の <code>/simulations/</code></li>
-    </ul>
-    <a href="../../">プロジェクトハブへ戻る</a>
+  <main class="shell">
+    <nav class="topbar" aria-label="ページナビゲーション">
+      <span class="brand">MIRAI KARTE / PREVIEW</span>
+      <a class="back" href="../../">← プロジェクトハブ</a>
+    </nav>
+
+    <section class="overview" aria-labelledby="page-title">
+      <div class="status">PUBLIC PREVIEW</div>
+      <h1 id="page-title">ミライカルテ</h1>
+      <p class="lead">資産構築シミュレーターのA/B案と、独立型の暗号資産ストレス検証をひとつの確認画面に整理しています。</p>
+      <div class="facts" aria-label="公開内容">
+        <div class="fact"><strong>2</strong><span>資産構築 A/Bプロトタイプ</span></div>
+        <div class="fact"><strong>3</strong><span>暗号資産の確認ページ</span></div>
+        <div class="fact"><strong>GitHub</strong><span>Pages Preview / QA</span></div>
+      </div>
+    </section>
+
+    <div class="catalog">
+      <section aria-labelledby="main-title">
+        <div class="section-head">
+          <h2 id="main-title">資産構築シミュレーター</h2>
+          <p>同じ計算ロジックを、結果重視のA案とロードマップ重視のB案で比較します。</p>
+        </div>
+        <div class="list">
+          <a class="item" href="./main/">
+            <span class="code">AB</span>
+            <span><strong>A/B比較ページ</strong><small>2つの体験を並べて確認</small></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="item" href="./main/pattern-a-dashboard.html">
+            <span class="code">A</span>
+            <span><strong>A案 資産形成ダッシュボード</strong><small>入力と結果を一画面で素早く確認</small></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="item" href="./main/pattern-b-roadmap.html">
+            <span class="code">B</span>
+            <span><strong>B案 未来ロードマップ</strong><small>質問に沿って将来像を組み立てる体験</small></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="crypto" aria-labelledby="crypto-title">
+        <div class="section-head">
+          <h2 id="crypto-title">暗号資産ストレス検証</h2>
+          <p>将来の利益予測ではなく、大きな値動きが資産全体へ与える影響を確認します。</p>
+        </div>
+        <div class="list">
+          <a class="item" href="../../simulations/mirai-karute/crypto/">
+            <span class="code">ST</span>
+            <span><strong>ストレスシミュレーター</strong><small>上振れ・下振れ時の資産全体を試算</small></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="item" href="../../simulations/mirai-karute/crypto/methodology.html">
+            <span class="code">FX</span>
+            <span><strong>計算式と根拠</strong><small>初心者向け用語集と理解度確認</small></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="item" href="../../simulations/mirai-karute/crypto/visual-pattern-lab.html">
+            <span class="code">VI</span>
+            <span><strong>結果ビジュアル比較ラボ</strong><small>3つの可視化方式を同じ条件で比較</small></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="note">
+      <strong>公開状態について</strong><br>
+      既存A/B案は原本を変更せず公開用コピーとして配置しています。暗号資産検証は本体から独立した素材で、投資助言や将来収益の予測を目的としません。
+    </aside>
+    <footer>ALPHA BASE · MIRAI KARTE PROJECT · PREVIEW / QA</footer>
   </main>
 </body>
 </html>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="ミライカルテ暗号資産ストレスシミュレーターの計算式、前提条件、データの考え方を初心者向けに説明します。">
+  <title>計算式と根拠 | 暗号資産ストレスシミュレーター</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="シミュレーターへ戻る">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>
+          <strong>MIRAI KARTE</strong>
+          <small>CALCULATION GUIDE</small>
+        </span>
+      </a>
+      <a class="button button-secondary button-small" href="index.html">シミュレーターへ戻る</a>
+    </div>
+  </header>
+
+  <main class="methodology-page">
+    <header class="methodology-hero">
+      <p class="eyebrow">計算式と根拠</p>
+      <h1>数字がどこから出たのか、<br>順番に確認できます。</h1>
+      <p class="lead">
+        このページは、計算方法を投資初心者の方にも確認できるようにした説明書です。
+        特定の商品を評価したり、将来価格を予測したりするものではありません。
+      </p>
+      <div class="method-meta">
+        <span>計算モデル: 0.1</span>
+        <span>説明版: 0.9</span>
+        <span>更新日: 2026年7月18日</span>
+      </div>
+    </header>
+
+    <nav class="method-nav" aria-label="ページ内メニュー">
+      <a href="#scope">何を計算するか</a>
+      <a href="#separate">なぜ別枠か</a>
+      <a href="#formula">計算式</a>
+      <a href="#example">計算例</a>
+      <a href="#scenarios">シナリオ</a>
+      <a href="#limits">含まれないもの</a>
+    </nav>
+
+    <details class="term-guide">
+      <summary>
+        <span>
+          <strong>はじめての方へ：用語集</strong>
+          <small>このページを読むために必要な9語を、身近な例で確認できます</small>
+        </span>
+        <span class="term-guide-action" aria-hidden="true">開く</span>
+      </summary>
+      <div class="term-guide-body">
+        <p>
+          すべて覚える必要はありません。計算結果を見て言葉に迷ったときだけ、
+          この用語集へ戻って確認してください。
+        </p>
+        <dl class="term-list">
+          <div>
+            <dt>通常資産</dt>
+            <dd>
+              この試作版で、暗号資産以外の運用資産をまとめて呼ぶための便宜上の名称です。
+              法令上の商品分類や、安全性を示す呼び方ではありません。
+            </dd>
+          </div>
+          <div>
+            <dt>組入比率</dt>
+            <dd>
+              資産全体のうち、ある資産が占める割合です。
+              総資産1,000万円のうち暗号資産が100万円なら、組入比率は10％です。
+            </dd>
+          </div>
+          <div>
+            <dt>寄与度（pt）</dt>
+            <dd>
+              その資産の値動きが、資産全体の変化率を何ポイント動かしたかを表します。
+              暗号資産10％ × 値動き+300％なら、全体への寄与は+30.0ptです。
+            </dd>
+          </div>
+          <div>
+            <dt>複利・累積変化率</dt>
+            <dd>
+              前年までの増減を引き継いで、次の年を計算する考え方です。
+              年ごとの数字は足さず、「増減後の金額」に次の変化率を掛けます。
+            </dd>
+          </div>
+          <div>
+            <dt>CAGR（年平均成長率）</dt>
+            <dd>
+              複数年の開始額と終了額を、毎年同じ率で変化した形に置き換えた平均値です。
+              実際に毎年その率で増減した、という意味ではありません。
+            </dd>
+          </div>
+          <div>
+            <dt>最大ドローダウン（最大下落）</dt>
+            <dd>
+              それまでの最高額から、どこまで下がったかを表す数字です。
+              この試作版では、日々の価格ではなく各年末の資産額で確認します。
+            </dd>
+          </div>
+          <div>
+            <dt>リバランス</dt>
+            <dd>
+              値動きで崩れた資産配分を、決めた比率へ戻すことです。
+              「毎年戻す」では、各年の初めに選択した組入比率へ調整して計算します。
+            </dd>
+          </div>
+          <div>
+            <dt>ストレスシナリオ</dt>
+            <dd>
+              大きな上昇や下落が起きたと仮定し、資産全体がどこまで耐えられるかを確認する条件です。
+              将来予測や、起こりやすさを示すものではありません。
+            </dd>
+          </div>
+          <div>
+            <dt>ETF／ETP</dt>
+            <dd>
+              証券取引所で売買できる商品の呼び方です。このページでは米国現物ビットコインETPの
+              取引開始時期を参考にしますが、承認は価格上昇や安全性の保証ではありません。
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </details>
+
+    <section class="method-section" id="scope">
+      <div class="method-number">01</div>
+      <div class="method-content">
+        <h2>何を計算するシミュレーションか</h2>
+        <p>
+          現在の資産を「通常資産」と「暗号資産」に分け、それぞれに設定した変化率を適用して、
+          4年後の合計額と途中の下落を計算します。
+        </p>
+        <div class="plain-definition">
+          <strong>計算するもの</strong>
+          <span>選択した条件での資産全体の変化</span>
+          <strong>計算しないもの</strong>
+          <span>将来価格、発生確率、購入すべき商品や時期</span>
+        </div>
+        <p>
+          金融庁のライフプランシミュレーターも、過去データ等に基づく試算は実際値と異なる場合があり、
+          将来結果を予測・保証するものではないと説明しています。
+          <a href="https://www.fsa.go.jp/policy/nisa2/lifeplan-simulator/" target="_blank" rel="noreferrer">金融庁の説明を確認する</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="method-section" id="separate">
+      <div class="method-number">02</div>
+      <div class="method-content">
+        <h2>なぜ暗号資産を別枠にするのか</h2>
+        <p>
+          通常資産と暗号資産では価格変動の大きさが異なります。両方を一つの固定年率にまとめると、
+          暗号資産が毎年同じ率で増えるように見えるため、別々に計算します。
+        </p>
+        <div class="formula-block formula-simple">
+          <span>資産全体</span>
+          <strong>通常資産 ＋ 暗号資産</strong>
+        </div>
+        <p>
+          金融庁も暗号資産には価格変動があり、急落して損失が生じる可能性があると注意喚起しています。
+          <a href="https://www.fsa.go.jp/policy/virtual_currency/04.pdf" target="_blank" rel="noreferrer">金融庁の注意喚起を確認する</a>
+        </p>
+
+        <h3>ETF時代をどう扱うか</h3>
+        <p>
+          米国現物ビットコインETPは2024年1月10日に承認され、翌11日に取引が始まりました。
+          この時点以降を市場環境の参考期間としますが、承認はビットコインの安全性や価格上昇の推奨ではありません。
+        </p>
+        <p>
+          <a href="https://www.sec.gov/newsroom/speeches-statements/gensler-statement-spot-bitcoin-011023" target="_blank" rel="noreferrer">米SECの承認声明を確認する</a>
+        </p>
+        <aside class="method-caution">
+          <strong>試作版のデータについて</strong>
+          <p>
+            現在の試作版は、ETF時代の実測平均をまだ組み込まず、内容を公開した固定ストレス条件だけを使っています。
+            本番版で参照価格を採用する際は、データ出典、期間、通貨換算、更新日をモデル版と一緒に公開します。
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="method-section" id="formula">
+      <div class="method-number">03</div>
+      <div class="method-content">
+        <h2>資産全体への合流計算</h2>
+        <p>
+          各年の初めに、通常資産と暗号資産が総資産の何％を占めているかを確認します。
+          それぞれの比率と変化率を掛けたものが、資産全体への寄与です。
+        </p>
+        <div class="formula-block">
+          <span>資産全体の年間変化率</span>
+          <strong>通常資産比率 × 通常資産年率<br>＋ 暗号資産比率 × 暗号資産変化率</strong>
+        </div>
+        <p>
+          暗号資産の変化率が+300％でも、組入比率が10％なら資産全体への寄与は+30.0ポイントです。
+          「暗号資産が+300％」と「総資産が+300％」は同じではありません。
+        </p>
+
+        <h3>複数年は足し算ではなく掛け算</h3>
+        <div class="formula-block">
+          <span>4年間の累積変化率</span>
+          <strong>（1＋1年目）×（1＋2年目）×（1＋3年目）×（1＋4年目）－1</strong>
+        </div>
+        <p>
+          例えば+100％の翌年に-50％となると、100万円は200万円になった後100万円へ戻ります。
+          単純平均は+25％ですが、実際の資産増加は0％です。
+        </p>
+
+        <h3>年平均成長率</h3>
+        <div class="formula-block">
+          <span>CAGR</span>
+          <strong>（4年後資産 ÷ 当初資産）<sup>1/4</sup> －1</strong>
+        </div>
+
+        <h3>最大下落</h3>
+        <div class="formula-block">
+          <span>最大ドローダウン</span>
+          <strong>各年末資産 ÷ それ以前の最高資産 －1</strong>
+        </div>
+        <p>試作版の最大下落は日中価格ではなく、4つの年末残高を使って計算します。</p>
+
+        <h3>リバランス</h3>
+        <div class="formula-block">
+          <span>暗号資産を10％へ戻す場合</span>
+          <strong>年初の暗号資産 ＝ 年初の総資産 × 10％</strong>
+        </div>
+        <p>
+          「毎年戻す」では各年初に設定比率へ調整します。「そのまま保有」では売買せず、
+          上昇や下落によって暗号資産比率が変化した状態で翌年を計算します。
+        </p>
+      </div>
+    </section>
+
+    <section class="method-section" id="example">
+      <div class="method-number">04</div>
+      <div class="method-content">
+        <h2>1年目の計算例</h2>
+        <div class="example-assumptions">
+          <span><strong>総資産</strong>1,000万円</span>
+          <span><strong>通常資産</strong>90％</span>
+          <span><strong>暗号資産</strong>10％</span>
+          <span><strong>通常年率</strong>5％</span>
+          <span><strong>暗号資産</strong>+300％</span>
+        </div>
+        <div class="worked-example">
+          <div>
+            <span>通常資産の寄与</span>
+            <strong>90％ × 5％ ＝ +4.5pt</strong>
+          </div>
+          <div>
+            <span>暗号資産の寄与</span>
+            <strong>10％ × 300％ ＝ +30.0pt</strong>
+          </div>
+          <div class="worked-total">
+            <span>資産全体</span>
+            <strong>+4.5pt ＋ +30.0pt ＝ +34.5％</strong>
+          </div>
+        </div>
+        <p>1年後は1,000万円 × 1.345 ＝ 1,345万円です。税金、手数料、積立は含みません。</p>
+      </div>
+    </section>
+
+    <section class="method-section" id="scenarios">
+      <div class="method-number">05</div>
+      <div class="method-content">
+        <h2>固定ストレスシナリオ</h2>
+        <p>
+          以下は発生確率や将来見通しではありません。計算挙動と資産耐性を確認するために、
+          値をすべて開示した試作条件です。
+        </p>
+        <div class="scenario-method-list">
+          <article>
+            <strong>下落先行</strong>
+            <span>-80％ / +100％ / +50％ / +30％</span>
+            <p>最初に大きく下落した後、回復しても元本に戻らない可能性を確認します。</p>
+          </article>
+          <article>
+            <strong>高変動</strong>
+            <span>+300％ / -70％ / +40％ / -20％</span>
+            <p>大幅上昇の後に急落した場合の、利益の残り方を確認します。</p>
+          </article>
+          <article>
+            <strong>極端値テスト</strong>
+            <span>+1,000％ / -80％ / -40％ / +20％</span>
+            <p>極端な単年上昇を毎年繰り返さず、その後の大幅下落と組み合わせます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method-section" id="limits">
+      <div class="method-number">06</div>
+      <div class="method-content">
+        <h2>この試作版に含まれないもの</h2>
+        <div class="limit-grid">
+          <span>税金</span>
+          <span>売買手数料</span>
+          <span>スプレッド</span>
+          <span>為替変動</span>
+          <span>取引所障害</span>
+          <span>流動性低下</span>
+          <span>制度変更</span>
+          <span>月々の追加積立</span>
+        </div>
+        <p>
+          結果は情報提供を目的とした試算です。特定の金融商品、銘柄、数量、購入時期、売却時期、
+          適正な保有比率を推奨するものではありません。
+        </p>
+        <p>
+          金融庁の監督指針でも、シミュレーションの前提条件の根拠を明確にし、
+          将来の運用成果を約束するものではない旨を適切に表示することが求められています。
+          <a href="https://www.fsa.go.jp/common/law/guide/kinyushohin/06.html" target="_blank" rel="noreferrer">金融庁監督指針を確認する</a>
+        </p>
+      </div>
+    </section>
+
+    <div class="method-bottom-action">
+      <a class="button button-primary" href="index.html">シミュレーターへ戻る</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>MIRAI KARTE / Calculation Guide</span>
+    <span>独立素材版・計算根拠</span>
+  </footer>
+</body>
+</html>

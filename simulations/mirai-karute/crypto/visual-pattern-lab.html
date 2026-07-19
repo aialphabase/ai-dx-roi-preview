@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="ミライカルテ暗号資産ストレスシミュレーターの結果を、3種類の動的ビジュアルで比較する独立検討ページです。">
+  <title>結果ビジュアル比較ラボ | ミライカルテ</title>
+  <link rel="stylesheet" href="assets/visual-lab.css">
+</head>
+<body>
+  <header class="lab-header">
+    <div class="lab-header-inner">
+      <a class="lab-brand" href="index.html" aria-label="暗号資産ストレスシミュレーターへ戻る">
+        <span class="lab-brand-mark" aria-hidden="true">M</span>
+        <span>
+          <strong>MIRAI KARTE</strong>
+          <small>VISUAL PATTERN LAB</small>
+        </span>
+      </a>
+      <a class="lab-back-link" href="index.html">現行シミュレーターへ戻る</a>
+    </div>
+  </header>
+
+  <main class="lab-main">
+    <header class="lab-title">
+      <div>
+        <p class="lab-eyebrow">結果表示の比較検討</p>
+        <h1>同じ試算結果を、3つの見方で比較</h1>
+      </div>
+      <p>
+        計算条件は現行シミュレーターと同じです。
+        見せ方だけを切り替えて、最も直感的な表現を確認します。
+      </p>
+    </header>
+
+    <form class="lab-controls" id="lab-controls">
+      <label class="lab-control lab-control-number">
+        <span>現在の運用資産</span>
+        <span class="lab-number-field">
+          <input id="lab-initial" type="number" min="1" max="100000" step="10" value="1000" inputmode="decimal">
+          <span>万円</span>
+        </span>
+      </label>
+
+      <label class="lab-control">
+        <span>通常資産の年率 <output id="lab-base-output" for="lab-base-rate">5.0%</output></span>
+        <input id="lab-base-rate" type="range" min="0" max="15" step="0.5" value="5">
+      </label>
+
+      <label class="lab-control">
+        <span>暗号資産の比率 <output id="lab-ratio-output" for="lab-crypto-ratio">10%</output></span>
+        <input id="lab-crypto-ratio" type="range" min="0" max="40" step="5" value="10">
+      </label>
+
+      <label class="lab-control">
+        <span>配分調整</span>
+        <select id="lab-rebalance">
+          <option value="annual">毎年戻す</option>
+          <option value="none">そのまま保有</option>
+        </select>
+      </label>
+
+      <label class="lab-control lab-control-scenario">
+        <span>ストレスシナリオ</span>
+        <select id="lab-scenario">
+          <option value="downside">下落先行</option>
+          <option value="volatile">高変動</option>
+          <option value="extreme">極端値テスト</option>
+        </select>
+      </label>
+    </form>
+
+    <section class="lab-summary" aria-label="試算結果の要点">
+      <article>
+        <span>4年後の総資産</span>
+        <strong id="lab-final-assets">-</strong>
+        <small id="lab-cagr">-</small>
+      </article>
+      <article>
+        <span>通常資産のみとの差</span>
+        <strong id="lab-difference">-</strong>
+        <small id="lab-base-only">-</small>
+      </article>
+      <article>
+        <span>最大下落</span>
+        <strong id="lab-drawdown">-</strong>
+        <small>年末残高ベース</small>
+      </article>
+    </section>
+
+    <nav class="pattern-tabs" role="tablist" aria-label="結果ビジュアルの表示形式">
+      <button
+        id="tab-bridge"
+        class="pattern-tab is-active"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-bridge"
+        data-pattern="bridge"
+      >
+        <span>01</span>
+        寄与度ブリッジ
+      </button>
+      <button
+        id="tab-composition"
+        class="pattern-tab"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-composition"
+        data-pattern="composition"
+      >
+        <span>02</span>
+        資産構成カラム
+      </button>
+      <button
+        id="tab-impact"
+        class="pattern-tab"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-impact"
+        data-pattern="impact"
+      >
+        <span>03</span>
+        年次インパクト
+      </button>
+    </nav>
+
+    <section class="pattern-workspace">
+      <section
+        class="pattern-panel"
+        id="panel-bridge"
+        role="tabpanel"
+        aria-labelledby="tab-bridge"
+        data-panel="bridge"
+      >
+        <header class="pattern-heading">
+          <div>
+            <p class="lab-eyebrow">何が総資産を動かしたか</p>
+            <h2>寄与度ブリッジ</h2>
+          </div>
+          <div class="pattern-legend" aria-label="凡例">
+            <span><i class="legend-base"></i>通常資産の増減</span>
+            <span><i class="legend-crypto"></i>暗号資産の増減</span>
+            <span><i class="legend-end"></i>年末資産</span>
+          </div>
+        </header>
+        <div class="chart-shell chart-shell-bridge">
+          <svg id="bridge-chart" role="img" aria-describedby="pattern-detail"></svg>
+        </div>
+      </section>
+
+      <section
+        class="pattern-panel"
+        id="panel-composition"
+        role="tabpanel"
+        aria-labelledby="tab-composition"
+        data-panel="composition"
+        hidden
+      >
+        <header class="pattern-heading">
+          <div>
+            <p class="lab-eyebrow">資産の中身がどう変わったか</p>
+            <h2>資産構成カラム</h2>
+          </div>
+          <div class="pattern-legend" aria-label="凡例">
+            <span><i class="legend-holding-base"></i>通常資産</span>
+            <span><i class="legend-holding-crypto"></i>暗号資産</span>
+            <span><i class="legend-reference"></i>通常資産のみ</span>
+          </div>
+        </header>
+        <div class="chart-shell chart-shell-composition">
+          <svg id="composition-chart" role="img" aria-describedby="pattern-detail"></svg>
+        </div>
+      </section>
+
+      <section
+        class="pattern-panel"
+        id="panel-impact"
+        role="tabpanel"
+        aria-labelledby="tab-impact"
+        data-panel="impact"
+        hidden
+      >
+        <header class="pattern-heading">
+          <div>
+            <p class="lab-eyebrow">大きな値動きが全体へどう伝わったか</p>
+            <h2>年次インパクトマップ</h2>
+          </div>
+          <div class="impact-scale" aria-label="変化の方向">
+            <span class="impact-scale-negative">下落</span>
+            <i aria-hidden="true"></i>
+            <span class="impact-scale-positive">上昇</span>
+          </div>
+        </header>
+        <div class="impact-grid" id="impact-grid"></div>
+      </section>
+
+      <p class="pattern-detail" id="pattern-detail" aria-live="polite">-</p>
+    </section>
+
+    <aside class="lab-notice">
+      <strong>比較用の独立素材です</strong>
+      <p>
+        3つの表示はすべて同じ計算結果を使います。将来価格、発生確率、購入すべき商品や時期を示すものではありません。
+      </p>
+    </aside>
+  </main>
+
+  <footer class="lab-footer">
+    <span>MIRAI KARTE / Visual Pattern Lab</span>
+    <span>独立素材版・A案B案への接続なし</span>
+  </footer>
+
+  <script src="assets/visual-lab.js"></script>
+</body>
+</html>
