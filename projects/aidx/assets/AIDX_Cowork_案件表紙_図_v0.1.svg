@@ -1,6 +1,6 @@
 <svg viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg" role="img">
 <title>AIDX Claude Cowork 案件フォルダ表紙</title>
-<desc>渡す、任せる、受け取るの3ステップで、PJ-01からPJ-05までの5種類の成果物が同じ型で返ってくることを示す表紙図。</desc>
+<desc>渡す、任せる、受け取るの3ステップで、PJ-01からPJ-05までの5種類の成果物が同じ型で返ってくることと、追加要件は企画書または追加提案書として人が確認してから着手する運用案を示す表紙図。</desc>
 
 <rect x="16" y="16" width="1568" height="968" rx="36" fill="#0c0c0e" stroke="#2a2a2e" stroke-width="1.5"/>
 
@@ -90,4 +90,10 @@
 <text x="80" y="868" font-family="sans-serif" font-size="15" fill="#c9c3ba">なぜPJ-01〜05から始めるか:商品の核であり、ここが固まる前に営業資料やサイトを作ると</text>
 <text x="80" y="892" font-family="sans-serif" font-size="15" fill="#c9c3ba">変更のたびに手戻りが出ます。先に5PJで同じ型が出せる状態を作り切ります。</text>
 <text x="80" y="928" font-family="sans-serif" font-size="14" fill="#7a7a7e">すべて下書きです。契約・金額・法務・個人情報に関わる最終判断は必ず人が行います。</text>
+
+<rect x="930" y="850" width="590" height="94" rx="18" fill="#171310" stroke="#ff8a3d" stroke-width="1.5"/>
+<circle cx="966" cy="879" r="17" fill="#2a1c0e"/>
+<text x="966" y="886" text-anchor="middle" font-family="sans-serif" font-size="21" font-weight="700" fill="#ff8a3d">?</text>
+<text x="996" y="882" font-family="sans-serif" font-size="16" font-weight="700" fill="#f5f5f5">追加要件は、企画書・追加提案書として整理する運用でよいか？</text>
+<text x="954" y="914" font-family="sans-serif" font-size="14" fill="#c9c3ba">標準範囲／費用／納期／承認者を明記し、人の合意後に着手する。</text>
 </svg>
