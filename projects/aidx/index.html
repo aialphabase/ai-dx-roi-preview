@@ -164,6 +164,48 @@
       font-size: 12px;
       line-height: 1.7;
     }
+    .doc-group {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-soft);
+    }
+    .doc-group h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+    }
+    .doc-group .doc-note {
+      margin: 0 0 12px;
+      font-size: 12px;
+    }
+    .doc-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .doc-list li {
+      border-top: 1px solid var(--line);
+    }
+    .doc-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 46px;
+      padding: 8px 4px;
+      color: #dceaf5;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .doc-list a:hover { color: var(--blue); }
+    .doc-ver {
+      flex: 0 0 auto;
+      color: var(--sub);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
     @media (max-width: 760px) {
       main { padding: 26px 20px; border-radius: 20px; }
       .links, .material-grid { grid-template-columns: 1fr; }
@@ -222,6 +264,39 @@
             <a class="open-link" href="./assets/AIDX_品質確認2種類_議題図_v0.1.svg" target="_blank" rel="noopener">原寸で開く ↗</a>
           </div>
         </article>
+
+        <article class="material-card">
+          <a class="material-preview" href="./assets/AIDX_パッケージ利用タイムライン_図_v0.1.svg" target="_blank" rel="noopener" aria-label="AIDXパッケージ利用タイムライン図を原寸で開く">
+            <img src="./assets/AIDX_パッケージ利用タイムライン_図_v0.1.svg" alt="契約前から導入支援12週間まで、パッケージをどこで誰が何に使うかを示すタイムライン図" loading="lazy" decoding="async">
+          </a>
+          <div class="material-body">
+            <div class="material-meta">PACKAGE TIMELINE · v0.1</div>
+            <h3>パッケージ利用タイムライン図</h3>
+            <p>契約前〜導入支援12週間の各場面で、顧客と提供側がパッケージをどう使うかを示す図です。</p>
+            <a class="open-link" href="./assets/AIDX_パッケージ利用タイムライン_図_v0.1.svg" target="_blank" rel="noopener">原寸で開く ↗</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="doc-group">
+        <h3>引き継ぎ資料一覧(2026-07-21 反映)</h3>
+        <p class="doc-note">Claude Cowork仕様化作業の成果物です。各リンクはMarkdown原文を表示します。最新版のみ掲載しています。</p>
+        <ul class="doc-list">
+          <li><a href="./docs/01_全体像/AIDX_Claude_Cowork_案件フォルダテンプレート表紙_v0.1.md"><span>案件フォルダテンプレート表紙(顧客向け表紙テキスト)</span><span class="doc-ver">v0.1</span></a></li>
+          <li><a href="./docs/01_全体像/AIDX_主要5PJ仕様_Slack共有文_v0.1.md"><span>主要5PJ仕様 Slack共有文</span><span class="doc-ver">v0.1</span></a></li>
+          <li><a href="./docs/02_PJ仕様_Claude_Cowork版/AIDX_PJ-01_Claude_Cowork仕様_v0.3.md"><span>PJ-01 議事録・決定事項・TODO化 Claude Cowork仕様</span><span class="doc-ver">v0.3</span></a></li>
+          <li><a href="./docs/02_PJ仕様_Claude_Cowork版/AIDX_PJ-02_Claude_Cowork仕様_v0.2.md"><span>PJ-02 日報・CRM入力支援 Claude Cowork仕様</span><span class="doc-ver">v0.2</span></a></li>
+          <li><a href="./docs/02_PJ仕様_Claude_Cowork版/AIDX_PJ-03_Claude_Cowork仕様_v0.2.md"><span>PJ-03 営業資料・提案書作成 Claude Cowork仕様</span><span class="doc-ver">v0.2</span></a></li>
+          <li><a href="./docs/02_PJ仕様_Claude_Cowork版/AIDX_PJ-04_Claude_Cowork仕様_v0.2.md"><span>PJ-04 FAQ・社内ナレッジ整備 Claude Cowork仕様</span><span class="doc-ver">v0.2</span></a></li>
+          <li><a href="./docs/02_PJ仕様_Claude_Cowork版/AIDX_PJ-05_Claude_Cowork仕様_v0.2.md"><span>PJ-05 メール・問い合わせ回答 Claude Cowork仕様</span><span class="doc-ver">v0.2</span></a></li>
+          <li><a href="./docs/03_品質確認/AIDX_QA0X_手動再監査プロンプト_v0.1.md"><span>QA-0X 手動再監査プロンプト(5PJ分)</span><span class="doc-ver">v0.1</span></a></li>
+          <li><a href="./docs/04_テスト仕様/AIDX_PJ-01_再現性テスト仕様_v0.2.md"><span>PJ-01 再現性テスト仕様(ゴールデンテスト4系統)</span><span class="doc-ver">v0.2</span></a></li>
+          <li><a href="./docs/05_AI利用ルール/AIDX_AI利用ルール_標準雛形_v0.1.md"><span>AI利用ルール 標準雛形</span><span class="doc-ver">v0.1</span></a></li>
+          <li><a href="./docs/05_AI利用ルール/AIDX_AI利用ルール_顧客向けマニュアル_v0.1.md"><span>AI利用ルール 顧客向けマニュアル</span><span class="doc-ver">v0.1</span></a></li>
+          <li><a href="./docs/06_音声同意/AIDX_音声データ取扱いと同意_顧客向け_v0.1.md"><span>音声データ取扱いと同意(顧客向け)</span><span class="doc-ver">v0.1</span></a></li>
+          <li><a href="./docs/07_v1.0参考資料/AIDX_PJ別プロンプト集_v1.0_統合版_Slack共有用.md"><span>【内部参考・旧版】PJ別プロンプト集 v1.0 統合版(Cowork移行前の経緯資料)</span><span class="doc-ver">v1.0</span></a></li>
+          <li><a href="./docs/00_manifest.csv"><span>成果物一覧(manifest.csv)</span><span class="doc-ver">CSV</span></a></li>
+        </ul>
       </div>
 
       <div class="notice">このページは検索除外設定ですが、公開URLを知る人は閲覧できます。顧客固有情報や機密資料は追加しないでください。</div>

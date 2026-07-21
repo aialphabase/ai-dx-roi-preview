@@ -1,0 +1,119 @@
+<svg viewBox="0 0 1700 1000" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>AIDXパッケージが使われる場面:契約前〜導入支援12週間</title>
+<desc>営業接触から定着・報告までの5段階で、顧客が何をし、提供側が何をし、Claude Coworkパッケージのどの部分が使われるかを示すタイムライン図。</desc>
+
+<rect x="16" y="16" width="1668" height="968" rx="36" fill="#0c0c0e" stroke="#2a2a2e" stroke-width="1.5"/>
+
+<text x="70" y="80" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">全体像</text>
+<text x="70" y="120" font-family="sans-serif" font-size="28" font-weight="700" fill="#f5f5f5">パッケージはどこで、誰が、何に使うのか</text>
+<text x="70" y="150" font-family="sans-serif" font-size="16" fill="#9a9a9e">出会う→はじめる→覚える→使う→育てる、の5段階(12週間モデルに対応)</text>
+
+<line x1="70" y1="230" x2="1630" y2="230" stroke="#3a342c" stroke-width="2"/>
+
+<circle cx="180" cy="230" r="8" fill="#ff8a3d"/>
+<circle cx="530" cy="230" r="8" fill="#ff8a3d"/>
+<circle cx="880" cy="230" r="8" fill="#ff8a3d"/>
+<circle cx="1230" cy="230" r="8" fill="#ff8a3d"/>
+<circle cx="1560" cy="230" r="8" fill="#ff8a3d"/>
+
+<text x="180" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7a7a7e">週0</text>
+<text x="530" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7a7a7e">週1〜4</text>
+<text x="880" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7a7a7e">週5</text>
+<text x="1230" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7a7a7e">週6〜8</text>
+<text x="1560" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#7a7a7e">週9〜12</text>
+
+<text x="180" y="270" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">① 出会う</text>
+<rect x="70" y="290" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="88" y="313" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">顧客</text>
+<text x="88" y="333" font-family="sans-serif" font-size="12" fill="#c9c3ba">営業からROI診断を</text>
+<text x="88" y="350" font-family="sans-serif" font-size="12" fill="#c9c3ba">受ける</text>
+<rect x="70" y="390" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="88" y="413" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">提供側</text>
+<text x="88" y="433" font-family="sans-serif" font-size="12" fill="#c9c3ba">営業チームが商談・</text>
+<text x="88" y="450" font-family="sans-serif" font-size="12" fill="#c9c3ba">契約を担当</text>
+<rect x="70" y="490" width="220" height="60" rx="14" fill="#1a1210" stroke="#5a3a30" stroke-width="1.5"/>
+<text x="88" y="515" font-family="sans-serif" font-size="12" font-weight="700" fill="#e07a6a">パッケージ:未登場</text>
+<text x="88" y="535" font-family="sans-serif" font-size="11" fill="#c08878">この時点ではまだ使わない</text>
+
+<text x="530" y="270" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">② はじめる</text>
+<rect x="420" y="290" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="438" y="313" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">顧客</text>
+<text x="438" y="333" font-family="sans-serif" font-size="12" fill="#c9c3ba">業務・課題をヒアリング</text>
+<text x="438" y="350" font-family="sans-serif" font-size="12" fill="#c9c3ba">で共有する</text>
+<rect x="420" y="390" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="438" y="413" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">提供側</text>
+<text x="438" y="433" font-family="sans-serif" font-size="12" fill="#c9c3ba">対象PJを選び、AI利用</text>
+<text x="438" y="450" font-family="sans-serif" font-size="12" fill="#c9c3ba">ルールを一緒に作る</text>
+<rect x="420" y="490" width="220" height="80" rx="14" fill="#171512" stroke="#5a4a30" stroke-width="1.5"/>
+<text x="438" y="515" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffb870">パッケージ:準備開始</text>
+<text x="438" y="535" font-family="sans-serif" font-size="11" fill="#c0a878">表紙(3ステップ図)で説明</text>
+<text x="438" y="552" font-family="sans-serif" font-size="11" fill="#c0a878">AI利用ルール雛形に記入</text>
+
+<text x="880" y="270" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">③ 覚える</text>
+<rect x="770" y="290" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="788" y="313" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">顧客</text>
+<text x="788" y="333" font-family="sans-serif" font-size="12" fill="#c9c3ba">Claude Coworkの基本</text>
+<text x="788" y="350" font-family="sans-serif" font-size="12" fill="#c9c3ba">操作を研修で学ぶ</text>
+<rect x="770" y="390" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="788" y="413" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">提供側</text>
+<text x="788" y="433" font-family="sans-serif" font-size="12" fill="#c9c3ba">研修を実施(標準2回の</text>
+<text x="788" y="450" font-family="sans-serif" font-size="12" fill="#c9c3ba">うち1回目)</text>
+<rect x="770" y="490" width="220" height="80" rx="14" fill="#171512" stroke="#5a4a30" stroke-width="1.5"/>
+<text x="788" y="515" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffb870">パッケージ:教材として使用</text>
+<text x="788" y="535" font-family="sans-serif" font-size="11" fill="#c0a878">表紙・PJ仕様書を使って</text>
+<text x="788" y="552" font-family="sans-serif" font-size="11" fill="#c0a878">研修を実施</text>
+
+<text x="1230" y="270" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">④ 使う</text>
+<rect x="1120" y="290" width="220" height="90" rx="14" fill="#0f150f" stroke="#2f4a37" stroke-width="1.5"/>
+<text x="1138" y="313" font-family="sans-serif" font-size="12" font-weight="700" fill="#7fd68a">顧客</text>
+<text x="1138" y="333" font-family="sans-serif" font-size="12" fill="#c9e0cf">会議音声・メモを</text>
+<text x="1138" y="350" font-family="sans-serif" font-size="12" fill="#c9e0cf">案件フォルダに置くだけ</text>
+<rect x="1120" y="390" width="220" height="90" rx="14" fill="#0f150f" stroke="#2f4a37" stroke-width="1.5"/>
+<text x="1138" y="413" font-family="sans-serif" font-size="12" font-weight="700" fill="#7fd68a">提供側</text>
+<text x="1138" y="433" font-family="sans-serif" font-size="12" fill="#c9e0cf">初期利用の動作確認、</text>
+<text x="1138" y="450" font-family="sans-serif" font-size="12" fill="#c9e0cf">つまずきをサポート</text>
+<rect x="1120" y="490" width="220" height="80" rx="14" fill="#132218" stroke="#3fae6a" stroke-width="1.5"/>
+<text x="1138" y="515" font-family="sans-serif" font-size="12" font-weight="700" fill="#5fd68a">パッケージ:フル稼働</text>
+<text x="1138" y="535" font-family="sans-serif" font-size="11" fill="#8fd6a8">PJ-01〜05が実際に動く</text>
+<text x="1138" y="552" font-family="sans-serif" font-size="11" fill="#8fd6a8">(下書き+品質確認を自動で提示)</text>
+
+<text x="1560" y="270" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">⑤ 育てる</text>
+<rect x="1450" y="290" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="1468" y="313" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">顧客</text>
+<text x="1468" y="333" font-family="sans-serif" font-size="12" fill="#c9c3ba">日常業務として</text>
+<text x="1468" y="350" font-family="sans-serif" font-size="12" fill="#c9c3ba">自分たちで使い続ける</text>
+<rect x="1450" y="390" width="220" height="90" rx="14" fill="#171310" stroke="#3a342c" stroke-width="1.5"/>
+<text x="1468" y="413" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">提供側</text>
+<text x="1468" y="433" font-family="sans-serif" font-size="12" fill="#c9c3ba">利用ログ確認、規定内</text>
+<text x="1468" y="450" font-family="sans-serif" font-size="12" fill="#c9c3ba">チューニング、最終報告</text>
+<rect x="1450" y="490" width="220" height="80" rx="14" fill="#171512" stroke="#5a4a30" stroke-width="1.5"/>
+<text x="1468" y="515" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffb870">パッケージ:記録・検証</text>
+<text x="1468" y="535" font-family="sans-serif" font-size="11" fill="#c0a878">チューニング記録、</text>
+<text x="1468" y="552" font-family="sans-serif" font-size="11" fill="#c0a878">再現性テストで確認</text>
+
+<g stroke="#4a4a4e" stroke-width="2" fill="none">
+<path d="M 290 335 L 420 335" marker-end="url(#arrow)"/>
+<path d="M 640 335 L 770 335" marker-end="url(#arrow)"/>
+<path d="M 990 335 L 1120 335" marker-end="url(#arrow)"/>
+<path d="M 1340 335 L 1450 335" marker-end="url(#arrow)"/>
+</g>
+
+<line x1="70" y1="605" x2="1670" y2="605" stroke="#232326" stroke-width="1"/>
+
+<text x="70" y="650" font-family="sans-serif" font-size="16" fill="#e5e0d8">結論:プロンプトが実際に「裏側で動く」のは④の週6〜8だけです。①〜③は説明・準備・教材として使われ、</text>
+<text x="70" y="678" font-family="sans-serif" font-size="16" fill="#e5e0d8">⑤は運用の記録・検証として使われます。顧客がすることは一貫して「渡すだけ」で、テンプレート入力の手間はありません。</text>
+
+<text x="70" y="730" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d">今回のセッションで揃っているもの</text>
+<text x="70" y="758" font-family="sans-serif" font-size="14" fill="#c9c3ba">・表紙(②③で使用) ・PJ-01〜05本体+QA自動統合(④で使用) ・AI利用ルール雛形+顧客向けマニュアル(②で使用)</text>
+<text x="70" y="782" font-family="sans-serif" font-size="14" fill="#c9c3ba">・音声同意マニュアル(②④で使用) ・PJ-01再現性テスト仕様(⑤の検証で使用) ・QA-0X手動再監査プロンプト(③品質確認で使用)</text>
+
+<text x="70" y="830" font-family="sans-serif" font-size="15" font-weight="700" fill="#e07a6a">まだ揃っていないもの</text>
+<text x="70" y="858" font-family="sans-serif" font-size="14" fill="#c9a89a">・①②③をつなぐ営業・キックオフ台本、企業ヒアリングシート ・⑤の最終報告書テンプレート</text>
+<text x="70" y="882" font-family="sans-serif" font-size="14" fill="#c9a89a">・応答時間の実測、AI利用ルール運用開始タイミングの確定(いずれもPM確認事項)</text>
+
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 Z" fill="#4a4a4e"/>
+</marker>
+</defs>
+</svg>
