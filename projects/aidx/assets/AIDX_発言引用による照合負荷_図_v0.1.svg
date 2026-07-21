@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2072 940" role="img" aria-label="発言引用による照合負荷の変化を示す図">
+  <rect width="2072" height="940" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="72" y="84" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">設計変更の意図</text>
+  <text x="72" y="134" font-family="sans-serif" font-size="34" font-weight="700" fill="#f5f5f5">「原文」が生の音声になると、照合の負荷が変わる</text>
+  <text x="72" y="172" font-family="sans-serif" font-size="17" fill="#a8a29b">文字起こしツールを使わない前提だからこそ、議事録側に照合の手がかりを残す</text>
+
+  <!-- current: summary-only panel -->
+  <rect x="72" y="230" width="1928" height="264" rx="18" fill="#191113" stroke="#8a4a42" stroke-width="1"/>
+  <text x="108" y="274" font-family="sans-serif" font-size="19" font-weight="700" fill="#e8837a">現行:要約だけの議事録</text>
+
+  <rect x="118" y="304" width="360" height="140" rx="12" fill="#211517"/>
+  <text x="140" y="340" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">決定事項欄</text>
+  <text x="140" y="368" font-family="sans-serif" font-size="14" fill="#c9c3ba">「予算上限は300万円で</text>
+  <text x="140" y="390" font-family="sans-serif" font-size="14" fill="#c9c3ba">決定」(要約のみ)</text>
+
+  <line x1="494" y1="374" x2="562" y2="374" stroke="#8a4a42" stroke-width="2"/>
+
+  <rect x="566" y="304" width="392" height="140" rx="12" fill="#211517"/>
+  <text x="588" y="340" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">照合したいとき</text>
+  <text x="588" y="368" font-family="sans-serif" font-size="14" fill="#c9c3ba">該当箇所が分からないため、</text>
+  <text x="588" y="390" font-family="sans-serif" font-size="14" fill="#c9c3ba">録音全体を聞き直す必要がある</text>
+
+  <line x1="962" y1="374" x2="1030" y2="374" stroke="#8a4a42" stroke-width="2"/>
+
+  <rect x="1034" y="304" width="318" height="140" rx="12" fill="#211517"/>
+  <text x="1056" y="345" font-family="sans-serif" font-size="16" font-weight="700" fill="#e8837a">照合の負荷:高い</text>
+  <text x="1056" y="373" font-family="sans-serif" font-size="14" fill="#c9c3ba">数十分の録音を最初から</text>
+  <text x="1056" y="395" font-family="sans-serif" font-size="14" fill="#c9c3ba">聞き直すことになりがち</text>
+
+  <!-- after: with quotes panel -->
+  <rect x="72" y="530" width="1928" height="310" rx="18" fill="#101711" stroke="#3f6b4a" stroke-width="1"/>
+  <text x="108" y="576" font-family="sans-serif" font-size="19" font-weight="700" fill="#7fc98b">変更後:発言引用つきの議事録</text>
+
+  <rect x="118" y="608" width="452" height="170" rx="12" fill="#15201a"/>
+  <text x="140" y="644" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">決定事項欄(根拠となる発言)</text>
+  <text x="140" y="672" font-family="sans-serif" font-size="14" fill="#c9c3ba">「予算上限は300万円で</text>
+  <text x="140" y="694" font-family="sans-serif" font-size="14" fill="#c9c3ba">決定」+引用:「じゃあ上限は</text>
+  <text x="140" y="716" font-family="sans-serif" font-size="14" fill="#c9c3ba">300万円ということで」</text>
+  <text x="140" y="746" font-family="sans-serif" font-size="13" fill="#7d9a84">(発言に近い短い引用を添える)</text>
+
+  <line x1="586" y1="693" x2="654" y2="693" stroke="#3f6b4a" stroke-width="2"/>
+
+  <rect x="658" y="608" width="400" height="170" rx="12" fill="#15201a"/>
+  <text x="680" y="644" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">照合したいとき</text>
+  <text x="680" y="672" font-family="sans-serif" font-size="14" fill="#c9c3ba">引用の言い回しを手がかりに、</text>
+  <text x="680" y="694" font-family="sans-serif" font-size="14" fill="#c9c3ba">該当箇所の前後だけ音声を</text>
+  <text x="680" y="716" font-family="sans-serif" font-size="14" fill="#c9c3ba">確認すればよい</text>
+
+  <line x1="1074" y1="693" x2="1142" y2="693" stroke="#3f6b4a" stroke-width="2"/>
+
+  <rect x="1146" y="608" width="330" height="170" rx="12" fill="#15201a"/>
+  <text x="1168" y="649" font-family="sans-serif" font-size="16" font-weight="700" fill="#7fc98b">照合の負荷:低い</text>
+  <text x="1168" y="677" font-family="sans-serif" font-size="14" fill="#c9c3ba">該当箇所だけ確認すれば</text>
+  <text x="1168" y="699" font-family="sans-serif" font-size="14" fill="#c9c3ba">よく、全体を聞き直す</text>
+  <text x="1168" y="721" font-family="sans-serif" font-size="14" fill="#c9c3ba">必要がなくなる</text>
+
+  <!-- footnote -->
+  <text x="72" y="895" font-family="sans-serif" font-size="15" fill="#a8a29b">対象:PJ-01(議事録)・PJ-02(面談メモ)・PJ-03(ヒアリング内容)。PJ-04・PJ-05は原文が最初から文書のため対象外。</text>
+</svg>
