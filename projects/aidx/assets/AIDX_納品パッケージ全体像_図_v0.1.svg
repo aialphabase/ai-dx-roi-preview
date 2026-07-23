@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1560" role="img" aria-label="AIDX立上げパック(標準納品キット)の中身と、そろえるべきものの全体像図">
+  <rect width="1800" height="1560" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="76" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">納品パッケージ 全体像</text>
+  <text x="70" y="126" font-family="sans-serif" font-size="33" font-weight="700" fill="#f5f5f5">AIDX立上げパック(標準納品キット)の中身と、そろえるべきもの</text>
+  <text x="70" y="163" font-family="sans-serif" font-size="16" fill="#a8a29b">目標: 標準納品キット完成 7/30 → 商品確定(AIDX立上げパック248)8/07。顧客がAIDXを導入し、12週間の伴走で定着させるための一式。</text>
+
+  <!-- legend -->
+  <circle cx="82" cy="206" r="7" fill="#7fc98b"/>
+  <text x="98" y="211" font-family="sans-serif" font-size="14" fill="#c9c3ba">そろっている(最新版あり)</text>
+  <circle cx="382" cy="206" r="7" fill="#ff8a3d"/>
+  <text x="398" y="211" font-family="sans-serif" font-size="14" fill="#c9c3ba">構築中・検証中(いま最優先)</text>
+  <circle cx="712" cy="206" r="7" fill="#e6c34a"/>
+  <text x="728" y="211" font-family="sans-serif" font-size="14" fill="#c9c3ba">設計のみ・実データ未検証</text>
+  <circle cx="1022" cy="206" r="7" fill="#6f6a63"/>
+  <text x="1038" y="211" font-family="sans-serif" font-size="14" fill="#c9c3ba">未着手</text>
+
+  <!-- ============ Band 1: 基盤 ============ -->
+  <rect x="60" y="250" width="1680" height="225" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="295" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">① 動かす前提・基盤 ― これがそろうと中核5PJが動き出す</text>
+
+  <!-- chip: 音声処理(bottleneck) -->
+  <rect x="90" y="320" width="760" height="130" rx="12" fill="#221a13" stroke="#ff8a3d" stroke-width="2"/>
+  <circle cx="118" cy="356" r="8" fill="#ff8a3d"/>
+  <text x="138" y="361" font-family="sans-serif" font-size="16" font-weight="700" fill="#f5f5f5">音声処理の運用構築(文字起こし経路の確定)</text>
+  <text x="138" y="392" font-family="sans-serif" font-size="13" fill="#c9c3ba">音声→テキスト化の経路が固まると、PJ1〜5がすべて埋まる想定(7/24目標の前提)</text>
+  <text x="138" y="428" font-family="sans-serif" font-size="13" font-weight="700" fill="#ffb27f">構築中・検証中 ― 最大のボトルネック(7/23 リアルタイム音声で検証中)</text>
+
+  <!-- chip: 案件フォルダテンプレ -->
+  <rect x="880" y="320" width="760" height="130" rx="12" fill="#1a1a1e"/>
+  <circle cx="908" cy="356" r="8" fill="#6f6a63"/>
+  <text x="928" y="361" font-family="sans-serif" font-size="16" font-weight="700" fill="#f5f5f5">Cowork案件フォルダテンプレート本体</text>
+  <text x="928" y="392" font-family="sans-serif" font-size="13" fill="#c9c3ba">SOP(手順書)・入力テンプレート・各PJの格納構成</text>
+  <text x="928" y="428" font-family="sans-serif" font-size="13" font-weight="700" fill="#a8a29b">未着手(顧客向け「表紙」のみ完成)</text>
+
+  <!-- ============ Band 2: 中核5PJ ============ -->
+  <rect x="60" y="495" width="1680" height="225" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="540" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">② 中核 ― 5つの業務の“下書きエンジン”(商品の核)</text>
+
+  <!-- 5 chips w=300, step 315, x: 90,405,720,1035,1350 -->
+  <!-- PJ-01 -->
+  <rect x="90" y="565" width="300" height="130" rx="12" fill="#15201a"/>
+  <circle cx="116" cy="600" r="7" fill="#7fc98b"/>
+  <text x="134" y="605" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">PJ-01 · v0.3</text>
+  <text x="112" y="640" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">議事録・決定事項・</text>
+  <text x="112" y="662" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">TODO化</text>
+  <text x="112" y="686" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+  <!-- PJ-02 -->
+  <rect x="405" y="565" width="300" height="130" rx="12" fill="#15201a"/>
+  <circle cx="431" cy="600" r="7" fill="#7fc98b"/>
+  <text x="449" y="605" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">PJ-02 · v0.2</text>
+  <text x="427" y="640" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">日報・CRM</text>
+  <text x="427" y="662" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">入力支援</text>
+  <text x="427" y="686" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+  <!-- PJ-03 -->
+  <rect x="720" y="565" width="300" height="130" rx="12" fill="#15201a"/>
+  <circle cx="746" cy="600" r="7" fill="#7fc98b"/>
+  <text x="764" y="605" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">PJ-03 · v0.2</text>
+  <text x="742" y="640" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">営業資料・</text>
+  <text x="742" y="662" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">提案書作成</text>
+  <text x="742" y="686" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+  <!-- PJ-04 -->
+  <rect x="1035" y="565" width="300" height="130" rx="12" fill="#15201a"/>
+  <circle cx="1061" cy="600" r="7" fill="#7fc98b"/>
+  <text x="1079" y="605" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">PJ-04 · v0.2</text>
+  <text x="1057" y="640" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">FAQ・社内</text>
+  <text x="1057" y="662" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">ナレッジ整備</text>
+  <text x="1057" y="686" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+  <!-- PJ-05 -->
+  <rect x="1350" y="565" width="300" height="130" rx="12" fill="#15201a"/>
+  <circle cx="1376" cy="600" r="7" fill="#7fc98b"/>
+  <text x="1394" y="605" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">PJ-05 · v0.2</text>
+  <text x="1372" y="640" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">メール・</text>
+  <text x="1372" y="662" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">問い合わせ回答</text>
+  <text x="1372" y="686" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+
+  <!-- ============ Band 3: 品質 ============ -->
+  <rect x="60" y="740" width="1680" height="225" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="785" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">③ 品質を保証する仕組み ― AIを鵜呑みにしない</text>
+
+  <!-- 4 chips w=375, step 390, x: 90,480,870,1260 -->
+  <rect x="90" y="810" width="375" height="130" rx="12" fill="#15201a"/>
+  <circle cx="116" cy="846" r="7" fill="#7fc98b"/>
+  <text x="134" y="851" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">QA自動チェック</text>
+  <text x="112" y="886" font-family="sans-serif" font-size="13" fill="#c9c3ba">各PJに内蔵。下書きと一緒に</text>
+  <text x="112" y="906" font-family="sans-serif" font-size="13" fill="#c9c3ba">自動で監査結果を提示</text>
+  <text x="112" y="930" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+
+  <rect x="480" y="810" width="375" height="130" rx="12" fill="#15201a"/>
+  <circle cx="506" cy="846" r="7" fill="#7fc98b"/>
+  <text x="524" y="851" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">人手確認 11項目チェック</text>
+  <text x="502" y="886" font-family="sans-serif" font-size="13" fill="#c9c3ba">会議責任者が承認前に確かめる</text>
+  <text x="502" y="906" font-family="sans-serif" font-size="13" fill="#c9c3ba">受け手視点のチェック(図あり)</text>
+  <text x="502" y="930" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+
+  <rect x="870" y="810" width="375" height="130" rx="12" fill="#1c1a15"/>
+  <circle cx="896" cy="846" r="7" fill="#e6c34a"/>
+  <text x="914" y="851" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">QA-0X 手動再監査プロンプト</text>
+  <text x="892" y="886" font-family="sans-serif" font-size="13" fill="#c9c3ba">5PJ分。人が個別に再監査を</text>
+  <text x="892" y="906" font-family="sans-serif" font-size="13" fill="#c9c3ba">依頼するときに使用</text>
+  <text x="892" y="930" font-family="sans-serif" font-size="12" font-weight="700" fill="#d9c07a">設計済・実データ未検証</text>
+
+  <rect x="1260" y="810" width="375" height="130" rx="12" fill="#1c1a15"/>
+  <circle cx="1286" cy="846" r="7" fill="#e6c34a"/>
+  <text x="1304" y="851" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">PJ-01 再現性テスト</text>
+  <text x="1282" y="886" font-family="sans-serif" font-size="13" fill="#c9c3ba">ゴールデンテスト4系統</text>
+  <text x="1282" y="906" font-family="sans-serif" font-size="13" fill="#c9c3ba">(正常・不足・矛盾・リスク)</text>
+  <text x="1282" y="930" font-family="sans-serif" font-size="12" font-weight="700" fill="#d9c07a">設計のみ・未実施</text>
+
+  <!-- ============ Band 4: 運用ルール・法務 ============ -->
+  <rect x="60" y="985" width="1680" height="225" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="1030" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">④ 運用ルール・法務 ― 安全に使うために顧客へ渡す</text>
+
+  <rect x="90" y="1055" width="760" height="130" rx="12" fill="#15201a"/>
+  <circle cx="118" cy="1091" r="8" fill="#7fc98b"/>
+  <text x="138" y="1096" font-family="sans-serif" font-size="16" font-weight="700" fill="#f5f5f5">AI利用ルール(標準雛形 + 顧客向けマニュアル)</text>
+  <text x="138" y="1127" font-family="sans-serif" font-size="13" fill="#c9c3ba">社内用語・禁止表現・保存先・承認済みの文字起こし経路などを案件開始時に設定</text>
+  <text x="138" y="1163" font-family="sans-serif" font-size="13" font-weight="700" fill="#7d9a84">そろっている(draft) ― 運用開始タイミングはPM未判定</text>
+
+  <rect x="880" y="1055" width="760" height="130" rx="12" fill="#15201a"/>
+  <circle cx="908" cy="1091" r="8" fill="#7fc98b"/>
+  <text x="928" y="1096" font-family="sans-serif" font-size="16" font-weight="700" fill="#f5f5f5">音声データ取扱いと同意(顧客向け)</text>
+  <text x="928" y="1127" font-family="sans-serif" font-size="13" fill="#c9c3ba">会議の録音をAIに渡すことへの参加者の同意(人手確認チェック1に対応)</text>
+  <text x="928" y="1163" font-family="sans-serif" font-size="13" font-weight="700" fill="#7d9a84">そろっている(draft)</text>
+
+  <!-- ============ Band 5: 営業〜導入支援 ============ -->
+  <rect x="60" y="1230" width="1680" height="225" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="1275" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">⑤ 営業〜導入支援の道具 ― 契約前から12週間の伴走まで</text>
+
+  <rect x="90" y="1300" width="375" height="130" rx="12" fill="#1a1a1e"/>
+  <circle cx="116" cy="1336" r="7" fill="#6f6a63"/>
+  <text x="134" y="1341" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">営業・キックオフ台本</text>
+  <text x="112" y="1376" font-family="sans-serif" font-size="13" fill="#c9c3ba">商談・導入初日の説明を</text>
+  <text x="112" y="1396" font-family="sans-serif" font-size="13" fill="#c9c3ba">同じ型で進めるための台本</text>
+  <text x="112" y="1420" font-family="sans-serif" font-size="12" font-weight="700" fill="#a8a29b">未着手</text>
+
+  <rect x="480" y="1300" width="375" height="130" rx="12" fill="#1a1a1e"/>
+  <circle cx="506" cy="1336" r="7" fill="#6f6a63"/>
+  <text x="524" y="1341" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">企業ヒアリングシート</text>
+  <text x="502" y="1376" font-family="sans-serif" font-size="13" fill="#c9c3ba">導入前に業務・用語・</text>
+  <text x="502" y="1396" font-family="sans-serif" font-size="13" fill="#c9c3ba">体制を聞き取るシート</text>
+  <text x="502" y="1420" font-family="sans-serif" font-size="12" font-weight="700" fill="#a8a29b">未着手</text>
+
+  <rect x="870" y="1300" width="375" height="130" rx="12" fill="#1a1a1e"/>
+  <circle cx="896" cy="1336" r="7" fill="#6f6a63"/>
+  <text x="914" y="1341" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">最終報告書テンプレート</text>
+  <text x="892" y="1376" font-family="sans-serif" font-size="13" fill="#c9c3ba">12週間の導入支援の成果を</text>
+  <text x="892" y="1396" font-family="sans-serif" font-size="13" fill="#c9c3ba">顧客へ報告する定型</text>
+  <text x="892" y="1420" font-family="sans-serif" font-size="12" font-weight="700" fill="#a8a29b">未着手</text>
+
+  <rect x="1260" y="1300" width="375" height="130" rx="12" fill="#15201a"/>
+  <circle cx="1286" cy="1336" r="7" fill="#7fc98b"/>
+  <text x="1304" y="1341" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5">各種説明図解・タイムライン図</text>
+  <text x="1282" y="1376" font-family="sans-serif" font-size="13" fill="#c9c3ba">表紙図・議題図・照合負荷図・</text>
+  <text x="1282" y="1396" font-family="sans-serif" font-size="13" fill="#c9c3ba">利用タイムライン図</text>
+  <text x="1282" y="1420" font-family="sans-serif" font-size="12" fill="#7d9a84">そろっている</text>
+
+  <!-- footer -->
+  <text x="70" y="1508" font-family="sans-serif" font-size="15" fill="#a8a29b">読み方: いま最優先は①「音声処理の運用構築」。ここが固まると中核②の5PJがすべて実運用に乗る(7/24目標の前提)。③④は仕組みとしては用意済み、⑤の営業・導入支援ツールが次の未着手ゾーン。</text>
+  <text x="70" y="1534" font-family="sans-serif" font-size="12" fill="#6f6a63">出典: AIDX引き継ぎパック(01〜07)/ Notion移植用メモ v0.2(2026-07-23)/ 音声文字起こし環境制約メモ v0.2。状態は2026-07-23時点。</text>
+</svg>
