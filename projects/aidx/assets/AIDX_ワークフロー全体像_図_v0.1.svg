@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1300" role="img" aria-label="AIDXワークフロー全体像。音声・テキスト・手書きメモの3つの入口から、渡す→任せる→受け取るの1本道で成果物になる流れの図">
+  <rect width="1800" height="1300" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="72" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">ワークフロー 全体像</text>
+  <text x="70" y="120" font-family="sans-serif" font-size="33" font-weight="700" fill="#f5f5f5">入口は3つ、その先は1本道 ― 渡す → 任せる → 受け取る</text>
+  <text x="70" y="157" font-family="sans-serif" font-size="16" fill="#a8a29b">これをこうするだけで、こうなる。音声・テキスト・手書きメモ、どの入口から入れても、AIの下書き→自動チェック→人の承認まで同じ流れで進みます。</text>
+
+  <!-- ============ 渡す ============ -->
+  <rect x="60" y="200" width="1680" height="365" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="243" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a9eff">渡す ― まず入口を選ぶ(この3つのどれか)</text>
+
+  <!-- input card 1: 音声 -->
+  <rect x="90" y="265" width="510" height="115" rx="12" fill="#1a1a1e" stroke="#4a9eff" stroke-width="1.5"/>
+  <circle cx="116" cy="300" r="8" fill="#4a9eff"/>
+  <text x="136" y="306" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">① 音声</text>
+  <text x="116" y="340" font-family="sans-serif" font-size="14" fill="#c9c3ba">会議・商談の録音、口頭の指示やメモ</text>
+  <text x="116" y="365" font-family="sans-serif" font-size="12" fill="#8a857d">(そのままでは渡せない → まず文字にする)</text>
+
+  <!-- input card 2: テキスト -->
+  <rect x="645" y="265" width="510" height="115" rx="12" fill="#1a1a1e" stroke="#7fc98b" stroke-width="1.5"/>
+  <circle cx="671" cy="300" r="8" fill="#7fc98b"/>
+  <text x="691" y="306" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">② テキストファイル</text>
+  <text x="671" y="340" font-family="sans-serif" font-size="14" fill="#c9c3ba">メール・チャット・議事メモ・既存の文書</text>
+  <text x="671" y="365" font-family="sans-serif" font-size="12" fill="#8a857d">(いちばんかんたん。変換がいらない)</text>
+
+  <!-- input card 3: 手書き -->
+  <rect x="1200" y="265" width="510" height="115" rx="12" fill="#1a1a1e" stroke="#e6c34a" stroke-width="1.5"/>
+  <circle cx="1226" cy="300" r="8" fill="#e6c34a"/>
+  <text x="1246" y="306" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">③ 手書きメモ</text>
+  <text x="1226" y="340" font-family="sans-serif" font-size="14" fill="#c9c3ba">ノート・ホワイトボード・紙資料・FAX</text>
+  <text x="1226" y="365" font-family="sans-serif" font-size="12" fill="#8a857d">(写真に撮れば渡せる)</text>
+
+  <!-- arrows down to conversion -->
+  <line x1="345" y1="384" x2="345" y2="402" stroke="#8a857d" stroke-width="2"/>
+  <path d="M332 402 L358 402 L345 418 Z" fill="#8a857d"/>
+  <line x1="900" y1="384" x2="900" y2="402" stroke="#8a857d" stroke-width="2"/>
+  <path d="M887 402 L913 402 L900 418 Z" fill="#8a857d"/>
+  <line x1="1455" y1="384" x2="1455" y2="402" stroke="#8a857d" stroke-width="2"/>
+  <path d="M1442 402 L1468 402 L1455 418 Z" fill="#8a857d"/>
+
+  <!-- conversion card 1 -->
+  <rect x="90" y="422" width="510" height="128" rx="12" fill="#15161a"/>
+  <text x="116" y="452" font-family="sans-serif" font-size="13" font-weight="700" fill="#4a9eff">→ テキストにする(文字起こし)</text>
+  <text x="116" y="482" font-family="sans-serif" font-size="15" fill="#e8e4de">録音を文字に変換してから渡す</text>
+  <text x="116" y="510" font-family="sans-serif" font-size="12" fill="#a8a29b">経路1 M365 Word / 経路2 ローカル(高精度) / 経路3 ブラウザ</text>
+  <text x="116" y="532" font-family="sans-serif" font-size="12" fill="#a8a29b">※ テキストの精度は選ぶ経路で変わる</text>
+
+  <!-- conversion card 2 -->
+  <rect x="645" y="422" width="510" height="128" rx="12" fill="#15161a"/>
+  <text x="671" y="452" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">→ そのまま渡せる(変換なし)</text>
+  <text x="671" y="482" font-family="sans-serif" font-size="15" fill="#e8e4de">追加の作業はいらない</text>
+  <text x="671" y="510" font-family="sans-serif" font-size="12" fill="#a8a29b">本文をコピペする、またはファイルを添付するだけ</text>
+
+  <!-- conversion card 3 -->
+  <rect x="1200" y="422" width="510" height="128" rx="12" fill="#15161a"/>
+  <text x="1226" y="452" font-family="sans-serif" font-size="13" font-weight="700" fill="#e6c34a">→ 画像にして渡す</text>
+  <text x="1226" y="482" font-family="sans-serif" font-size="15" fill="#e8e4de">スマホで写真を撮って渡す</text>
+  <text x="1226" y="510" font-family="sans-serif" font-size="12" fill="#a8a29b">AIが画像から文字を読み取ってテキスト化する</text>
+
+  <!-- merge bar -->
+  <rect x="60" y="582" width="1680" height="50" rx="10" fill="#17171b" stroke="#3a3a42" stroke-width="1"/>
+  <text x="900" y="613" font-family="sans-serif" font-size="16" font-weight="700" fill="#d8d3cc" text-anchor="middle">▼ ここで1本に合流 ― ここから先は、どの入口でも まったく同じ流れ</text>
+
+  <line x1="900" y1="636" x2="900" y2="656" stroke="#8a857d" stroke-width="2"/>
+  <path d="M886 656 L914 656 L900 674 Z" fill="#8a857d"/>
+
+  <!-- ============ 任せる ============ -->
+  <rect x="60" y="684" width="1680" height="212" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="727" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">任せる ― AIがやるのは「下書き」と「自動チェック」まで</text>
+
+  <rect x="90" y="750" width="945" height="126" rx="12" fill="#1a1a1e" stroke="#4a9eff" stroke-width="1.5"/>
+  <circle cx="116" cy="787" r="8" fill="#4a9eff"/>
+  <text x="136" y="793" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">1. AIが下書きを作る</text>
+  <text x="116" y="826" font-family="sans-serif" font-size="13" fill="#c9c3ba">選んだ型で作成:議事録 / 日報・CRM / 資料 / FAQ / メール返信 …</text>
+  <text x="116" y="853" font-family="sans-serif" font-size="13" fill="#c9c3ba">事実と意見を分け、根拠(発言引用・出典)を必ず添える</text>
+
+  <line x1="1043" y1="813" x2="1063" y2="813" stroke="#8a857d" stroke-width="2"/>
+  <path d="M1063 800 L1063 826 L1080 813 Z" fill="#8a857d"/>
+
+  <rect x="1090" y="750" width="620" height="126" rx="12" fill="#1a1a1e" stroke="#e6c34a" stroke-width="1.5"/>
+  <circle cx="1116" cy="787" r="8" fill="#e6c34a"/>
+  <text x="1136" y="793" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">2. AIが自動でQA判定</text>
+  <text x="1116" y="826" font-family="sans-serif" font-size="13" fill="#c9c3ba">保留 / 合格候補 / 要修正 を自動で表示</text>
+  <text x="1116" y="853" font-family="sans-serif" font-size="13" fill="#c9c3ba">分からない点は作らず「要確認」で残す</text>
+
+  <line x1="900" y1="900" x2="900" y2="920" stroke="#8a857d" stroke-width="2"/>
+  <path d="M886 920 L914 920 L900 938 Z" fill="#8a857d"/>
+
+  <!-- ============ 受け取る ============ -->
+  <rect x="60" y="948" width="1680" height="212" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="991" font-family="sans-serif" font-size="19" font-weight="700" fill="#7fc98b">受け取る ― 配ってよいか決めるのは、必ず人</text>
+
+  <rect x="90" y="1014" width="945" height="126" rx="12" fill="#16211a" stroke="#7fc98b" stroke-width="2"/>
+  <circle cx="116" cy="1051" r="8" fill="#7fc98b"/>
+  <text x="136" y="1057" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">3. 人が確認する</text>
+  <text x="116" y="1090" font-family="sans-serif" font-size="13" fill="#c9c3ba">人手確認11項目でチェック(AIに丸投げしない、ここが安心の要)</text>
+  <text x="116" y="1117" font-family="sans-serif" font-size="13" fill="#c9c3ba">「要確認」の箇所だけ、元(音声・原文)を見直す</text>
+
+  <line x1="1043" y1="1077" x2="1063" y2="1077" stroke="#8a857d" stroke-width="2"/>
+  <path d="M1063 1064 L1063 1090 L1080 1077 Z" fill="#8a857d"/>
+
+  <rect x="1090" y="1014" width="620" height="126" rx="12" fill="#1a1a1e" stroke="#8b7dff" stroke-width="1.5"/>
+  <circle cx="1116" cy="1051" r="8" fill="#8b7dff"/>
+  <text x="1136" y="1057" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">4. 承認して使う</text>
+  <text x="1116" y="1090" font-family="sans-serif" font-size="13" fill="#c9c3ba">OKなら 配布・CRM登録・送信</text>
+  <text x="1116" y="1117" font-family="sans-serif" font-size="13" fill="#c9c3ba">ここで初めて社外・本番へ出す</text>
+
+  <!-- callout -->
+  <rect x="60" y="1182" width="1680" height="96" rx="14" fill="#14211b" stroke="#7fc98b" stroke-width="2"/>
+  <text x="900" y="1223" font-family="sans-serif" font-size="24" font-weight="700" fill="#f5f5f5" text-anchor="middle">AIは下書きまで。配ってよいかを決めるのは、人が確認してから。</text>
+  <text x="900" y="1256" font-family="sans-serif" font-size="14" fill="#a8a29b" text-anchor="middle">共通言語:「これをこうするだけで、こうなります」 / 渡す → 任せる → 受け取る</text>
+</svg>

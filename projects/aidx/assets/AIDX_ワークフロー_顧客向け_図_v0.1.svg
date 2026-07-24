@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1150" role="img" aria-label="AIDX導入イメージ(お客様向け)。音声・テキスト・手書きメモを渡すだけで成果物ができる流れの図">
+  <rect width="1800" height="1150" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="72" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">AIDX ― 導入イメージ(お客様向け)</text>
+  <text x="70" y="120" font-family="sans-serif" font-size="32" font-weight="700" fill="#f5f5f5">あなたがやるのは「渡すだけ」。あとはAIと担当者が仕上げます</text>
+  <text x="70" y="157" font-family="sans-serif" font-size="16" fill="#a8a29b">会議も、メールも、手書きのメモも。いつもの仕事をそのまま渡すだけで、清書された成果物が返ってきます。</text>
+
+  <!-- STEP 1 渡す -->
+  <rect x="60" y="200" width="1680" height="420" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="243" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a9eff">STEP 1 ― 渡す(あなたの作業は、ここだけ)</text>
+
+  <!-- card 音声 -->
+  <rect x="90" y="270" width="510" height="325" rx="14" fill="#1a1a1e" stroke="#4a9eff" stroke-width="1.5"/>
+  <circle cx="118" cy="312" r="9" fill="#4a9eff"/>
+  <text x="140" y="320" font-family="sans-serif" font-size="21" font-weight="700" fill="#f5f5f5">音声</text>
+  <text x="118" y="356" font-family="sans-serif" font-size="14" fill="#a8a29b">会議・商談・打ち合わせの録音</text>
+  <line x1="118" y1="382" x2="572" y2="382" stroke="#2c2c31" stroke-width="1"/>
+  <text x="118" y="422" font-family="sans-serif" font-size="14" font-weight="700" fill="#4a9eff">▶ あなたがやること</text>
+  <text x="118" y="456" font-family="sans-serif" font-size="19" fill="#f0ede8">録音して渡すだけ</text>
+  <text x="118" y="512" font-family="sans-serif" font-size="14" font-weight="700" fill="#7fc98b">✓ できあがるもの</text>
+  <text x="118" y="546" font-family="sans-serif" font-size="18" fill="#f0ede8">議事録・要点まとめ・日報</text>
+
+  <!-- card テキスト -->
+  <rect x="645" y="270" width="510" height="325" rx="14" fill="#1a1a1e" stroke="#7fc98b" stroke-width="1.5"/>
+  <circle cx="673" cy="312" r="9" fill="#7fc98b"/>
+  <text x="695" y="320" font-family="sans-serif" font-size="21" font-weight="700" fill="#f5f5f5">テキスト</text>
+  <text x="673" y="356" font-family="sans-serif" font-size="14" fill="#a8a29b">メール・チャット・文書</text>
+  <line x1="673" y1="382" x2="1127" y2="382" stroke="#2c2c31" stroke-width="1"/>
+  <text x="673" y="422" font-family="sans-serif" font-size="14" font-weight="700" fill="#7fc98b">▶ あなたがやること</text>
+  <text x="673" y="456" font-family="sans-serif" font-size="19" fill="#f0ede8">コピペして渡すだけ</text>
+  <text x="673" y="512" font-family="sans-serif" font-size="14" font-weight="700" fill="#7fc98b">✓ できあがるもの</text>
+  <text x="673" y="546" font-family="sans-serif" font-size="18" fill="#f0ede8">返信文・FAQ・要約・資料</text>
+
+  <!-- card 手書き -->
+  <rect x="1200" y="270" width="510" height="325" rx="14" fill="#1a1a1e" stroke="#e6c34a" stroke-width="1.5"/>
+  <circle cx="1228" cy="312" r="9" fill="#e6c34a"/>
+  <text x="1250" y="320" font-family="sans-serif" font-size="21" font-weight="700" fill="#f5f5f5">手書きメモ</text>
+  <text x="1228" y="356" font-family="sans-serif" font-size="14" fill="#a8a29b">ノート・ホワイトボード・紙</text>
+  <line x1="1228" y1="382" x2="1682" y2="382" stroke="#2c2c31" stroke-width="1"/>
+  <text x="1228" y="422" font-family="sans-serif" font-size="14" font-weight="700" fill="#e6c34a">▶ あなたがやること</text>
+  <text x="1228" y="456" font-family="sans-serif" font-size="19" fill="#f0ede8">写真を撮って渡すだけ</text>
+  <text x="1228" y="512" font-family="sans-serif" font-size="14" font-weight="700" fill="#7fc98b">✓ できあがるもの</text>
+  <text x="1228" y="546" font-family="sans-serif" font-size="18" fill="#f0ede8">清書された文書・資料</text>
+
+  <!-- arrow down -->
+  <line x1="900" y1="626" x2="900" y2="654" stroke="#8a857d" stroke-width="2"/>
+  <path d="M886 654 L914 654 L900 672 Z" fill="#8a857d"/>
+  <text x="940" y="666" font-family="sans-serif" font-size="15" font-weight="700" fill="#d8d3cc">このあとは、おまかせ</text>
+
+  <!-- STEP 2-3 -->
+  <rect x="60" y="690" width="1680" height="228" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="733" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">STEP 2・3 ― あとはAIと担当者にお任せ</text>
+
+  <rect x="90" y="755" width="510" height="140" rx="12" fill="#1a1a1e" stroke="#4a9eff" stroke-width="1.5"/>
+  <text x="116" y="800" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">① AIが下書きを作る</text>
+  <text x="116" y="838" font-family="sans-serif" font-size="14" fill="#c9c3ba">いつもの型で、数分で作成</text>
+  <text x="116" y="866" font-family="sans-serif" font-size="14" fill="#c9c3ba">たたき台がすぐ手に入る</text>
+
+  <line x1="608" y1="825" x2="628" y2="825" stroke="#8a857d" stroke-width="2"/>
+  <path d="M628 812 L628 838 L645 825 Z" fill="#8a857d"/>
+
+  <rect x="645" y="755" width="510" height="140" rx="12" fill="#16211a" stroke="#7fc98b" stroke-width="2"/>
+  <text x="671" y="800" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">② 担当者が確認する</text>
+  <text x="671" y="838" font-family="sans-serif" font-size="14" fill="#c9c3ba">大事なところは、人がチェック</text>
+  <text x="671" y="866" font-family="sans-serif" font-size="14" fill="#c9c3ba">間違い・抜けをここで直す</text>
+
+  <line x1="1163" y1="825" x2="1183" y2="825" stroke="#8a857d" stroke-width="2"/>
+  <path d="M1183 812 L1183 838 L1200 825 Z" fill="#8a857d"/>
+
+  <rect x="1200" y="755" width="510" height="140" rx="12" fill="#1a1a1e" stroke="#8b7dff" stroke-width="1.5"/>
+  <text x="1226" y="800" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">③ 受け取る</text>
+  <text x="1226" y="838" font-family="sans-serif" font-size="14" fill="#c9c3ba">そのまま配布・送信できる状態で</text>
+  <text x="1226" y="866" font-family="sans-serif" font-size="14" fill="#c9c3ba">できあがりが手元に届く</text>
+
+  <!-- callout -->
+  <rect x="60" y="952" width="1680" height="98" rx="14" fill="#14211b" stroke="#7fc98b" stroke-width="2"/>
+  <text x="900" y="994" font-family="sans-serif" font-size="24" font-weight="700" fill="#f5f5f5" text-anchor="middle">大事な判断は、必ず人が確認してから。AIに丸投げはしません。</text>
+  <text x="900" y="1027" font-family="sans-serif" font-size="14" fill="#a8a29b" text-anchor="middle">だから、そのまま使える。 ― 渡す → 任せる → 受け取る</text>
+</svg>

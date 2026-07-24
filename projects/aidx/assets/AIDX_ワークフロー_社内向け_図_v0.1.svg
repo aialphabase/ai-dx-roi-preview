@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1400" role="img" aria-label="AIDX運用フロー(社内・提供者向け)。入口3経路の文字化方法・向くPJ・注意点と、合流後の下書き・自動QA・人手確認11項目・承認までの図">
+  <rect width="1800" height="1400" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="72" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">AIDX ― 運用フロー(社内・提供者向け)</text>
+  <text x="70" y="120" font-family="sans-serif" font-size="30" font-weight="700" fill="#f5f5f5">入口3経路 → 文字化 → AI下書き → 自動QA → 人手確認11項目 → 承認</text>
+  <text x="70" y="157" font-family="sans-serif" font-size="15" fill="#a8a29b">各入口の文字化方法・向くPJ・注意点と、合流後の共通処理・責任分界を1枚に。経路の詳細は「音声文字起こし 環境制約と標準手順」を参照。</text>
+
+  <!-- ============ 渡す ============ -->
+  <rect x="60" y="200" width="1680" height="400" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="243" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a9eff">渡す ― 入口3経路(文字化の方法と、向くPJが違う)</text>
+
+  <!-- card 音声 -->
+  <rect x="90" y="268" width="510" height="312" rx="12" fill="#1a1a1e" stroke="#4a9eff" stroke-width="1.5"/>
+  <circle cx="116" cy="302" r="8" fill="#4a9eff"/>
+  <text x="136" y="308" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">① 音声</text>
+  <text x="116" y="336" font-family="sans-serif" font-size="12.5" fill="#a8a29b">会議・商談の録音、口頭の指示</text>
+  <text x="116" y="372" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#c9c3ba">文字化(いずれかの経路):</text>
+  <text x="116" y="398" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">経路1 M365 Word(法人本命)</text>
+  <text x="116" y="422" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">経路2 ローカルWhisper large(高精度)</text>
+  <text x="116" y="446" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">経路3 ブラウザWhisper(導入ゼロ・非常手段)</text>
+  <text x="116" y="484" font-family="sans-serif" font-size="12.5" fill="#e6a94a">注意:精度は経路依存。固有名詞・数値は要照合</text>
+  <line x1="116" y1="506" x2="572" y2="506" stroke="#2c2c31" stroke-width="1"/>
+  <text x="116" y="536" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">向くPJ:PJ-01 議事録 / PJ-02 日報・CRM</text>
+  <text x="116" y="562" font-family="sans-serif" font-size="12" fill="#8a857d">録音同意の取得が前提</text>
+
+  <!-- card テキスト -->
+  <rect x="645" y="268" width="510" height="312" rx="12" fill="#1a1a1e" stroke="#7fc98b" stroke-width="1.5"/>
+  <circle cx="671" cy="302" r="8" fill="#7fc98b"/>
+  <text x="691" y="308" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">② テキストファイル</text>
+  <text x="671" y="336" font-family="sans-serif" font-size="12.5" fill="#a8a29b">メール・チャット・議事メモ・文書</text>
+  <text x="671" y="372" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#c9c3ba">文字化:</text>
+  <text x="671" y="398" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">変換不要。本文コピペ or ファイル添付</text>
+  <text x="671" y="422" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">追加工程なし(最短ルート)</text>
+  <text x="671" y="484" font-family="sans-serif" font-size="12.5" fill="#7fc98b">注意:文字化の劣化なし ― いちばん確実</text>
+  <line x1="671" y1="506" x2="1127" y2="506" stroke="#2c2c31" stroke-width="1"/>
+  <text x="671" y="536" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">向くPJ:PJ-04 FAQ / PJ-05 メール / PJ-03 資料</text>
+  <text x="671" y="562" font-family="sans-serif" font-size="12" fill="#8a857d">個人情報の扱いは持ち込み前に確認</text>
+
+  <!-- card 手書き -->
+  <rect x="1200" y="268" width="510" height="312" rx="12" fill="#1a1a1e" stroke="#e6c34a" stroke-width="1.5"/>
+  <circle cx="1226" cy="302" r="8" fill="#e6c34a"/>
+  <text x="1246" y="308" font-family="sans-serif" font-size="18" font-weight="700" fill="#f5f5f5">③ 手書きメモ</text>
+  <text x="1226" y="336" font-family="sans-serif" font-size="12.5" fill="#a8a29b">ノート・ホワイトボード・紙・FAX</text>
+  <text x="1226" y="372" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#c9c3ba">文字化:</text>
+  <text x="1226" y="398" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">撮影して画像化 → AIが画像から読み取り</text>
+  <text x="1226" y="422" font-family="sans-serif" font-size="12.5" fill="#c9c3ba">明るく・正面から撮ると精度が上がる</text>
+  <text x="1226" y="484" font-family="sans-serif" font-size="12.5" fill="#e6a94a">注意:判読不能・略字は「要確認」で残す</text>
+  <line x1="1226" y1="506" x2="1682" y2="506" stroke="#2c2c31" stroke-width="1"/>
+  <text x="1226" y="536" font-family="sans-serif" font-size="13" font-weight="700" fill="#7fc98b">向くPJ:清書 / PJ-03 資料 の下ごしらえ</text>
+  <text x="1226" y="562" font-family="sans-serif" font-size="12" fill="#8a857d">図・表は別途整形が必要</text>
+
+  <!-- merge bar -->
+  <rect x="60" y="616" width="1680" height="50" rx="10" fill="#17171b" stroke="#3a3a42" stroke-width="1"/>
+  <text x="900" y="647" font-family="sans-serif" font-size="16" font-weight="700" fill="#d8d3cc" text-anchor="middle">▼ 合流 ― ここから先は全入口共通(下書き → 自動QA → 人手確認 → 承認)</text>
+  <line x1="900" y1="670" x2="900" y2="690" stroke="#8a857d" stroke-width="2"/>
+  <path d="M886 690 L914 690 L900 708 Z" fill="#8a857d"/>
+
+  <!-- ============ 任せる ============ -->
+  <rect x="60" y="718" width="1680" height="222" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="761" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">任せる ― AIは「下書き」と「自動QA」まで(丸投げしない境界)</text>
+
+  <rect x="90" y="784" width="945" height="140" rx="12" fill="#1a1a1e" stroke="#4a9eff" stroke-width="1.5"/>
+  <circle cx="116" cy="820" r="8" fill="#4a9eff"/>
+  <text x="136" y="826" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">1. AIが下書き</text>
+  <text x="116" y="860" font-family="sans-serif" font-size="13" fill="#c9c3ba">型:PJ-01〜05 のいずれか(議事録 / 日報 / 資料 / FAQ / メール)</text>
+  <text x="116" y="888" font-family="sans-serif" font-size="13" fill="#c9c3ba">事実と意見を分離。各項目に根拠(発言引用+タイムスタンプ / 出典)を付す</text>
+
+  <line x1="1043" y1="854" x2="1063" y2="854" stroke="#8a857d" stroke-width="2"/>
+  <path d="M1063 841 L1063 867 L1080 854 Z" fill="#8a857d"/>
+
+  <rect x="1090" y="784" width="620" height="140" rx="12" fill="#1a1a1e" stroke="#e6c34a" stroke-width="1.5"/>
+  <circle cx="1116" cy="820" r="8" fill="#e6c34a"/>
+  <text x="1136" y="826" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">2. 自動QA判定</text>
+  <text x="1116" y="860" font-family="sans-serif" font-size="13" fill="#c9c3ba">保留 / 合格候補 / 要修正 を自動表示</text>
+  <text x="1116" y="888" font-family="sans-serif" font-size="13" fill="#c9c3ba">入力にない事実・数値・期限・担当は作らない → 要確認</text>
+
+  <line x1="900" y1="940" x2="900" y2="960" stroke="#8a857d" stroke-width="2"/>
+  <path d="M886 960 L914 960 L900 978 Z" fill="#8a857d"/>
+
+  <!-- ============ 受け取る ============ -->
+  <rect x="60" y="988" width="1680" height="222" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="1031" font-family="sans-serif" font-size="19" font-weight="700" fill="#7fc98b">受け取る ― 承認は必ず人。記録まで含めて完了</text>
+
+  <rect x="90" y="1054" width="945" height="140" rx="12" fill="#16211a" stroke="#7fc98b" stroke-width="2"/>
+  <circle cx="116" cy="1090" r="8" fill="#7fc98b"/>
+  <text x="136" y="1096" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">3. 人手確認11項目</text>
+  <text x="116" y="1130" font-family="sans-serif" font-size="13" fill="#c9c3ba">QA判定を人が精査。「要確認」の箇所だけ原典(音声・原文)で照合</text>
+  <text x="116" y="1158" font-family="sans-serif" font-size="13" fill="#c9c3ba">契約・金額・法務・個人情報に関わる箇所は特に重点</text>
+
+  <line x1="1043" y1="1124" x2="1063" y2="1124" stroke="#8a857d" stroke-width="2"/>
+  <path d="M1063 1111 L1063 1137 L1080 1124 Z" fill="#8a857d"/>
+
+  <rect x="1090" y="1054" width="620" height="140" rx="12" fill="#1a1a1e" stroke="#8b7dff" stroke-width="1.5"/>
+  <circle cx="1116" cy="1090" r="8" fill="#8b7dff"/>
+  <text x="1136" y="1096" font-family="sans-serif" font-size="17" font-weight="700" fill="#f5f5f5">4. 承認 → 反映</text>
+  <text x="1116" y="1130" font-family="sans-serif" font-size="13" fill="#c9c3ba">配布 / CRM登録 / 送信</text>
+  <text x="1116" y="1158" font-family="sans-serif" font-size="13" fill="#c9c3ba">案件フォルダの所定の場所に保存(記録を残す)</text>
+
+  <!-- responsibility callout -->
+  <rect x="60" y="1232" width="1680" height="104" rx="14" fill="#211d14" stroke="#e6c34a" stroke-width="2"/>
+  <text x="900" y="1276" font-family="sans-serif" font-size="23" font-weight="700" fill="#f5f5f5" text-anchor="middle">AIは下書きまで。契約・金額・法務・個人情報の最終判断は、必ず人。</text>
+  <text x="900" y="1309" font-family="sans-serif" font-size="14" fill="#a8a29b" text-anchor="middle">共通言語:渡す → 任せる → 受け取る / 版 v0.1(社内・提供者向け)</text>
+</svg>
