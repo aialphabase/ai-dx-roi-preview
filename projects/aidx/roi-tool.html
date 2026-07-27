@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="description" content="AIDX ROI診断ツール(内部用)。自社の業務時間と削減率を入力し、削減額・投資回収期間・ROIをその場で計算します。">
+<title>AIDX ROI診断ツール(内部用)</title>
+<style>
+  :root{
+    --bg:#0c0c0e;--panel:#131316;--card:#1a1a1e;--line:#2c2c31;
+    --tx:#f5f5f7;--sub:#c9c3ba;--dim:#8a857d;
+    --blue:#4a9eff;--green:#7fc98b;--amber:#e6c34a;--orange:#ff8a3d;--purple:#8b7dff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 60px}
+  header{border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:20px}
+  .eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:2px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;color:#06122a;background:var(--amber);border-radius:6px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+  h1{font-size:22px;margin:4px 0 2px}
+  .lead{color:var(--sub);font-size:13.5px;margin:0}
+  .cols{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start}
+  @media(max-width:860px){.cols{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .panel h2{font-size:14px;margin:0 0 12px;padding-left:9px;border-left:3px solid var(--blue)}
+  .panel.res h2{border-color:var(--green)}
+  .biz{display:grid;grid-template-columns:24px 1.3fr auto;gap:8px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:8px}
+  .biz.off{opacity:.4}
+  .biz .bname{font-size:13.5px;font-weight:600}
+  .biz .rowline{grid-column:2/4;display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px;font-size:12px;color:var(--sub)}
+  .biz input[type=number]{width:64px;background:#0f0f12;border:1px solid var(--line);border-radius:6px;color:var(--tx);padding:4px 6px;font-size:12.5px}
+  .biz input[type=range]{flex:1;min-width:90px;accent-color:var(--blue)}
+  .biz .rate{width:44px;text-align:right;font-weight:700;color:var(--blue)}
+  .params{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .params label{font-size:12px;color:var(--sub);display:flex;flex-direction:column;gap:4px}
+  .params input,.params select{background:#0f0f12;border:1px solid var(--line);border-radius:7px;color:var(--tx);padding:7px 8px;font-size:13px}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .l{font-size:11.5px;color:var(--dim)}
+  .kpi .v{font-size:24px;font-weight:800;margin-top:2px}
+  .kpi.big{grid-column:1/-1}
+  .kpi .v.g{color:var(--green)} .kpi .v.b{color:var(--blue)} .kpi .v.a{color:var(--amber)}
+  .kpi .sub{font-size:11px;color:var(--dim);margin-top:2px}
+  .chart{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .chart .ct{font-size:12px;color:var(--sub);margin-bottom:6px}
+  svg{width:100%;height:auto;display:block}
+  .cta{margin-top:14px;width:100%;font-size:13.5px;font-weight:700;background:var(--blue);color:#06122a;border:none;border-radius:8px;padding:11px;cursor:pointer}
+  .foot{color:var(--dim);font-size:11.5px;margin-top:16px;line-height:1.7}
+  .mask{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:40;display:none;align-items:center;justify-content:center;padding:20px}
+  .mask.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:620px;width:100%;padding:18px}
+  .modal h3{margin:0 0 4px;font-size:15px}.modal p{margin:0 0 10px;color:var(--sub);font-size:12.5px}
+  .modal textarea{width:100%;height:300px;background:#0f0f12;border:1px solid var(--line);border-radius:8px;color:var(--tx);font-size:12px;padding:12px;font-family:ui-monospace,Menlo,monospace;line-height:1.5}
+  .modal .row{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+  .modal .b{font-size:13px;font-weight:700;border-radius:8px;padding:9px 16px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--sub)}
+  .modal .b.pri{background:var(--blue);color:#06122a;border:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding-bottom:0">
+    <div class="eyebrow">AIDX ROI DIAGNOSIS TOOL<span class="badge">内部用</span></div>
+    <h1>ROI診断ツール ― 自社の数字で回収期間を出す</h1>
+    <p class="lead">対象業務の時間と削減率を入れると、削減額・投資回収期間・ROIをその場で計算します。数字はすべて画面内で計算し、外部送信はしません。</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="cols">
+    <!-- 入力 -->
+    <div class="panel">
+      <h2>① 入力(対象業務と条件)</h2>
+      <div id="biz"></div>
+      <div class="params">
+        <label>平均時給(円)<input type="number" id="wage" value="2500" min="0" step="100"></label>
+        <label>対象人数(参考)<input type="number" id="head" value="30" min="1"></label>
+        <label style="grid-column:1/-1">導入プラン
+          <select id="plan">
+            <option value="980000">AIDXライト(98万円)</option>
+            <option value="2480000" selected>AIDX立上げパック248(248万円)</option>
+            <option value="3980000">AIDXグロース(398万円)</option>
+            <option value="5980000">AIDXプレミアム(598万円)</option>
+            <option value="custom">その他(自由入力)</option>
+          </select>
+        </label>
+        <label id="customwrap" style="grid-column:1/-1;display:none">導入コスト(円)<input type="number" id="customcost" value="2480000" min="0" step="10000"></label>
+      </div>
+      <p class="foot">時間は「対象チーム全体の月間合計」で入れてください。削減率の初期値は暫定(PMレビュー前)です。</p>
+    </div>
+
+    <!-- 結果 -->
+    <div class="panel res">
+      <h2>② 診断結果(その場で計算)</h2>
+      <div class="kpis">
+        <div class="kpi big"><div class="l">投資回収期間</div><div class="v b" id="payback">―</div><div class="sub" id="paysub"></div></div>
+        <div class="kpi"><div class="l">月間削減時間</div><div class="v" id="hrs">―</div><div class="sub">時間/月</div></div>
+        <div class="kpi"><div class="l">月間削減額</div><div class="v g" id="msave">―</div><div class="sub">円/月</div></div>
+        <div class="kpi"><div class="l">年間削減額</div><div class="v g" id="ysave">―</div><div class="sub">円/年</div></div>
+        <div class="kpi"><div class="l">12ヶ月ROI</div><div class="v a" id="roi">―</div><div class="sub">(年間削減額−導入コスト)÷導入コスト</div></div>
+      </div>
+      <div class="chart">
+        <div class="ct">回収の見通し(12ヶ月・累積削減額 vs 導入コスト)</div>
+        <svg id="chart" viewBox="0 0 420 210" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <button class="cta" onclick="openReport()">この条件をコピー(費用対効果レポートの下地)↗</button>
+      <p class="foot">計算式:月間削減時間=Σ(業務時間×削減率)/ 月間削減額=削減時間×時給 / 回収期間=導入コスト÷月間削減額 / 12ヶ月ROI=(年間削減額−導入コスト)÷導入コスト。</p>
+    </div>
+  </div>
+</div>
+
+<div class="mask" id="mask">
+  <div class="modal">
+    <h3>ROI診断結果(費用対効果レポートの下地)</h3>
+    <p>コピーして、費用対効果レポートやSlack共有、AIへの指示にそのまま使えます。</p>
+    <textarea id="out" readonly></textarea>
+    <div class="row">
+      <button class="b" onclick="closeReport()">閉じる</button>
+      <button class="b pri" onclick="doCopy()">クリップボードにコピー</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const BIZ = [
+  {name:"議事録",           hrs:60, rate:70},
+  {name:"資料作成",         hrs:40, rate:50},
+  {name:"問い合わせ対応",   hrs:50, rate:40},
+  {name:"日報・CRM入力",    hrs:20, rate:60},
+  {name:"FAQ・ナレッジ整備",hrs:15, rate:50},
+];
+const yen = n => "¥" + Math.round(n).toLocaleString("ja-JP");
+
+function renderBiz(){
+  document.getElementById("biz").innerHTML = BIZ.map((b,i)=>`
+    <div class="biz" id="biz-${i}">
+      <input type="checkbox" checked onchange="toggleBiz(${i},this)">
+      <span class="bname">${b.name}</span>
+      <span></span>
+      <div class="rowline">
+        現状<input type="number" class="hrs" id="hrs-${i}" value="${b.hrs}" min="0" oninput="calc()">h/月
+        ｜削減<input type="range" id="rate-${i}" min="0" max="100" value="${b.rate}" oninput="document.getElementById('rate-v-'+${i}).textContent=this.value+'%';calc()">
+        <span class="rate" id="rate-v-${i}">${b.rate}%</span>
+      </div>
+    </div>`).join("");
+}
+function toggleBiz(i,el){ document.getElementById("biz-"+i).classList.toggle("off",!el.checked); calc(); }
+
+function cost(){
+  const p = document.getElementById("plan").value;
+  return p==="custom" ? (+document.getElementById("customcost").value||0) : +p;
+}
+document.getElementById("plan").addEventListener("change",e=>{
+  document.getElementById("customwrap").style.display = e.target.value==="custom"?"flex":"none";
+  calc();
+});
+document.getElementById("customcost").addEventListener("input",calc);
+document.getElementById("wage").addEventListener("input",calc);
+
+let LAST = {};
+function calc(){
+  const wage = +document.getElementById("wage").value||0;
+  let totalCut=0, lines=[];
+  BIZ.forEach((b,i)=>{
+    const on = document.querySelector(`#biz-${i} input[type=checkbox]`).checked;
+    const hrs = +document.getElementById("hrs-"+i).value||0;
+    const rate = +document.getElementById("rate-"+i).value||0;
+    if(on){ const cut = hrs*rate/100; totalCut+=cut; lines.push({name:b.name,hrs,rate,cut}); }
+  });
+  const mSave = totalCut*wage;
+  const ySave = mSave*12;
+  const c = cost();
+  const payMonths = mSave>0 ? c/mSave : Infinity;
+  const roi = c>0 ? (ySave-c)/c*100 : 0;
+
+  document.getElementById("hrs").textContent = totalCut.toFixed(1);
+  document.getElementById("msave").textContent = yen(mSave);
+  document.getElementById("ysave").textContent = yen(ySave);
+  document.getElementById("payback").textContent = isFinite(payMonths)? "約"+payMonths.toFixed(1)+"ヶ月" : "―";
+  document.getElementById("paysub").textContent = isFinite(payMonths)? (payMonths<=12? "12ヶ月以内に回収":"回収に12ヶ月超") : "削減額が0です";
+  const roiEl = document.getElementById("roi");
+  roiEl.textContent = (roi>=0?"+":"")+roi.toFixed(1)+"%";
+  roiEl.className = "v "+(roi>=0?"a":"");
+
+  LAST = {wage, head:+document.getElementById("head").value||0, cost:c, planLabel:document.getElementById("plan").selectedOptions[0].textContent, lines, totalCut, mSave, ySave, payMonths, roi};
+  drawChart(mSave, c, payMonths);
+}
+document.getElementById("head").addEventListener("input",calc);
+
+function drawChart(mSave, c, payMonths){
+  const W=420,H=210,pad=34;
+  const cum12 = mSave*12;
+  const ymax = Math.max(cum12, c)*1.12 || 1;
+  const x = m => pad + (W-pad-10)*(m/12);
+  const y = v => H-24 - (H-24-14)*(v/ymax);
+  let s=`<line x1="${pad}" y1="${H-24}" x2="${W-10}" y2="${H-24}" stroke="#2c2c31"/>`;
+  s+=`<line x1="${pad}" y1="14" x2="${pad}" y2="${H-24}" stroke="#2c2c31"/>`;
+  // cost line
+  s+=`<line x1="${pad}" y1="${y(c)}" x2="${W-10}" y2="${y(c)}" stroke="#e6c34a" stroke-dasharray="5 4"/>`;
+  s+=`<text x="${W-12}" y="${y(c)-5}" fill="#e6c34a" font-size="9" text-anchor="end">導入コスト ${yen(c)}</text>`;
+  // cumulative saving line
+  let d=`M ${x(0)} ${y(0)}`;
+  for(let m=1;m<=12;m++) d+=` L ${x(m)} ${y(mSave*m)}`;
+  s+=`<path d="${d}" fill="none" stroke="#7fc98b" stroke-width="2.5"/>`;
+  s+=`<text x="${x(12)}" y="${y(cum12)-6}" fill="#7fc98b" font-size="9" text-anchor="end">累積削減額</text>`;
+  // payback marker
+  if(isFinite(payMonths) && payMonths<=12){
+    const px=x(payMonths);
+    s+=`<line x1="${px}" y1="14" x2="${px}" y2="${H-24}" stroke="#4a9eff" stroke-dasharray="3 3"/>`;
+    s+=`<circle cx="${px}" cy="${y(c)}" r="4" fill="#4a9eff"/>`;
+    s+=`<text x="${px}" y="${H-10}" fill="#4a9eff" font-size="9" text-anchor="middle">回収 約${payMonths.toFixed(1)}ヶ月</text>`;
+  }
+  // x labels
+  [0,3,6,9,12].forEach(m=>{ s+=`<text x="${x(m)}" y="${H-10}" fill="#8a857d" font-size="8" text-anchor="middle">${m}ヶ月</text>`; });
+  document.getElementById("chart").innerHTML = s;
+}
+
+function openReport(){
+  const L=LAST;
+  let t="=== AIDX ROI診断結果（費用対効果レポートの下地） ===\n";
+  t+=`対象人数: ${L.head}名 / 平均時給: ${L.wage.toLocaleString("ja-JP")}円 / プラン: ${L.planLabel}（導入コスト ${yen(L.cost)}）\n\n`;
+  t+="対象業務と削減:\n";
+  L.lines.forEach(x=> t+=`・${x.name}: 現状${x.hrs}h/月 × 削減${x.rate}% = ${x.cut.toFixed(1)}h\n`);
+  t+=`\n月間削減時間: ${L.totalCut.toFixed(1)} 時間\n`;
+  t+=`月間削減額: ${yen(L.mSave)}\n年間削減額: ${yen(L.ySave)}\n`;
+  t+=`投資回収期間: ${isFinite(L.payMonths)?"約"+L.payMonths.toFixed(1)+"ヶ月":"―"}\n`;
+  t+=`12ヶ月ROI: ${(L.roi>=0?"+":"")+L.roi.toFixed(1)}%\n\n`;
+  t+="※削減率は暫定値です。実際の値は業務ヒアリングで確定してください。\n";
+  t+="========================================";
+  document.getElementById("out").value=t;
+  document.getElementById("mask").classList.add("show");
+}
+function closeReport(){ document.getElementById("mask").classList.remove("show"); }
+function doCopy(){
+  const ta=document.getElementById("out"); ta.select();
+  try{ navigator.clipboard.writeText(ta.value); }catch(e){ document.execCommand("copy"); }
+  const b=event.target; const o=b.textContent; b.textContent="コピーしました ✓"; setTimeout(()=>b.textContent=o,1500);
+}
+document.getElementById("mask").addEventListener("click",e=>{ if(e.target.id==="mask") closeReport(); });
+
+renderBiz(); calc();
+</script>
+</body>
+</html>
