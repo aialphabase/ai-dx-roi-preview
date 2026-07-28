@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>AIラボ(開発・活用・自動化) — ALPHA Base</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#151518; --panel2:#1c1c21; --line:#2a2a31;
+    --text:#e8e8ec; --muted:#9a9aa5; --accent:#5ac8fa;
+    --ok:#4cd483; --warn:#f5c04e; --info:#8f9dfb; --gray:#6b7185;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Noto Sans JP",-apple-system,sans-serif;line-height:1.65;padding:32px 20px 70px}
+  .wrap{max-width:1040px;margin:0 auto}
+  .kicker{color:var(--accent);font-size:12px;letter-spacing:.18em;font-weight:700}
+  h1{font-size:26px;font-weight:800;margin:6px 0 6px}
+  .lead{color:var(--muted);font-size:13.5px;max-width:720px}
+  .meta{color:var(--muted);font-size:11.5px;margin-top:8px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:22px 0}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .n{font-size:24px;font-weight:800;color:var(--accent)}
+  .stat .l{font-size:11.5px;color:var(--muted)}
+  .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;color:var(--muted)}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#08131a;font-weight:700}
+  .view-toggle{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3px}
+  .view-toggle button{border:none;background:transparent;color:var(--muted);font-size:12px;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+  .view-toggle button.active{background:var(--panel2);color:var(--text)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
+  .card .head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .card h3{font-size:15.5px;font-weight:700}
+  .cat{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.04em}
+  .badge{font-size:11px;font-weight:700;border-radius:20px;padding:3px 10px;white-space:nowrap}
+  .st-live{background:#12301f;color:var(--ok)}
+  .st-demo{background:#14243a;color:var(--info)}
+  .st-study{background:#332a12;color:var(--warn)}
+  .st-idea{background:#232329;color:var(--gray)}
+  .desc{font-size:12.5px;color:var(--muted);flex:1}
+  .kv{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+  .kv b{color:var(--text);font-weight:600}
+  .links{display:flex;gap:8px;flex-wrap:wrap}
+  .lnk{font-size:12px;font-weight:700;border-radius:8px;padding:6px 12px;text-decoration:none;border:1px solid var(--line)}
+  .lnk.pri{background:var(--accent);color:#08131a;border-color:var(--accent)}
+  .lnk.sec{color:var(--accent)}
+  .lnk.dis{color:var(--gray);cursor:default}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--panel);border-radius:12px;overflow:hidden}
+  th{background:var(--panel2);color:var(--muted);font-size:11px;text-align:left;padding:10px 12px;white-space:nowrap}
+  td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+  #tableView{display:none;overflow-x:auto}
+  .empty{border:1px dashed var(--line);border-radius:14px;padding:18px;color:var(--gray);font-size:12.5px;text-align:center}
+  h2{font-size:15px;font-weight:700;margin:36px 0 12px;padding-left:10px;border-left:3px solid var(--accent)}
+  .howto{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:12.5px;color:var(--muted)}
+  .howto code{background:var(--panel2);border-radius:6px;padding:2px 6px;font-size:11.5px;color:var(--accent)}
+  footer{margin-top:44px;color:var(--gray);font-size:11px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">ALPHA BASE / AIDX</div>
+    <h1>AIラボ — 開発・活用・自動化</h1>
+    <p class="lead">自社開発ツール・AI活用・自動化の取り組みを1か所に集約し、状態とコストを比較できるページ。新しいツールや検証はここに追記していく。</p>
+    <div class="meta">v0.2 / 2026-07-28 更新 / 追加方法はページ末尾</div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <div class="chips" id="catChips"></div>
+    <div class="view-toggle">
+      <button class="active" id="btnCards" onclick="setView('cards')">カード</button>
+      <button id="btnTable" onclick="setView('table')">比較表</button>
+    </div>
+  </div>
+
+  <div class="grid" id="cardView"></div>
+  <div id="tableView"></div>
+
+  <h2>このページへの追加ルール</h2>
+  <div class="howto">
+    ツール・取り組みを追加するときは、HTML内の <code>TOOLS</code> 配列にオブジェクトを1件足すだけ(集計・絞り込み・比較表は自動反映)。フィールドは
+    <code>name</code>(名称) / <code>cat</code>(カテゴリ: 業務ツール・AI活用・自動化・検証比較のいずれか、新設可) /
+    <code>status</code>(live=運用中・demo=デモ検証中・study=検討中・idea=構想) /
+    <code>desc</code>(2行以内の説明) / <code>cost</code>(コスト目安) / <code>alt</code>(置き換え対象・比較先) /
+    <code>links</code>(url があれば公開リンク、なければ place に「社内アーティファクト」等の所在を書く)。
+    公開Pagesに置く版と社内アーティファクト版は同一ファイル(このHTML)を正とし、更新時は両方に反映する。素材・経緯のMarkdownはプロジェクト/aidx-docs側に置く。
+  </div>
+
+  <footer>ALPHA Base AIラボ(開発・活用・自動化) / 個人管理ページ(PM承認不要レイヤー) / 経緯・素材: プロジェクト「alphamn」・aidx-docs / 検索エンジン除外(noindex)</footer>
+</div>
+
+<script>
+// ================= データ(ここに追記していく) =================
+const CATS = ['業務ツール','AI活用','自動化','検証比較'];
+const TOOLS = [
+  {
+    name:'イベント管理ツール(Stripe連携)',
+    cat:'業務ツール', status:'demo',
+    desc:'イベントページ作成・申込時Stripe決済・支払/未払一覧・定員制御・QRチケット受付までを自社開発。イーベ！(月2〜5万円)の置き換え。模擬デモを社内セミナー担当が検証中。',
+    cost:'自社開発: 固定費 月0〜8千円 + Stripe 3.6%/決済',
+    alt:'イーベ！(event-form.jp) 月2〜5万円',
+    links:[
+      {label:'模擬デモ', place:'社内アーティファクト: aidx-event-tool-demo'},
+      {label:'開発可否 判断資料', place:'社内アーティファクト: aidx-event-tool-feasibility'}
+    ],
+    updated:'2026-07-27'
+  },
+  {
+    name:'ROIシミュレーター(Codex版/Claude版)',
+    cat:'検証比較', status:'live',
+    desc:'AIDX導入のROIを試算する公開ツール。2実装(Codex版・Claude版)を並置して比較できる。',
+    cost:'公開済み(GitHub Pages・費用なし)',
+    alt:'—',
+    links:[
+      {label:'公開ページ', url:'https://aialphabase.github.io/ai-dx-roi-preview/projects/aidx/'}
+    ],
+    updated:'2026-07-24'
+  },
+  {
+    name:'ワークフロー可視化(渡す→任せる→受け取る)',
+    cat:'自動化', status:'live',
+    desc:'AIDXの業務自動化ワークフローを図解3枚(全体像・顧客向け・社内向け)で公開。入口3経路(音声/テキスト/手書き)を明示。',
+    cost:'公開済み(図解ライブラリ内)',
+    alt:'—',
+    links:[
+      {label:'図解ライブラリ', url:'https://aialphabase.github.io/ai-dx-roi-preview/projects/aidx/'}
+    ],
+    updated:'2026-07-24'
+  },
+  {
+    name:'音声文字起こし経路(三段構え)',
+    cat:'AI活用', status:'study',
+    desc:'M365 Word / ローカルアプリ(MacWhisper等) / ブラウザ内Whisper の3経路を比較検証中。PJ-01〜05実運用の前提となるボトルネック。',
+    cost:'経路により0円〜(検証中)',
+    alt:'外部文字起こしSaaS',
+    links:[
+      {label:'運用メモ v0.2', place:'aidx-docs / Mac 00_運用メモ'}
+    ],
+    updated:'2026-07-24'
+  }
+];
+// ==============================================================
+
+const ST = {live:['運用中','st-live'], demo:['デモ検証中','st-demo'], study:['検討・検証中','st-study'], idea:['構想','st-idea']};
+let curCat='all', curView='cards';
+const $=id=>document.getElementById(id);
+
+function renderStats(){
+  const s=$('stats');
+  const c=k=>TOOLS.filter(t=>t.status===k).length;
+  s.innerHTML =
+    '<div class="stat"><div class="n">'+TOOLS.length+'</div><div class="l">登録ツール・取り組み</div></div>'+
+    '<div class="stat"><div class="n">'+c('live')+'</div><div class="l">運用中・公開済み</div></div>'+
+    '<div class="stat"><div class="n">'+(c('demo')+c('study'))+'</div><div class="l">デモ・検証中</div></div>'+
+    '<div class="stat"><div class="n">'+new Set(TOOLS.map(t=>t.cat)).size+'</div><div class="l">カテゴリ</div></div>';
+}
+function renderChips(){
+  const el=$('catChips');
+  el.innerHTML='<span class="chip'+(curCat==='all'?' active':'')+'" onclick="setCat(\'all\')">すべて</span>';
+  CATS.forEach(c=>{
+    const n=TOOLS.filter(t=>t.cat===c).length;
+    el.innerHTML+='<span class="chip'+(curCat===c?' active':'')+'" onclick="setCat(\''+c+'\')">'+c+'('+n+')</span>';
+  });
+}
+function linkHtml(l){
+  if(l.url) return '<a class="lnk pri" href="'+l.url+'" target="_blank" rel="noopener">'+l.label+' ↗</a>';
+  return '<span class="lnk dis" title="'+(l.place||'')+'">'+l.label+'(社内)</span>';
+}
+function renderCards(){
+  const list=TOOLS.filter(t=>curCat==='all'||t.cat===curCat);
+  const el=$('cardView');
+  if(!list.length){el.innerHTML='<div class="empty">このカテゴリはまだ空です。今後ここに追記していきます。</div>';return;}
+  el.innerHTML=list.map(t=>{
+    const st=ST[t.status]||ST.idea;
+    return '<div class="card">'+
+      '<div class="head"><div><div class="cat">'+t.cat+'</div><h3>'+t.name+'</h3></div><span class="badge '+st[1]+'">'+st[0]+'</span></div>'+
+      '<div class="desc">'+t.desc+'</div>'+
+      '<div class="links">'+t.links.map(linkHtml).join('')+'</div>'+
+      '<div class="kv"><span>コスト: <b>'+t.cost+'</b></span><span>比較先: <b>'+t.alt+'</b></span><span>更新: '+t.updated+'</span></div>'+
+    '</div>';
+  }).join('');
+}
+function renderTable(){
+  const list=TOOLS.filter(t=>curCat==='all'||t.cat===curCat);
+  const rows=list.map(t=>{
+    const st=ST[t.status]||ST.idea;
+    return '<tr><td><b>'+t.name+'</b></td><td>'+t.cat+'</td><td><span class="badge '+st[1]+'">'+st[0]+'</span></td><td>'+t.cost+'</td><td>'+t.alt+'</td><td>'+t.links.map(l=>l.url?('<a class="lnk sec" style="border:none;padding:0" href="'+l.url+'" target="_blank" rel="noopener">'+l.label+'↗</a>'):(l.label+'(社内: '+(l.place||'')+')')).join('<br>')+'</td><td style="white-space:nowrap;color:var(--muted)">'+t.updated+'</td></tr>';
+  }).join('');
+  $('tableView').innerHTML='<table><thead><tr><th>名称</th><th>カテゴリ</th><th>状態</th><th>コスト</th><th>比較先・置き換え対象</th><th>リンク・所在</th><th>更新</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function setCat(c){curCat=c;renderAll();}
+function setView(v){
+  curView=v;
+  $('btnCards').classList.toggle('active',v==='cards');
+  $('btnTable').classList.toggle('active',v==='table');
+  $('cardView').style.display = v==='cards'?'grid':'none';
+  $('tableView').style.display = v==='table'?'block':'none';
+}
+function renderAll(){renderStats();renderChips();renderCards();renderTable();}
+renderAll();
+</script>
+</body>
+</html>
