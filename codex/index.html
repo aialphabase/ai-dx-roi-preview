@@ -13,6 +13,62 @@
     @media(max-width:560px){.hero{min-height:680px}.heroLead{font-size:15px}.primary{width:100%;justify-content:space-between}.proof,.industry,.diagnosis{padding-inline:20px}.roiMeta{gap:16px}.roiNumber strong{font-size:64px}footer{display:grid}.cardBody{padding:22px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   </style>
+
+<style id="sim-style">
+  .sim-diagnosis{display:block !important}
+  .sim-head{max-width:760px;margin:0 auto 40px;text-align:left}
+  .sim-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:32px;align-items:start;max-width:1180px;margin:0 auto}
+  @media(max-width:900px){.sim-grid{grid-template-columns:1fr;gap:22px}}
+  .sim-form{background:#fff;color:var(--ink);border-radius:6px;padding:8px 0;box-shadow:0 18px 50px rgba(2,18,29,.28);overflow:hidden}
+  .sim-step{padding:22px 28px;border-top:1px solid var(--line)}
+  .sim-step:first-child{border-top:0}
+  .sim-step > legend, .sim-legend{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;color:var(--ink);padding:0;margin:0 0 14px}
+  .sim-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#fff;font:800 12px/1 Arial;flex:none}
+  fieldset.sim-step{border:0;border-top:1px solid var(--line);margin:0}
+  .sim-opts{display:flex;flex-wrap:wrap;gap:8px}
+  .sim-opt{position:relative}
+  .sim-opt input{position:absolute;opacity:0;pointer-events:none}
+  .sim-opt span{display:block;border:1px solid var(--line);border-radius:6px;padding:9px 14px;font-size:13.5px;cursor:pointer;color:#33454e;transition:.12s}
+  .sim-opt input:checked + span{border-color:var(--green);background:#eef6f2;color:var(--green);font-weight:700}
+  .sim-opt input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}
+  .sim-opt .od{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:2px}
+  .sim-field{display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:var(--muted)}
+  .sim-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:560px){.sim-row{grid-template-columns:1fr}}
+  .sim-form input[type=number],.sim-form input[type=text],.sim-form select{background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:9px 10px;font-size:14px;width:100%}
+  .sim-form input:focus-visible,.sim-form select:focus-visible{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+  .sim-check{display:flex;align-items:center;gap:8px;margin:2px 0 12px;font-size:13px;color:#33454e}
+  .sim-tasks{display:flex;flex-direction:column;gap:8px}
+  .sim-task{display:grid;grid-template-columns:22px 1fr 96px;align-items:center;gap:10px;border:1px solid var(--line);border-radius:6px;padding:9px 12px}
+  .sim-task.off{opacity:.45}
+  .sim-task .tn{font-size:13.5px;font-weight:600;color:var(--ink)}
+  .sim-task .tc{font-size:11px;color:var(--muted)}
+  .sim-task .th{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+  .sim-task .th input{width:58px;padding:5px 6px}
+  .sim-addwrap{display:grid;grid-template-columns:1fr 130px 80px auto;gap:8px;margin-top:10px}
+  @media(max-width:560px){.sim-addwrap{grid-template-columns:1fr 1fr}}
+  .sim-add{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .sim-hint{font-size:11.5px;color:var(--muted);margin:8px 0 0}
+  /* result */
+  .sim-result{position:sticky;top:20px;background:#fff;color:var(--ink);border-radius:6px;padding:26px;box-shadow:0 18px 50px rgba(2,18,29,.28)}
+  .sim-result .rlabel{font-size:12px;color:var(--muted)}
+  .sim-pay{margin:6px 0 4px;font:800 clamp(40px,5vw,58px)/1 Arial;color:var(--green)}
+  .sim-pay.na{color:var(--gold);font-size:26px;line-height:1.3}
+  .sim-paysub{font-size:12px;color:var(--muted);margin-bottom:18px}
+  .sim-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:16px}
+  .sim-kpi{background:#fff;padding:12px 14px}
+  .sim-kpi .l{font-size:11px;color:var(--muted)}
+  .sim-kpi .v{font-size:19px;font-weight:800;color:var(--ink);margin-top:2px}
+  .sim-kpi .v.g{color:var(--green)}
+  .sim-cmp{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}
+  .sim-cmp th,.sim-cmp td{text-align:right;padding:6px 6px;border-bottom:1px solid var(--line)}
+  .sim-cmp th:first-child,.sim-cmp td:first-child{text-align:left;color:var(--ink)}
+  .sim-cmp th{color:var(--muted);font-weight:700}
+  .sim-cmp .cut{color:var(--green);font-weight:700}
+  .sim-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .sim-copy{width:100%;margin-top:14px;background:var(--navy);color:#fff;border:0;border-radius:6px;padding:13px;font-weight:800;font-size:13.5px;cursor:pointer}
+</style>
+
 </head>
 <body>
   <main>
@@ -59,12 +115,204 @@
       </div>
     </section>
 
-    <section class="diagnosis" id="diagnosis" aria-labelledby="diagnosis-title">
-      <div><p class="eyebrow gold">ROI SIMULATION</p><h2 id="diagnosis-title">削減時間を、投資判断へ。</h2><p>自社の人数、時給、業務時間を入力すると、年間効果と投資回収期間を試算できます。</p></div>
-      <div class="roiPanel"><span>主要5業務・モデルケース</span><div class="roiNumber"><strong>263.5</strong><small>時間 / 月を削減</small></div><div class="roiMeta"><span>年間効果 <b>790.5万円</b></span><span>回収期間 <b>約3.76ヶ月</b></span></div><button type="button" disabled aria-describedby="preview-note">診断機能を準備中</button><small id="preview-note">本番のROI計算ロジックと接続後に有効化します。</small></div>
+    <section class="diagnosis sim-diagnosis" id="diagnosis" aria-labelledby="diagnosis-title">
+      <div class="sim-head"><p class="eyebrow gold">ROI SIMULATION</p><h2 id="diagnosis-title">削減時間を、投資判断へ。</h2><p>自社の人数、時給、業務時間を入力すると、年間効果と投資回収期間をその場で試算できます。数値はすべてブラウザ内で計算し、外部送信はしません。</p></div>
+      <div class="sim-grid">
+        <form class="sim-form" id="roiForm" aria-label="ROI診断入力">
+          <fieldset class="sim-step">
+            <legend class="sim-legend"><span class="sim-num">1</span>企業区分</legend>
+            <div class="sim-opts" id="simSeg"></div>
+          </fieldset>
+          <fieldset class="sim-step">
+            <legend class="sim-legend"><span class="sim-num">2</span>業種</legend>
+            <label class="sim-check"><input type="checkbox" id="simAll"> 全業種から選ぶ</label>
+            <label class="sim-field" for="simIndustry">業種を選択<select id="simIndustry"></select></label>
+          </fieldset>
+          <fieldset class="sim-step">
+            <legend class="sim-legend"><span class="sim-num">3</span>会社の基本情報</legend>
+            <div class="sim-row">
+              <label class="sim-field" for="simEmp">従業員数<input type="number" id="simEmp" min="1" value="30"></label>
+              <label class="sim-field" for="simTarget">AI導入対象の社員数<input type="number" id="simTarget" min="1" value="30"></label>
+              <label class="sim-field" for="simWage">平均時給（円）<input type="number" id="simWage" min="0" step="100" value="2500"></label>
+            </div>
+          </fieldset>
+          <fieldset class="sim-step">
+            <legend class="sim-legend"><span class="sim-num">4</span>対象業務と月間時間</legend>
+            <div class="sim-tasks" id="simTasks"></div>
+            <div class="sim-addwrap">
+              <input type="text" id="simAddName" placeholder="独自業務を追加（名称）" aria-label="追加する業務名">
+              <select id="simAddCat" aria-label="追加業務の分類"></select>
+              <input type="number" id="simAddHrs" min="0" value="20" aria-label="追加業務の月間時間">
+              <button type="button" class="sim-add" id="simAddBtn">追加</button>
+            </div>
+            <p class="sim-hint">時間は「対象チーム全体の月間合計」です。対象外にしたい業務はチェックを外してください。</p>
+          </fieldset>
+          <fieldset class="sim-step">
+            <legend class="sim-legend"><span class="sim-num">5</span>AIに任せる範囲</legend>
+            <div class="sim-opts" id="simScope"></div>
+          </fieldset>
+          <fieldset class="sim-step">
+            <legend class="sim-legend"><span class="sim-num">6</span>費用条件</legend>
+            <div class="sim-row">
+              <label class="sim-field" for="simInit">初期導入費用（円）<input type="number" id="simInit" min="0" step="10000" value="2480000"></label>
+              <label class="sim-field" for="simMonthly">月額費用（円）<input type="number" id="simMonthly" min="0" step="1000" value="0"></label>
+              <label class="sim-field" for="simSubRate">補助率（％）<input type="number" id="simSubRate" min="0" max="100" value="0"></label>
+            </div>
+            <div class="sim-row" style="margin-top:12px">
+              <label class="sim-field" for="simSubCap">補助金上限（円）<input type="number" id="simSubCap" min="0" step="10000" value="1000000"></label>
+            </div>
+          </fieldset>
+        </form>
+
+        <aside class="sim-result" id="roiResult" aria-live="polite">
+          <div class="rlabel">投資回収期間</div>
+          <div class="sim-pay" id="rPay">―</div>
+          <div class="sim-paysub" id="rPaySub"></div>
+          <div class="sim-kpis">
+            <div class="sim-kpi"><div class="l">現在の月間作業時間</div><div class="v" id="rCur">―</div></div>
+            <div class="sim-kpi"><div class="l">AI導入後の月間作業時間</div><div class="v" id="rAfter">―</div></div>
+            <div class="sim-kpi"><div class="l">月間削減時間</div><div class="v g" id="rCut">―</div></div>
+            <div class="sim-kpi"><div class="l">月間削減金額</div><div class="v g" id="rMSave">―</div></div>
+            <div class="sim-kpi"><div class="l">年間削減金額／年間効果</div><div class="v g" id="rYSave">―</div></div>
+            <div class="sim-kpi"><div class="l">補助金適用額</div><div class="v" id="rSub">―</div></div>
+            <div class="sim-kpi"><div class="l">実質初期費用</div><div class="v" id="rNet">―</div></div>
+            <div class="sim-kpi"><div class="l">月額費用</div><div class="v" id="rMonthly">―</div></div>
+          </div>
+          <table class="sim-cmp"><thead><tr><th>業務</th><th>導入前</th><th>導入後</th><th>削減</th></tr></thead><tbody id="rCmp"></tbody></table>
+          <button type="button" class="sim-copy" id="simCopy">この試算をコピー（費用対効果レポートの下地）↗</button>
+          <p class="sim-note">表示される数値は入力条件に基づく試算であり、効果を確約するものではありません。削減率は業務分類ごとの標準値に「AIに任せる範囲」を加味した目安です。実際の効果は業務ヒアリングで確定します。</p>
+        </aside>
+      </div>
     </section>
     <div class="notice">表示中の数値はモデルケースであり、実際の効果を保証するものではありません。生成映像は顧客現場や導入実績を表すものではなく、説明用のイメージです。</div>
   </main>
   <footer><span>AI DX ROI DIAGNOSIS</span><span>PREVIEW · 2026-07-15</span></footer>
+
+<script>
+(function(){
+  "use strict";
+  const CFG = {"settings":{"serviceName":"AI DX ROI診断","subtitle":"AI活用コスト削減シミュレーション","apiEndpoint":null,"defaults":{"initialCost":2480000,"monthlyCost":0,"subsidyRatePct":0,"subsidyCap":1000000,"hourlyWage":2500,"scope":"standard"},"scopeAdjustments":{"light":-0.15,"standard":0,"aggressive":0.15},"rateBounds":{"min":0.15,"max":0.75},"revenueScenarioDefaults":{"sharePct":30,"hoursPerDeal":3,"closeRatePct":20,"grossPerDeal":150000}},"industrySegments":[{"id":"b2b","name":"法人向け","desc":"建設、設備工事、製造、物流、卸売、営業会社、士業など"},{"id":"b2c","name":"店舗・生活者向け","desc":"美容サロン、クリニック、歯科、飲食、宿泊、小売、教育など"},{"id":"mixed","name":"両方","desc":"職人・専門工事、不動産、自動車整備、農業・食品販売など"}],"taskCategories":[{"id":"minutes","name":"議事録・記録","rate":0.65,"basis":"文字起こし、要約、決定事項、ToDo化はAIで補助しやすい"},{"id":"docs","name":"資料・文書作成","rate":0.5,"basis":"構成と初稿をAI化し、最終調整を人が行う"},{"id":"faq","name":"問い合わせ・FAQ","rate":0.35,"basis":"定型質問は削減しやすいが、例外判断が残る"},{"id":"report","name":"日報・報告","rate":0.5,"basis":"入力補助、要約、週次集計にAIが効きやすい"},{"id":"education","name":"教育・ナレッジ","rate":0.45,"basis":"資料検索と質問対応を減らせるが、実地教育は残る"},{"id":"sales","name":"営業・追客","rate":0.5,"basis":"提案文、追客文、商談メモ整理はAI化しやすい"},{"id":"contract","name":"契約・確認書類","rate":0.35,"basis":"下書きは可能だが専門確認、法務確認が必要"},{"id":"photo","name":"写真・現場報告","rate":0.4,"basis":"写真整理と報告書初稿を削減し、現場判断は人が行う"},{"id":"pr","name":"採用・広報","rate":0.5,"basis":"求人票、スカウト文、投稿文の初稿を作りやすい"}],"commonTasks":[{"id":"meeting-minutes","name":"議事録作成","categoryId":"minutes","rate":0.7,"defaultHours":40},{"id":"sales-docs","name":"営業資料・提案書作成","categoryId":"docs","defaultHours":40},{"id":"internal-faq","name":"社内問い合わせ対応","categoryId":"faq","rate":0.3,"defaultHours":40},{"id":"daily-report","name":"日報・週報・報告","categoryId":"report","defaultHours":40},{"id":"onboarding","name":"新人教育・マニュアル","categoryId":"education","defaultHours":30},{"id":"biz-writing","name":"メール・社外文書作成","categoryId":"docs","defaultHours":30},{"id":"quote-invoice","name":"見積・請求などの定型書類","categoryId":"contract","defaultHours":20},{"id":"recruiting","name":"採用・求人文作成","categoryId":"pr","defaultHours":20},{"id":"sns-pr","name":"SNS・広報投稿","categoryId":"pr","defaultHours":20},{"id":"data-summary","name":"データ整理・集計報告","categoryId":"report","defaultHours":30}],"taskTemplates":{"medical":[{"name":"問診・記録の要約","categoryId":"minutes","defaultHours":40},{"name":"予約・問い合わせ対応","categoryId":"faq","defaultHours":60},{"name":"説明文書・お知らせ作成","categoryId":"docs","defaultHours":30},{"name":"申し送り・情報共有","categoryId":"report","defaultHours":40},{"name":"スタッフ教育・手順書","categoryId":"education","defaultHours":30}],"construction":[{"name":"現場報告・施工写真の整理","categoryId":"photo","defaultHours":40},{"name":"見積・提案資料の作成","categoryId":"docs","defaultHours":40},{"name":"問い合わせ・追客対応","categoryId":"sales","defaultHours":30},{"name":"安全・確認書類の下書き","categoryId":"contract","defaultHours":20},{"name":"採用・職人教育","categoryId":"education","defaultHours":30}],"hospitality":[{"name":"予約・問い合わせ対応","categoryId":"faq","defaultHours":50},{"name":"シフト・連絡事項の共有","categoryId":"report","defaultHours":30},{"name":"メニュー・案内文の作成","categoryId":"docs","defaultHours":20},{"name":"SNS・口コミ返信","categoryId":"pr","defaultHours":30},{"name":"アルバイト教育","categoryId":"education","defaultHours":30}],"beauty":[{"name":"予約・LINE返信","categoryId":"faq","defaultHours":50},{"name":"カルテ・施術記録の要約","categoryId":"minutes","defaultHours":30},{"name":"SNS・口コミ返信","categoryId":"pr","defaultHours":30},{"name":"技術教育・マニュアル","categoryId":"education","defaultHours":30},{"name":"日報・売上報告","categoryId":"report","defaultHours":20}],"retail":[{"name":"商品説明・ページ文作成","categoryId":"docs","defaultHours":40},{"name":"問い合わせ・レビュー返信","categoryId":"faq","defaultHours":40},{"name":"受発注・在庫の報告","categoryId":"report","defaultHours":30},{"name":"販促・メルマガ作成","categoryId":"sales","defaultHours":30},{"name":"スタッフ教育","categoryId":"education","defaultHours":20}],"logistics":[{"name":"作業日報・引き継ぎ","categoryId":"report","defaultHours":40},{"name":"手順書・マニュアル整備","categoryId":"education","defaultHours":30},{"name":"品質・現場記録の整理","categoryId":"photo","defaultHours":30},{"name":"受発注・問い合わせ対応","categoryId":"faq","defaultHours":40},{"name":"会議・朝礼の記録","categoryId":"minutes","defaultHours":20}],"salesservice":[{"name":"商談メモ・CRM入力","categoryId":"sales","defaultHours":40},{"name":"提案書・見積の作成","categoryId":"docs","defaultHours":40},{"name":"追客メール・フォロー文","categoryId":"sales","defaultHours":30},{"name":"会議の議事録","categoryId":"minutes","defaultHours":30},{"name":"新人営業の教育","categoryId":"education","defaultHours":30}],"professional":[{"name":"会議・打ち合わせの議事録","categoryId":"minutes","defaultHours":40},{"name":"報告書・文書の作成","categoryId":"docs","defaultHours":40},{"name":"問い合わせ・FAQ対応","categoryId":"faq","defaultHours":30},{"name":"ナレッジ整理・教育","categoryId":"education","defaultHours":30},{"name":"契約・確認書類の下書き","categoryId":"contract","defaultHours":20}],"school":[{"name":"保護者連絡・お知らせ作成","categoryId":"docs","defaultHours":30},{"name":"教材・プリント作成","categoryId":"education","defaultHours":40},{"name":"問い合わせ対応","categoryId":"faq","defaultHours":30},{"name":"指導記録・報告","categoryId":"report","defaultHours":30},{"name":"生徒募集・広報文","categoryId":"pr","defaultHours":20}]},"industries":[{"id":"kaigo","name":"介護・福祉","segment":"b2c","priority":1,"templateId":"medical"},{"id":"hospital","name":"病院・医療法人","segment":"b2c","priority":1,"templateId":"medical"},{"id":"clinic","name":"医療クリニック","segment":"b2c","priority":1,"templateId":"medical"},{"id":"kensetsu","name":"建設・リフォーム会社","segment":"b2b","priority":1,"templateId":"construction"},{"id":"shokunin","name":"職人・専門工事","segment":"mixed","priority":1,"templateId":"construction"},{"id":"insyoku","name":"飲食店","segment":"b2c","priority":1,"templateId":"hospitality"},{"id":"kouri","name":"小売業","segment":"b2c","priority":1,"templateId":"retail"},{"id":"dental","name":"歯科医院","segment":"b2c","priority":2,"templateId":"medical"},{"id":"pharmacy","name":"調剤薬局","segment":"b2c","priority":2,"templateId":"medical"},{"id":"setsubi","name":"設備工事会社","segment":"b2b","priority":2,"templateId":"construction"},{"id":"hotel","name":"宿泊業・ホテル","segment":"b2c","priority":2,"templateId":"hospitality"},{"id":"biyou","name":"美容室・理容室","segment":"b2c","priority":2,"templateId":"beauty"},{"id":"esthe","name":"エステ・美容サロン","segment":"b2c","priority":2,"templateId":"beauty"},{"id":"ec","name":"EC・通販","segment":"b2c","priority":2,"templateId":"retail"},{"id":"oroshi","name":"卸売業","segment":"b2b","priority":2,"templateId":"retail"},{"id":"butsuryu","name":"物流・運送","segment":"b2b","priority":2,"templateId":"logistics"},{"id":"seizou","name":"製造業","segment":"b2b","priority":2,"templateId":"logistics"},{"id":"food-seizou","name":"食品製造業","segment":"b2b","priority":2,"templateId":"logistics"},{"id":"eigyou","name":"営業会社","segment":"b2b","priority":3,"templateId":"salesservice"},{"id":"shigyou","name":"士業・コンサル会社","segment":"b2b","priority":3,"templateId":"professional"},{"id":"sekkei","name":"建築設計事務所","segment":"b2b","priority":3,"templateId":"construction"},{"id":"cafe","name":"カフェ・ベーカリー","segment":"b2c","priority":3,"templateId":"hospitality"},{"id":"keibi","name":"警備・ビルメンテナンス","segment":"b2b","priority":3,"templateId":"logistics"},{"id":"jinzai","name":"人材紹介・派遣","segment":"b2b","priority":3,"templateId":"salesservice"},{"id":"hoiku","name":"保育園・幼稚園","segment":"b2c","priority":3,"templateId":"school"},{"id":"juku","name":"教育・学習塾","segment":"b2c","priority":3,"templateId":"school"},{"id":"fudousan","name":"不動産会社","segment":"mixed","priority":3,"templateId":"salesservice"},{"id":"jidousha","name":"自動車整備・販売","segment":"mixed","priority":3,"templateId":"salesservice"},{"id":"nougyou","name":"農業・食品販売","segment":"mixed","priority":3,"templateId":"retail"},{"id":"ryokou","name":"旅行・観光","segment":"b2c","priority":3,"templateId":"hospitality"},{"id":"fitness","name":"フィットネス・スポーツ","segment":"b2c","priority":3,"templateId":"beauty"},{"id":"event","name":"イベント・冠婚葬祭","segment":"b2c","priority":3,"templateId":"hospitality"},{"id":"chusho","name":"一般中小企業","segment":"mixed","priority":3,"templateId":"salesservice"},{"id":"kinyu","name":"金融・保険代理店","segment":"b2b","priority":3,"templateId":"salesservice"},{"id":"infra","name":"電気・ガス・インフラ","segment":"b2b","priority":3,"templateId":"construction"},{"id":"insatsu","name":"印刷・出版","segment":"b2b","priority":3,"templateId":"salesservice"},{"id":"jichitai","name":"自治体・公共団体","segment":"mixed","priority":3,"templateId":"professional"},{"id":"npo","name":"NPO・団体","segment":"mixed","priority":3,"templateId":"professional"},{"id":"kougyou","name":"鉱業・素材","segment":"b2b","priority":3,"templateId":"logistics"},{"id":"suisan","name":"水産・林業","segment":"b2b","priority":3,"templateId":"logistics"},{"id":"web","name":"Web制作・広告代理店","segment":"b2b","priority":4,"templateId":"professional"},{"id":"it","name":"IT・システム開発","segment":"b2b","priority":4,"templateId":"professional"}]};
+  const CAT = {}; CFG.taskCategories.forEach(c=>CAT[c.id]=c);
+  const scopeAdj = CFG.settings.scopeAdjustments;
+  const RB = CFG.settings.rateBounds;
+  const D = CFG.settings.defaults;
+  const yen = n => "¥" + Math.round(n).toLocaleString("ja-JP");
+  const clamp = (v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+  const $ = id => document.getElementById(id);
+
+  let state = { segment:"b2b", all:false, industryId:null, scope:D.scope, tasks:[] };
+
+  // STEP1 segments
+  $("simSeg").innerHTML = CFG.industrySegments.map((s,i)=>
+    `<label class="sim-opt"><input type="radio" name="simSeg" value="${s.id}" ${s.id==="b2b"?"checked":""}><span>${s.name}<span class="od">${s.desc}</span></span></label>`).join("");
+  // STEP5 scope
+  const SCOPES=[["light","控えめ","削減率を控えめに見積もる"],["standard","標準","分類ごとの標準値"],["aggressive","積極","積極的に任せる前提"]];
+  $("simScope").innerHTML = SCOPES.map(s=>
+    `<label class="sim-opt"><input type="radio" name="simScope" value="${s[0]}" ${s[0]==="standard"?"checked":""}><span>${s[1]}<span class="od">${s[2]}</span></span></label>`).join("");
+  // add-task category options
+  $("simAddCat").innerHTML = CFG.taskCategories.map(c=>`<option value="${c.id}">${c.name}</option>`).join("");
+
+  function fillIndustries(){
+    const list = state.all ? CFG.industries : CFG.industries.filter(i=>i.segment===state.segment);
+    const sorted = list.slice().sort((a,b)=>(a.priority||9)-(b.priority||9));
+    $("simIndustry").innerHTML = sorted.map(i=>`<option value="${i.id}">${i.name}</option>`).join("");
+    state.industryId = sorted.length? sorted[0].id : null;
+    $("simIndustry").value = state.industryId||"";
+    loadTasks();
+  }
+  function loadTasks(){
+    const ind = CFG.industries.find(i=>i.id===state.industryId);
+    let rows;
+    if(ind && CFG.taskTemplates[ind.templateId]){
+      rows = CFG.taskTemplates[ind.templateId].map(t=>({name:t.name,categoryId:t.categoryId,hours:t.defaultHours,on:true,rate:(t.rate!=null?t.rate:null)}));
+    } else {
+      rows = CFG.commonTasks.map(t=>({name:t.name,categoryId:t.categoryId,hours:t.defaultHours,on:true,rate:(t.rate!=null?t.rate:null)}));
+    }
+    state.tasks = rows;
+    renderTasks();
+  }
+  function renderTasks(){
+    $("simTasks").innerHTML = state.tasks.map((t,i)=>`
+      <div class="sim-task ${t.on?"":"off"}" id="simTask-${i}">
+        <input type="checkbox" ${t.on?"checked":""} data-i="${i}" class="tOn" aria-label="${t.name}を対象にする">
+        <div><div class="tn">${t.name}</div><div class="tc">${CAT[t.categoryId]?CAT[t.categoryId].name:t.categoryId}</div></div>
+        <div class="th"><input type="number" min="0" value="${t.hours}" data-i="${i}" class="tHrs">h/月</div>
+      </div>`).join("");
+  }
+  function readTasks(){
+    document.querySelectorAll(".tOn").forEach(el=>{ state.tasks[+el.dataset.i].on = el.checked; });
+    document.querySelectorAll(".tHrs").forEach(el=>{ state.tasks[+el.dataset.i].hours = +el.value||0; });
+    state.tasks.forEach((t,i)=>{ const r=$("simTask-"+i); if(r) r.classList.toggle("off",!t.on); });
+  }
+  function effRate(t){
+    const base = (t.rate!=null? t.rate : (CAT[t.categoryId]? CAT[t.categoryId].rate : 0.4));
+    return clamp(base + (scopeAdj[state.scope]||0), RB.min, RB.max);
+  }
+
+  let LAST={};
+  function calc(){
+    readTasks();
+    const wage = +$("simWage").value||0;
+    const initialCost = +$("simInit").value||0;
+    const monthlyCost = +$("simMonthly").value||0;
+    const subRate = +$("simSubRate").value||0;
+    const subCap = +$("simSubCap").value||0;
+    let cur=0, cut=0, rows=[];
+    state.tasks.forEach(t=>{ if(!t.on) return; const er=effRate(t); const ch=t.hours*er; cur+=t.hours; cut+=ch;
+      rows.push({name:t.name, before:t.hours, after:t.hours-ch, cut:ch}); });
+    const after = cur-cut;
+    const mSave = cut*wage;
+    const ySave = mSave*12;
+    const subsidy = Math.min(initialCost*subRate/100, subCap);
+    const net = Math.max(0, initialCost - subsidy);
+    const netMonthly = mSave - monthlyCost;
+    const payback = netMonthly>0 ? net/netMonthly : null;
+
+    $("rCur").textContent = cur.toFixed(1)+" h";
+    $("rAfter").textContent = after.toFixed(1)+" h";
+    $("rCut").textContent = cut.toFixed(1)+" h";
+    $("rMSave").textContent = yen(mSave);
+    $("rYSave").textContent = yen(ySave);
+    $("rSub").textContent = yen(subsidy);
+    $("rNet").textContent = yen(net);
+    $("rMonthly").textContent = yen(monthlyCost);
+    const pe=$("rPay"), ps=$("rPaySub");
+    if(payback===null){ pe.textContent="現条件では回収算定不可"; pe.className="sim-pay na"; ps.textContent="月間削減額が月額費用を上回っていません。"; }
+    else { pe.textContent="約"+payback.toFixed(1)+"ヶ月"; pe.className="sim-pay"; ps.textContent=payback<=12?"12ヶ月以内に回収":"回収に12ヶ月超"; }
+    $("rCmp").innerHTML = rows.map(r=>`<tr><td>${r.name}</td><td>${r.before.toFixed(0)}h</td><td>${r.after.toFixed(1)}h</td><td class="cut">-${r.cut.toFixed(1)}h</td></tr>`).join("");
+    LAST={wage,initialCost,monthlyCost,subRate,subCap,cur,after,cut,mSave,ySave,subsidy,net,payback,rows,
+      industry:(CFG.industries.find(i=>i.id===state.industryId)||{}).name||"（未選択）",
+      scope:(SCOPES.find(s=>s[0]===state.scope)||[])[1]||state.scope,
+      emp:+$("simEmp").value||0, target:+$("simTarget").value||0};
+  }
+
+  // events
+  $("simSeg").addEventListener("change",e=>{ if(e.target.name==="simSeg"){ state.segment=e.target.value; if(!state.all) fillIndustries(); } });
+  $("simAll").addEventListener("change",e=>{ state.all=e.target.checked; fillIndustries(); });
+  $("simIndustry").addEventListener("change",e=>{ state.industryId=e.target.value; loadTasks(); calc(); });
+  $("simScope").addEventListener("change",e=>{ if(e.target.name==="simScope"){ state.scope=e.target.value; calc(); } });
+  $("simAddBtn").addEventListener("click",()=>{ const n=$("simAddName").value.trim(); if(!n) return;
+    state.tasks.push({name:n,categoryId:$("simAddCat").value,hours:+$("simAddHrs").value||0,on:true,rate:null});
+    $("simAddName").value=""; renderTasks(); calc(); });
+  document.getElementById("roiForm").addEventListener("input",calc);
+  document.getElementById("roiForm").addEventListener("change",calc);
+  $("simCopy").addEventListener("click",()=>{
+    const L=LAST; let t="=== AIDX ROI診断結果（費用対効果レポートの下地） ===\n";
+    t+=`業種: ${L.industry} / 従業員 ${L.emp}名・対象 ${L.target}名 / 平均時給 ${L.wage.toLocaleString("ja-JP")}円 / AI活用範囲: ${L.scope}\n`;
+    t+=`初期費用 ${yen(L.initialCost)}（補助 ${L.subRate}%・上限${yen(L.subCap)} → 適用 ${yen(L.subsidy)}） 実質 ${yen(L.net)} / 月額 ${yen(L.monthlyCost)}\n\n`;
+    t+="業務別（導入前→導入後 / 削減）:\n";
+    L.rows.forEach(r=> t+=`・${r.name}: ${r.before.toFixed(0)}h → ${r.after.toFixed(1)}h（-${r.cut.toFixed(1)}h）\n`);
+    t+=`\n現在の月間作業時間: ${L.cur.toFixed(1)}h → 導入後 ${L.after.toFixed(1)}h\n`;
+    t+=`月間削減時間: ${L.cut.toFixed(1)}h / 月間削減金額: ${yen(L.mSave)} / 年間効果: ${yen(L.ySave)}\n`;
+    t+=`投資回収期間: ${L.payback===null?"現条件では回収算定不可":"約"+L.payback.toFixed(1)+"ヶ月"}\n\n`;
+    t+="※本結果は試算であり効果を確約するものではありません。\n========================================";
+    try{ navigator.clipboard.writeText(t); }catch(e){}
+    const b=$("simCopy"); const o=b.textContent; b.textContent="コピーしました ✓"; setTimeout(()=>b.textContent=o,1500);
+  });
+
+  fillIndustries(); calc();
+})();
+</script>
+
 </body>
 </html>
