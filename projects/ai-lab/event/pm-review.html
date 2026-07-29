@@ -77,15 +77,28 @@
   </div>
 
   <h2><span class="num">3</span>コストと進め方(2分)</h2>
+  <div class="card" style="margin-bottom:14px">
+    <b style="font-size:13px">インフラ固定費「月0〜8千円」の内訳 — 何が・何のために必要か($1≒163円 / 2026-07-29時点の各社公式価格)</b>
+    <table style="margin-top:10px;background:transparent">
+      <tr><th>構成要素</th><th>何のために必要か</th><th style="text-align:right">月額</th></tr>
+      <tr><td><b>ホスティング</b><br>Vercel Pro</td><td>イベント公開ページ・申込フォーム・管理画面を動かすWebサーバー。無料プランは規約で商用利用不可のため、有料(Pro)が必須</td><td style="text-align:right;white-space:nowrap">$20 ≒ 3,260円</td></tr>
+      <tr><td><b>データベース・認証</b><br>Supabase Pro</td><td>参加者名簿・支払状態・QRチケット・出席記録の保存と、管理画面のログイン管理。無料枠もあるが「1週間未使用で自動停止・容量500MB・バックアップなし」のため、決済データを扱う本番は有料が必要</td><td style="text-align:right;white-space:nowrap">$25 ≒ 4,070円</td></tr>
+      <tr><td><b>メール送信</b><br>Resend</td><td>申込確認・QRチケットの自動送付。無料枠(月3,000通)で規模(〜100名×月数回)に十分</td><td style="text-align:right;white-space:nowrap">0円</td></tr>
+      <tr><td><b>独自ドメイン</b></td><td>申込URLとメール差出元の信頼性確保。Stripe本番審査でも自社サイト(特商法表記の掲載先)として実質必須</td><td style="text-align:right;white-space:nowrap">約170円<br><small style="color:var(--muted)">(年約2,000円)</small></td></tr>
+      <tr><td><b>Stripe</b></td><td>決済本体。初期費用・月額固定費は0円で、成立した決済の3.6%のみ</td><td style="text-align:right;white-space:nowrap">0円(固定費)</td></tr>
+      <tr><td colspan="2"><b>固定費 合計</b></td><td style="text-align:right"><b class="big">約7,500円</b></td></tr>
+    </table>
+    <div class="note">「月0円」側の意味: 開発〜社内検証の間はホスティングをCloudflare Pages(無料・商用可)、DBをSupabase無料枠にすれば実費はドメイン代約170円のみ。本番公開のタイミングで上記の有料構成へ切替(設定変更のみ)。それでもイーベ！(2〜5万円)の1/3〜1/6。参考: 5,000円×100名(50万円)決済時のStripe手数料は18,000円。初期費用は社内工数のみ(AI駆動開発)</div>
+  </div>
   <div class="cols">
     <div class="card">
       <b style="font-size:13px">コスト比較(月額)</b>
       <table style="margin-top:8px;background:transparent">
         <tr><td>イーベ！(現行)</td><td style="text-align:right">2〜5万円</td></tr>
-        <tr><td>自社開発(インフラ固定費)</td><td style="text-align:right"><b class="big">0〜8千円</b></td></tr>
+        <tr><td>自社開発(上記内訳の固定費)</td><td style="text-align:right"><b class="big">0〜8千円</b></td></tr>
         <tr><td>Stripe手数料</td><td style="text-align:right">決済額の3.6%(固定費0)</td></tr>
       </table>
-      <div class="note">例: 5,000円×100名(50万円)決済時の手数料18,000円。初期費用は工数のみ(社内AI駆動開発)</div>
+      <div class="note">年間では固定費 約9万円 vs イーベ24〜60万円</div>
     </div>
     <div class="card">
       <b style="font-size:13px">フェーズ(目安)</b>
