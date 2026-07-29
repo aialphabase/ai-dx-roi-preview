@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>AIDX 定例資料 ― 業種別20本セット(図解＋UI)</title>
+<style>
+  :root{--bg:#0c0c0e;--panel:#131316;--card:#1a1a1e;--line:#2c2c31;--tx:#f5f5f7;--sub:#c9c3ba;--dim:#8a857d;
+    --blue:#4a9eff;--green:#7fc98b;--amber:#e6c34a;--orange:#ff8a3d;--purple:#8b7dff}
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.7;padding-bottom:90px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  header{border-bottom:1px solid var(--line);padding:22px 0 18px}
+  .eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:2px}
+  h1{font-size:25px;margin:5px 0 3px}
+  .date{color:var(--dim);font-size:12.5px}
+  .summary{background:#14211b;border:1px solid var(--green);border-radius:14px;padding:16px 20px;margin:20px 0}
+  .summary h2{margin:0 0 8px;font-size:14px;color:var(--green)}
+  .summary ul{margin:0;padding-left:20px}
+  .summary li{font-size:14px;color:var(--tx);margin:5px 0}
+  section.blk{margin:34px 0}
+  .sechead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+  .sechead .no{font-size:12px;font-weight:800;color:#06122a;background:var(--orange);border-radius:6px;padding:2px 9px}
+  .sechead h2{font-size:18px;margin:0}
+  .sechead .s{color:var(--dim);font-size:12.5px;margin-left:auto}
+  .figwrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .figwrap svg{width:100%;height:auto;display:block;border-radius:8px}
+  /* UI */
+  .pick .t{font-size:13px;color:var(--sub);margin-bottom:8px}
+  .inds{display:flex;flex-wrap:wrap;gap:8px}
+  .ind{font-size:13.5px;font-weight:600;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 15px;cursor:pointer;transition:.15s}
+  .ind:hover{border-color:var(--purple)}
+  .ind.on{background:#1c2436;border-color:var(--blue);color:#cfe3ff}
+  .layer{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:15px 17px}
+  .lhead{display:flex;align-items:baseline;gap:10px;margin-bottom:11px}
+  .lhead .n{font-size:12px;font-weight:800;color:#06122a;background:var(--sub);border-radius:6px;padding:2px 9px;flex:none}
+  .l1 .n{background:var(--blue)} .l2 .n{background:var(--amber)} .l3 .n{background:var(--purple)}
+  .lhead h3{font-size:14.5px;margin:0}
+  .lhead .tag{margin-left:auto;font-size:11.5px;color:var(--dim)}
+  .sublab{font-size:12px;font-weight:700;margin:6px 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:8px}
+  .chip{border-radius:10px;padding:9px 12px;border:1px solid var(--line);background:var(--card)}
+  .chip .id{font-size:11px;font-weight:800;letter-spacing:.4px}
+  .chip .nm{font-size:13px;font-weight:600;margin-top:1px}
+  .chip.core{background:#e6c34a;border-color:#e6c34a}.chip.core .id{color:#3a2f10}.chip.core .nm{color:#0c0c0e}
+  .chip.gen{border-color:var(--green)}.chip.gen .id{color:var(--green)}
+  .chip.spec{border-color:var(--amber);background:#211d14}.chip.spec .id{color:var(--amber)}
+  .chip.cust{border:1px dashed var(--purple);background:#171622}.chip.cust .id{color:var(--purple)}.chip.cust .nm{color:#d7d0f0}
+  .empty{color:var(--dim);font-size:13px;padding:14px;border:1px dashed var(--line);border-radius:10px;text-align:center}
+  .l3note{font-size:12px;color:var(--dim);margin-top:9px}
+  table.set{width:100%;border-collapse:collapse;font-size:13px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table.set th,table.set td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  table.set th{background:#17171b;color:var(--sub);font-size:12px}
+  table.set td:first-child{font-weight:700;white-space:nowrap}
+  table.set .c{color:var(--amber)} table.set .u{color:var(--purple)}
+  .qa{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:12px;padding:14px 18px}
+  .qa li{font-size:13.5px;color:var(--sub);margin:6px 0}
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(19,19,22,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:11px 0}
+  .bar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .formula{font-size:14px;color:var(--sub)}.formula b{color:var(--tx)}
+  .total{margin-left:auto;font-size:15px;font-weight:800}.total .num{color:var(--green);font-size:20px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow">AIDX 定例資料 ― プロンプトテンプレ集の構成</div>
+  <h1>業種別20本セット ― 三層構造と組み上がり</h1>
+  <div class="date">2026-07-28 / 用途: 定例報告</div>
+</div></header>
+
+<div class="wrap">
+  <div class="summary">
+    <h2>報告サマリー(この3点)</h2>
+    <ul>
+      <li>25本カタログ=<b>共通12(主要5PJ＋汎用7)＋業種特化13</b>。骨子確定。</li>
+      <li>各社の標準20本=<b>共通12 ＋ 業種特化3〜4 ＋ 顧客固有4〜5</b>の三層。</li>
+      <li>業種で束ねて「御社ならこの20本」。<b>第3層はヒアリング(社内ナレッジ連携)で確定</b>。7業種確定済み。</li>
+    </ul>
+  </div>
+
+  <section class="blk">
+    <div class="sechead"><span class="no">①</span><h2>三層構造 ― 主要5PJはどこか</h2><span class="s">共通12の"核"が主要5PJ</span></div>
+    <div class="figwrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1120" role="img" aria-label="20本セットの三層構造の図。第1層の共通12本の中核が主要5PJ、第2層が業種特化、第3層が顧客固有枠">
+  <rect width="1800" height="1120" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="72" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">PJ構成 ― 三層と主要5PJ</text>
+  <text x="70" y="120" font-family="sans-serif" font-size="30" font-weight="700" fill="#f5f5f5">標準20本セットの三層構造 ― 主要5PJはどこに入るか</text>
+  <text x="70" y="157" font-family="sans-serif" font-size="15" fill="#a8a29b">各社への標準20本は3つの層でできている。土台=共通12本の"中核"が主要5PJ(PJ-01〜05)。上の2層が業種と顧客で変わる。</text>
+
+  <!-- 右上 合計バッジ -->
+  <rect x="1560" y="52" width="180" height="66" rx="12" fill="#14211b" stroke="#7fc98b" stroke-width="2"/>
+  <text x="1650" y="88" font-family="sans-serif" font-size="15" fill="#a8a29b" text-anchor="middle">合計</text>
+  <text x="1650" y="108" font-family="sans-serif" font-size="15" font-weight="700" fill="#f5f5f5" text-anchor="middle">標準 20本</text>
+
+  <!-- ===== 第1層 共通12(土台・最大) ===== -->
+  <rect x="60" y="200" width="1680" height="372" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1.5"/>
+  <text x="90" y="243" font-family="sans-serif" font-size="19" font-weight="700" fill="#4a9eff">第1層 ― 共通12本(どの業種も入る土台)</text>
+  <text x="1710" y="243" font-family="sans-serif" font-size="14" font-weight="700" fill="#8a857d" text-anchor="end">5(核) ＋ 7(汎用) = 12本</text>
+
+  <!-- 主要5PJ(核) -->
+  <text x="90" y="286" font-family="sans-serif" font-size="14" font-weight="700" fill="#e6c34a">◆ 主要5PJ(PJ-01〜05)= 商品の核</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="90"   y="300" width="312" height="66" rx="12" fill="#e6c34a"/><text x="246" y="333" font-size="16" font-weight="800" fill="#0c0c0e">PJ-01 議事録</text><text x="246" y="352" font-size="11" fill="#3a2f10">会議→決定・TODO</text>
+    <rect x="416"  y="300" width="312" height="66" rx="12" fill="#e6c34a"/><text x="572" y="333" font-size="16" font-weight="800" fill="#0c0c0e">PJ-02 日報・CRM</text><text x="572" y="352" font-size="11" fill="#3a2f10">商談→日報・登録案</text>
+    <rect x="742"  y="300" width="312" height="66" rx="12" fill="#e6c34a"/><text x="898" y="333" font-size="16" font-weight="800" fill="#0c0c0e">PJ-03 資料・提案</text><text x="898" y="352" font-size="11" fill="#3a2f10">提案書・営業資料</text>
+    <rect x="1068" y="300" width="312" height="66" rx="12" fill="#e6c34a"/><text x="1224" y="333" font-size="16" font-weight="800" fill="#0c0c0e">PJ-04 FAQ</text><text x="1224" y="352" font-size="11" fill="#3a2f10">社内FAQ・ナレッジ</text>
+    <rect x="1394" y="300" width="316" height="66" rx="12" fill="#e6c34a"/><text x="1552" y="333" font-size="16" font-weight="800" fill="#0c0c0e">PJ-05 メール</text><text x="1552" y="352" font-size="11" fill="#3a2f10">返信・問い合わせ回答</text>
+  </g>
+
+  <line x1="90" y1="392" x2="1710" y2="392" stroke="#2c2c31" stroke-width="1"/>
+
+  <!-- 汎用7本 -->
+  <text x="90" y="428" font-family="sans-serif" font-size="14" font-weight="700" fill="#7fc98b">＋ 汎用の追加7本(PJ-06〜12)</text>
+  <g font-family="sans-serif" text-anchor="middle" font-size="13" fill="#dfeee5">
+    <rect x="90"   y="442" width="221" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="200" y="470" font-weight="700">PJ-06 商談前ブリーフ</text><text x="200" y="489" font-size="11" fill="#9fc7ad">商談準備メモ</text>
+    <rect x="323"  y="442" width="221" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="433" y="470" font-weight="700">PJ-07 見積ドラフト</text><text x="433" y="489" font-size="11" fill="#9fc7ad">見積の下書き</text>
+    <rect x="556"  y="442" width="221" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="666" y="470" font-weight="700">PJ-08 契約書レビュー</text><text x="666" y="489" font-size="11" fill="#9fc7ad">リスク抽出</text>
+    <rect x="789"  y="442" width="221" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="899" y="470" font-weight="700">PJ-09 問合せ分類</text><text x="899" y="489" font-size="11" fill="#9fc7ad">緊急度・振り分け</text>
+    <rect x="1022" y="442" width="221" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="1132" y="470" font-weight="700">PJ-10 手順書</text><text x="1132" y="489" font-size="11" fill="#9fc7ad">マニュアル作成</text>
+    <rect x="1255" y="442" width="221" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="1365" y="470" font-weight="700">PJ-11 稟議・申請</text><text x="1365" y="489" font-size="11" fill="#9fc7ad">稟議の下書き</text>
+    <rect x="1488" y="442" width="222" height="58" rx="10" fill="#16211a" stroke="#7fc98b" stroke-width="1.3"/><text x="1599" y="470" font-weight="700">PJ-12 定期レポート</text><text x="1599" y="489" font-size="11" fill="#9fc7ad">実績の整形</text>
+  </g>
+  <text x="90" y="548" font-family="sans-serif" font-size="12.5" fill="#8a857d">※ 主要5PJは共通12の"中に"ある。核5本＋汎用7本で、どの業種にも入る土台になる。</text>
+
+  <text x="900" y="600" font-family="sans-serif" font-size="20" font-weight="800" fill="#8a857d" text-anchor="middle">＋</text>
+
+  <!-- ===== 第2層 業種特化 ===== -->
+  <rect x="60" y="616" width="1680" height="150" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="656" font-family="sans-serif" font-size="19" font-weight="700" fill="#ff8a3d">第2層 ― 業種特化 3〜4本(棚PJ-13〜25から業種で選ぶ)</text>
+  <g font-family="sans-serif" text-anchor="middle" font-size="12.5" fill="#f0e6d2">
+    <rect x="90"  y="676" width="250" height="60" rx="10" fill="#211d14" stroke="#e6c34a" stroke-width="1.3"/><text x="215" y="705" font-weight="700">物件紹介文(不動産)</text><text x="215" y="724" font-size="11" fill="#c9b98f">PJ-13 ほか</text>
+    <rect x="352" y="676" width="250" height="60" rx="10" fill="#211d14" stroke="#e6c34a" stroke-width="1.3"/><text x="477" y="705" font-weight="700">現場・施工報告(建設)</text><text x="477" y="724" font-size="11" fill="#c9b98f">PJ-16/17</text>
+    <rect x="614" y="676" width="250" height="60" rx="10" fill="#211d14" stroke="#e6c34a" stroke-width="1.3"/><text x="739" y="705" font-weight="700">トークスクリプト(営業)</text><text x="739" y="724" font-size="11" fill="#c9b98f">PJ-19/20</text>
+    <rect x="876" y="676" width="250" height="60" rx="10" fill="#211d14" stroke="#e6c34a" stroke-width="1.3"/><text x="1001" y="705" font-weight="700">比較表・レポート(士業)</text><text x="1001" y="724" font-size="11" fill="#c9b98f">PJ-21〜23</text>
+    <rect x="1138" y="676" width="250" height="60" rx="10" fill="#211d14" stroke="#e6c34a" stroke-width="1.3"/><text x="1263" y="705" font-weight="700">求人・推薦文(人材)</text><text x="1263" y="724" font-size="11" fill="#c9b98f">PJ-24/25</text>
+    <rect x="1400" y="676" width="310" height="60" rx="10" fill="#1a1a1e" stroke="#3a3a42" stroke-width="1.3" stroke-dasharray="5 4"/><text x="1555" y="710" font-size="13" fill="#a8a29b">…業種で3〜4本を差し替え</text>
+  </g>
+
+  <text x="900" y="794" font-family="sans-serif" font-size="20" font-weight="800" fill="#8a857d" text-anchor="middle">＋</text>
+
+  <!-- ===== 第3層 顧客固有枠 ===== -->
+  <rect x="60" y="810" width="1680" height="150" rx="18" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="850" font-family="sans-serif" font-size="19" font-weight="700" fill="#8b7dff">第3層 ― 顧客固有枠 4〜5本(社内ナレッジのヒアリングで確定)</text>
+  <g font-family="sans-serif" text-anchor="middle" font-size="13" fill="#c9c3ba">
+    <rect x="90"  y="870" width="380" height="60" rx="10" fill="#171622" stroke="#8b7dff" stroke-width="1.3" stroke-dasharray="6 4"/><text x="280" y="905" font-weight="700" fill="#d7d0f0">各社固有の業務①〜⑤</text>
+    <rect x="484" y="870" width="1226" height="60" rx="10" fill="#1a1a1e" stroke="#3a3a42" stroke-width="1"/><text x="510" y="898" text-anchor="start">例:物件査定コメント / 安全・確認書類 / 積算内訳 / 職種別スカウト文 / 更新案内 …</text><text x="510" y="918" text-anchor="start" font-size="11" fill="#8a857d">ヒアリングで拾い、社内ナレッジをAIに載せる(=オーダーメイド部分)。超える分は標準外→追加提案。</text>
+  </g>
+
+  <!-- footer callout -->
+  <rect x="60" y="994" width="1680" height="98" rx="14" fill="#14211b" stroke="#7fc98b" stroke-width="2"/>
+  <text x="900" y="1035" font-family="sans-serif" font-size="21" font-weight="700" fill="#f5f5f5" text-anchor="middle">共通12(主要5PJ＋汎用7)＋ 業種特化3〜4 ＋ 顧客固有4〜5 ＝ 標準20本</text>
+  <text x="900" y="1068" font-family="sans-serif" font-size="13.5" fill="#a8a29b" text-anchor="middle">主要5PJは"商品の核"で、共通12の中に含まれる。第1層は全業種共通、第2・3層が業種と顧客で変わる。</text>
+</svg>
+</div>
+  </section>
+
+  <section class="blk">
+    <div class="sechead"><span class="no">②</span><h2>デモ ― 業種を選ぶと20本が組み上がる</h2><span class="s">下のボタンで切り替え</span></div>
+    <div class="pick"><div class="t">業種を選ぶ</div><div class="inds" id="inds"></div></div>
+    <div class="layer l1">
+      <div class="lhead"><span class="n">第1層</span><h3>共通12本 ― どの業種も入る土台</h3><span class="tag">全業種共通・固定</span></div>
+      <div class="sublab" style="color:var(--amber)">◆ 主要5PJ(核)</div>
+      <div class="grid" id="core"></div>
+      <div class="sublab" style="color:var(--green);margin-top:11px">＋ 汎用の追加7本</div>
+      <div class="grid" id="gen"></div>
+    </div>
+    <div class="layer l2">
+      <div class="lhead"><span class="n">第2層</span><h3>業種特化 ― 棚から業種で選ぶ</h3><span class="tag" id="l2tag">未選択</span></div>
+      <div id="spec"><div class="empty">↑ 業種を選ぶと、ここに業種特化のPJが出ます。</div></div>
+    </div>
+    <div class="layer l3">
+      <div class="lhead"><span class="n">第3層</span><h3>顧客固有枠 ― ヒアリングで確定</h3><span class="tag" id="l3tag">ヒアリング前</span></div>
+      <div id="cust"><div class="empty">業種を選ぶと、顧客固有枠(空き)が出ます。中身は社内ナレッジのヒアリングで確定。</div></div>
+      <p class="l3note">ここが「オーダーメイド部分」。まずは第2層まで確定 → 商談・ヒアリングで第3層を埋めて20本に仕上げる。</p>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="sechead"><span class="no">③</span><h2>7業種の確定内訳</h2><span class="s">共通12＋特化/転用＋顧客固有=20本</span></div>
+    <table class="set">
+      <thead><tr><th>業種</th><th>業種特化・転用(棚から)</th><th>顧客固有枠</th><th>合計</th></tr></thead>
+      <tbody>
+        <tr><td>①不動産会社</td><td class="c">PJ-13 物件紹介文 / 14 追客メール / 15 重要事項要点 / 21 比較表(物件)</td><td class="u">4本</td><td>20</td></tr>
+        <tr><td>②建設会社</td><td class="c">PJ-16 現場報告 / 17 施工・完了報告 / 18 工程・仕様説明</td><td class="u">5本</td><td>20</td></tr>
+        <tr><td>③リフォーム会社</td><td class="c">PJ-16 / 17 / 18 / 21 比較表(プラン)</td><td class="u">4本</td><td>20</td></tr>
+        <tr><td>④営業会社</td><td class="c">PJ-19 トークスクリプト / 20 営業教育 / 21 比較表(提案) / 22 面談論点整理</td><td class="u">4本</td><td>20</td></tr>
+        <tr><td>⑤士業・コンサル</td><td class="c">PJ-21 比較表 / 22 面談論点整理 / 23 調査・分析レポート</td><td class="u">5本</td><td>20</td></tr>
+        <tr><td>⑥保険会社</td><td class="c">PJ-21 比較表 / 22 面談論点整理 / 23 分析レポート</td><td class="u">5本</td><td>20</td></tr>
+        <tr><td>⑦人材紹介会社</td><td class="c">PJ-24 求人票 / 25 候補者推薦文 / 22 面談論点整理(面接記録)</td><td class="u">5本</td><td>20</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="blk">
+    <div class="sechead"><span class="no">④</span><h2>定例で確認したい点</h2></div>
+    <div class="qa"><ul>
+      <li>士業・コンサル・保険を同系パック(PJ-21〜23)で共有中。<b>保険を独立パックにするか</b>(比較表の重みが業種で違う)。</li>
+      <li>見積(PJ-07)・契約書レビュー(PJ-08)は共通に配置。<b>不動産・建設向けの特化版に寄せるか</b>。</li>
+    </ul></div>
+  </section>
+</div>
+
+<div class="bar"><div class="wrap">
+  <div class="formula" id="formula">デモ: 業種を選ぶと更新 ― 共通 <b>12</b> ＋ 業種特化 <b>–</b> ＋ 顧客固有 <b>–</b></div>
+  <div class="total">合計 <span class="num" id="total">12</span> / 20本</div>
+</div></div>
+
+<script>
+(function(){
+  "use strict";
+  const CORE=[["PJ-01","議事録"],["PJ-02","日報・CRM"],["PJ-03","資料・提案"],["PJ-04","FAQ・ナレッジ"],["PJ-05","メール回答"]];
+  const GEN=[["PJ-06","商談前ブリーフ"],["PJ-07","見積ドラフト"],["PJ-08","契約書レビュー"],["PJ-09","問合せ一次分類"],["PJ-10","マニュアル・手順書"],["PJ-11","稟議・申請書"],["PJ-12","定期レポート整形"]];
+  const IND=[
+    {key:"fudosan",name:"不動産会社",spec:[["PJ-13","物件紹介文"],["PJ-14","追客メール"],["PJ-15","重要事項要点"],["PJ-21","比較表(物件)"]],cust:["物件査定コメント","内見案内文","オーナー向け報告","反響分析"]},
+    {key:"kensetsu",name:"建設会社",spec:[["PJ-16","現場報告書"],["PJ-17","施工・完了報告"],["PJ-18","工程・仕様説明"]],cust:["安全・確認書類","積算内訳の下書き","協力会社への手配連絡","工程表更新","原価・実績レポート"]},
+    {key:"reform",name:"リフォーム会社",spec:[["PJ-16","現場報告書"],["PJ-17","施工・完了報告"],["PJ-18","工程・仕様説明"],["PJ-21","比較表(プラン)"]],cust:["アフター点検報告","見積内訳の説明文","施主フォロー文","紹介・口コミ依頼文"]},
+    {key:"eigyo",name:"営業会社",spec:[["PJ-19","トークスクリプト"],["PJ-20","営業教育ナレッジ化"],["PJ-21","比較表(提案)"],["PJ-22","面談論点整理"]],cust:["業界別トークの派生","競合切り返し集","KPIレポート","ナレッジ横展開資料"]},
+    {key:"shigyo",name:"士業・コンサル",spec:[["PJ-21","比較表"],["PJ-22","面談論点整理"],["PJ-23","調査・分析レポート"]],cust:["分野別の定型文書","チェックリスト","顧問先向け通知文","レポートテンプレ","相談記録の要約"]},
+    {key:"hoken",name:"保険会社",spec:[["PJ-21","比較表"],["PJ-22","面談論点整理"],["PJ-23","分析レポート"]],cust:["商品別比較の型","更新・見直し案内","給付手続きの説明文","面談後フォロー","証券内容の要約"]},
+    {key:"jinzai",name:"人材紹介会社",spec:[["PJ-24","求人票"],["PJ-25","候補者推薦文"],["PJ-22","面談論点整理(面接記録)"]],cust:["職種別スカウト文","面接評価の観点別まとめ","企業向け進捗報告","候補者フォロー文","求人原稿の改善案"]}
+  ];
+  const $=id=>document.getElementById(id);
+  const chip=(cls,id,nm)=>`<div class="chip ${cls}"><div class="id">${id}</div><div class="nm">${nm}</div></div>`;
+  $("core").innerHTML=CORE.map(c=>chip("core",c[0],c[1])).join("");
+  $("gen").innerHTML=GEN.map(c=>chip("gen",c[0],c[1])).join("");
+  $("inds").innerHTML=IND.map(i=>`<button class="ind" data-k="${i.key}" onclick="pick('${i.key}')">${i.name}</button>`).join("");
+  let cur=null;
+  window.pick=function(k){
+    cur=IND.find(i=>i.key===k);
+    document.querySelectorAll(".ind").forEach(b=>b.classList.toggle("on",b.dataset.k===k));
+    $("spec").innerHTML=`<div class="grid">${cur.spec.map(s=>chip("spec",s[0],s[1])).join("")}</div>`;
+    $("l2tag").textContent=cur.name+"・"+cur.spec.length+"本";
+    $("cust").innerHTML=`<div class="grid">${cur.cust.map((c,i)=>chip("cust","枠"+(i+1),c+"(候補)")).join("")}</div>`;
+    $("l3tag").textContent="ヒアリングで確定・"+cur.cust.length+"本";
+    const s=cur.spec.length,c=cur.cust.length;
+    $("formula").innerHTML=`デモ: <b>${cur.name}</b> ― 共通 <b>12</b> ＋ 業種特化 <b>${s}</b> ＋ 顧客固有 <b>${c}</b>`;
+    $("total").textContent=12+s+c;
+  };
+})();
+</script>
+</body>
+</html>

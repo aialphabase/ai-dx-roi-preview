@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDX PJラインナップ レビュー画面 v0.2</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#131316; --card:#1a1a1e; --line:#2c2c31;
+    --tx:#f5f5f7; --sub:#c9c3ba; --dim:#8a857d;
+    --blue:#4a9eff; --green:#7fc98b; --amber:#e6c34a; --orange:#ff8a3d; --purple:#8b7dff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:120px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(12,12,14,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:16px 0}
+  .eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:2px}
+  h1{font-size:22px;margin:4px 0 2px}
+  .lead{color:var(--sub);font-size:13.5px;margin:0}
+
+  /* 2階建て 概観 */
+  .schema{display:flex;flex-direction:column;gap:8px;margin:18px 0 6px}
+  .schema .floor{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .schema .flabel{font-size:12px;font-weight:700;letter-spacing:1px}
+  .schema .f1 .flabel{color:var(--blue)} .schema .f2 .flabel{color:var(--orange)}
+  .schema .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .schema .chip{font-size:12.5px;background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:5px 12px;color:var(--sub)}
+
+  /* 業種セレクタ */
+  .picker{margin:16px 0 4px}
+  .picker .t{font-size:13px;color:var(--sub);margin-bottom:8px}
+  .btns{display:flex;flex-wrap:wrap;gap:8px}
+  .ind{font-size:13px;font-weight:600;background:var(--card);color:var(--tx);
+    border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;transition:.15s}
+  .ind:hover{border-color:var(--purple)}
+  .ind.active{background:#1c2436;border-color:var(--blue);color:#cfe3ff}
+  .ind.clear{color:var(--dim)}
+
+  .banner{margin:14px 0;padding:12px 16px;border-radius:12px;background:#12211a;
+    border:1px solid var(--green);display:none;font-size:14px}
+  .banner.show{display:block}
+  .banner b{color:#a9e9bd}
+  .counts{color:var(--sub);font-size:12.5px;margin-left:6px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0 4px;color:var(--dim);font-size:12px}
+
+  h2.sec{font-size:15px;margin:26px 0 4px;padding-left:10px;border-left:3px solid var(--blue)}
+  h2.sec.two{border-color:var(--orange)}
+  .subnote{color:var(--dim);font-size:12.5px;margin:2px 0 12px 10px}
+
+  details.pack{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;overflow:hidden}
+  details.pack>summary{list-style:none;cursor:pointer;padding:12px 16px;font-weight:700;font-size:14px;
+    display:flex;align-items:center;gap:8px}
+  details.pack>summary::-webkit-details-marker{display:none}
+  details.pack>summary::before{content:"▸";color:var(--orange);transition:.15s}
+  details.pack[open]>summary::before{transform:rotate(90deg)}
+  .packbody{padding:4px 14px 16px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;transition:.15s;position:relative}
+  .card.dim{opacity:.28}
+  .card[data-status="ok"]{border-color:var(--green)}
+  .card[data-status="fix"]{border-color:var(--amber)}
+  .card.inset{box-shadow:0 0 0 2px rgba(74,158,255,.25)}
+  .chead{display:flex;align-items:center;gap:8px}
+  .num{font-size:11px;font-weight:800;letter-spacing:.5px;color:#0c0c0e;background:var(--sub);
+    border-radius:6px;padding:2px 7px;flex:none}
+  .card[data-status="ok"] .num{background:var(--green)}
+  .card[data-status="fix"] .num{background:var(--amber)}
+  .cname{font-size:15px;font-weight:700}
+  .io{margin-left:auto;font-size:14px;flex:none;letter-spacing:2px}
+  .one{color:var(--sub);font-size:12.5px;margin:7px 0 9px}
+  .hc{font-size:11.5px;color:var(--amber);background:#211d14;border-radius:6px;padding:3px 8px;display:inline-block}
+  .acts{display:flex;gap:6px;margin-top:10px}
+  .b{font-size:12px;font-weight:600;border-radius:7px;padding:6px 12px;cursor:pointer;border:1px solid var(--line);
+    background:transparent;color:var(--sub);transition:.12s}
+  .b.ok.on{background:#16281c;border-color:var(--green);color:#a9e9bd}
+  .b.fix.on{background:#251f10;border-color:var(--amber);color:#f0d98a}
+  .b:hover{border-color:var(--dim)}
+  .note{display:none;width:100%;margin-top:9px;background:#121216;border:1px solid var(--line);
+    border-radius:8px;color:var(--tx);font-size:12.5px;padding:8px;resize:vertical;font-family:inherit}
+  .card[data-status="fix"] .note{display:block}
+
+  /* 共通の型 */
+  .kata{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:24px 0}
+  .kata h3{margin:0 0 8px;font-size:13.5px;color:var(--green)}
+  .kata ul{margin:0;padding-left:18px} .kata li{font-size:12.5px;color:var(--sub);margin:3px 0}
+
+  /* footer bar */
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(19,19,22,.96);
+    backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 0}
+  .bar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .bar .stat{font-size:13px;color:var(--sub)}
+  .bar .stat b{color:var(--tx)}
+  .cta{margin-left:auto;font-size:13.5px;font-weight:700;background:var(--blue);color:#06122a;
+    border:none;border-radius:8px;padding:10px 18px;cursor:pointer}
+  .cta.ghost{background:transparent;color:var(--sub);border:1px solid var(--line);font-weight:600}
+
+  /* modal */
+  .mask{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:40;display:none;align-items:center;justify-content:center;padding:20px}
+  .mask.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:680px;width:100%;padding:18px}
+  .modal h3{margin:0 0 4px;font-size:15px}
+  .modal p{margin:0 0 10px;color:var(--sub);font-size:12.5px}
+  .modal textarea{width:100%;height:260px;background:#0f0f12;border:1px solid var(--line);border-radius:8px;
+    color:var(--tx);font-size:12.5px;padding:12px;font-family:ui-monospace,Menlo,monospace;line-height:1.5}
+  .modal .row{display:flex;gap:10px;margin-top:12px;justify-content:flex-end}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">AIDX PROMPT LINEUP · REVIEW v0.2</div>
+    <h1>PJラインナップ 全25本 ― 見て決める</h1>
+    <p class="lead">棚(全25本)から、業種で選んで20本セットを組む。読むのではなく、業種を選び・畳んで開き・OK/要修正を付けて決める画面です。</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 2階建て概観 -->
+  <div class="schema">
+    <div class="floor f1">
+      <div class="flabel">1階 ― 業種横断の共通PJ(どの顧客にも入る土台)</div>
+      <div class="chips">
+        <span class="chip">PJ-01〜05 確定・不変</span>
+        <span class="chip">＋ 汎用 PJ-06〜12</span>
+      </div>
+    </div>
+    <div class="floor f2">
+      <div class="flabel">2階 ― 業種特化パック(業種に合わせて乗せる)</div>
+      <div class="chips">
+        <span class="chip">不動産 13-15</span>
+        <span class="chip">建設・リフォーム 16-18</span>
+        <span class="chip">営業会社 19-20</span>
+        <span class="chip">士業・コンサル・保険 21-23</span>
+        <span class="chip">人材紹介 24-25</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 業種セレクタ -->
+  <div class="picker">
+    <div class="t">① 業種を選ぶ → 「御社ならこの◯本」が浮かび上がります</div>
+    <div class="btns" id="inds"></div>
+  </div>
+  <div class="banner" id="banner"></div>
+
+  <div class="legend">
+    <span>入力:🎤音声 / 📄文書・データ / 🗂複数資料</span>
+    <span>② 各PJに <b style="color:var(--green)">✓OK</b> / <b style="color:var(--amber)">✎要修正</b> を付ける</span>
+  </div>
+
+  <!-- 1階 -->
+  <h2 class="sec">1階 ― 業種横断の共通PJ</h2>
+  <div class="subnote">PJ-01〜05 は確定・不変。PJ-06〜12 は汎用。</div>
+  <div class="grid" id="grid-common"></div>
+
+  <!-- 2階 -->
+  <h2 class="sec two">2階 ― 業種特化パック</h2>
+  <div class="subnote">気になるパックだけ開いて中を確認できます。</div>
+  <div id="packs"></div>
+
+  <!-- 共通の型 -->
+  <div class="kata">
+    <h3>全PJ共通の型(全25本で踏襲)</h3>
+    <ul>
+      <li>入力 → AIの下書き → 自動QA判定(保留／合格候補／要修正) → 人手による最終承認</li>
+      <li>出力の各項目に出典(発言引用+タイムスタンプ、または文書の該当箇所)を添える</li>
+      <li>入力にない事実・数値・期限・担当は作らない → 「要確認」(推測で埋めない)</li>
+      <li>契約・金額・法務・個人情報の最終判断は必ず人(AIは下書きまで)</li>
+      <li>音声由来PJ(🎤)は文字起こし経路(経路1〜3)に品質が依存する前提</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- footer bar -->
+<div class="bar">
+  <div class="wrap">
+    <div class="stat">対象:<b id="s-ind">全体</b> ／ セット <b id="s-set">25</b>本 ／ ✓OK <b id="s-ok">0</b> ／ ✎要修正 <b id="s-fix">0</b> ／ 未判定 <b id="s-none">25</b></div>
+    <button class="cta ghost" onclick="resetAll()">判定をクリア</button>
+    <button class="cta" onclick="exportText()">決定をコピー ↗</button>
+  </div>
+</div>
+
+<!-- modal -->
+<div class="mask" id="mask">
+  <div class="modal">
+    <h3>決定内容(コピーして共有／AIへ戻す)</h3>
+    <p>下のテキストをコピーして、Slack共有や、私(AI)への指示としてそのまま貼り付けられます。</p>
+    <textarea id="out" readonly></textarea>
+    <div class="row">
+      <button class="cta ghost" onclick="closeModal()">閉じる</button>
+      <button class="cta" onclick="doCopy()">クリップボードにコピー</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PJ = [
+  // 1階 共通
+  {id:"PJ-01",tier:"c",name:"議事録",one:"会議音声から議事録・決定事項・TODOを作成",io:"🎤",hc:"参加者名・数値の照合",fixed:true},
+  {id:"PJ-02",tier:"c",name:"日報・CRM",one:"商談・面談から日報とCRM登録案を作成",io:"🎤📄",hc:"事実と見立ての分離",fixed:true},
+  {id:"PJ-03",tier:"c",name:"営業資料・提案書",one:"提案書・営業資料の作成",io:"📄🗂",hc:"提案の根拠・数値",fixed:true},
+  {id:"PJ-04",tier:"c",name:"FAQ・ナレッジ",one:"社内FAQ・ナレッジの整備",io:"📄",hc:"出典・最新性",fixed:true},
+  {id:"PJ-05",tier:"c",name:"メール・問い合わせ回答",one:"返信文・問い合わせ回答の作成",io:"📄",hc:"事実誤り・トーン",fixed:true},
+  {id:"PJ-06",tier:"c",name:"商談前ブリーフ",one:"過去のやり取りから商談準備メモを1枚に",io:"🗂📄",hc:"事実と仮説の分離"},
+  {id:"PJ-07",tier:"c",name:"見積書ドラフト",one:"条件メモから見積の下書き",io:"📄",hc:"金額・数量・税の全数照合"},
+  {id:"PJ-08",tier:"c",name:"契約書レビュー補助",one:"契約書からリスク・要確認点を抽出",io:"📄",hc:"「論点提示のみ」の線引き"},
+  {id:"PJ-09",tier:"c",name:"問い合わせ一次分類",one:"受信を緊急度・種別で分類し振り分け",io:"📄",hc:"誤分類・見落とし"},
+  {id:"PJ-10",tier:"c",name:"マニュアル・手順書",one:"口頭説明・操作記録から手順書を作成",io:"🎤📄",hc:"手順の抜け・順序"},
+  {id:"PJ-11",tier:"c",name:"稟議・申請書",one:"目的・費用・効果メモから稟議の下書き",io:"📄",hc:"費用対効果の根拠"},
+  {id:"PJ-12",tier:"c",name:"定期レポート整形",one:"実績データを定型レポートに整形",io:"📄",hc:"集計ロジックと出典"},
+  // 2階 パック
+  {id:"PJ-13",tier:"fudosan",name:"物件紹介文・広告文",one:"物件情報から紹介文・広告文を複数案",io:"📄",hc:"誇大表現・不当表示(景表法)"},
+  {id:"PJ-14",tier:"fudosan",name:"追客・フォローメール",one:"反響客・商談後の追客メールを段階別に",io:"📄",hc:"過度な催促・事実誤り"},
+  {id:"PJ-15",tier:"fudosan",name:"重要事項・契約書類の要点下書き",one:"契約関連書類の要点整理・確認事項",io:"📄",hc:"法務判断は人・要確認"},
+  {id:"PJ-16",tier:"kensetsu",name:"現場報告書",one:"現場の写真・口頭メモから報告書を作成",io:"🎤📄",hc:"事実と推測の境界"},
+  {id:"PJ-17",tier:"kensetsu",name:"施工・完了報告",one:"施工内容・工程実績から完了報告を作成",io:"📄",hc:"施工事実の裏取り"},
+  {id:"PJ-18",tier:"kensetsu",name:"顧客向け工程・仕様説明資料",one:"見積・仕様から施主向け説明資料に",io:"🗂",hc:"数値・仕様の正確さ"},
+  {id:"PJ-19",tier:"eigyo",name:"営業トークスクリプト",one:"商材・想定反論からトークスクリプトを作成",io:"📄",hc:"誇大・不適切表現"},
+  {id:"PJ-20",tier:"eigyo",name:"営業教育・成功事例ナレッジ化",one:"トップ営業の商談録から型を抽出",io:"🎤📄",hc:"属人ノウハウ一般化の妥当性"},
+  {id:"PJ-21",tier:"shigyo",name:"比較表・比較資料",one:"複数プラン・商品を顧客提示用の比較表に",io:"📄",hc:"各項目の事実照合・中立性"},
+  {id:"PJ-22",tier:"shigyo",name:"面談記録の論点整理・所見",one:"面談音声から論点・宿題・所見を構造化",io:"🎤",hc:"事実と見立ての分離"},
+  {id:"PJ-23",tier:"shigyo",name:"調査・分析レポート",one:"収集資料を論点別に要約・出典付き",io:"🗂",hc:"出典明示・憶測の排除"},
+  {id:"PJ-24",tier:"jinzai",name:"求人票・募集要項",one:"要件メモから求人票・募集要項を作成",io:"📄",hc:"差別的・不当表現(職安法)"},
+  {id:"PJ-25",tier:"jinzai",name:"候補者推薦文",one:"経歴・面談記録から企業向け推薦文を作成",io:"🗂",hc:"事実の裏取り・誇張回避"},
+];
+
+const PACKS = [
+  {key:"fudosan",label:"不動産パック"},
+  {key:"kensetsu",label:"建設・リフォームパック"},
+  {key:"eigyo",label:"営業会社パック"},
+  {key:"shigyo",label:"士業・コンサル・保険パック"},
+  {key:"jinzai",label:"人材紹介パック"},
+];
+
+// 業種別おすすめセット(PJ id)
+const CORE = ["PJ-01","PJ-02","PJ-03","PJ-04","PJ-05"];
+const INDUSTRIES = [
+  {key:"fudosan", label:"不動産会社", set:[...CORE,"PJ-06","PJ-08","PJ-09","PJ-13","PJ-14","PJ-15"]},
+  {key:"kensetsu",label:"建設会社", set:[...CORE,"PJ-07","PJ-10","PJ-12","PJ-16","PJ-17","PJ-18"]},
+  {key:"reform",  label:"リフォーム会社", set:[...CORE,"PJ-07","PJ-09","PJ-10","PJ-16","PJ-17","PJ-18"]},
+  {key:"eigyo",   label:"営業会社", set:[...CORE,"PJ-06","PJ-10","PJ-12","PJ-19","PJ-20"]},
+  {key:"shigyo",  label:"士業・コンサル", set:[...CORE,"PJ-06","PJ-11","PJ-12","PJ-21","PJ-22","PJ-23"]},
+  {key:"hoken",   label:"保険会社", set:[...CORE,"PJ-06","PJ-09","PJ-21","PJ-22"]},
+  {key:"jinzai",  label:"人材紹介会社", set:[...CORE,"PJ-09","PJ-12","PJ-22","PJ-24","PJ-25"]},
+];
+
+const status = {}; // id -> {s:'ok'|'fix', note:''}
+let curInd = null;
+
+function cardHTML(p){
+  return `<div class="card" id="c-${p.id}" data-id="${p.id}">
+    <div class="chead">
+      <span class="num">${p.id}${p.fixed?" ★":""}</span>
+      <span class="cname">${p.name}</span>
+      <span class="io">${p.io}</span>
+    </div>
+    <div class="one">${p.one}</div>
+    <span class="hc">人手確認:${p.hc}</span>
+    <div class="acts">
+      <button class="b ok" onclick="setS('${p.id}','ok')">✓ OK</button>
+      <button class="b fix" onclick="setS('${p.id}','fix')">✎ 要修正</button>
+    </div>
+    <textarea class="note" id="n-${p.id}" placeholder="要修正の内容(例:税区分を内税/外税で明記)" oninput="setNote('${p.id}',this.value)"></textarea>
+  </div>`;
+}
+
+function render(){
+  document.getElementById("grid-common").innerHTML =
+    PJ.filter(p=>p.tier==="c").map(cardHTML).join("");
+  const packsEl = document.getElementById("packs");
+  packsEl.innerHTML = PACKS.map(pk=>{
+    const cards = PJ.filter(p=>p.tier===pk.key).map(cardHTML).join("");
+    return `<details class="pack" open><summary>${pk.label} <span style="color:var(--dim);font-weight:400;font-size:12px">(${PJ.filter(p=>p.tier===pk.key).length}本)</span></summary><div class="packbody"><div class="grid">${cards}</div></div></details>`;
+  }).join("");
+  // industry buttons
+  const ib = document.getElementById("inds");
+  ib.innerHTML = INDUSTRIES.map(i=>`<button class="ind" data-k="${i.key}" onclick="pick('${i.key}')">${i.label}</button>`).join("")
+    + `<button class="ind clear" onclick="pick(null)">全部表示</button>`;
+  updateCounts();
+}
+
+function setS(id,s){
+  if(status[id] && status[id].s===s){ delete status[id]; }
+  else { status[id] = {s:s, note:(status[id]?status[id].note:"")}; }
+  const c = document.getElementById("c-"+id);
+  const st = status[id];
+  c.dataset.status = st? st.s : "";
+  c.querySelector(".b.ok").classList.toggle("on", st && st.s==="ok");
+  c.querySelector(".b.fix").classList.toggle("on", st && st.s==="fix");
+  if(st && st.s==="fix"){ const n=document.getElementById("n-"+id); n.value = st.note||""; }
+  updateCounts();
+}
+function setNote(id,v){ if(status[id]) status[id].note=v; }
+
+function pick(k){
+  curInd = k;
+  document.querySelectorAll(".ind").forEach(b=>b.classList.toggle("active", b.dataset.k===k));
+  const banner = document.getElementById("banner");
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("dim","inset"));
+  if(!k){ banner.classList.remove("show"); updateCounts(); return; }
+  const ind = INDUSTRIES.find(i=>i.key===k);
+  const setIds = new Set(ind.set);
+  PJ.forEach(p=>{
+    const c=document.getElementById("c-"+p.id);
+    if(setIds.has(p.id)) c.classList.add("inset"); else c.classList.add("dim");
+  });
+  banner.classList.add("show");
+  banner.innerHTML = `御社(<b>${ind.label}</b>)なら、この <b>${ind.set.length}本</b> です。`
+    + `<span class="counts">= 共通 ${ind.set.filter(x=>CORE.includes(x)||x<="PJ-12").length}本 ＋ 業種特化 ${ind.set.filter(x=>x>"PJ-12").length}本(標準「20本まで」に収まります)</span>`;
+  updateCounts();
+}
+
+function activeSet(){
+  if(!curInd) return PJ.map(p=>p.id);
+  return INDUSTRIES.find(i=>i.key===curInd).set;
+}
+function updateCounts(){
+  const set = activeSet();
+  let ok=0,fix=0,none=0;
+  set.forEach(id=>{ const s=status[id]; if(!s)none++; else if(s.s==="ok")ok++; else fix++; });
+  document.getElementById("s-ind").textContent = curInd? INDUSTRIES.find(i=>i.key===curInd).label : "全体";
+  document.getElementById("s-set").textContent = set.length;
+  document.getElementById("s-ok").textContent = ok;
+  document.getElementById("s-fix").textContent = fix;
+  document.getElementById("s-none").textContent = none;
+}
+
+function resetAll(){
+  for(const k in status) delete status[k];
+  document.querySelectorAll(".card").forEach(c=>{c.dataset.status="";});
+  document.querySelectorAll(".b").forEach(b=>b.classList.remove("on"));
+  updateCounts();
+}
+
+function exportText(){
+  const set = activeSet();
+  const name = p => PJ.find(x=>x.id===p).name;
+  const oks = set.filter(id=>status[id]&&status[id].s==="ok");
+  const fixes = set.filter(id=>status[id]&&status[id].s==="fix");
+  const nones = set.filter(id=>!status[id]);
+  let t = "=== AIDX PJラインナップ レビュー結果 ===\n";
+  t += "対象: " + (curInd? INDUSTRIES.find(i=>i.key===curInd).label+"(おすすめ"+set.length+"本)" : "全体25本") + "\n";
+  if(curInd) t += "セット: " + set.join(", ") + "\n";
+  t += "\n【OK】" + (oks.length? "\n"+oks.map(id=>`・${id} ${name(id)}`).join("\n") : " なし");
+  t += "\n\n【要修正】" + (fixes.length? "\n"+fixes.map(id=>`・${id} ${name(id)}${status[id].note?" … "+status[id].note:""}`).join("\n") : " なし");
+  t += "\n\n【未判定】" + (nones.length? " "+nones.join(", ") : " なし");
+  t += "\n\n----\nこの結果を反映して、OKはこの型で仕様化、要修正は指摘内容を直してから仕様化してください。";
+  document.getElementById("out").value = t;
+  document.getElementById("mask").classList.add("show");
+}
+function closeModal(){ document.getElementById("mask").classList.remove("show"); }
+function doCopy(){
+  const ta=document.getElementById("out"); ta.select();
+  try{ navigator.clipboard.writeText(ta.value); }catch(e){ document.execCommand("copy"); }
+  const btn=event.target; const o=btn.textContent; btn.textContent="コピーしました ✓";
+  setTimeout(()=>btn.textContent=o,1500);
+}
+document.getElementById("mask").addEventListener("click",e=>{ if(e.target.id==="mask") closeModal(); });
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>AIDX 業種別20本セット ― 組み上がりUI(プロトタイプ)</title>
+<style>
+  :root{--bg:#0c0c0e;--panel:#131316;--card:#1a1a1e;--line:#2c2c31;--tx:#f5f5f7;--sub:#c9c3ba;--dim:#8a857d;
+    --blue:#4a9eff;--green:#7fc98b;--amber:#e6c34a;--orange:#ff8a3d;--purple:#8b7dff}
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6;padding-bottom:90px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;z-index:20;background:rgba(12,12,14,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 0}
+  .eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:2px}
+  h1{font-size:21px;margin:4px 0 2px}
+  .lead{color:var(--sub);font-size:13px;margin:0}
+  .pick{margin:18px 0 6px}
+  .pick .t{font-size:13px;color:var(--sub);margin-bottom:8px}
+  .inds{display:flex;flex-wrap:wrap;gap:8px}
+  .ind{font-size:13.5px;font-weight:600;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 15px;cursor:pointer;transition:.15s}
+  .ind:hover{border-color:var(--purple)}
+  .ind.on{background:#1c2436;border-color:var(--blue);color:#cfe3ff}
+  .layer{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:14px 0;padding:16px 18px}
+  .lhead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+  .lhead .n{font-size:13px;font-weight:800;color:#06122a;background:var(--sub);border-radius:6px;padding:2px 9px;flex:none}
+  .l1 .n{background:var(--blue)} .l2 .n{background:var(--amber)} .l3 .n{background:var(--purple)}
+  .lhead h2{font-size:15px;margin:0}
+  .lhead .tag{margin-left:auto;font-size:11.5px;color:var(--dim)}
+  .sublab{font-size:12px;font-weight:700;margin:6px 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:9px}
+  .chip{border-radius:10px;padding:10px 12px;border:1px solid var(--line);background:var(--card)}
+  .chip .id{font-size:11px;font-weight:800;letter-spacing:.4px}
+  .chip .nm{font-size:13.5px;font-weight:600;margin-top:1px}
+  .chip.core{background:#e6c34a;border-color:#e6c34a}
+  .chip.core .id{color:#3a2f10}.chip.core .nm{color:#0c0c0e}
+  .chip.gen{border-color:var(--green)} .chip.gen .id{color:var(--green)}
+  .chip.spec{border-color:var(--amber);background:#211d14} .chip.spec .id{color:var(--amber)}
+  .chip.cust{border:1px dashed var(--purple);background:#171622} .chip.cust .id{color:var(--purple)}
+  .chip.cust .nm{color:#d7d0f0}
+  .empty{color:var(--dim);font-size:13px;padding:16px;border:1px dashed var(--line);border-radius:10px;text-align:center}
+  .l3note{font-size:12px;color:var(--dim);margin-top:10px}
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(19,19,22,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 0}
+  .bar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .formula{font-size:14px;color:var(--sub)}
+  .formula b{color:var(--tx)}
+  .total{margin-left:auto;font-size:15px;font-weight:800}
+  .total .num{color:var(--green);font-size:20px}
+  .cta{font-size:13px;font-weight:700;background:var(--blue);color:#06122a;border:none;border-radius:8px;padding:9px 15px;cursor:pointer}
+  .proto{display:inline-block;font-size:10px;font-weight:700;color:#06122a;background:var(--orange);border-radius:5px;padding:1px 7px;margin-left:8px;vertical-align:middle}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow">AIDX PROMPT SET · 業種別20本<span class="proto">UIプロトタイプ</span></div>
+  <h1>業種を選ぶと、20本が組み上がる</h1>
+  <p class="lead">第1層(共通12)は固定。業種を選ぶと第2層(業種特化)が出る。第3層(顧客固有)はヒアリングで確定 ― 今はここまで。</p>
+</div></header>
+
+<div class="wrap">
+  <div class="pick">
+    <div class="t">① 業種を選ぶ</div>
+    <div class="inds" id="inds"></div>
+  </div>
+
+  <!-- 第1層 -->
+  <section class="layer l1">
+    <div class="lhead"><span class="n">第1層</span><h2>共通12本 ― どの業種も入る土台</h2><span class="tag">全業種共通・固定</span></div>
+    <div class="sublab" style="color:var(--amber)">◆ 主要5PJ(核)</div>
+    <div class="grid" id="core"></div>
+    <div class="sublab" style="color:var(--green);margin-top:12px">＋ 汎用の追加7本</div>
+    <div class="grid" id="gen"></div>
+  </section>
+
+  <!-- 第2層 -->
+  <section class="layer l2">
+    <div class="lhead"><span class="n">第2層</span><h2>業種特化 ― 棚から業種で選ぶ</h2><span class="tag" id="l2tag">未選択</span></div>
+    <div id="spec"><div class="empty">↑ 業種を選ぶと、ここに業種特化のPJが出ます。</div></div>
+  </section>
+
+  <!-- 第3層 -->
+  <section class="layer l3">
+    <div class="lhead"><span class="n">第3層</span><h2>顧客固有枠 ― ヒアリングで確定</h2><span class="tag" id="l3tag">ヒアリング前</span></div>
+    <div id="cust"><div class="empty">業種を選ぶと、顧客固有枠(空き)が出ます。中身は社内ナレッジのヒアリングで確定します。</div></div>
+    <p class="l3note">ここが「オーダーメイド部分」。まずは第2層まで確定 → 商談・ヒアリングで第3層を埋めて20本に仕上げる。</p>
+  </section>
+</div>
+
+<div class="bar"><div class="wrap">
+  <div class="formula" id="formula">共通 <b>12</b> ＋ 業種特化 <b>–</b> ＋ 顧客固有 <b>–</b></div>
+  <div class="total">合計 <span class="num" id="total">12</span> / 20本</div>
+  <button class="cta" onclick="copySet()">この構成をコピー</button>
+</div></div>
+
+<script>
+(function(){
+  "use strict";
+  const CORE=[["PJ-01","議事録"],["PJ-02","日報・CRM"],["PJ-03","資料・提案"],["PJ-04","FAQ・ナレッジ"],["PJ-05","メール回答"]];
+  const GEN=[["PJ-06","商談前ブリーフ"],["PJ-07","見積ドラフト"],["PJ-08","契約書レビュー"],["PJ-09","問合せ一次分類"],["PJ-10","マニュアル・手順書"],["PJ-11","稟議・申請書"],["PJ-12","定期レポート整形"]];
+  const IND=[
+    {key:"fudosan",name:"不動産会社",spec:[["PJ-13","物件紹介文"],["PJ-14","追客メール"],["PJ-15","重要事項要点"],["PJ-21","比較表(物件)"]],cust:["物件査定コメント","内見案内文","オーナー向け報告","反響分析"]},
+    {key:"kensetsu",name:"建設会社",spec:[["PJ-16","現場報告書"],["PJ-17","施工・完了報告"],["PJ-18","工程・仕様説明"]],cust:["安全・確認書類","積算内訳の下書き","協力会社への手配連絡","工程表更新","原価・実績レポート"]},
+    {key:"reform",name:"リフォーム会社",spec:[["PJ-16","現場報告書"],["PJ-17","施工・完了報告"],["PJ-18","工程・仕様説明"],["PJ-21","比較表(プラン)"]],cust:["アフター点検報告","見積内訳の説明文","施主フォロー文","紹介・口コミ依頼文"]},
+    {key:"eigyo",name:"営業会社",spec:[["PJ-19","トークスクリプト"],["PJ-20","営業教育ナレッジ化"],["PJ-21","比較表(提案)"],["PJ-22","面談論点整理"]],cust:["業界別トークの派生","競合切り返し集","KPIレポート","ナレッジ横展開資料"]},
+    {key:"shigyo",name:"士業・コンサル",spec:[["PJ-21","比較表"],["PJ-22","面談論点整理"],["PJ-23","調査・分析レポート"]],cust:["分野別の定型文書","チェックリスト","顧問先向け通知文","レポートテンプレ","相談記録の要約"]},
+    {key:"hoken",name:"保険会社",spec:[["PJ-21","比較表"],["PJ-22","面談論点整理"],["PJ-23","分析レポート"]],cust:["商品別比較の型","更新・見直し案内","給付手続きの説明文","面談後フォロー","証券内容の要約"]},
+    {key:"jinzai",name:"人材紹介会社",spec:[["PJ-24","求人票"],["PJ-25","候補者推薦文"],["PJ-22","面談論点整理(面接記録)"]],cust:["職種別スカウト文","面接評価の観点別まとめ","企業向け進捗報告","候補者フォロー文","求人原稿の改善案"]}
+  ];
+  const $=id=>document.getElementById(id);
+  const chip=(cls,id,nm)=>`<div class="chip ${cls}"><div class="id">${id}</div><div class="nm">${nm}</div></div>`;
+  $("core").innerHTML = CORE.map(c=>chip("core",c[0],c[1])).join("");
+  $("gen").innerHTML = GEN.map(c=>chip("gen",c[0],c[1])).join("");
+  $("inds").innerHTML = IND.map(i=>`<button class="ind" data-k="${i.key}" onclick="pick('${i.key}')">${i.name}</button>`).join("");
+
+  let cur=null;
+  window.pick=function(k){
+    cur=IND.find(i=>i.key===k);
+    document.querySelectorAll(".ind").forEach(b=>b.classList.toggle("on",b.dataset.k===k));
+    $("spec").innerHTML = `<div class="grid">${cur.spec.map(s=>chip("spec",s[0],s[1])).join("")}</div>`;
+    $("l2tag").textContent = cur.name+"・"+cur.spec.length+"本";
+    $("cust").innerHTML = `<div class="grid">${cur.cust.map((c,i)=>chip("cust","枠"+(i+1),c+"(候補)")).join("")}</div>`;
+    $("l3tag").textContent = "ヒアリングで確定・"+cur.cust.length+"本";
+    const s=cur.spec.length, c=cur.cust.length;
+    $("formula").innerHTML = `共通 <b>12</b> ＋ 業種特化 <b>${s}</b> ＋ 顧客固有 <b>${c}</b>`;
+    $("total").textContent = 12+s+c;
+  };
+  window.copySet=function(){
+    let t="=== "+(cur?cur.name:"（業種未選択）")+" ― 標準20本セット ===\n\n【第1層 共通12(固定)】\n";
+    t+="主要5PJ(核): "+CORE.map(c=>c[0]).join(", ")+"\n";
+    t+="汎用7: "+GEN.map(c=>c[0]).join(", ")+"\n\n";
+    if(cur){
+      t+="【第2層 業種特化 "+cur.spec.length+"】\n"+cur.spec.map(s=>"・"+s[0]+" "+s[1]).join("\n")+"\n\n";
+      t+="【第3層 顧客固有枠 "+cur.cust.length+"(ヒアリングで確定)】\n"+cur.cust.map((c,i)=>"・枠"+(i+1)+" "+c+"(候補)").join("\n")+"\n\n";
+      t+="合計 "+(12+cur.spec.length+cur.cust.length)+"本(標準20本以内)";
+    } else { t+="※業種を選ぶと第2・3層が入ります。"; }
+    try{ navigator.clipboard.writeText(t); }catch(e){}
+    const b=event.target; const o=b.textContent; b.textContent="コピーしました ✓"; setTimeout(()=>b.textContent=o,1500);
+  };
+})();
+</script>
+</body>
+</html>
