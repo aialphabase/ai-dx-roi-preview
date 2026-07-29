@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>イベント管理ツール(Stripe連携) PMレビュー 2026-07-30</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#151518; --panel2:#1c1c21; --line:#2a2a31;
+    --text:#e8e8ec; --muted:#9a9aa5; --accent:#5ac8fa; --ok:#4cd483; --warn:#f5c04e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Noto Sans JP",-apple-system,sans-serif;line-height:1.65;padding:32px 20px 64px}
+  .wrap{max-width:960px;margin:0 auto}
+  .kicker{color:var(--accent);font-size:12px;letter-spacing:.15em;font-weight:700}
+  h1{font-size:22px;font-weight:800;margin:6px 0 4px}
+  .meta{color:var(--muted);font-size:12px}
+  h2{font-size:15px;font-weight:700;margin:30px 0 10px;padding-left:10px;border-left:3px solid var(--accent)}
+  .num{display:inline-block;background:var(--panel2);color:var(--accent);border-radius:6px;font-size:12px;font-weight:800;padding:1px 8px;margin-right:6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .story{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  .story .card{font-size:13px}
+  .story b{color:var(--accent)}
+  table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:12px;overflow:hidden;font-size:13px}
+  th{background:var(--panel2);color:var(--muted);font-weight:600;text-align:left;padding:9px 13px;font-size:11.5px}
+  td{padding:9px 13px;border-top:1px solid var(--line);vertical-align:top}
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;background:#12301f;color:var(--ok)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  ul.ask{list-style:none;font-size:13.5px}
+  ul.ask li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid var(--line)}
+  ul.ask li:last-child{border-bottom:none}
+  ul.ask li::before{content:"☐";position:absolute;left:6px;color:var(--warn);font-size:15px}
+  ul.ask small{display:block;color:var(--muted);font-size:11.5px}
+  .demo{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px}
+  .step{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:7px 13px}
+  .arrow{color:var(--muted)}
+  .note{color:var(--muted);font-size:11.5px;margin-top:8px}
+  .big{font-size:19px;font-weight:800;color:var(--ok)}
+  footer{margin-top:40px;color:var(--muted);font-size:11px;border-top:1px solid var(--line);padding-top:12px;line-height:1.8}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">AIDX / AI活用プロジェクト — PMレビュー(認識合わせ)</div>
+    <h1>イベント管理ツール(Stripe連携) 仕様レビュー</h1>
+    <div class="meta">2026-07-30 / 説明: 西村 / 所要目安: 10分(説明5分+確認5分)</div>
+  </header>
+
+  <h2><span class="num">1</span>背景と結論(1分)</h2>
+  <div class="story">
+    <div class="card">現在のイーベ！は<b>イベント管理だけで月2〜5万円</b>。決済もfincode連携でStripe非対応</div>
+    <div class="card">決済は<b>既存のStripeに一本化</b>が決定済み。Stripe対応の既存サービスが少ない</div>
+    <div class="card">→ <b>自社開発</b>へ。検討の結論: <span class="big">開発可能</span>。固定費は月0〜8千円程度に圧縮</div>
+    <div class="card">模擬デモ作成済み。<b>社内セミナー担当が動作確認済み</b>(申込〜QR受付まで導線OK)</div>
+  </div>
+
+  <h2><span class="num">2</span>仕様の骨子 — この5項目で過不足ないか(3分)</h2>
+  <table>
+    <tr><th>要件</th><th>実現方式</th><th>状態</th></tr>
+    <tr><td>① イベントページ作成・申込フォーム</td><td>管理画面でイベント登録→公開ページ自動生成</td><td><span class="tag">デモ済</span></td></tr>
+    <tr><td>② 申込時にその場で決済</td><td>Stripe Checkout(Stripeのホスト画面。カード情報は自社を通らない=PCI対応最軽量)。無料イベントは決済スキップ</td><td><span class="tag">デモ済</span></td></tr>
+    <tr><td>③ 支払済み/未払いの一覧把握</td><td>Stripe Webhookで自動反映→参加者一覧+CSV出力</td><td><span class="tag">デモ済</span></td></tr>
+    <tr><td>④ 申込上限数の設定</td><td>定員管理(決済中の仮押さえ含む)。満席で自動締切</td><td><span class="tag">デモ済</span></td></tr>
+    <tr><td>⑤ QR受付・出席管理</td><td>参加者ごとにQRチケットをメール発行→当日スマホで読み取り→出席記録(専用アプリ不要)</td><td><span class="tag">デモ済</span></td></tr>
+  </table>
+  <div class="demo" style="margin-top:10px">
+    <span style="color:var(--muted);font-weight:700">デモ導線:</span>
+    <span class="step">申込</span><span class="arrow">→</span>
+    <span class="step">模擬Stripe決済</span><span class="arrow">→</span>
+    <span class="step">QRチケット発行</span><span class="arrow">→</span>
+    <span class="step">当日受付(QR読取)</span><span class="arrow">→</span>
+    <span class="step">一覧に出席反映</span>
+  </div>
+
+  <h2><span class="num">3</span>コストと進め方(2分)</h2>
+  <div class="cols">
+    <div class="card">
+      <b style="font-size:13px">コスト比較(月額)</b>
+      <table style="margin-top:8px;background:transparent">
+        <tr><td>イーベ！(現行)</td><td style="text-align:right">2〜5万円</td></tr>
+        <tr><td>自社開発(インフラ固定費)</td><td style="text-align:right"><b class="big">0〜8千円</b></td></tr>
+        <tr><td>Stripe手数料</td><td style="text-align:right">決済額の3.6%(固定費0)</td></tr>
+      </table>
+      <div class="note">例: 5,000円×100名(50万円)決済時の手数料18,000円。初期費用は工数のみ(社内AI駆動開発)</div>
+    </div>
+    <div class="card">
+      <b style="font-size:13px">フェーズ(目安)</b>
+      <table style="margin-top:8px;background:transparent">
+        <tr><td>Phase 1: MVP(①〜④+確認メール)</td><td style="text-align:right">2〜3週間</td></tr>
+        <tr><td>Phase 2: QRチケット・当日受付(⑤)</td><td style="text-align:right">+1〜2週間</td></tr>
+        <tr><td>Phase 3: リマインド・アンケート等</td><td style="text-align:right">随時</td></tr>
+      </table>
+      <div class="note">つなぎ: 直近イベントはStripe Payment Links(半日)で先行運用も可</div>
+    </div>
+  </div>
+
+  <h2><span class="num">4</span>PMに確認したいこと(5分)</h2>
+  <div class="card">
+    <ul class="ask">
+      <li>要件5項目に過不足はないか(追加要望: アンケート・リマインドメール等はPhase 3扱いでよいか)<small>イーベ！にあってこの仕様に無い機能: アンケート集計・CSV顧客インポートからの招待</small></li>
+      <li>決済はカードのみで開始してよいか<small>コンビニ払いはStripe側で対応可能だが「未払い」管理が発生するためPhase 3提案。当日現金の扱いも要確認</small></li>
+      <li>キャンセル・返金ポリシーの方針<small>返金時Stripe手数料3.6%は戻らない → 何日前まで返金可・手数料負担をどちらが持つか</small></li>
+      <li>開発着手の承認と担当・スケジュール確定<small>並行して必要な準備: 特商法表記・返金ポリシーページ(Stripe本番審査で実質必須)・プライバシーポリシー</small></li>
+      <li>イーベ！の解約タイミング<small>提案: Phase 2完了+1回の本番イベントで並行運用→問題なければ解約(月2〜5万円の削減確定)</small></li>
+    </ul>
+  </div>
+
+  <footer>
+    資料の所在 — 模擬デモ: アーティファクト aidx-event-tool-demo(その場で実演可) / 判断資料: aidx-event-tool-feasibility / 詳細検討MD: プロジェクトalphamn「AIDX_イベント管理ツール_開発可否検討_v0.1」<br>
+    関連報告 — AIラボ(開発・活用・自動化)を新設し入口ハブに統合済み: <a href="https://aialphabase.github.io/ai-dx-roi-preview/projects/ai-lab/">aialphabase.github.io/ai-dx-roi-preview/projects/ai-lab/</a>(本ツールを1件目として登録)
+  </footer>
+</div>
+</body>
+</html>
