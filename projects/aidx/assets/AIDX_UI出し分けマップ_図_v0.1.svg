@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 970" role="img" aria-label="UI出し分けマップ。決済者・現場営業・現場担当者の3対象に、いつ・どのUIを見せるか・目的・粒度を並べ、深さの軸を示す図">
+  <rect width="1800" height="970" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="66" font-family="sans-serif" font-size="15" font-weight="700" fill="#ff8a3d" letter-spacing="2">UI出し分けマップ</text>
+  <text x="70" y="112" font-family="sans-serif" font-size="30" font-weight="700" fill="#f5f5f5">誰に・いつ・どのUIを見せるか</text>
+  <text x="70" y="149" font-family="sans-serif" font-size="15" fill="#a8a29b">同じ骨子(25本・三層構造)を、相手とタイミングで「見せ方の粒度」を変えて出し分ける。横展開は同じ骨子から。</text>
+
+  <!-- ===== Card 1: 決済者 (blue) ===== -->
+  <rect x="70" y="200" width="520" height="480" rx="16" fill="#131316" stroke="#4a9eff" stroke-width="1.5"/>
+  <circle cx="96" cy="240" r="9" fill="#4a9eff"/>
+  <text x="116" y="247" font-family="sans-serif" font-size="20" font-weight="700" fill="#f5f5f5">決済者</text>
+  <text x="96" y="278" font-family="sans-serif" font-size="13" fill="#a8a29b">社長・専務・常務・本部長クラス</text>
+  <line x1="96" y1="298" x2="564" y2="298" stroke="#2c2c31" stroke-width="1"/>
+  <text x="96" y="328" font-family="sans-serif" font-size="12" font-weight="700" fill="#4a9eff">いつ</text>
+  <text x="96" y="352" font-family="sans-serif" font-size="14" fill="#e8e4de">提案 〜 投資判断</text>
+  <text x="96" y="388" font-family="sans-serif" font-size="12" font-weight="700" fill="#4a9eff">見せるUI</text>
+  <text x="96" y="412" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">ROI診断(回収期間)</text>
+  <text x="96" y="434" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">納品パッケージ全体像</text>
+  <text x="96" y="456" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">業種別20本セット(御社ならこれ)</text>
+  <text x="96" y="500" font-family="sans-serif" font-size="12" font-weight="700" fill="#4a9eff">目的</text>
+  <text x="96" y="524" font-family="sans-serif" font-size="14" fill="#e8e4de">導入のGO判断</text>
+  <text x="96" y="560" font-family="sans-serif" font-size="12" font-weight="700" fill="#4a9eff">粒度</text>
+  <text x="96" y="584" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">結論・数字・1枚。</text>
+  <text x="96" y="606" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">触らせず「見せる」。</text>
+
+  <!-- arrow 1->2 -->
+  <path d="M600 440 L628 440 L628 432 L648 445 L628 458 L628 450 L600 450 Z" fill="#6f6a63"/>
+
+  <!-- ===== Card 2: 現場営業 (orange) ===== -->
+  <rect x="640" y="200" width="520" height="480" rx="16" fill="#131316" stroke="#ff8a3d" stroke-width="1.5"/>
+  <circle cx="666" cy="240" r="9" fill="#ff8a3d"/>
+  <text x="686" y="247" font-family="sans-serif" font-size="20" font-weight="700" fill="#f5f5f5">現場営業</text>
+  <text x="666" y="278" font-family="sans-serif" font-size="13" fill="#a8a29b">自社・代理店の営業担当</text>
+  <line x1="666" y1="298" x2="1134" y2="298" stroke="#2c2c31" stroke-width="1"/>
+  <text x="666" y="328" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">いつ</text>
+  <text x="666" y="352" font-family="sans-serif" font-size="14" fill="#e8e4de">商談・ヒアリング</text>
+  <text x="666" y="388" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">使うUI</text>
+  <text x="666" y="412" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">組み上がりUI(業種で20本)</text>
+  <text x="666" y="434" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">ROI診断(その場で試算)</text>
+  <text x="666" y="456" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">ヒアリングガイド</text>
+  <text x="666" y="500" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">目的</text>
+  <text x="666" y="524" font-family="sans-serif" font-size="14" fill="#e8e4de">受注・顧客の合意</text>
+  <text x="666" y="560" font-family="sans-serif" font-size="12" font-weight="700" fill="#ff8a3d">粒度</text>
+  <text x="666" y="584" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">見せて選ばせる。</text>
+  <text x="666" y="606" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">その場で数字を動かす。</text>
+
+  <!-- arrow 2->3 -->
+  <path d="M1170 440 L1198 440 L1198 432 L1218 445 L1198 458 L1198 450 L1170 450 Z" fill="#6f6a63"/>
+
+  <!-- ===== Card 3: 現場担当者 (green, highlighted) ===== -->
+  <rect x="1210" y="200" width="520" height="480" rx="16" fill="#16211a" stroke="#7fc98b" stroke-width="2"/>
+  <circle cx="1236" cy="240" r="9" fill="#7fc98b"/>
+  <text x="1256" y="247" font-family="sans-serif" font-size="20" font-weight="700" fill="#f5f5f5">現場担当者</text>
+  <text x="1236" y="278" font-family="sans-serif" font-size="13" fill="#a8a29b">導入後に実際に使う人</text>
+  <line x1="1236" y1="298" x2="1704" y2="298" stroke="#2c3a30" stroke-width="1"/>
+  <text x="1236" y="328" font-family="sans-serif" font-size="12" font-weight="700" fill="#7fc98b">いつ</text>
+  <text x="1236" y="352" font-family="sans-serif" font-size="14" fill="#e8e4de">研修・導入・定着(3か月)</text>
+  <text x="1236" y="388" font-family="sans-serif" font-size="12" font-weight="700" fill="#7fc98b">使う資料・UI</text>
+  <text x="1236" y="412" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">各PJの詳細手順書</text>
+  <text x="1236" y="434" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">動画マニュアル</text>
+  <text x="1236" y="456" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">FAQ・チェックリスト / プロンプト本体</text>
+  <text x="1236" y="500" font-family="sans-serif" font-size="12" font-weight="700" fill="#7fc98b">目的</text>
+  <text x="1236" y="524" font-family="sans-serif" font-size="14" fill="#e8e4de">実際に使える・定着する</text>
+  <text x="1236" y="560" font-family="sans-serif" font-size="12" font-weight="700" fill="#7fc98b">粒度</text>
+  <text x="1236" y="584" font-family="sans-serif" font-size="13.5" fill="#c9c3ba">手取り足取り・詳細・繰り返し見る。</text>
+  <rect x="1236" y="616" width="468" height="46" rx="9" fill="#12130f" stroke="#e6c34a" stroke-width="1.3"/>
+  <text x="1256" y="644" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#e6c34a">★ 今後の制作対象:詳細手順書・動画マニュアル</text>
+
+  <!-- ===== 深さの軸 ===== -->
+  <rect x="60" y="712" width="1680" height="92" rx="14" fill="#131316" stroke="#2c2c31" stroke-width="1"/>
+  <text x="90" y="742" font-family="sans-serif" font-size="14" font-weight="700" fill="#d8d3cc">深さの軸 ― 相手が「深い」ほど、詳しく・繰り返し見る</text>
+  <line x1="100" y1="775" x2="1690" y2="775" stroke="#3a3a42" stroke-width="2"/>
+  <path d="M1690 767 L1712 775 L1690 783 Z" fill="#7fc98b"/>
+  <text x="100" y="795" font-family="sans-serif" font-size="12" fill="#8a857d">浅い(概要・結論)</text>
+  <text x="1690" y="795" font-family="sans-serif" font-size="12" fill="#9fc7ad" text-anchor="end">深い(詳細手順・動画・反復)</text>
+  <text x="330" y="768" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#4a9eff" text-anchor="middle">概要</text>
+  <text x="900" y="768" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#ff8a3d" text-anchor="middle">選ぶ・試算</text>
+  <text x="1470" y="768" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#7fc98b" text-anchor="middle">詳細手順・動画</text>
+
+  <!-- callout -->
+  <rect x="60" y="828" width="1680" height="98" rx="14" fill="#14211b" stroke="#7fc98b" stroke-width="2"/>
+  <text x="900" y="868" font-family="sans-serif" font-size="21" font-weight="700" fill="#f5f5f5" text-anchor="middle">骨子は1つ(25本・三層)。UIは相手とタイミングで「見せ方の粒度」を出し分けるだけ。</text>
+  <text x="900" y="901" font-family="sans-serif" font-size="13.5" fill="#a8a29b" text-anchor="middle">決済者=見せて判断、現場営業=選ばせて受注、現場担当者=詳細手順書・動画マニュアルで定着。現場ほど深い資料が要る。</text>
+</svg>
