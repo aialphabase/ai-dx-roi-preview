@@ -138,7 +138,8 @@
         <span class="chip">不動産 13-15</span>
         <span class="chip">建設・リフォーム 16-18</span>
         <span class="chip">営業会社 19-20</span>
-        <span class="chip">士業・コンサル・保険 21-23</span>
+        <span class="chip">士業・コンサル・保険代理店 21-23</span>
+        <span class="chip">整体・整骨/クリニック(来院系) 共通＋固有中心</span>
         <span class="chip">人材紹介 24-25</span>
       </div>
     </div>
@@ -249,8 +250,10 @@ const INDUSTRIES = [
   {key:"reform",  label:"リフォーム会社", set:[...CORE,"PJ-07","PJ-09","PJ-10","PJ-16","PJ-17","PJ-18"]},
   {key:"eigyo",   label:"営業会社", set:[...CORE,"PJ-06","PJ-10","PJ-12","PJ-19","PJ-20"]},
   {key:"shigyo",  label:"士業・コンサル", set:[...CORE,"PJ-06","PJ-11","PJ-12","PJ-21","PJ-22","PJ-23"]},
-  {key:"hoken",   label:"保険会社", set:[...CORE,"PJ-06","PJ-09","PJ-21","PJ-22"]},
+  {key:"hoken",   label:"保険代理店", set:[...CORE,"PJ-06","PJ-09","PJ-21","PJ-22"]},
   {key:"jinzai",  label:"人材紹介会社", set:[...CORE,"PJ-09","PJ-12","PJ-22","PJ-24","PJ-25"]},
+  {key:"seitai",  label:"整体・整骨", set:[...CORE,"PJ-04","PJ-09","PJ-14","PJ-21","PJ-22"]},
+  {key:"clinic",  label:"クリニック", set:[...CORE,"PJ-04","PJ-09","PJ-14","PJ-21","PJ-22"]},
 ];
 
 const status = {}; // id -> {s:'ok'|'fix', note:''}
