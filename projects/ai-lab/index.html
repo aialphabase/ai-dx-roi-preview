@@ -133,6 +133,19 @@ const TOOLS = [
     updated:'2026-07-24'
   },
   {
+    name:'プロンプト稼働検証(罠入りバックテスト)',
+    cat:'検証比較', status:'live',
+    desc:'全25本のプロンプトを、欠陥・不正指示を仕込んだサンプルのブラインド実行で全数検証(25/25合格)。虚偽報告・コンプラ違反(景表法・職安法等)を「指示されても書かない」ことを実機で確認。方法の図解と結果一覧・全ログを公開。',
+    cost:'実施済み(2026-08-02)・証拠27ファイルはaidx-docsに保存',
+    alt:'—',
+    links:[
+      {label:'検証方法の図解', url:'../aidx/assets/AIDX_プロンプト検証方法_図_v0.1.svg'},
+      {label:'結果一覧(25本)', url:'../aidx/AIDX_検証結果一覧_v1.0.html'},
+      {label:'全ログ(リポジトリ)', url:'https://github.com/aialphabase/aidx-docs/tree/main/04_テスト仕様/検証ログ_20260802'}
+    ],
+    updated:'2026-08-02'
+  },
+  {
     name:'音声文字起こし経路(三段構え)',
     cat:'AI活用', status:'study',
     desc:'M365 Word / ローカルアプリ(MacWhisper等) / ブラウザ内Whisper の3経路を比較検証中。PJ-01〜05実運用の前提となるボトルネック。',
