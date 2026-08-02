@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>AIDX セットアップ ― スタートページ v0.4（チュートリアル付き）</title>
+<style>
+  :root{--bg:#0c0c0e;--panel:#131316;--card:#1a1a1e;--line:#2c2c31;--tx:#f5f5f7;--sub:#c9c3ba;--dim:#8a857d;
+    --blue:#4a9eff;--green:#7fc98b;--amber:#e6c34a;--orange:#ff8a3d;--purple:#8b7dff}
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.7;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  /* progress */
+  .steps{display:flex;gap:0;align-items:stretch;margin:26px 0 4px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+  .stp{flex:1;display:flex;gap:11px;align-items:center;padding:13px 16px;border-right:1px solid var(--line)}
+  .stp:last-child{border-right:none}
+  .stp .num{width:26px;height:26px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--dim);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+  .stp .lb{font-size:13px;font-weight:700;color:var(--dim)}
+  .stp .lb small{display:block;font-size:10.5px;font-weight:500;color:var(--dim)}
+  .stp.on{background:#101b14}
+  .stp.on .num{background:var(--green);border-color:var(--green);color:#06180c}
+  .stp.on .lb{color:var(--tx)}
+  .stp.done .num{background:#16211a;border-color:var(--green);color:var(--green)}
+  .stp.done .lb{color:var(--sub)}
+  /* setup hero */
+  .setup{background:linear-gradient(180deg,#101b14 0%,var(--panel) 46%);border:2px solid var(--green);border-radius:18px;padding:0;margin:20px 0;overflow:hidden;box-shadow:0 0 0 4px rgba(127,201,139,.06)}
+  .setup .banner{display:flex;align-items:center;gap:16px;padding:22px 26px;border-bottom:1px solid #23372a;background:#0f1a13}
+  .setup .gear{width:52px;height:52px;flex:none}
+  .setup .btxt .eb{font-size:12px;font-weight:800;letter-spacing:3px;color:var(--green)}
+  .setup .btxt h1{font-size:23px;margin:3px 0 2px}
+  .setup .btxt .sub{font-size:13px;color:var(--sub)}
+  .setup .pill-step{margin-left:auto;flex:none;font-size:12px;font-weight:800;color:#06180c;background:var(--green);border-radius:20px;padding:6px 15px}
+  .setup .body{padding:20px 26px 24px}
+  .callout{display:flex;gap:10px;align-items:flex-start;background:#12130f;border:1px solid #3f3a1c;border-radius:10px;padding:12px 14px;margin-bottom:18px}
+  .callout .d{font-size:12.5px;color:#d8cfa0}
+  .callout b{color:var(--amber)}
+  .grouplbl{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--green);margin:6px 0 10px;text-transform:uppercase}
+  .row{display:grid;grid-template-columns:210px 1fr;gap:14px;align-items:start;margin:13px 0}
+  .row label{font-size:13.5px;font-weight:700;padding-top:8px}
+  .row label .h{display:block;font-size:11.5px;color:var(--dim);font-weight:500;margin-top:2px}
+  .row .req{color:var(--orange);font-size:11px;font-weight:800;margin-left:5px}
+  input[type=text],textarea,select{width:100%;background:#0c0f0c;border:1px solid #2b3a30;border-radius:9px;color:var(--tx);font-size:13.5px;padding:10px 12px;font-family:inherit}
+  textarea{min-height:52px;resize:vertical;line-height:1.6}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--green)}
+  .pills{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{font-size:13px;font-weight:600;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;transition:.12s}
+  .pill:hover{border-color:var(--green)}
+  .pill.on{background:#16211a;border-color:var(--green);color:#bfe9c8}
+  .pill .b{font-size:11px;color:var(--dim);display:block}
+  .pill.on .b{color:#9fc7ad}
+  .sttbox{margin-top:10px;padding:13px 15px;border:1px dashed var(--amber);border-radius:10px;background:#211d14;display:none}
+  .sttbox.show{display:block}
+  .sttbox .h{font-size:12.5px;font-weight:700;color:#f0dca0;margin-bottom:8px}
+  .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+  .btn{background:var(--green);color:#06180c;border:none;border-radius:10px;padding:13px 24px;font-size:14.5px;font-weight:800;cursor:pointer;font-family:inherit}
+  .btn.sec{background:var(--card);color:var(--tx);border:1px solid var(--line);font-weight:700;padding:11px 18px;font-size:13.5px}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .hint{font-size:12px;color:var(--dim)}
+  /* generic panel for step2/3 */
+  .panel{display:none}
+  .panel.show{display:block}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:20px 0}
+  .card h2{font-size:19px;margin:0 0 4px}
+  .card .cs{font-size:13px;color:var(--sub);margin-bottom:16px}
+  .applied{display:flex;flex-wrap:wrap;gap:8px 18px;background:#101b14;border:1px solid #23372a;border-radius:10px;padding:12px 15px;margin-bottom:18px;font-size:12.5px}
+  .applied .it{color:var(--sub)} .applied .it b{color:#bfe9c8;font-weight:700}
+  .applied .edit{margin-left:auto;color:var(--green);font-size:12px;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline}
+  .pjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .pjcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;cursor:pointer;transition:.12s}
+  .pjcard:hover{border-color:var(--blue)}
+  .pjcard.on{border-color:var(--blue);background:#101725}
+  .pjcard .id{font-size:11px;font-weight:800;color:var(--dim)}
+  .pjcard .nm{font-size:15px;font-weight:700;margin:3px 0}
+  .pjcard .badge{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:1px 8px;margin-top:6px}
+  .badge.now{background:#12190f;border:1px solid var(--green);color:var(--green)}
+  .badge.stt{background:#211d14;border:1px solid var(--amber);color:var(--amber)}
+  .badge.ok{background:#101b14;border:1px solid var(--green);color:var(--green)}
+  .mat{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+  .mat .t{font-size:14px;font-weight:700;margin-bottom:4px}
+  .mat .d{font-size:12.5px;color:var(--dim);margin-bottom:10px}
+  .mat textarea{min-height:120px}
+  .filebar{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .filebtn{font-size:12.5px;font-weight:700;background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;color:var(--sub)}
+  .filebtn:hover{border-color:var(--green);color:var(--tx)}
+  .fname{font-size:12px;color:var(--green)}
+  .outblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+  .outhead{display:flex;align-items:center;gap:10px;padding:11px 15px;background:#17171b;border-bottom:1px solid var(--line)}
+  .outhead h3{font-size:14px;margin:0}
+  .outhead .cp{margin-left:auto;background:var(--blue);color:#03152e;border:none;border-radius:7px;padding:6px 13px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit}
+  .outhead .cp.done{background:var(--green);color:#06180c}
+  pre.code{margin:0;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.6;color:#dbe6dd;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow:auto}
+  .use{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
+  .ucard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .ucard .n{font-size:20px;font-weight:800;color:var(--blue)}
+  .ucard .t{font-size:14px;font-weight:700;margin:4px 0}
+  .ucard .d{font-size:12.5px;color:var(--sub)}
+  .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--sub);margin-top:16px}
+  .note b{color:var(--tx)}
+  .grade{display:inline-block;font-size:11px;font-weight:800;border-radius:6px;padding:2px 9px;background:#211d14;border:1px solid var(--amber);color:var(--amber)}
+  details.gloss{margin:26px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:2px 18px}
+  details.gloss summary{cursor:pointer;font-size:13.5px;font-weight:700;padding:12px 0;color:var(--sub)}
+  .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding:4px 0 16px}
+  .term{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .term .k{font-size:13.5px;font-weight:800} .term .en{font-size:10.5px;color:var(--dim);font-weight:600}
+  .term p{font-size:12px;color:var(--sub);margin:6px 0 0}
+  .term.stt .k{color:#cfe3ff}.term.tts .k{color:#d7d0f0}.term.fmt .k{color:#f0dca0}.term.cal .k{color:#bfe9c8}
+  /* ===== チュートリアル ===== */
+  .tut{background:linear-gradient(180deg,#101725 0%,var(--panel) 70%);border:2px solid var(--blue);border-radius:16px;margin:24px 0 6px;overflow:hidden}
+  .tut>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:15px;padding:18px 22px}
+  .tut>summary::-webkit-details-marker{display:none}
+  .tut .ic{width:44px;height:44px;flex:none;border-radius:50%;background:var(--blue);color:#06122a;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:800}
+  .tut .tt{flex:1}
+  .tut .tt .eb2{font-size:11.5px;font-weight:800;letter-spacing:3px;color:var(--blue)}
+  .tut .tt h2{font-size:19px;margin:2px 0 2px}
+  .tut .tt .sb{font-size:13px;color:var(--sub)}
+  .tut .arw{flex:none;font-size:12.5px;font-weight:800;color:#06122a;background:var(--blue);border-radius:20px;padding:7px 15px}
+  .tut[open] .arw::after{content:'閉じる ▲'} .tut:not([open]) .arw::after{content:'ひらく ▼'}
+  .tut .tbody{padding:2px 22px 22px;border-top:1px solid #23324a;margin-top:2px}
+  .tut .tlead{font-size:15px;margin:16px 0 14px}
+  .tut .tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+  .tut .tc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .tut .tc .tn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:13px;font-weight:800;margin-bottom:7px}
+  .tut .tc h4{margin:0 0 5px;font-size:15px}
+  .tut .tc p{margin:0;font-size:12.5px;color:var(--sub);line-height:1.75}
+  .tut .lb1 .tn{background:var(--blue);color:#06122a} .tut .lb2 .tn{background:var(--green);color:#06180c}
+  .tut .sect{font-size:12px;font-weight:800;letter-spacing:2px;margin:18px 0 9px}
+  .tut .sect.a{color:var(--blue)} .tut .sect.b{color:var(--green)}
+  .tut .exs{margin-top:14px}
+  .tut .ex{background:#1c2436;border:1.5px solid var(--blue);border-radius:14px;padding:11px 16px;font-size:14.5px;color:#e8f0fa;margin:8px 0}
+  .tut .tnote{background:#12130f;border:1px solid #3f3a1c;border-radius:10px;padding:12px 15px;font-size:12.5px;color:#d8cfa0;margin-top:14px}
+  .tut .tnote b{color:var(--amber)}
+  .tut .tlink{display:inline-block;margin-top:16px;background:var(--blue);color:#06122a;text-decoration:none;font-size:13.5px;font-weight:800;border-radius:10px;padding:11px 20px}
+  @media(max-width:640px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== TUTORIAL (はじめての方へ) ===== -->
+  <details class="tut" id="tut">
+    <summary>
+      <div class="ic">?</div>
+      <div class="tt">
+        <div class="eb2">TUTORIAL ／ チュートリアル</div>
+        <h2>はじめての方へ ― 3分でわかる使いかた</h2>
+        <div class="sb">おぼえるのは「<b style="color:#bfe9c8">はって、わたして、たのむ</b>」の3つだけ。この画面の使い方もここで説明します。</div>
+      </div>
+      <div class="arw"></div>
+    </summary>
+    <div class="tbody">
+      <p class="tlead">この画面（セットアップ）は、<b>最初に1回だけ</b>おこなう準備です。病院の「初診の問診票」と同じで、2回目からは要りません。</p>
+
+      <div class="sect a">はじめに 1回だけ ― この画面ですること</div>
+      <div class="tgrid">
+        <div class="tc lb1"><div class="tn">1</div><h4>会社のことを入れる</h4><p>会社の名前・ふだんのことばづかい・書いてはいけないこと。ふだんの言葉で答えるだけ。わからない欄はとばして構いません。</p></div>
+        <div class="tc lb1"><div class="tn">2</div><h4>「会社カード」ができる</h4><p>ボタンを押すと、貼るだけの文章が1枚できます。中身をおぼえる必要はありません。「コピー」を押すだけ。</p></div>
+        <div class="tc lb1"><div class="tn">3</div><h4>AIのチャットに はる</h4><p>Claude（クロード）のチャットをひらいて、はりつけて送信（Ctrl+V／⌘+V）。これで準備は終わりです。</p></div>
+      </div>
+
+      <div class="sect b">あとは毎回 これだけ</div>
+      <div class="tgrid">
+        <div class="tc lb2"><div class="tn">A</div><h4>えらぶ</h4><p>何を作ってほしいか決める（議事録・マニュアル・メール返信など25種類）。操作はありません。</p></div>
+        <div class="tc lb2"><div class="tn">B</div><h4>わたす</h4><p>材料をチャットにつける。文章をそのまま貼るか、クリップ📎でファイルを選ぶだけ。</p></div>
+        <div class="tc lb2"><div class="tn">C</div><h4>たのむ</h4><p>ひとこと書いて送るだけ。きれいな文章でなくて大丈夫です。</p></div>
+      </div>
+
+      <div class="exs">
+        <div style="font-size:12.5px;font-weight:700;color:#9fc7ad">たとえば、こう書きます（このまま使えます）</div>
+        <div class="ex">💬「商談前ブリーフを、この添付ファイルから作成して」</div>
+        <div class="ex">💬「このテキストから、お客さん用のマニュアルを作って」</div>
+        <div class="ex">💬「この文字起こしから、議事録と決定事項・TODOを作って」</div>
+      </div>
+
+      <div class="tnote">📄 <b>返ってくるもの</b>：できあがりの「下書き」＋AIが自分でつけた「点検表」がセットで届きます。人がやるのは、読んで・なおして・OKを出すだけ。送信やお客さまへの提出は、かならず人が最後に判断します。<br>
+      🎤 <b>録音（音声）だけはひと手間</b>：先に文字にしてから（文字おこし）、その文字をわたしてください。<br>
+      🔁 <b>会社カードの貼り直し</b>：同じチャットの中では不要。あたらしいチャットを開いたときだけ、もう一度貼ります。</div>
+
+      <a class="tlink" href="./AIDX_チュートリアル_v0.1.html" target="_blank" rel="noopener">図つきの詳しいチュートリアルをひらく ↗</a>
+    </div>
+  </details>
+
+  <!-- progress -->
+  <div class="steps">
+    <div class="stp on" id="s1"><div class="num">1</div><div class="lb">会社セットアップ<small>最初に1回・会社の基本情報</small></div></div>
+    <div class="stp" id="s2"><div class="num">2</div><div class="lb">業務と素材<small>PJを選び、素材を入れる</small></div></div>
+    <div class="stp" id="s3"><div class="num">3</div><div class="lb">使う<small>完成プロンプトを貼るだけ</small></div></div>
+  </div>
+
+  <!-- ===== STEP 1: SETUP START PAGE ===== -->
+  <div class="panel show" id="p1">
+    <div class="setup">
+      <div class="banner">
+        <svg class="gear" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="#0f1a13" stroke="#7fc98b" stroke-width="1.5"/>
+          <path d="M24 15.5a8.5 8.5 0 100 17 8.5 8.5 0 000-17zm0 3a5.5 5.5 0 110 11 5.5 5.5 0 010-11z" fill="#7fc98b"/>
+          <g fill="#7fc98b"><rect x="22.6" y="6" width="2.8" height="6" rx="1.4"/><rect x="22.6" y="36" width="2.8" height="6" rx="1.4"/><rect x="6" y="22.6" width="6" height="2.8" rx="1.4"/><rect x="36" y="22.6" width="6" height="2.8" rx="1.4"/><rect x="11" y="12.9" width="2.8" height="6" rx="1.4" transform="rotate(-45 12.4 15.9)"/><rect x="34.2" y="12.9" width="2.8" height="6" rx="1.4" transform="rotate(45 35.6 15.9)"/><rect x="11" y="29.1" width="2.8" height="6" rx="1.4" transform="rotate(45 12.4 32.1)"/><rect x="34.2" y="29.1" width="2.8" height="6" rx="1.4" transform="rotate(-45 35.6 32.1)"/></g>
+        </svg>
+        <div class="btxt">
+          <div class="eb">SETUP ／ セットアップ</div>
+          <h1>AIDX 初期セットアップ</h1>
+          <div class="sub">最初に1回だけ。<b style="color:#bfe9c8">会社の基本情報</b>を登録します。ここで入れた内容は、以降すべての業務（PJ）に自動で引き継がれます。</div>
+        </div>
+        <div class="pill-step">STEP 1 / 3</div>
+      </div>
+      <div class="body">
+        <div class="callout">
+          <div class="d">👋 <b>ここはセットアップ画面です。</b>業務（メール・議事録など）を選ぶ前の準備段階。会社ごとに一度だけ設定すれば、あとは使うだけ。プロンプト本体は全社共通で、会社ごとに変わるのはこの画面の内容だけです。</div>
+        </div>
+
+        <div class="grouplbl">会社の基本情報</div>
+        <div class="row">
+          <label>会社名・署名 <span class="req">必須</span><span class="h">返信や資料の署名に入る</span></label>
+          <input type="text" id="company" placeholder="例：株式会社アルファベース 営業部 田中">
+        </div>
+        <div class="row">
+          <label>業種<span class="h">言い回しの調整に使う</span></label>
+          <input type="text" id="industry" placeholder="例：不動産 / 建設 / 士業 / ITサービス など">
+        </div>
+        <div class="row">
+          <label>社内用語・表記ルール<span class="h">正式名称・略語・表記統一</span></label>
+          <textarea id="terms" placeholder="例：相手は「貴社」、自社は「当社」。サービス名は「AIDX」と表記。"></textarea>
+        </div>
+        <div class="row">
+          <label>禁止表現・NG<span class="h">使ってはいけない言葉・約束</span></label>
+          <textarea id="ng" placeholder="例：断定的な納期の約束をしない／値引きに言及しない／「絶対」「必ず」を使わない。"></textarea>
+        </div>
+        <div class="row">
+          <label>文体<span class="h">トーン</span></label>
+          <input type="text" id="tone" placeholder="例：丁寧・簡潔・結論から。過度にへりくだらない。">
+        </div>
+        <div class="row">
+          <label>保存先・共有ルール<span class="h">出力をどこに置くか</span></label>
+          <input type="text" id="save" placeholder="例：Google Drive の 案件フォルダ / 02_出力 に版番号を上げて保存。">
+        </div>
+
+        <div class="grouplbl" style="margin-top:22px">音声の扱い（会社の標準）</div>
+        <div class="row">
+          <label>音声（録音）を使う会社か<span class="h">議事録・商談の録音を扱うなら「使う」</span></label>
+          <div>
+            <div class="pills">
+              <div class="pill on" data-audio="no"><span>使わない（テキスト中心）</span><span class="b">STT不要・すぐ使える</span></div>
+              <div class="pill" data-audio="yes"><span>使う（録音あり）</span><span class="b">文字起こし経路を決める</span></div>
+            </div>
+            <div class="sttbox" id="sttbox">
+              <div class="h">文字起こし経路（STT）を選ぶ ― 生の音声は直接渡さず、ここで文字化したテキストを使う</div>
+              <div class="pills">
+                <div class="pill on" data-route="経路1：Microsoft 365 Word のトランスクリプト（法人本命・自社テナント内）"><span>経路1：M365 Word</span><span class="b">法人本命・データは自社内</span></div>
+                <div class="pill" data-route="経路2：ローカルアプリ（Windows: Vibe/Buzz、Mac: MacWhisper）"><span>経路2：ローカルアプリ</span><span class="b">精度高・要IT承認</span></div>
+                <div class="pill" data-route="経路3：ブラウザ内Whisper（導入ゼロ・検証用・精度限界）"><span>経路3：ブラウザWhisper</span><span class="b">導入ゼロ・検証用</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="toStep2" onclick="saveSetup()">この内容でセットアップ → 業務を選ぶ</button>
+          <button class="btn sec" onclick="fillSample()">サンプルを入れる</button>
+          <span class="hint" id="setupHint">※ 会社名は必須。入力はどこにも送信されません（端末内で処理）。</span>
+        </div>
+      </div>
+    </div>
+
+    <details class="gloss">
+      <summary>用語の整理（STT / TTS / フォーマット / キャリブレーション）を確認する</summary>
+      <div class="terms">
+        <div class="term stt"><div class="en">SPEECH → TEXT</div><div class="k">STT＝音声を文字に</div><p>録音を文字起こしする入口。音声起点のPJだけに必要。会社の標準経路は上のセットアップで決める。</p></div>
+        <div class="term tts"><div class="en">TEXT → SPEECH</div><div class="k">TTS＝文字を音声に</div><p>AIが読み上げる。中核業務には基本不要（動画マニュアル等の補助）。</p></div>
+        <div class="term fmt"><div class="en">FORMAT ×2</div><div class="k">フォーマットは2種類</div><p>①データ形式（.m4a/.txt/.docx…＝器）／②仕様フォーマット（PJ仕様ひな型＝書式）。分けて呼ぶ。</p></div>
+        <div class="term cal"><div class="en">CALIBRATION＝初期設定</div><div class="k">キャリブレーション＝この画面</div><p>会社ごとに1回だけ合わせる設定。まさにこのセットアップ画面のこと。</p></div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ===== STEP 2: choose PJ ===== -->
+  <div class="panel" id="p2">
+    <div class="card">
+      <h2>業務（PJ）を選ぶ</h2>
+      <div class="cs">セットアップした会社情報は、選んだ業務に自動で引き継がれます。まずは1つ。</div>
+      <div class="applied" id="appliedBox">
+        <span class="it">適用中の会社設定：</span>
+        <span class="it">会社 <b id="ap_company">—</b></span>
+        <span class="it">業種 <b id="ap_industry">—</b></span>
+        <span class="it">音声 <b id="ap_audio">—</b></span>
+        <button class="edit" onclick="showStep(1)">セットアップを編集</button>
+      </div>
+      <div class="pjgrid" id="pjgrid">
+        <div class="pjcard on" data-pj="pj05"><div class="id">PJ-05</div><div class="nm">メール・問い合わせ回答</div><span class="badge now">テキスト・今すぐ</span> <span class="badge ok">稼働検証済 8/2</span></div>
+        <div class="pjcard" data-pj="pj04"><div class="id">PJ-04</div><div class="nm">FAQ・社内ナレッジ</div><span class="badge now">テキスト・今すぐ</span> <span class="badge ok">稼働検証済 8/2</span></div>
+        <div class="pjcard" data-pj="pj02"><div class="id">PJ-02</div><div class="nm">日報・CRM登録案</div><span class="badge now">メモでもOK</span> <span class="badge ok">稼働検証済 8/2</span></div>
+        <div class="pjcard" data-pj="pj03"><div class="id">PJ-03</div><div class="nm">提案書の骨子・初稿</div><span class="badge now">テキスト・今すぐ</span> <span class="badge ok">稼働検証済 8/2</span></div>
+        <div class="pjcard" data-pj="pj01"><div class="id">PJ-01</div><div class="nm">議事録・決定・TODO</div><span class="badge stt">音声→STTが必要</span> <span class="badge ok">稼働検証済 8/2</span></div>
+      </div>
+      <div class="mat">
+        <div class="t">素材を入れる（実際のデータ）</div>
+        <div class="d">実際のメール本文・面談メモ・文字起こしテキストなどをここに貼るか、テキストファイル（.txt / .md）を読み込みます。空のままなら例文入りで生成します。素材はこの画面の外へ送信されません。</div>
+        <textarea id="material" placeholder="ここに素材を貼り付け（例：問い合わせメールの本文、面談メモ、会議の文字起こし…）"></textarea>
+        <div class="filebar">
+          <label class="filebtn">📄 ファイルを読み込む（.txt / .md）<input type="file" id="matfile" accept=".txt,.md,text/plain,text/markdown" style="display:none"></label>
+          <span class="fname" id="fname"></span>
+          <button class="btn sec" style="padding:7px 13px;font-size:12.5px" onclick="document.getElementById('material').value='';document.getElementById('fname').textContent='';">クリア</button>
+        </div>
+      </div>
+      <div class="note" id="pjnote" style="display:none"></div>
+      <div class="actions">
+        <button class="btn" onclick="gen()">素材入りの完成プロンプトを作る →</button>
+        <button class="btn sec" onclick="showStep(1)">← セットアップに戻る</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 3: use ===== -->
+  <div class="panel" id="p3">
+    <div class="card">
+      <h2>できあがり ― そのまま渡して使う</h2>
+      <div class="cs" id="doneFor">—</div>
+      <div class="outblock">
+        <div class="outhead"><h3>A. 完成プロンプト（素材入り・Claude / Cowork にそのまま貼る）</h3><button class="cp" onclick="cp('promptText',this)">コピー</button></div>
+        <pre class="code" id="promptText"></pre>
+      </div>
+      <div class="outblock">
+        <div class="outhead"><h3>B. 会社設定ファイル AI利用ルール.md（案件フォルダの 00_案件設定 に置く）</h3><button class="cp" onclick="cp('ruleText',this)">コピー</button></div>
+        <pre class="code" id="ruleText"></pre>
+      </div>
+
+      <div class="cs" style="margin-top:20px;font-weight:700;color:var(--tx)">渡した相手の使い方（3ステップ）</div>
+      <div class="use">
+        <div class="ucard"><div class="n">1</div><div class="t">貼る</div><div class="d">「A. 完成プロンプト」をコピーして Claude（またはCowork）に貼る。素材入りならこれで完了。</div></div>
+        <div class="ucard"><div class="n">2</div><div class="t">入力を渡す</div><div class="d">素材を入れていない場合のみ、末尾の【入力】を自分のデータに差し替える。</div></div>
+        <div class="ucard"><div class="n">3</div><div class="t">下書き＋自動QA→人が確認</div><div class="d">結論→本文→送信前チェック→品質確認まで一度に出る。送信・確定は人。</div></div>
+      </div>
+      <div class="note">
+        <span class="grade">これは80点プロトタイプ</span> ― フォルダ運用なしで「貼るだけ」で動く試用版。<b>100点（本番）</b>は ①案件フォルダ運用 ②各PJの実データ検証（受入基準）③音声業務はSTT経路の確定、で到達します。
+      </div>
+      <div class="actions">
+        <button class="btn sec" onclick="showStep(2)">← 業務を選び直す</button>
+        <button class="btn sec" onclick="showStep(1)">↺ 最初（セットアップ）に戻る</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const BODIES = {
+pj05:{name:"PJ-05 メール・問い合わせ回答", pcode:"P-005", audio:false, example:"（例）お世話になっております。先日の見積についてですが、納期を1週間早められないかご相談です。可能な場合の条件も教えてください。",
+body:`# 役割
+あなたはClaude Coworkとして、法人向け問い合わせ返信の下書きを作成し、あわせて自分自身の出力を監査する専門アシスタントです。結論を先に、丁寧で簡潔な返信案を作成し、品質確認まで済んだ状態で提示してください。送信はせず、担当者が確認できる下書きとして出力します。
+
+# 絶対ルール（返信案作成）
+1. 回答根拠にない事実、機能、価格、納期、補償、契約解釈を作らない。
+2. 根拠不足の場合は断定せず「確認中」と回答予定または次の連絡を示す。
+3. 契約、返金、法的責任、個人情報、クレーム、未承認の値引き・納期は「責任者確認」とする。
+4. 相手の氏名・会社名・問い合わせ内容を原文と照合する。
+5. 感情的・防御的・責任回避的な表現を避ける。
+6. 個人情報を返信本文へ不要に再掲しない。
+7. AIは送信せず、最終送信者が宛先・添付・約束を確認する。
+
+# 作業手順
+1. 問い合わせの要点と希望行動を整理する。
+2. 本人確認や機密性、エスカレーション要否を判定する。
+3. 回答根拠と未確認事項を分ける。
+4. 返信案と内部確認メモを作る。
+5. 作成した返信案を、監査役の立場に切り替えて改めて照合する（下記「品質確認」に従う）。
+
+# 品質確認（自動実行・監査基準）
+1. 宛先・氏名・会社名に誤りがないか。 2. 根拠のない断定がないか。 3. 未承認の値引き・納期・補償を記載していないか。 4. 回答漏れがないか。 5. 個人情報を過剰に記載していないか。 6. トーンが不適切でないか。
+※この監査は書き換えではなく、判定と指摘を示すためのもの。AIだけで送信可は確定しない。
+
+# 出力形式
+## 1. 対応判定（通常回答候補／追加確認／責任者確認／回答保留 ＋理由）
+## 2. 返信案（件名・宛名・結論・説明・次の行動・結び・署名）
+## 3. 内部確認メモ（確認事項／根拠／確認者／期限）
+## 4. エスカレーション事項
+## 5. 送信前チェック（宛先・CC/BCC・氏名・会社名・数値・日時・URL・添付・約束・個人情報）
+## 6. 品質確認結果（自動実行）（判定・指摘表・修正案・送信前確認。AIだけで送信可は確定しない旨を明記）`},
+
+pj04:{name:"PJ-04 FAQ・社内ナレッジ整備", pcode:"P-004", audio:false, example:"（例）原資料：就業規則 v3（2026-04改定）第12条『有給は取得2週間前までに申請』。問い合わせ履歴：『有給はいつまでに出せばいい？』",
+body:`# 役割
+あなたはClaude Coworkとして、社内ナレッジ編集を行い、あわせて自分自身の出力を監査する専門アシスタントです。承認済みの原資料から、検索しやすく更新可能なFAQ候補を作成し、品質確認まで済んだ状態で提示してください。
+
+# 絶対ルール（FAQ作成）
+1. 原資料にない回答を作らない。根拠が不足する場合は「根拠不足」とする。
+2. 回答ごとに資料名、版、該当章・頁・見出しを付ける。
+3. 資料間の矛盾は統合せず、両方を示して確認担当へ送る。
+4. 古い規程、廃止ルール、期限切れ情報の可能性を検知する。
+5. 類似質問は統合するが、意味の異なる質問を無理にまとめない。
+6. 個人情報・顧客固有情報は一般化し、公開範囲を守る。
+7. 法務・人事・医療・税務等の専門判断は回答せず、問い合わせ先を示す。
+
+# 作業手順
+1. 原資料の版・優先順位・公開範囲を確認する。
+2. 問い合わせを意図別に分類し、重複を候補化する。
+3. 根拠のある回答案を作成する。
+4. 矛盾、根拠不足、更新期限を分離する。
+5. 作成したFAQ候補を、監査役の立場に切り替えて原資料と改めて照合する（下記「品質確認」に従う）。
+
+# 品質確認（自動実行・監査基準）
+1. 回答の根拠が原資料に存在するか。 2. 該当箇所（章・頁・見出し）が正しいか。 3. 古い版を参照していないか。 4. 公開範囲に違反していないか。 5. 専門判断をしていないか。 6. 類似質問の統合が不適切でないか。
+※この監査は書き換えではなく、判定と指摘を示すためのもの。AIだけで公開可否は確定しない。
+
+# 出力形式
+## 1. FAQ候補一覧（ID／カテゴリ／質問／100〜250字の回答／根拠資料・該当箇所／公開範囲／確認担当／状態）状態は「承認候補／根拠不足／矛盾あり／専門判断」。
+## 2. 類似・重複候補
+## 3. 資料間の矛盾
+## 4. 根拠不足の質問
+## 5. 更新・廃止確認が必要な情報
+## 6. 公開前チェック
+## 7. 品質確認結果（自動実行）（判定・FAQ別指摘表・根拠不足・公開停止候補・責任者確認事項。AIだけで公開可否は確定しない旨を明記）`},
+
+pj02:{name:"PJ-02 日報・CRM登録案", pcode:"P-002", audio:false, example:"（例）7/29 株式会社◯◯ 訪問。先方：総務部 部長。『毎月の請求書処理に3日かかっている』とのこと。デモに前向き。次回日程は未定。",
+body:`# 役割
+あなたはClaude Coworkとして、法人営業の日報・CRM入力支援を行い、あわせて自分自身の出力を監査する専門アシスタントです。面談メモを、事実と担当者の解釈を分離した登録案へ変換し、品質確認まで済んだ状態で提示してください。
+
+# 絶対ルール（日報・CRM作成）
+1. 顧客の課題、発言、金額、確度、契約時期、競合、決裁者を推測しない。
+2. 「顧客が述べた事実」「営業担当の見立て」「未確認」を明確に分ける。
+3. 次回日程、担当、期限が未確定なら「要確認」とする。
+4. CRMの選択肢や案件確度は、入力された社内定義だけを使う。定義がない場合は推定しない。
+5. 値引き、納期、機能、導入効果を未承認のまま確約表現にしない。
+6. 個人情報・機密情報は業務上必要な最小限にする。
+7. 顧客課題・提案反応の「根拠となる発言」欄には、要約ではなく発言に近い短い引用（1文程度）を添える。
+
+# 作業手順
+1. 面談メモから確認済み事実を抽出する。
+2. 顧客課題、提案、反応、懸念、未確認事項へ分類する。
+3. 次回アクションを担当・期限・完了条件へ構造化する。
+4. CRM必須項目の不足を検出する。
+5. 作成した登録案を、監査役の立場に切り替えて改めて照合する（下記「品質確認」に従う）。
+
+# 品質確認（自動実行・監査基準）
+1. 顧客発言と営業解釈の混同がないか。 2. 金額・確度・契約時期を推測していないか。 3. CRM必須項目の欠落がないか。 4. 次回担当・期限が未確認のまま確定表現になっていないか。 5. 根拠欄が引用ではなく曖昧な要約になっていないか。
+※この監査は書き換えではなく、判定と指摘を示すためのもの。CRM登録は自動で確定しない。
+
+# 出力形式
+## 1. 面談サマリー（3〜5行）
+## 2. 顧客課題・ニーズ（区分／内容／根拠となる発言(引用)／確認状態）
+## 3. 提案内容と顧客反応（提案／顧客反応／懸念・条件／根拠となる発言(引用)）
+## 4. 未確認事項（項目／理由／確認先／期限）
+## 5. 次回アクション（担当／期限／内容／完了条件／確定・要確認）
+## 6. CRM登録案（社内定義がない項目は「要確認」とし、その旨を明記）
+## 7. 上長への相談事項
+## 8. 登録前チェック
+## 9. 品質確認結果（自動実行）（判定：合格候補／要修正／保留。最終登録は担当者本人が行うことを明記）`},
+
+pj03:{name:"PJ-03 提案書の骨子・初稿", pcode:"P-003", audio:false, example:"（例）8/1 ヒアリング。『請求書処理に毎月3日、担当2人』『ミスが出ると再発行で1週間つぶれる』。まず請求書処理から始めたい意向。価格は未提示。",
+body:`# 役割
+あなたはClaude Coworkとして、法人営業提案の構成編集を行い、あわせて自分自身の出力を監査する専門アシスタントです。経営者が「なぜ今、何を、どの範囲で、どう判断するか」を理解できる提案書の骨子・本文初稿を作成し、品質確認まで済んだ状態で提示してください。
+
+# 絶対ルール（提案書作成）
+1. 顧客事実と提案仮説を分け、未確認情報は「要確認」とする。
+2. 数値、効果、事例、機能、価格、契約条件を創作・誇張しない。
+3. 根拠資料名または入力箇所を、主要な主張ごとに付ける。
+4. 競合批判、断定的なROI保証、未承認の値引き・納期を記載しない。
+5. 顧客課題から解決策への論理が飛躍している場合は、必要な追加質問を示す。
+6. 最終デザインではなく、承認可能な構成と本文初稿を作る。
+7. 顧客の現状・課題の「根拠」欄には、要約ではなく発言に近い短い引用（1文程度）を添える。
+※承認済みの価格・事例集が入力にない場合、価格・数値・事例は記載せず「要確認」とする。
+
+# 作業手順
+1. 顧客の現状・課題・放置した場合の影響を整理する（根拠のあるもののみ）。
+2. 解決策・提供範囲・導入ステップ・効果指標・価格・条件を、承認済み情報と照合して構成する。
+3. 推奨構成（10枚以内）に沿ってスライド構成表と本文初稿を作る。
+4. 作成した提案書案を、監査役の立場に切り替えて改めて照合する。
+
+# 推奨構成（10枚以内）
+1. 表紙／提案の一文要約 2. 顧客の現状と確認済み課題 3. 放置した場合の影響（根拠ありのみ） 4. 目指す状態と成功条件 5. 解決策・提供範囲 6. 導入ステップ・体制・期間 7. 効果指標と測定方法 8. 価格・標準範囲・標準外 9. リスク・前提条件・人手確認 10. 次の行動
+
+# 品質確認（自動実行・監査基準）
+1. 架空の機能・実績・事例・数値を使っていないか。 2. 顧客事実と仮説を混同していないか。 3. 価格・条件が承認済み最新版と一致しているか。 4. 根拠のないROI断定がないか。 5. 推奨構成の必須項目が欠落していないか。 6. 根拠欄が引用ではなく曖昧な要約になっていないか。
+※この監査は書き換えではなく、判定と指摘を示すためのもの。公開・提出は自動で確定しない。
+
+# 出力形式
+## A. エグゼクティブサマリー
+## B. スライド構成表（No.／見出し／この頁で伝える結論／本文要点／図表案／根拠(発言引用または資料名)／要確認）
+## C. 各頁の本文初稿（見出し、リード、箇条書き3〜5点）
+## D. 不足情報・追加質問
+## E. 数値・事例・価格の出典一覧
+## F. 提案責任者の承認事項
+## G. 品質確認結果（自動実行）（判定と指摘表、追加質問、公開前承認の要否）`},
+
+pj01:{name:"PJ-01 議事録・決定事項・TODO化", pcode:"P-001", audio:true, example:"（例：文字起こし後テキストを貼る）田中：来週の展示会、ブースは A案でいきましょう。 佐藤：では申込は私が金曜までに。 田中：予算は50万で。",
+body:`# 役割
+あなたはClaude Coworkとして、法人会議の議事録を編集し、あわせて自分自身の出力を監査する専門アシスタントです。「何が決まり、誰が、いつまでに、何をするか」を、品質確認まで済んだ状態で提示してください。
+
+# 絶対ルール（議事録作成）
+1. 入力にない事実・担当・期限・決定者・理由・数値を推測・補完しない。確認できない場合は「要確認」とする。
+2. 「意見・提案・検討中」と「正式な決定」を分ける。
+3. 担当または期限が不明なTODOは、空欄にせず「要確認」と記載する。
+4. 発言が矛盾する場合は一方を採用せず、両方を「矛盾・要確認一覧」に記載する。
+5. 固有名詞・金額・日付・数量は原文の表記を維持する。不確かなら「聞き取り要確認」。
+6. 決定事項・TODOの「根拠となる発言」欄には、要約ではなく発言に近い短い引用（1文程度）を添える（後から該当箇所だけ確認できるようにするため）。
+
+# 作業手順
+1. 会議の目的と論点を特定する。
+2. 事実・意見・決定・未決・依頼事項を分類する。
+3. TODOを［担当／期限／内容／完了条件／根拠(発言引用)］へ構造化する。
+4. 原文だけで確定できない項目を「要確認一覧」へまとめる。
+5. 作成した議事録案を、監査役の立場に切り替えて改めて照合する（下記「品質確認」に従う）。
+
+# 品質確認（自動実行・監査基準）
+1. 固有名詞・金額・日付・数量が原文と一致しているか。 2. 決定事項に明確な根拠（発言引用）があるか。 3. TODOの担当・期限・内容・完了条件が確認できるか。 4. 重要な未決・反対意見・リスクが欠落していないか。 5. 因果・評価・担当・期限を補完していないか。
+※この監査は書き換えではなく、判定と指摘を示すためのもの。議事録は自動で承認・確定しない。
+
+# 出力形式
+## 1. 会議情報（会議名／日時／目的／参加者／会議責任者。不明は「要確認」）
+## 2. エグゼクティブサマリー（3〜5行）
+## 3. 主要論点・要点（各項目を 事実／意見／論点 で明示）
+## 4. 決定事項（No.／決定内容／決定者・承認者／適用日／根拠となる発言(引用)）
+## 5. 未決・保留事項
+## 6. TODO（No.／担当／期限／内容／完了条件／根拠となる発言(引用)）担当・期限が不明なら「要確認」
+## 7. 次回確認事項
+## 8. 矛盾・要確認一覧
+## 9. 品質確認結果（自動実行）（判定：合格候補／要修正／保留。人の最終承認前である旨を明記）`}
+};
+
+const S={company:'',industry:'',terms:'',ng:'',tone:'',save:'',audio:'no',route:'経路1：Microsoft 365 Word のトランスクリプト（法人本命・自社テナント内）',pj:'pj05'};
+
+// setup audio toggle
+document.querySelectorAll('[data-audio]').forEach(el=>el.addEventListener('click',()=>{
+  S.audio=el.dataset.audio;
+  document.querySelectorAll('[data-audio]').forEach(x=>x.classList.toggle('on',x.dataset.audio===S.audio));
+  document.getElementById('sttbox').classList.toggle('show',S.audio==='yes');
+}));
+document.querySelectorAll('[data-route]').forEach(el=>el.addEventListener('click',()=>{
+  S.route=el.dataset.route;
+  document.querySelectorAll('[data-route]').forEach(x=>x.classList.toggle('on',x===el));
+}));
+// PJ select
+document.getElementById('pjgrid').addEventListener('click',e=>{
+  const c=e.target.closest('.pjcard'); if(!c)return;
+  document.querySelectorAll('#pjgrid .pjcard').forEach(x=>x.classList.remove('on'));
+  c.classList.add('on'); S.pj=c.dataset.pj;
+  const note=document.getElementById('pjnote');
+  if(BODIES[S.pj].audio && S.audio!=='yes'){
+    note.style.display='block';
+    note.innerHTML='この業務は<b>音声起点</b>です。会社セットアップで「音声を使う」＋文字起こし経路を設定すると、経路つきの較正済みプロンプトになります。（テキスト起点PJは設定不要で今すぐ動きます）';
+  } else { note.style.display='none'; }
+});
+
+function v(id){return document.getElementById(id).value.trim();}
+function saveSetup(){
+  if(!v('company')){ const h=document.getElementById('setupHint'); h.textContent='※ 会社名を入れてください（必須）。'; h.style.color='#ff8a3d'; document.getElementById('company').focus(); return; }
+  S.company=v('company');S.industry=v('industry');S.terms=v('terms');S.ng=v('ng');S.tone=v('tone');S.save=v('save');
+  document.getElementById('ap_company').textContent=S.company;
+  document.getElementById('ap_industry').textContent=S.industry||'（未設定）';
+  document.getElementById('ap_audio').textContent = S.audio==='yes' ? ('使う（'+S.route.split('：')[0]+'）') : '使わない';
+  showStep(2);
+}
+
+function showStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('p'+i).classList.toggle('show',i===n);
+    const s=document.getElementById('s'+i);
+    s.classList.toggle('on',i===n);
+    s.classList.toggle('done',i<n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function calBlock(){
+  const b=BODIES[S.pj];const L=[];
+  L.push('# 会社設定（初期セットアップ / この会社の較正）');
+  L.push('- 会社名・署名：'+(S.company||'（未設定）'));
+  L.push('- 業種：'+(S.industry||'（未設定）'));
+  L.push('- 社内用語・表記ルール：'+(S.terms||'（未設定）'));
+  L.push('- 禁止表現・NG：'+(S.ng||'（未設定）'));
+  L.push('- 文体：'+(S.tone||'（未設定）'));
+  L.push('- 保存先・共有ルール：'+(S.save||'（未設定）'));
+  L.push('- 送信/公開/確定の最終判断：人が行う（AIは送信・確定しない）');
+  if(b.audio || S.audio==='yes'){
+    L.push('- 文字起こし経路（STT）：'+S.route);
+    L.push('  ※生の音声は直接渡さない。上の経路で文字起こししたテキストを【入力】に使う。');
+  }
+  return L.join('\n');
+}
+
+function matBlock(b){
+  const m=document.getElementById('material').value.trim();
+  if(m){
+    return '# 入力（素材・この内容を処理してください）\n【入力】\n'+m;
+  }
+  return '# 入力（ここから下を、あなたのデータに差し替えてください）\n【入力】\n'+b.example;
+}
+document.getElementById('matfile').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{document.getElementById('material').value=r.result;document.getElementById('fname').textContent='読み込み済み: '+f.name;};
+  r.readAsText(f);
+});
+function gen(){
+  const b=BODIES[S.pj];const cal=calBlock();
+  const prompt=cal+'\n\n'+
+'# プロトタイプ運用メモ（80点・貼るだけ版）\n'+
+'- 本番は案件フォルダ運用だが、この版では末尾の【入力】に貼ったテキストを入力データとして扱う。\n'+
+'- 上の「会社設定」は絶対ルールと同格で必ず守る。\n'+
+'- 出力はコピーして、会社設定の「保存先」に保存する（この版では自動保存しない）。\n\n'+
+b.body+'\n\n'+matBlock(b);
+
+  const rule='# AI利用ルール（会社設定 / 初期セットアップ）\n'+
+'作成日：__記入__ ／ 版：v0.1 ／ 適用：全PJ共通\n\n'+cal+'\n\n'+
+'## 使い方\n'+
+'- 本番の案件フォルダでは、このファイルを「00_案件設定/AI利用ルール.md」として置く。\n'+
+'- プロンプト本体（各PJのP-0XX）は全社共通。会社ごとに変えるのはこの会社設定だけ。\n'+
+'- 設定を変えたら版番号を上げ、旧版は上書きしない。';
+
+  document.getElementById('promptText').textContent=prompt;
+  document.getElementById('ruleText').textContent=rule;
+  const hasMat=document.getElementById('material').value.trim().length>0;
+  document.getElementById('doneFor').textContent='業務：'+b.name+'（'+b.pcode+'）／ 会社設定を適用済み ／ '+(hasMat?'素材を同梱済み（貼るだけで実行できます）':'素材なし（例文入り・【入力】を差し替えて使用）');
+  showStep(3);
+}
+
+function cp(id,btn){
+  const t=document.getElementById(id).textContent;
+  const done=()=>{const o=btn.textContent;btn.textContent='コピーしました';btn.classList.add('done');setTimeout(()=>{btn.textContent=o;btn.classList.remove('done');},1400);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,()=>fb(t,done));}else fb(t,done);
+}
+function fb(t,done){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}
+
+function fillSample(){
+  document.getElementById('company').value='株式会社アルファベース 営業部 田中';
+  document.getElementById('industry').value='ITサービス';
+  document.getElementById('terms').value='相手は「貴社」、自社は「当社」。サービス名は「AIDX」と表記。';
+  document.getElementById('ng').value='断定的な納期の約束をしない／値引きに言及しない／「絶対」「必ず」を使わない。';
+  document.getElementById('tone').value='丁寧・簡潔・結論から。過度にへりくだらない。';
+  document.getElementById('save').value='Google Drive の 案件フォルダ / 02_出力 に版番号を上げて保存。';
+  const h=document.getElementById('setupHint'); h.textContent='※ サンプルを入れました。「セットアップ → 業務を選ぶ」で次へ。'; h.style.color='';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>AIDX チュートリアル ― はじめての方へ</title>
+<style>
+  :root{--bg:#0c0c0e;--panel:#131316;--card:#1a1a1e;--line:#2c2c31;--tx:#f5f5f7;--sub:#c9c3ba;--dim:#8a857d;
+    --blue:#4a9eff;--green:#7fc98b;--amber:#e6c34a;--orange:#ff8a3d}
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.85;padding-bottom:120px;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+  /* ヘッダー */
+  header.hd{background:linear-gradient(180deg,#101725 0%,var(--panel) 70%);border-bottom:1px solid #23324a;padding:34px 0 30px;margin-bottom:8px}
+  .eb{font-size:12px;font-weight:800;letter-spacing:4px;color:var(--blue)}
+  h1{font-size:30px;margin:8px 0 8px;line-height:1.4}
+  .lead{font-size:16px;color:var(--sub);margin:0}
+  .meta{margin-top:14px;font-size:13px;color:var(--dim)}
+  .tag{display:inline-block;background:#1c2436;border:1px solid #3a4a68;color:#a9c4ea;border-radius:20px;padding:4px 13px;font-size:12px;font-weight:700;margin-right:8px}
+
+  /* 進捗 */
+  .bar{position:sticky;top:0;z-index:20;background:rgba(12,12,14,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:11px 0}
+  .bar .in{max-width:900px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .dots{display:flex;gap:7px;flex:1;min-width:180px}
+  .dot{height:7px;flex:1;border-radius:4px;background:#25252a;transition:.25s}
+  .dot.on{background:var(--green)}
+  .bar .cnt{font-size:12.5px;color:var(--dim);font-weight:700;white-space:nowrap}
+  .bar .allbtn{font-size:12.5px;font-weight:700;background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:6px 13px;cursor:pointer;font-family:inherit}
+  .bar .allbtn:hover{border-color:var(--green);color:var(--tx)}
+
+  /* ステップ */
+  .step{border:1px solid var(--line);border-radius:16px;background:var(--panel);margin:20px 0;overflow:hidden;display:none}
+  .step.show{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .step .hd2{display:flex;align-items:center;gap:15px;padding:18px 24px;border-bottom:1px solid var(--line);background:#16161a}
+  .step .no{width:44px;height:44px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800}
+  .step .ttl{font-size:21px;font-weight:800;margin:0}
+  .step .kicker{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--dim)}
+  .step .bd{padding:22px 24px 26px}
+  .step p{margin:0 0 14px}
+  .big{font-size:18px}
+
+  /* 色分け */
+  .c-blue .no{background:var(--blue);color:#06122a}
+  .c-blue .hd2{background:#101725}
+  .c-green .no{background:var(--green);color:#06180c}
+  .c-green .hd2{background:#101b14}
+  .c-amber .no{background:var(--amber);color:#3a2f10}
+  .c-amber .hd2{background:#1c1a12}
+
+  /* 部品 */
+  .say{background:#1c2436;border:1.5px solid var(--blue);border-radius:14px;padding:14px 18px;margin:12px 0;font-size:17px;color:#e8f0fa;position:relative}
+  .say b{color:#fff}
+  .copyrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:-4px 0 16px}
+  .cp{background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+  .cp:hover{border-color:var(--blue);color:var(--tx)}
+  .cp.done{background:#16211a;border-color:var(--green);color:#bfe9c8}
+  .note{background:#12130f;border:1px solid #3f3a1c;border-radius:10px;padding:13px 16px;font-size:14px;color:#d8cfa0;margin:14px 0}
+  .note b{color:var(--amber)}
+  .warn{background:#1a1113;border:1px solid #4d2a2f;border-radius:10px;padding:13px 16px;font-size:14px;color:#e6b8bd;margin:14px 0}
+  .warn b{color:#ff7a7a}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0}
+  .mini{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .mini h4{margin:0 0 6px;font-size:15px}
+  .mini p{margin:0;font-size:13.5px;color:var(--sub);line-height:1.7}
+  .mini .k{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--dim);display:block;margin-bottom:5px}
+  ul.pl{margin:6px 0 14px;padding-left:22px}
+  ul.pl li{margin:5px 0;font-size:15px}
+  .btnrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+  .btn{background:var(--green);color:#06180c;border:none;border-radius:11px;padding:14px 28px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
+  .btn:active{transform:translateY(1px)}
+  .btn.sec{background:var(--card);color:var(--sub);border:1px solid var(--line);font-weight:700;padding:12px 20px;font-size:14px}
+  .btn.link{background:var(--blue);color:#06122a;text-decoration:none;display:inline-block}
+  .ok{display:inline-flex;align-items:center;gap:7px;background:#16211a;border:1px solid #2f5c3a;color:#bfe9c8;border-radius:9px;padding:9px 14px;font-size:13.5px;font-weight:700;margin:10px 0}
+  /* まとめ図 */
+  .figbox{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:18px;margin:26px 0}
+  .figbox h3{margin:0 0 4px;font-size:17px}
+  .figbox .c{font-size:13px;color:var(--dim);margin-bottom:14px}
+  .figbox svg{width:100%;height:auto;display:block;border-radius:10px}
+  footer{border-top:1px solid var(--line);margin-top:34px;padding:22px 0 10px;font-size:12.5px;color:var(--dim)}
+  footer a{color:var(--blue)}
+  @media(max-width:640px){
+    h1{font-size:24px} body{font-size:15px}
+    .step .ttl{font-size:18px} .say{font-size:15.5px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <div class="wrap">
+    <div class="eb">TUTORIAL ／ チュートリアル</div>
+    <h1>はじめての方へ ― AIDXの使いかた</h1>
+    <p class="lead">むずかしい操作はありません。おぼえるのは <b style="color:#7fc98b">「はって、わたして、たのむ」</b> の3つだけです。</p>
+    <div class="meta"><span class="tag">所要 3分</span><span class="tag">パソコンが苦手でも大丈夫</span>画面の下の「つぎへ」を押しながら、順番に読んでください。</div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="in">
+    <div class="dots" id="dots"></div>
+    <div class="cnt" id="cnt">1 / 8</div>
+    <button class="allbtn" id="allbtn" type="button">ぜんぶ表示</button>
+  </div>
+</div>
+
+<div class="wrap" id="steps">
+
+  <!-- 0 -->
+  <section class="step show c-blue" data-i="0">
+    <div class="hd2"><div class="no">?</div><div><div class="kicker">はじめに</div><h2 class="ttl">これは何をするものですか</h2></div></div>
+    <div class="bd">
+      <p class="big">会議のメモ、お客さまへのメール、社内の手順書。<b>いつも人が下書きしていた書類を、AIに下書きしてもらう</b>ための道具です。</p>
+      <div class="cards">
+        <div class="mini"><span class="k">やること</span><h4>チャットに書くだけ</h4><p>ふだんのメールやLINEと同じです。専用ソフトのインストールも、あたらしい操作の暗記もいりません。</p></div>
+        <div class="mini"><span class="k">できること</span><h4>25種類の書類</h4><p>議事録・商談前の下調べ・マニュアル・見積の下書きなど。ぜんぶ同じ手順で使えます。</p></div>
+        <div class="mini"><span class="k">大事なこと</span><h4>最後は人が決める</h4><p>AIが出すのは「下書き」。送る・お客さまに出す判断は、かならず人がします。</p></div>
+      </div>
+      <div class="note">📌 <b>このチュートリアルのゴール</b>：読み終わったとき、あなたが自分ひとりで1回、AIに書類の下書きを作ってもらえる状態になります。</div>
+      <div class="btnrow"><button class="btn nx" type="button">はじめる →</button></div>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section class="step c-blue" data-i="1">
+    <div class="hd2"><div class="no">1</div><div><div class="kicker">はじめに 1回だけ</div><h2 class="ttl">セットアップ画面に、会社のことを入れる</h2></div></div>
+    <div class="bd">
+      <p class="big">病院の「初診の問診票」と同じです。<b>最初の1回だけ</b>書けば、2回目からは要りません。</p>
+      <ul class="pl">
+        <li>会社の名前と、あなたの名前</li>
+        <li>ふだんのことばづかい（例：お客さまのことを「貴社」と書く）</li>
+        <li>書いてはいけないこと（例：値引きの話は書かない）</li>
+      </ul>
+      <p>入力する場所は、下のボタンの「セットアップ画面」です。空欄のままでも進めますが、入れるほど、返ってくる文章があなたの会社らしくなります。</p>
+      <div class="note">🖊 <b>むずかしく考えなくて大丈夫。</b>画面に書いてある質問に、ふだんの言葉で答えるだけです。わからない欄はとばして構いません。</div>
+      <div class="btnrow">
+        <a class="btn link" href="./AIDX_セットアップ_スタートページ_v0.4.html" target="_blank" rel="noopener">セットアップ画面をひらく ↗</a>
+        <button class="btn sec pv" type="button">← もどる</button>
+        <button class="btn nx" type="button">つぎへ →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step c-blue" data-i="2">
+    <div class="hd2"><div class="no">2</div><div><div class="kicker">はじめに 1回だけ</div><h2 class="ttl">「会社カード」ができる → コピーする</h2></div></div>
+    <div class="bd">
+      <p class="big">セットアップ画面のボタンを押すと、こんな文章が1枚できあがります。これを <b>「会社カード」</b> と呼びます。</p>
+      <div class="say" style="font-family:ui-monospace,Menlo,monospace;font-size:14px;line-height:1.8;white-space:pre-wrap"># 会社設定（この案件の較正）
+- 会社名・署名：株式会社アルファベース 営業部 田中
+- 社内用語・表記ルール：相手は「貴社」、自社は「当社」。
+- 禁止表現・NG：断定的な納期の約束をしない／値引きに言及しない。
+- 文体：丁寧・簡潔・結論から。</div>
+      <p>中身をおぼえる必要はありません。画面の <b>「コピー」ボタンを押すだけ</b> です。</p>
+      <div class="note">📋 <b>「コピー」とは</b>：文章を一時的にあずかっておくこと。押しても画面は変わりませんが、ちゃんとあずかっています。つぎの画面で「はりつけ」すると出てきます。</div>
+      <div class="btnrow"><button class="btn sec pv" type="button">← もどる</button><button class="btn nx" type="button">つぎへ →</button></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="step c-blue" data-i="3">
+    <div class="hd2"><div class="no">3</div><div><div class="kicker">はじめに 1回だけ</div><h2 class="ttl">AIのチャットに「はる」</h2></div></div>
+    <div class="bd">
+      <p class="big">Claude（クロード）のチャット画面をひらいて、さっきコピーした会社カードを <b>はりつけて、送信</b> します。</p>
+      <ul class="pl">
+        <li>文字を入れる白い（黒い）欄をクリック</li>
+        <li>「はりつけ」する（右クリック→貼り付け、または <b>Ctrl+V</b> / Macは <b>⌘+V</b>）</li>
+        <li>そのまま送信</li>
+      </ul>
+      <p>AIから「承知しました」のような返事が来れば成功です。<b>これで準備は終わり。</b>ここから先は、毎回3ステップだけです。</p>
+      <div class="ok">✔ ここまでが「はじめに1回だけ」。おつかれさまでした。</div>
+      <div class="btnrow"><button class="btn sec pv" type="button">← もどる</button><button class="btn nx" type="button">毎回の使い方へ →</button></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step c-green" data-i="4">
+    <div class="hd2"><div class="no">A</div><div><div class="kicker">毎回 ①</div><h2 class="ttl">えらぶ ― 何を作ってほしいか決める</h2></div></div>
+    <div class="bd">
+      <p class="big">作ってほしいものを、頭の中で決めるだけです。画面の操作はありません。</p>
+      <div class="cards">
+        <div class="mini"><span class="k">例</span><h4>会議のあと</h4><p>議事録・決定事項・やることリスト</p></div>
+        <div class="mini"><span class="k">例</span><h4>商談のまえ</h4><p>相手の会社の下調べメモ（商談前ブリーフ）</p></div>
+        <div class="mini"><span class="k">例</span><h4>お客さま向け</h4><p>操作マニュアル・案内文・問い合わせの返信</p></div>
+      </div>
+      <p>ぜんぶで25種類ありますが、<b>おぼえる必要はありません。</b>「こういうものが欲しい」と言葉で言えれば十分です。</p>
+      <div class="btnrow"><button class="btn sec pv" type="button">← もどる</button><button class="btn nx" type="button">つぎへ →</button></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="step c-green" data-i="5">
+    <div class="hd2"><div class="no">B</div><div><div class="kicker">毎回 ②</div><h2 class="ttl">わたす ― 材料をチャットにつける</h2></div></div>
+    <div class="bd">
+      <p class="big">元になるもの（材料）を、チャットにつけます。つけ方は2つだけ。</p>
+      <div class="cards">
+        <div class="mini"><span class="k">やりかた 1</span><h4>そのまま貼る</h4><p>メールの本文、手書きメモを打ったもの、会議の文字おこし。文章をコピーして、チャットに貼るだけ。</p></div>
+        <div class="mini"><span class="k">やりかた 2</span><h4>ファイルをつける</h4><p>チャットの「クリップ📎」のしるしを押して、パソコンの中のファイルを選ぶだけ。</p></div>
+      </div>
+      <div class="warn">🎤 <b>録音（音声）だけは、ひと手間あります。</b>録音ファイルをそのまま投げるのではなく、先に「文字にする」（文字おこし）をしてから、その文字をわたしてください。文字おこしはボタン1つでできます。</div>
+      <div class="btnrow"><button class="btn sec pv" type="button">← もどる</button><button class="btn nx" type="button">つぎへ →</button></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="step c-green" data-i="6">
+    <div class="hd2"><div class="no">C</div><div><div class="kicker">毎回 ③</div><h2 class="ttl">たのむ ― ひとこと書いて送る</h2></div></div>
+    <div class="bd">
+      <p class="big">材料をつけたら、その下に <b>ひとこと</b> 書いて送ります。これだけです。</p>
+      <p style="color:#9fc7ad;font-weight:700;margin-bottom:8px">↓ 実際にこのまま使えます（「コピー」を押して、チャットに貼れます）</p>
+      <div class="say" data-c="商談前ブリーフを、この添付ファイルから作成して">💬 <b>「商談前ブリーフを、この添付ファイルから作成して」</b></div>
+      <div class="copyrow"><button class="cp" type="button" data-t="商談前ブリーフを、この添付ファイルから作成して">この文をコピー</button></div>
+      <div class="say" data-c="このテキストから、お客さん用のマニュアルを作って">💬 <b>「このテキストから、お客さん用のマニュアルを作って」</b></div>
+      <div class="copyrow"><button class="cp" type="button" data-t="このテキストから、お客さん用のマニュアルを作って">この文をコピー</button></div>
+      <div class="say" data-c="この文字起こしから、議事録と決定事項・TODOを作って">💬 <b>「この文字起こしから、議事録と決定事項・TODOを作って」</b></div>
+      <div class="copyrow"><button class="cp" type="button" data-t="この文字起こしから、議事録と決定事項・TODOを作って">この文をコピー</button></div>
+      <p>きれいな文章でなくて大丈夫です。<b>「これで議事録つくって」でも通じます。</b></p>
+      <div class="note">🔁 <b>会社カードの貼り直しについて</b>：同じチャットの中なら、もう一度貼る必要はありません。<b>あたらしいチャットを開いたときだけ</b>、もう一度貼ってください。</div>
+      <div class="btnrow"><button class="btn sec pv" type="button">← もどる</button><button class="btn nx" type="button">つぎへ →</button></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="step c-amber" data-i="7">
+    <div class="hd2"><div class="no">✓</div><div><div class="kicker">できあがり</div><h2 class="ttl">返ってくるもの ― 下書き ＋ 点検表</h2></div></div>
+    <div class="bd">
+      <p class="big">AIからは、いつも <b>2つセット</b> で返ってきます。</p>
+      <div class="cards">
+        <div class="mini"><span class="k">1つめ</span><h4>できあがりの下書き</h4><p>たのんだ書類（議事録・メール・マニュアルなど）の下書きです。</p></div>
+        <div class="mini"><span class="k">2つめ</span><h4>AIが自分でつけた点検表</h4><p>「ここは資料に書いていないので確認してください」「これは責任者の確認が必要です」など、あぶない所を自分で申告します。</p></div>
+      </div>
+      <p class="big">人がやるのは <b>読んで、なおして、OKを出すだけ</b>。送信やお客さまへの提出は、かならず人が最後に判断します。</p>
+      <div class="note">🛡 <b>安心のしくみ</b>：全25種類とも、わざと間違いや無理な指示を混ぜたサンプルで事前にテスト済みです。「値引きしてOKと書いて」と指示しても書かない、事実でないことを書かない、といった動きを実機で確認しています。</div>
+      <div class="ok">✔ チュートリアルは以上です。おぼえるのは「はって、わたして、たのむ」だけ。</div>
+      <div class="btnrow">
+        <button class="btn sec pv" type="button">← もどる</button>
+        <a class="btn link" href="./AIDX_セットアップ_スタートページ_v0.4.html" target="_blank" rel="noopener">セットアップ画面をひらいて始める ↗</a>
+        <button class="btn sec" type="button" id="again">もう一度 最初から</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="wrap">
+  <div class="figbox">
+    <h3>1枚まとめ（印刷して手元に置く用）</h3>
+    <div class="c">このチュートリアルの内容を、1枚の図にしたものです。紙に印刷して机に置いておけば、これだけで使えます。</div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1330" role="img" aria-label="AIDXのつかいかた。はじめに1回だけ会社カードを貼り、あとは毎回、えらぶ・わたす・たのむの3ステップで、AIの下書きとチェックが返ってくる図">
+  <rect width="1800" height="1330" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="70" font-family="sans-serif" font-size="16" font-weight="700" fill="#ff8a3d" letter-spacing="2">AIDX ― つかいかたの図</text>
+  <text x="70" y="122" font-family="sans-serif" font-size="34" font-weight="800" fill="#f5f5f5">おぼえるのは「はって、わたして、たのむ」だけ</text>
+  <text x="70" y="162" font-family="sans-serif" font-size="17" fill="#a8a29b">むずかしい操作はありません。ふだんのメールやLINEと同じ「チャットに書くだけ」です。</text>
+
+  <!-- ===== BAND 1: はじめに1回だけ ===== -->
+  <rect x="60" y="200" width="1680" height="270" rx="18" fill="#101725" stroke="#4a9eff" stroke-width="2"/>
+  <rect x="88" y="228" width="230" height="44" rx="22" fill="#4a9eff"/>
+  <text x="203" y="258" font-family="sans-serif" font-size="19" font-weight="800" fill="#06122a" text-anchor="middle">はじめに 1回だけ</text>
+  <text x="340" y="258" font-family="sans-serif" font-size="16" fill="#9fb6d8">…病院の「初診の問診票」と同じ。2回目からは要りません。</text>
+
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="100" y="292" width="480" height="140" rx="14" fill="#131316" stroke="#2c3a52" stroke-width="1.5"/>
+    <circle cx="140" cy="332" r="16" fill="#4a9eff"/><text x="140" y="339" font-size="17" font-weight="800" fill="#06122a">1</text>
+    <text x="352" y="340" font-size="20" font-weight="700" fill="#f5f5f5">画面に 会社のことを入れる</text>
+    <text x="352" y="372" font-size="15" fill="#c9c3ba">会社の名前・ことばづかい・してはいけないこと</text>
+    <text x="352" y="398" font-size="15" fill="#c9c3ba">（セットアップ画面が案内してくれます）</text>
+
+    <path d="M590 355 L615 355 L615 345 L640 362 L615 379 L615 369 L590 369 Z" fill="#6f6a63"/>
+
+    <rect x="650" y="292" width="480" height="140" rx="14" fill="#131316" stroke="#2c3a52" stroke-width="1.5"/>
+    <circle cx="690" cy="332" r="16" fill="#4a9eff"/><text x="690" y="339" font-size="17" font-weight="800" fill="#06122a">2</text>
+    <text x="902" y="340" font-size="20" font-weight="700" fill="#f5f5f5">「会社カード」が 1枚できる</text>
+    <text x="902" y="372" font-size="15" fill="#c9c3ba">ボタンをおすと、貼るだけの文章ができます</text>
+    <text x="902" y="398" font-size="15" fill="#c9c3ba">（「コピー」をおすだけ）</text>
+
+    <path d="M1140 355 L1165 355 L1165 345 L1190 362 L1165 379 L1165 369 L1140 369 Z" fill="#6f6a63"/>
+
+    <rect x="1200" y="292" width="500" height="140" rx="14" fill="#131316" stroke="#2c3a52" stroke-width="1.5"/>
+    <circle cx="1240" cy="332" r="16" fill="#4a9eff"/><text x="1240" y="339" font-size="17" font-weight="800" fill="#06122a">3</text>
+    <text x="1462" y="340" font-size="20" font-weight="700" fill="#f5f5f5">AIのチャットに はる</text>
+    <text x="1462" y="372" font-size="15" fill="#c9c3ba">Claude（クロード）のチャット画面をひらいて</text>
+    <text x="1462" y="398" font-size="15" fill="#c9c3ba">「はりつけ」して送るだけ</text>
+  </g>
+
+  <!-- ===== BAND 2: いつもの3ステップ ===== -->
+  <rect x="60" y="500" width="1680" height="430" rx="18" fill="#101b14" stroke="#7fc98b" stroke-width="2"/>
+  <rect x="88" y="528" width="290" height="44" rx="22" fill="#7fc98b"/>
+  <text x="233" y="558" font-family="sans-serif" font-size="19" font-weight="800" fill="#06180c" text-anchor="middle">あとは毎回 これだけ</text>
+  <text x="400" y="558" font-family="sans-serif" font-size="16" fill="#9fc7ad">…チャットに「たのみごと」を書いて送るだけです。</text>
+
+  <g font-family="sans-serif">
+    <rect x="100" y="592" width="500" height="120" rx="14" fill="#131316" stroke="#2c3a30" stroke-width="1.5"/>
+    <circle cx="140" cy="632" r="16" fill="#7fc98b"/><text x="140" y="639" font-size="17" font-weight="800" fill="#06180c" text-anchor="middle">1</text>
+    <text x="170" y="640" font-size="21" font-weight="800" fill="#f5f5f5">えらぶ</text>
+    <text x="170" y="672" font-size="15" fill="#c9c3ba">なにを作ってほしいか きめる</text>
+    <text x="170" y="696" font-size="14" fill="#8a857d">（議事録・マニュアル・見積の下書き…25種類）</text>
+
+    <rect x="640" y="592" width="500" height="120" rx="14" fill="#131316" stroke="#2c3a30" stroke-width="1.5"/>
+    <circle cx="680" cy="632" r="16" fill="#7fc98b"/><text x="680" y="639" font-size="17" font-weight="800" fill="#06180c" text-anchor="middle">2</text>
+    <text x="710" y="640" font-size="21" font-weight="800" fill="#f5f5f5">わたす</text>
+    <text x="710" y="672" font-size="15" fill="#c9c3ba">材料を チャットにつける</text>
+    <text x="710" y="696" font-size="14" fill="#8a857d">（メモ・ファイルの添付・会議の文字おこし）</text>
+
+    <rect x="1180" y="592" width="520" height="120" rx="14" fill="#131316" stroke="#2c3a30" stroke-width="1.5"/>
+    <circle cx="1220" cy="632" r="16" fill="#7fc98b"/><text x="1220" y="639" font-size="17" font-weight="800" fill="#06180c" text-anchor="middle">3</text>
+    <text x="1250" y="640" font-size="21" font-weight="800" fill="#f5f5f5">たのむ（ひとこと書く）</text>
+    <text x="1250" y="672" font-size="15" fill="#c9c3ba">「これで作って」と書いて 送るだけ</text>
+    <text x="1250" y="696" font-size="14" fill="#8a857d">きれいな文章でなくて だいじょうぶ</text>
+  </g>
+
+  <!-- speech bubbles -->
+  <text x="100" y="760" font-family="sans-serif" font-size="16" font-weight="700" fill="#9fc7ad">たとえば、こう書きます（実際にこのまま使えます）</text>
+  <g font-family="sans-serif">
+    <rect x="100" y="778" width="770" height="60" rx="18" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <path d="M150 838 L170 838 L152 862 Z" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <text x="130" y="815" font-size="18" fill="#e8f0fa">💬「商談前ブリーフを、この添付ファイルから作成して」</text>
+
+    <rect x="930" y="778" width="770" height="60" rx="18" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <path d="M980 838 L1000 838 L982 862 Z" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <text x="960" y="815" font-size="18" fill="#e8f0fa">💬「このテキストから、お客さん用のマニュアルを作って」</text>
+  </g>
+  <text x="100" y="905" font-family="sans-serif" font-size="15" fill="#8a857d">※ 同じチャットのなかなら、会社カードの貼り直しは不要。あたらしいチャットを開いたときだけ、もう一度貼ってください。</text>
+
+  <!-- ===== BAND 3: 返ってくるもの ===== -->
+  <rect x="60" y="960" width="1680" height="180" rx="18" fill="#211d14" stroke="#e6c34a" stroke-width="2"/>
+  <rect x="88" y="988" width="250" height="44" rx="22" fill="#e6c34a"/>
+  <text x="213" y="1018" font-family="sans-serif" font-size="19" font-weight="800" fill="#3a2f10" text-anchor="middle">返ってくるもの</text>
+  <g font-family="sans-serif">
+    <text x="110" y="1078" font-size="20" font-weight="700" fill="#f5f5f5">できあがりの「下書き」＋ AIが自分でチェックした「点検表」がセットで届く</text>
+    <text x="110" y="1112" font-size="16" fill="#d8cfa0">人がやるのは、<tspan font-weight="800" fill="#f0dca0">読んで、なおして、OKを出すだけ</tspan>。メールを送る・お客さまに出す最後の判断は、かならず人がします。</text>
+  </g>
+
+  <!-- ===== NOTE: 音声 ===== -->
+  <rect x="60" y="1170" width="1680" height="80" rx="14" fill="#131316" stroke="#2c2c31" stroke-width="1.5"/>
+  <text x="90" y="1203" font-family="sans-serif" font-size="16" font-weight="700" fill="#f0dca0">🎤 録音（音声）だけは、ひと手間</text>
+  <text x="90" y="1232" font-family="sans-serif" font-size="15" fill="#c9c3ba">録音 → 文字にする（ボタン1つの文字おこし） → その文字をわたす。録音ファイルをそのまま投げるのではなく、「文字にしてから」がお約束です。</text>
+
+  <!-- footer -->
+  <text x="70" y="1300" font-family="sans-serif" font-size="13" fill="#6f6a63">AIDX ― つかいかたの図 v0.1 / 2026-08-02</text>
+  <text x="1740" y="1300" font-family="sans-serif" font-size="15" font-weight="700" fill="#7fc98b" text-anchor="end">これだけです。「はって、わたして、たのむ」。</text>
+</svg>
+  </div>
+  <footer>
+    AIDX チュートリアル v0.1 / 2026-08-02 ／ 内部・関係者向け資料。<br>
+    使い方の1枚図：<a href="./assets/AIDX_つかいかた_図_v0.1.svg" target="_blank" rel="noopener">原寸で開く ↗</a>　／
+    セットアップ画面：<a href="./AIDX_セットアップ_スタートページ_v0.4.html" target="_blank" rel="noopener">ひらく ↗</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var N=steps.length, cur=0, all=false;
+  var dots=document.getElementById('dots'), cnt=document.getElementById('cnt');
+  steps.forEach(function(_,i){
+    var d=document.createElement('div'); d.className='dot'+(i===0?' on':''); dots.appendChild(d);
+  });
+  function paint(){
+    steps.forEach(function(s,i){ s.classList.toggle('show', all || i===cur); });
+    [].slice.call(dots.children).forEach(function(d,i){ d.classList.toggle('on', all || i<=cur); });
+    cnt.textContent = all ? (N+' / '+N) : ((cur+1)+' / '+N);
+  }
+  function go(i,scroll){
+    cur=Math.max(0,Math.min(N-1,i));
+    if(all){ all=false; document.getElementById('allbtn').textContent='ぜんぶ表示'; }
+    paint();
+    if(scroll!==false){
+      var t=steps[cur].getBoundingClientRect().top+window.pageYOffset-70;
+      window.scrollTo({top:t,behavior:'smooth'});
+    }
+  }
+  document.querySelectorAll('.nx').forEach(function(b){ b.addEventListener('click',function(){ go(cur+1); }); });
+  document.querySelectorAll('.pv').forEach(function(b){ b.addEventListener('click',function(){ go(cur-1); }); });
+  document.getElementById('again').addEventListener('click',function(){ go(0); });
+  document.getElementById('allbtn').addEventListener('click',function(){
+    all=!all; this.textContent = all ? '1つずつ表示' : 'ぜんぶ表示'; paint();
+    if(!all){ go(cur); }
+  });
+  document.querySelectorAll('.cp').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=this.getAttribute('data-t'), self=this;
+      function done(){ self.classList.add('done'); var o=self.textContent; self.textContent='✔ コピーしました'; setTimeout(function(){ self.textContent=o; self.classList.remove('done'); },1800); }
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done,fallback); } else { fallback(); }
+      function fallback(){
+        var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); done(); }catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
