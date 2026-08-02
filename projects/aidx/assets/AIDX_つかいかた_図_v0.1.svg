@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1330" role="img" aria-label="AIDXのつかいかた。はじめに1回だけ会社カードを貼り、あとは毎回、えらぶ・わたす・たのむの3ステップで、AIの下書きとチェックが返ってくる図">
+  <rect width="1800" height="1330" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="70" font-family="sans-serif" font-size="16" font-weight="700" fill="#ff8a3d" letter-spacing="2">AIDX ― つかいかたの図</text>
+  <text x="70" y="122" font-family="sans-serif" font-size="34" font-weight="800" fill="#f5f5f5">おぼえるのは「はって、わたして、たのむ」だけ</text>
+  <text x="70" y="162" font-family="sans-serif" font-size="17" fill="#a8a29b">むずかしい操作はありません。ふだんのメールやLINEと同じ「チャットに書くだけ」です。</text>
+
+  <!-- ===== BAND 1: はじめに1回だけ ===== -->
+  <rect x="60" y="200" width="1680" height="270" rx="18" fill="#101725" stroke="#4a9eff" stroke-width="2"/>
+  <rect x="88" y="228" width="230" height="44" rx="22" fill="#4a9eff"/>
+  <text x="203" y="258" font-family="sans-serif" font-size="19" font-weight="800" fill="#06122a" text-anchor="middle">はじめに 1回だけ</text>
+  <text x="340" y="258" font-family="sans-serif" font-size="16" fill="#9fb6d8">…病院の「初診の問診票」と同じ。2回目からは要りません。</text>
+
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="100" y="292" width="480" height="140" rx="14" fill="#131316" stroke="#2c3a52" stroke-width="1.5"/>
+    <circle cx="140" cy="332" r="16" fill="#4a9eff"/><text x="140" y="339" font-size="17" font-weight="800" fill="#06122a">1</text>
+    <text x="352" y="340" font-size="20" font-weight="700" fill="#f5f5f5">画面に 会社のことを入れる</text>
+    <text x="352" y="372" font-size="15" fill="#c9c3ba">会社の名前・ことばづかい・してはいけないこと</text>
+    <text x="352" y="398" font-size="15" fill="#c9c3ba">（セットアップ画面が案内してくれます）</text>
+
+    <path d="M590 355 L615 355 L615 345 L640 362 L615 379 L615 369 L590 369 Z" fill="#6f6a63"/>
+
+    <rect x="650" y="292" width="480" height="140" rx="14" fill="#131316" stroke="#2c3a52" stroke-width="1.5"/>
+    <circle cx="690" cy="332" r="16" fill="#4a9eff"/><text x="690" y="339" font-size="17" font-weight="800" fill="#06122a">2</text>
+    <text x="902" y="340" font-size="20" font-weight="700" fill="#f5f5f5">「会社カード」が 1枚できる</text>
+    <text x="902" y="372" font-size="15" fill="#c9c3ba">ボタンをおすと、貼るだけの文章ができます</text>
+    <text x="902" y="398" font-size="15" fill="#c9c3ba">（「コピー」をおすだけ）</text>
+
+    <path d="M1140 355 L1165 355 L1165 345 L1190 362 L1165 379 L1165 369 L1140 369 Z" fill="#6f6a63"/>
+
+    <rect x="1200" y="292" width="500" height="140" rx="14" fill="#131316" stroke="#2c3a52" stroke-width="1.5"/>
+    <circle cx="1240" cy="332" r="16" fill="#4a9eff"/><text x="1240" y="339" font-size="17" font-weight="800" fill="#06122a">3</text>
+    <text x="1462" y="340" font-size="20" font-weight="700" fill="#f5f5f5">AIのチャットに はる</text>
+    <text x="1462" y="372" font-size="15" fill="#c9c3ba">Claude（クロード）のチャット画面をひらいて</text>
+    <text x="1462" y="398" font-size="15" fill="#c9c3ba">「はりつけ」して送るだけ</text>
+  </g>
+
+  <!-- ===== BAND 2: いつもの3ステップ ===== -->
+  <rect x="60" y="500" width="1680" height="430" rx="18" fill="#101b14" stroke="#7fc98b" stroke-width="2"/>
+  <rect x="88" y="528" width="290" height="44" rx="22" fill="#7fc98b"/>
+  <text x="233" y="558" font-family="sans-serif" font-size="19" font-weight="800" fill="#06180c" text-anchor="middle">あとは毎回 これだけ</text>
+  <text x="400" y="558" font-family="sans-serif" font-size="16" fill="#9fc7ad">…チャットに「たのみごと」を書いて送るだけです。</text>
+
+  <g font-family="sans-serif">
+    <rect x="100" y="592" width="500" height="120" rx="14" fill="#131316" stroke="#2c3a30" stroke-width="1.5"/>
+    <circle cx="140" cy="632" r="16" fill="#7fc98b"/><text x="140" y="639" font-size="17" font-weight="800" fill="#06180c" text-anchor="middle">1</text>
+    <text x="170" y="640" font-size="21" font-weight="800" fill="#f5f5f5">えらぶ</text>
+    <text x="170" y="672" font-size="15" fill="#c9c3ba">なにを作ってほしいか きめる</text>
+    <text x="170" y="696" font-size="14" fill="#8a857d">（議事録・マニュアル・見積の下書き…25種類）</text>
+
+    <rect x="640" y="592" width="500" height="120" rx="14" fill="#131316" stroke="#2c3a30" stroke-width="1.5"/>
+    <circle cx="680" cy="632" r="16" fill="#7fc98b"/><text x="680" y="639" font-size="17" font-weight="800" fill="#06180c" text-anchor="middle">2</text>
+    <text x="710" y="640" font-size="21" font-weight="800" fill="#f5f5f5">わたす</text>
+    <text x="710" y="672" font-size="15" fill="#c9c3ba">材料を チャットにつける</text>
+    <text x="710" y="696" font-size="14" fill="#8a857d">（メモ・ファイルの添付・会議の文字おこし）</text>
+
+    <rect x="1180" y="592" width="520" height="120" rx="14" fill="#131316" stroke="#2c3a30" stroke-width="1.5"/>
+    <circle cx="1220" cy="632" r="16" fill="#7fc98b"/><text x="1220" y="639" font-size="17" font-weight="800" fill="#06180c" text-anchor="middle">3</text>
+    <text x="1250" y="640" font-size="21" font-weight="800" fill="#f5f5f5">たのむ（ひとこと書く）</text>
+    <text x="1250" y="672" font-size="15" fill="#c9c3ba">「これで作って」と書いて 送るだけ</text>
+    <text x="1250" y="696" font-size="14" fill="#8a857d">きれいな文章でなくて だいじょうぶ</text>
+  </g>
+
+  <!-- speech bubbles -->
+  <text x="100" y="760" font-family="sans-serif" font-size="16" font-weight="700" fill="#9fc7ad">たとえば、こう書きます（実際にこのまま使えます）</text>
+  <g font-family="sans-serif">
+    <rect x="100" y="778" width="770" height="60" rx="18" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <path d="M150 838 L170 838 L152 862 Z" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <text x="130" y="815" font-size="18" fill="#e8f0fa">💬「商談前ブリーフを、この添付ファイルから作成して」</text>
+
+    <rect x="930" y="778" width="770" height="60" rx="18" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <path d="M980 838 L1000 838 L982 862 Z" fill="#1c2436" stroke="#4a9eff" stroke-width="1.5"/>
+    <text x="960" y="815" font-size="18" fill="#e8f0fa">💬「このテキストから、お客さん用のマニュアルを作って」</text>
+  </g>
+  <text x="100" y="905" font-family="sans-serif" font-size="15" fill="#8a857d">※ 同じチャットのなかなら、会社カードの貼り直しは不要。あたらしいチャットを開いたときだけ、もう一度貼ってください。</text>
+
+  <!-- ===== BAND 3: 返ってくるもの ===== -->
+  <rect x="60" y="960" width="1680" height="180" rx="18" fill="#211d14" stroke="#e6c34a" stroke-width="2"/>
+  <rect x="88" y="988" width="250" height="44" rx="22" fill="#e6c34a"/>
+  <text x="213" y="1018" font-family="sans-serif" font-size="19" font-weight="800" fill="#3a2f10" text-anchor="middle">返ってくるもの</text>
+  <g font-family="sans-serif">
+    <text x="110" y="1078" font-size="20" font-weight="700" fill="#f5f5f5">できあがりの「下書き」＋ AIが自分でチェックした「点検表」がセットで届く</text>
+    <text x="110" y="1112" font-size="16" fill="#d8cfa0">人がやるのは、<tspan font-weight="800" fill="#f0dca0">読んで、なおして、OKを出すだけ</tspan>。メールを送る・お客さまに出す最後の判断は、かならず人がします。</text>
+  </g>
+
+  <!-- ===== NOTE: 音声 ===== -->
+  <rect x="60" y="1170" width="1680" height="80" rx="14" fill="#131316" stroke="#2c2c31" stroke-width="1.5"/>
+  <text x="90" y="1203" font-family="sans-serif" font-size="16" font-weight="700" fill="#f0dca0">🎤 録音（音声）だけは、ひと手間</text>
+  <text x="90" y="1232" font-family="sans-serif" font-size="15" fill="#c9c3ba">録音 → 文字にする（ボタン1つの文字おこし） → その文字をわたす。録音ファイルをそのまま投げるのではなく、「文字にしてから」がお約束です。</text>
+
+  <!-- footer -->
+  <text x="70" y="1300" font-family="sans-serif" font-size="13" fill="#6f6a63">AIDX ― つかいかたの図 v0.1 / 2026-08-02</text>
+  <text x="1740" y="1300" font-family="sans-serif" font-size="15" font-weight="700" fill="#7fc98b" text-anchor="end">これだけです。「はって、わたして、たのむ」。</text>
+</svg>
