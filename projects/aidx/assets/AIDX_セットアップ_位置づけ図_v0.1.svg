@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1240" role="img" aria-label="AIDX初期セットアップの位置づけ図。商談・契約納品・初日セットアップ・運用の4フェーズのうち、初日セットアップだけをHTMLページからClaude内のスラッシュコマンドに差し替えることを示す図">
+  <rect width="1800" height="1240" rx="28" fill="#0c0c0e"/>
+
+  <!-- header -->
+  <text x="70" y="70" font-family="sans-serif" font-size="16" font-weight="700" fill="#ff8a3d" letter-spacing="2">AIDX ― 初期セットアップの位置づけ</text>
+  <text x="70" y="122" font-family="sans-serif" font-size="34" font-weight="800" fill="#f5f5f5">商談から運用までの4段階。今回直すのは「③初日」の1か所だけです</text>
+  <text x="70" y="162" font-family="sans-serif" font-size="17" fill="#a8a29b">見せるための資料（説明面）と、実際に動かすもの（実行面）を分けて配置しています。</text>
+
+  <!-- legend -->
+  <g font-family="sans-serif">
+    <rect x="70" y="192" width="22" height="22" rx="6" fill="#4a9eff"/>
+    <text x="102" y="209" font-size="15" fill="#c9c3ba">実行面 ― Claude（Cowork）の中で動くもの</text>
+    <rect x="490" y="192" width="22" height="22" rx="6" fill="#6f6a63"/>
+    <text x="522" y="209" font-size="15" fill="#c9c3ba">説明面 ― 見せる・説明するための資料（ブラウザ）</text>
+    <rect x="1000" y="192" width="22" height="22" rx="6" fill="#7fc98b"/>
+    <text x="1032" y="209" font-size="15" fill="#c9c3ba">日常の業務で使うもの</text>
+  </g>
+
+  <!-- ===== 4 phases ===== -->
+  <g font-family="sans-serif">
+    <!-- 1 -->
+    <rect x="60" y="250" width="405" height="360" rx="16" fill="#131316" stroke="#3a3a40" stroke-width="1.5"/>
+    <rect x="60" y="250" width="405" height="56" rx="16" fill="#1c1c21"/>
+    <rect x="60" y="292" width="405" height="14" fill="#1c1c21"/>
+    <circle cx="98" cy="278" r="15" fill="#6f6a63"/><text x="98" y="285" font-size="16" font-weight="800" fill="#0c0c0e" text-anchor="middle">1</text>
+    <text x="126" y="285" font-size="20" font-weight="800" fill="#f5f5f5">商談（営業）</text>
+    <text x="88" y="345" font-size="14" fill="#8a857d">だれが：営業</text>
+    <text x="88" y="382" font-size="16" fill="#e8e4dd">「AIでこういうことができます」を</text>
+    <text x="88" y="408" font-size="16" fill="#e8e4dd">見せて、導入を決めてもらう段階。</text>
+    <rect x="88" y="432" width="349" height="86" rx="10" fill="#1a1a1f" stroke="#4a4a52" stroke-width="1.2"/>
+    <rect x="102" y="446" width="90" height="24" rx="12" fill="#6f6a63"/>
+    <text x="147" y="463" font-size="13" font-weight="800" fill="#0c0c0e" text-anchor="middle">説明面</text>
+    <text x="102" y="494" font-size="15" fill="#c9c3ba">つかいかたチュートリアル</text>
+    <text x="102" y="514" font-size="14" fill="#8a857d">セットアップ画面（見た目の見本）</text>
+    <text x="88" y="552" font-size="14" fill="#8a857d">※ 初期設定の中身は説明しない。</text>
+    <text x="88" y="574" font-size="14" fill="#8a857d">　「導入後、3分の設定があります」</text>
+    <text x="88" y="596" font-size="14" fill="#8a857d">　の一言で足りる。</text>
+
+    <path d="M469 407 L484 421 L469 435 Z" fill="#5a5a62"/>
+
+    <!-- 2 -->
+    <rect x="485" y="250" width="405" height="360" rx="16" fill="#131316" stroke="#3a3a40" stroke-width="1.5"/>
+    <rect x="485" y="250" width="405" height="56" rx="16" fill="#1c1c21"/>
+    <rect x="485" y="292" width="405" height="14" fill="#1c1c21"/>
+    <circle cx="523" cy="278" r="15" fill="#6f6a63"/><text x="523" y="285" font-size="16" font-weight="800" fill="#0c0c0e" text-anchor="middle">2</text>
+    <text x="551" y="285" font-size="20" font-weight="800" fill="#f5f5f5">契約・納品</text>
+    <text x="513" y="345" font-size="14" fill="#8a857d">だれが：担当・導入支援</text>
+    <text x="513" y="382" font-size="16" fill="#e8e4dd">支払いが済み、説明を受け、</text>
+    <text x="513" y="408" font-size="16" fill="#e8e4dd">Claudeが使える状態で渡す段階。</text>
+    <rect x="513" y="432" width="349" height="86" rx="10" fill="#1a1a1f" stroke="#4a4a52" stroke-width="1.2"/>
+    <rect x="527" y="446" width="90" height="24" rx="12" fill="#4a9eff"/>
+    <text x="572" y="463" font-size="13" font-weight="800" fill="#06122a" text-anchor="middle">実行面</text>
+    <text x="527" y="494" font-size="15" fill="#c9c3ba">Claudeの用意</text>
+    <text x="527" y="514" font-size="14" fill="#8a857d">初期設定コマンドを使える状態にする</text>
+    <text x="513" y="552" font-size="14" fill="#8a857d">※ 配布のしかたは要決定</text>
+    <text x="513" y="574" font-size="14" fill="#8a857d">　（担当者に渡す／管理者が</text>
+    <text x="513" y="596" font-size="14" fill="#8a857d">　 組織まとめて登録する）</text>
+
+    <path d="M894 407 L909 421 L894 435 Z" fill="#5a5a62"/>
+
+    <!-- 3 (highlight) -->
+    <rect x="910" y="250" width="405" height="360" rx="16" fill="#101725" stroke="#4a9eff" stroke-width="3"/>
+    <rect x="910" y="250" width="405" height="56" rx="16" fill="#16233a"/>
+    <rect x="910" y="292" width="405" height="14" fill="#16233a"/>
+    <circle cx="948" cy="278" r="15" fill="#4a9eff"/><text x="948" y="285" font-size="16" font-weight="800" fill="#06122a" text-anchor="middle">3</text>
+    <text x="976" y="285" font-size="20" font-weight="800" fill="#f5f5f5">初日のセットアップ</text>
+    <rect x="1230" y="264" width="72" height="26" rx="13" fill="#e6c34a"/>
+    <text x="1266" y="282" font-size="13" font-weight="800" fill="#3a2f10" text-anchor="middle">ここ</text>
+    <text x="938" y="345" font-size="14" fill="#9fb6d8">だれが：導入担当者ひとり／1回だけ</text>
+    <text x="938" y="382" font-size="16" fill="#e8f0fa">Claudeを初めて開いた日に、</text>
+    <text x="938" y="408" font-size="16" fill="#e8f0fa">会社のことを一度だけ覚えさせる。</text>
+    <rect x="938" y="432" width="349" height="86" rx="10" fill="#16233a" stroke="#4a9eff" stroke-width="1.4"/>
+    <rect x="952" y="446" width="90" height="24" rx="12" fill="#4a9eff"/>
+    <text x="997" y="463" font-size="13" font-weight="800" fill="#06122a" text-anchor="middle">実行面</text>
+    <text x="952" y="494" font-size="16" font-weight="700" fill="#e8f0fa">チャットに /setup と打つ</text>
+    <text x="952" y="514" font-size="14" fill="#9fb6d8">7問・3分・Claudeの中だけで完結</text>
+    <text x="938" y="552" font-size="14" fill="#9fb6d8">答えた内容がそのまま保存され、</text>
+    <text x="938" y="574" font-size="14" fill="#9fb6d8">以降ずっと効く。貼り直しは不要。</text>
+    <text x="938" y="596" font-size="14" fill="#9fb6d8">外部のページは使わない。</text>
+
+    <path d="M1319 407 L1334 421 L1319 435 Z" fill="#5a5a62"/>
+
+    <!-- 4 -->
+    <rect x="1335" y="250" width="405" height="360" rx="16" fill="#101b14" stroke="#7fc98b" stroke-width="2"/>
+    <rect x="1335" y="250" width="405" height="56" rx="16" fill="#152a1c"/>
+    <rect x="1335" y="292" width="405" height="14" fill="#152a1c"/>
+    <circle cx="1373" cy="278" r="15" fill="#7fc98b"/><text x="1373" y="285" font-size="16" font-weight="800" fill="#06180c" text-anchor="middle">4</text>
+    <text x="1401" y="285" font-size="20" font-weight="800" fill="#f5f5f5">毎日の業務</text>
+    <text x="1363" y="345" font-size="14" fill="#9fc7ad">だれが：現場の担当者みんな</text>
+    <text x="1363" y="382" font-size="16" fill="#e8f5ea">議事録・見積・メール返信など</text>
+    <text x="1363" y="408" font-size="16" fill="#e8f5ea">25種類の書類を作る段階。</text>
+    <rect x="1363" y="432" width="349" height="86" rx="10" fill="#152a1c" stroke="#3f6b4c" stroke-width="1.2"/>
+    <rect x="1377" y="446" width="120" height="24" rx="12" fill="#7fc98b"/>
+    <text x="1437" y="463" font-size="13" font-weight="800" fill="#06180c" text-anchor="middle">日常で使う</text>
+    <text x="1377" y="494" font-size="15" fill="#c9c3ba">えらぶ → わたす → たのむ</text>
+    <text x="1377" y="514" font-size="14" fill="#8a857d">下書き＋点検表がセットで返る</text>
+    <text x="1363" y="552" font-size="14" fill="#9fc7ad">③で入れた会社設定が、ここで</text>
+    <text x="1363" y="574" font-size="14" fill="#9fc7ad">自動的に効く。担当者は設定の</text>
+    <text x="1363" y="596" font-size="14" fill="#9fc7ad">存在を意識しなくてよい。</text>
+  </g>
+
+  <!-- ===== 変更点 ===== -->
+  <rect x="60" y="650" width="1680" height="330" rx="18" fill="#211d14" stroke="#e6c34a" stroke-width="2"/>
+  <rect x="88" y="678" width="330" height="44" rx="22" fill="#e6c34a"/>
+  <text x="253" y="708" font-family="sans-serif" font-size="19" font-weight="800" fill="#3a2f10" text-anchor="middle">③で直したのは「動く場所」だけ</text>
+  <text x="440" y="708" font-family="sans-serif" font-size="16" fill="#d8cfa0">…聞く項目も、できあがる会社設定の中身も、検証済みのまま変えていません。</text>
+
+  <g font-family="sans-serif">
+    <!-- before -->
+    <rect x="100" y="748" width="760" height="200" rx="14" fill="#1a1a1f" stroke="#5a5a62" stroke-width="1.5"/>
+    <rect x="122" y="770" width="86" height="28" rx="14" fill="#6f6a63"/>
+    <text x="165" y="789" font-size="14" font-weight="800" fill="#0c0c0e" text-anchor="middle">これまで</text>
+    <text x="222" y="789" font-size="15" fill="#8a857d">HTMLページ版（v0.4）</text>
+    <text x="122" y="833" font-size="16" fill="#c9c3ba">① ブラウザでセットアップ画面をひらく</text>
+    <text x="122" y="861" font-size="16" fill="#c9c3ba">② 会社情報を入れる</text>
+    <text x="122" y="889" font-size="16" fill="#e6c34a">③ 出てきた文章を「コピー」する</text>
+    <text x="122" y="917" font-size="16" fill="#e6c34a">④ Claudeに戻って「はりつけ」して送る</text>
+    <text x="600" y="917" font-size="14" fill="#8a857d">← 面を跨ぐ2手</text>
+
+    <path d="M878 848 L900 848 L900 836 L926 855 L900 874 L900 862 L878 862 Z" fill="#e6c34a"/>
+
+    <!-- after -->
+    <rect x="940" y="748" width="760" height="200" rx="14" fill="#101725" stroke="#4a9eff" stroke-width="2"/>
+    <rect x="962" y="770" width="86" height="28" rx="14" fill="#4a9eff"/>
+    <text x="1005" y="789" font-size="14" font-weight="800" fill="#06122a" text-anchor="middle">これから</text>
+    <text x="1062" y="789" font-size="15" fill="#9fb6d8">スラッシュコマンド版（v0.1）</text>
+    <text x="962" y="833" font-size="16" fill="#e8f0fa">① Claudeのチャットに <tspan font-weight="800" fill="#8fc4ff">/setup</tspan> と打つ</text>
+    <text x="962" y="861" font-size="16" fill="#e8f0fa">② 聞かれたことに答える（7問・3分）</text>
+    <text x="962" y="889" font-size="16" fill="#e8f0fa">③ おわり。そのまま1本目を作れる</text>
+    <text x="962" y="918" font-size="14" fill="#7fc98b">コピーも貼り付けも 0回／ブラウザに出ない</text>
+    <text x="962" y="938" font-size="11.5" fill="#8a857d">※保存が使えない環境のみ、初日に1回だけ貼り付けが要ります（確認中）</text>
+  </g>
+
+  <!-- ===== note ===== -->
+  <rect x="60" y="1010" width="1680" height="140" rx="14" fill="#131316" stroke="#2c2c31" stroke-width="1.5"/>
+  <g font-family="sans-serif">
+    <text x="90" y="1046" font-size="16" font-weight="700" fill="#f0dca0">HTML版は捨てません ― 役割を「実行するもの」から「見せるもの」に変えます</text>
+    <text x="90" y="1078" font-size="15" fill="#c9c3ba">セットアップ画面とチュートリアルは、①商談 と 社内説明 で使います。導入前のお客様に「入れるとこうなります」を見せる資料としては、</text>
+    <text x="90" y="1104" font-size="15" fill="#c9c3ba">画面がある方が伝わります。実際に動かすのは ③ のスラッシュコマンド。<tspan font-weight="800" fill="#f5f5f5">見せる面と動かす面を分ける</tspan>、というのが今回の整理です。</text>
+    <text x="90" y="1132" font-size="14" fill="#8a857d">※ 未決定：コマンド名の重複確認／会社設定の保存先／スキルの配布方法（担当者へ個別配布か、管理者が組織へ一括登録か）― 設計図の⑧に一覧。</text>
+  </g>
+
+  <text x="70" y="1210" font-family="sans-serif" font-size="13" fill="#6f6a63">AIDX ― 初期セットアップ 位置づけ図 v0.1 / 2026-08-03 / status: draft（オーナーレビュー待ち）</text>
+  <text x="1740" y="1210" font-family="sans-serif" font-size="15" font-weight="700" fill="#4a9eff" text-anchor="end">直すのは③の1か所。中身は検証済みのまま。</text>
+</svg>
