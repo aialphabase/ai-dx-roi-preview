@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDX 運用台帳（版管理表）運用方針 v1.1</title><style>body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;max-width:1040px;margin:0 auto;padding:32px 24px 80px;line-height:1.75;color:#1d1d1f;background:#fff}
+h1{font-size:24px;border-bottom:2px solid #d97757;padding-bottom:8px}h2{font-size:19px;margin-top:40px;border-left:5px solid #d97757;padding-left:10px}h3{font-size:16px;margin-top:24px}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:12px 0}th,td{border:1px solid #ddd;padding:6px 9px;vertical-align:top}th{background:#f6f2ee;white-space:nowrap}
+.note{background:#fff7f2;border:1px solid #f0d9cc;padding:10px 14px;border-radius:8px}
+.big{font-size:17px;font-weight:bold}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:22px 0}
+.step{border:2px solid #d97757;border-radius:10px;padding:12px 12px;background:#fff;position:relative;font-size:13.5px}.step:not(:last-child)::after{content:"→";position:absolute;right:-19px;top:45%;color:#d97757;font-size:20px;font-weight:bold}
+.step .n{position:absolute;top:-14px;left:12px;background:#d97757;color:#fff;font-weight:bold;border-radius:14px;padding:2px 12px;font-size:13px}
+.step h4{margin:8px 0 6px;font-size:15px}.step .meta{font-size:12px;color:#666}.step .done{margin-top:8px;font-size:13px;background:#f6f2ee;border-radius:6px;padding:6px 8px}
+@media(max-width:800px){.flow{grid-template-columns:1fr}.step::after{display:none}}
+.goal{border:2px solid #16a34a;background:#f0fdf4;border-radius:10px;padding:12px 16px}
+.mock{font-size:12px}.mock th{background:#e9e4df}.mock td.ok{color:#16a34a;font-weight:bold}.mock td.ng{color:#dc2626;font-weight:bold}
+.why{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.why div{border:1px solid #e5e5e5;border-radius:8px;padding:10px 12px;background:#fafafa}
+.why b{display:block;color:#d97757;margin-bottom:4px}
+.done3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.done3 div{border:2px solid #16a34a;border-radius:8px;padding:10px 12px}.done3 b{display:block;font-size:15px}
+.done3 .chk{font-size:12px;color:#166534;margin-top:6px}
+@media(max-width:800px){.why,.done3{grid-template-columns:1fr}}
+</style></head><body>
+<h1>AIDX 運用台帳（版管理表）運用方針 — 何を・なぜ・どこで完了か v1.1</h1>
+<p>作成：2026-08-18（v1.1：運用方針を確定）／出どころ：0817会議ブラッシュアップ案 4-4「スキルの版管理を『共有ドライブに最新版』だけで終わらせない」／位置づけ：<strong>この文書が運用方針の正本</strong>。定義・理由・完了条件・着手手順を1枚にまとめ、台帳の型（xlsx）を同梱。</p>
+<div class="goal"><strong>決定事項（2026-08-18）</strong><br>
+① 置き場所：<strong>Google スプレッドシート</strong>（会社の Google Workspace 内）。Notion には台帳のURLだけをWBSに貼る。パイロット顧客が付いて顧客ページが必要になった時点で Notion への移行を再検討（CSVインポートで移せる）。<br>
+② 書く人：<strong>導入担当1名</strong>が台帳の持ち主。営業は書かず、引き継ぎメモを渡すだけ。<br>
+③ 版番号の単位：<strong>パック単位</strong>（共通パック14本はまとめて1つの版。1本直しても全体を v1.5 に上げる。業種パックも同じ）。<br>
+④ 完了の定義：下記「3. 完了条件」の 1→2→3 をすべて満たした時点で設計タスクは完了。以後は運用（週1定例のトリアージに5分）。</div>
+
+<h2>0. ひとことで</h2>
+<p class="note big">「いま配るべき最新版はどれか」と「各顧客にどの版がいつ入ったか」を、1つの表で突き合わせられる状態にすること。</p>
+<p>スキルは<strong>顧客のアカウントごとに複製されて入る</strong>ので、こちらの原本を直しても顧客側は自動では変わりません。だから「原本の版」と「顧客に入っている版」の2つを、別々にではなく<strong>横に並べて</strong>記録する表が要ります。それが運用台帳です。</p>
+
+<h2>1. なぜ必要か（3つ）</h2>
+<div class="why">
+<div><b>① 直しても届かない</b>原本（Mac／共有ドライブ／Git）を更新しても、顧客のアカウントに入った .skill はそのまま。誰に・いつ再アップロードしたかを覚えておかないと、「直したはずの不具合」が顧客側で再発します。</div>
+<div><b>② 改版が止まらない</b>FAQ・実機テスト・定例会議から、今後も小さな改版が続きます（8/16 v1.3 → 8/17 v1.4 のように）。改版のたびに「どの顧客が古いか」を頭で追うのは、3社目から破綻します。</div>
+<div><b>③ 問い合わせに答えられない</b>顧客から「議事録が英語で返る」と来たとき、その会社に入っている版が分からなければ「新版で直っている件か、新しい不具合か」の切り分けができません。台帳の1行が回答の起点になります。</div>
+</div>
+
+<h3>今日まさに起きた具体例</h3>
+<p>8/18の実機で「メニュー」を打つと、一覧の見出しが「■ 共通（コア）」「■ 共通（拡張）」と出ました。原本は8/17に v1.4（「共通」で統一）に上がっていますが、自社の検証プロジェクトに入っているのは8/16に入れた v1.3 のままだったためです。台帳があれば、次の1行で一目で分かります。</p>
+<table class="mock"><tr><th>顧客名</th><th>プロジェクト名</th><th>パック</th><th>導入版</th><th>導入日</th><th>最新版</th><th>状態</th><th>備考</th></tr>
+<tr><td>アルファベース（自社検証）</td><td>セットアップファイル検証本番環境</td><td>共通</td><td>v1.3</td><td>2026-08-16</td><td>v1.4</td><td class='ng'>要更新</td><td>8/18実機で「共通（コア）」表示＝旧版と判明。v1.4で上書き予定</td></tr><tr><td>アルファベース（自社検証）</td><td>セットアップファイル検証</td><td>共通</td><td>v1.3</td><td>2026-08-16</td><td>v1.4</td><td class='ng'>要更新</td><td></td></tr><tr><td>（例）パイロット1社目</td><td>AIDX_〔会社名〕</td><td>共通</td><td>—</td><td>—</td><td>v1.4</td><td class=''>未導入</td><td>導入日に記入</td></tr><tr><td>（例）パイロット1社目</td><td>AIDX_〔会社名〕</td><td>業種：不動産</td><td>—</td><td>—</td><td>v1.4</td><td class=''>未導入</td><td>導入日に記入</td></tr></table>
+<p>今回は自社だったので実害はありませんが、これが顧客のアカウントで起きると「言葉が統一されていない」「英語で返る」といった<strong>直したはずの問題</strong>を顧客が体験することになります。ご指摘のとおり、上書き（同名で再アップロード）で消えるので新規導入の顧客には影響しません。<strong>影響するのは「改版前に入れた顧客」だけ</strong>で、その顧客を特定するのが台帳の役目です。</p>
+
+<h2>2. 台帳の中身（3シート）</h2>
+<table>
+<tr><th style="width:150px">シート</th><th>1行＝</th><th>主な列</th><th>誰が・いつ書く</th></tr>
+<tr><td><strong>① 原本台帳</strong></td><td>1スキル or 1文書</td><td>ID／区分（共通・業種・文書）／スキル名／番号／業務名／合言葉／<strong>現行版</strong>／改版日／変更内容／原本の場所／最終検証日・結果</td><td>改版した人が、改版したその日に</td></tr>
+<tr><td><strong>② 顧客別反映台帳</strong></td><td>1顧客 × 1パック</td><td>顧客名／組織／プロジェクト名／業種／パック／<strong>導入版・導入日・担当</strong>／最新版（自動）／<strong>状態（自動：最新・要更新・未導入）</strong>／会社設定版／setup実施日／次回更新予定</td><td>導入担当が、顧客に入れた日に</td></tr>
+<tr><td><strong>③ 改版履歴</strong></td><td>1改版</td><td>版／日付／対象／変更内容／きっかけ（FAQ・実機テスト・会議）／影響する顧客／<strong>反映完了日</strong>／担当</td><td>改版した人。反映完了日は全顧客が「最新」になった日</td></tr>
+</table>
+<p>置き場所は<strong>Googleスプレッドシート（推奨）かNotionのデータベース</strong>のどちらでも構いません（0817会議では「Notion WBSに1テーブル」の案）。今回の xlsx は、そのまま取り込める「型＋今日時点の初期データ」です。書き方のルールは3つだけです。</p>
+<table>
+<tr><th>R1</th><td>版番号は <strong>SKILL.md の説明文・ファイル名・台帳</strong> の3か所で一致させる（いまは中身に版があるだけなので、次の改版から説明文の末尾にも「v1.5」を入れる）。</td></tr>
+<tr><th>R2</th><td>顧客に入れた日に②へ1行。入れる<strong>前</strong>に①の現行版を見る（古い .skill を入れない）。</td></tr>
+<tr><th>R3</th><td>改版したら ③に1行 → ①の現行版を更新 → ②で「要更新」になった顧客に<strong>同名で再アップロード（＝上書き）</strong> → ②の導入版・導入日を更新 → 全部「最新」になったら③の反映完了日を記入。</td></tr>
+</table>
+
+<h2>3. 完了条件（ここまでで「終わった」と言える）</h2>
+<div class="done3">
+<div><b>1. 型が決まった</b>3シートの列と、誰がいつ書くか（R1〜R3）が決まり、置き場所（スプレッドシート／Notion）に空の台帳がある。<div class="chk">判定：台帳を初めて見る人が「何を書けばいいか」を説明できる</div></div>
+<div><b>2. 現状が全部載った</b>今日時点の原本（スキル14本＋文書6点）が①に、既に入っているアカウント（自社2プロジェクト＋今後のパイロット顧客）が②に、1行ずつ入っている。<div class="chk">判定：「いま最新でないアカウントはどれ？」に台帳だけで答えられる（今回のコア／拡張の件が第1号）</div></div>
+<div><b>3. 一周回った</b>改版1回を台帳経由で処理した実績がある。具体的には v1.3→v1.4 の上書き反映を③に記録し、②の状態が全部「最新」になる。<div class="chk">判定：③に反映完了日が入り、②に「要更新」が残っていない</div></div>
+</div>
+<p>3まで行けば、以後は「顧客が増えたら②に1行」「改版したら③に1行」の繰り返しだけです。設計タスクとしては<strong>3の時点で完了</strong>とし、それ以降は運用（週1定例のトリアージに5分だけ組み込む）に移ります。</p>
+
+<h2>4. 着手ロードマップ（合計 約2.5時間＋改版1回）</h2>
+<div class="flow">
+<div class="step"><span class="n">STEP 1</span><h4>決める</h4><div class="meta">PM＋導入担当 ・ 30分（水曜セッションで）</div>置き場所（スプレッドシート or Notion）／書く人（導入担当1名）／版番号の付け方（v1.4 → v1.5、共通パックは14本まとめて同じ版）<div class="done">完了の目印：3つが決まり、空の台帳のURLがある</div></div>
+<div class="step"><span class="n">STEP 2</span><h4>型を作る</h4><div class="meta">Claude側 ・ 済（xlsx添付）→ 取り込み 30分</div>3シートをそのまま取り込む。「状態」列の数式が動くことを確認（要更新／最新／未導入の3値）<div class="done">完了の目印：自社の1行が「要更新」と表示される</div></div>
+<div class="step"><span class="n">STEP 3</span><h4>現状を載せる</h4><div class="meta">導入担当 ・ 30分</div>①に原本20行（初期データ入り）を確認、②に自社2プロジェクト、SKILL.md 説明文に版番号を追記（次版から）<div class="done">完了の目印：「最新でないアカウント」に台帳だけで答えられる</div></div>
+<div class="step"><span class="n">STEP 4</span><h4>一周回す</h4><div class="meta">導入担当 ・ 20分</div>自社2プロジェクトに v1.4 を同名で再アップロード → ②の導入版・導入日を更新 → ③の反映完了日を記入<div class="done">完了の目印：②の状態が全部「最新」、③に完了日</div></div>
+</div>
+<div class="goal"><strong>ゴール：</strong>パイロット1社目の導入日に、②へ「顧客名／プロジェクト名／パック／導入版 v1.4／導入日／担当」の1行を足すところから本番運用が始まる。以後、FAQや実機テストから改版が出るたびに R3 を回す。</div>
+
+<h2>5. Google スプレッドシートに載せる手順（STEP 2 の実作業・約15分）</h2>
+<table>
+<tr><th>#</th><th>やること</th><th>目印</th></tr>
+<tr><td>1</td><td>会社の Google ドライブに「AIDX_運用」フォルダを作り、<code>AIDX_運用台帳_版管理表_テンプレ_v1.1_20260818.xlsx</code> をアップロード。右クリック＞アプリで開く＞Google スプレッドシート（または スプレッドシート新規＞ファイル＞インポート＞アップロード）</td><td>4シート（読み方／原本台帳／顧客別反映台帳／改版履歴）が開く</td></tr>
+<tr><td>2</td><td>ファイル＞「Google スプレッドシートとして保存」。名前を <code>AIDX_運用台帳（版管理表）</code> にする（版はシート内で管理するのでファイル名に付けない）</td><td>元の xlsx は削除してよい</td></tr>
+<tr><td>3</td><td>「顧客別反映台帳」の <strong>状態</strong> 列を確認：自社の2行が「要更新」、（例）行が「未導入」と出ていれば数式が生きている（INDEX／MATCH はそのまま動く）</td><td>数式が動く</td></tr>
+<tr><td>4</td><td>共有：導入担当＝編集者、PM・営業＝閲覧者。リンクを Notion WBS の「AIDX」ページに貼る</td><td>URLが1つ決まる</td></tr>
+<tr><td>5</td><td>「（例）」の2行はパイロット1社目が決まるまで残す（記入例）。決まったら上書き</td><td>—</td></tr>
+</table>
+<p>これで STEP 1〜3 は完了。残る STEP 4（自社2プロジェクトへ v1.4 を同名で再アップロード → 台帳の導入版・導入日を更新 → 改版履歴に反映完了日）を済ませた時点で、<strong>「運用台帳（版管理表）の設計」は完了</strong>と宣言できます。</p>
+
+<h2>更新履歴</h2>
+<table><tr><th>日付</th><th>内容</th></tr><tr><td>2026-08-18</td><td>v1.1 運用方針を確定（置き場所＝Googleスプレッドシート／書く人＝導入担当1名／版＝パック単位）。取り込み手順を追加</td></tr><tr><td>2026-08-18</td><td>v1.0 初版。0817会議 4-4 の未着手指摘を受けて設計・完了条件・ロードマップを定義。台帳テンプレ xlsx を同時作成</td></tr></table>
+</body></html>
