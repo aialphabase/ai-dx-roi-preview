@@ -102,8 +102,8 @@
 <body>
 <div class="sc-banner">SHOWCASE v0.2（作成中・社内確認用）── 原案は <a href="../../../codex/">codex/</a> に保存。こちらの複製ページを「248パックで何ができるか」用にカスタマイズしていきます。構成は「AIDX_248ショーケース_構成推奨案 v1.1」に基づく。</div>
 <nav class="sc-nav" aria-label="ページ内ナビ"><span class="sc-brand">AIDX SHOWCASE</span>
-<a href="#mock">動くところを見る</a><a href="#industry">業種</a><a href="#diagnosis">ROI</a><a href="#why">なぜアルファベース</a><a href="#after">3か月後</a><a href="#sales-kit">営業の見せ方</a>
-<div class="sc-view" role="group" aria-label="見え方の切替"><button id="vCust" class="on" type="button">客側（社長・決裁者）</button><button id="vMgmt" type="button">管理側（現場管理者）</button></div></nav>
+<a href="#mock">動くところを見る</a><a href="#industry">業種</a><a href="#diagnosis">ROI</a><a href="#why">なぜアルファベース</a><a href="#after">3か月後</a>
+<div class="sc-view" role="group" aria-label="ページの切替"><button id="vCust" class="on" type="button">顧客向け</button><a id="vMgmt" href="management/">管理側ページ</a></div></nav>
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <img class="heroImage" src="../../../codex/assets/meeting-minutes-poster.webp" alt="会議終了後、議事録作成に着手する業務責任者">
@@ -261,23 +261,9 @@
 <p class="sc-3months-end"><b>経営者が確認するのは、AIの機能数ではありません。</b> 投資効果、現場での再現性、そして3か月後に会社へ何が残るかです。</p>
 </section>
 
-<section class="sc-sec sc-sales-kit" id="sales-kit" aria-labelledby="sales-kit-title">
-<div class="sectionHead"><p class="eyebrow">SALES DEMO FLOW</p><h2 id="sales-kit-title">営業が見せるのは、<br>プロンプトの本数ではない。</h2><p>経営者が知りたい「入れたらどうなるのか」に、実機デモ・投資効果・導入後の姿で答えるための、提案時の見せ方です。</p></div>
-<div class="sc-sales-flow">
-  <article><span>01 / 15秒</span><h3>実機で見せる</h3><p>合言葉から材料待ち、そして成果物が出る瞬間を見せます。AIに丸投げする仕組みではないことも、ここで伝わります。</p></article>
-  <article><span>02 / 3分</span><h3>効果を試算する</h3><p>対象業務と時間を入力し、削減時間・年間効果・投資回収の目安を、その会社の前提で見ます。</p></article>
-  <article><span>03 / 3か月</span><h3>導入後を見せる</h3><p>ヒアリング、セットアップ、実機確認、定着・改善までの工程を示し、何を一緒に行う商品かを具体化します。</p></article>
-  <article><span>04 / 継続</span><h3>会社に残す</h3><p>共有ドライブに使い方・成果物・改善履歴を蓄積し、必要に応じてAI顧問・業務変革支援へつなげます。</p></article>
-</div>
-<div class="sc-evidence">
-  <div><b>実機テストで確かめる</b><p>セットアップ済みの実環境で、合言葉、材料入力、会社設定の反映、曖昧な依頼の扱いを確認し、結果を運用台帳へ記録します。</p></div>
-  <div><b>「渡して終わり」にしない</b><p>業種別パックは入口です。現場の業務・確認ルール・言葉に合わせ、使い続けられる運用まで整えることが248の提供価値です。</p></div>
-</div>
-</section>
-
 <div class="notice">表示中の数値はモデルケースであり、実際の効果を保証するものではありません。生成映像は顧客現場や導入実績を表すものではなく、説明用のイメージです。</div>
   </main>
-  <footer><span>AIDX SHOWCASE</span><span>v0.2 · 2026-08-19 · 原案 codex/ 2026-07-15</span></footer>
+  <footer><span>AIDX SHOWCASE</span><span>v0.2 · 2026-08-19 · 原案 codex/ 2026-07-15</span><a href="management/">運営・営業チームの管理側ページ →</a></footer>
 
 <script>
 (function(){
@@ -408,9 +394,6 @@
 <div class="sc-lb" id="scLb"><img alt=""></div>
 <script>
 (function(){var lb=document.getElementById("scLb"),li=lb.querySelector("img");document.querySelectorAll(".sc-ba img").forEach(function(i){i.addEventListener("click",function(){li.src=i.src;lb.classList.add("on")})});lb.addEventListener("click",function(){lb.classList.remove("on")});})();
-(function(){var b=document.body,c=document.getElementById("vCust"),m=document.getElementById("vMgmt");
-function set(mg){b.classList.toggle("mgmt",mg);c.classList.toggle("on",!mg);m.classList.toggle("on",mg);}
-c.addEventListener("click",function(){set(false)});m.addEventListener("click",function(){set(true)});})();
 </script>
 </body>
 </html>
