@@ -92,11 +92,17 @@
 .sc-drive{margin-top:26px;padding:22px;background:#f5f8f7;border:1px solid #d7e2db}.sc-drive-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.sc-drive-head h3{margin:0;font-size:20px}.sc-drive-head span{padding:6px 9px;background:#e3efe8;color:#16775b;font-size:11px;font-weight:800}.sc-drive>p{max-width:760px;margin:10px 0 16px;color:var(--muted);font-size:13px;line-height:1.7}.sc-drive-root{padding:11px 13px;background:#092b44;color:#fff;font-weight:800;font-size:13px}.sc-drive-root b{color:#e4bd68;margin:0 8px}.sc-drive-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:12px;margin-top:12px}.sc-drive-area{padding:15px;background:#fff;border:1px solid var(--line)}.sc-drive-area strong{display:block;margin-bottom:9px;font-size:13px}.sc-drive-folders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.sc-drive-folder{padding:8px 9px;border:1px solid #e2e8e5;color:#355147;font-size:11px;font-weight:700}.sc-drive-folder b{display:inline-block;margin-right:5px;color:#16775b;font:800 10px/1 Arial}.sc-drive-growth{background:#fff9ee;border-color:#eadcc5}.sc-drive-growth p{margin:0;color:#655d4f;font-size:12px;line-height:1.7}.sc-drive-growth ul{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:10px 0 0;padding:0;list-style:none}.sc-drive-growth li{padding:7px 8px;border-left:3px solid #d6a052;background:#fffdf8;font-size:11px}.sc-drive-note{margin:12px 0 0;color:#6d7774;font-size:11px}.sc-drive-note b{color:#16775b}
 @media(max-width:900px){.sc-grid3,.sc-why,.sc-drive-grid{grid-template-columns:1fr}.sc-nav .sc-view{margin-left:0}}@media(max-width:560px){.sc-drive-folders,.sc-drive-growth ul{grid-template-columns:1fr}.sc-drive-head{display:block}.sc-drive-head span{display:inline-block;margin-top:8px}}
 </style>
+<style id="three-month-style">
+.sc-3months{background:#eef4f1}.sc-3months-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.sc-3months-card{padding:24px;background:#fff;border:1px solid var(--line)}.sc-3months-card .n{display:block;color:#b67b19;font:800 11px/1 Arial,sans-serif;letter-spacing:.14em}.sc-3months-card h3{margin:13px 0 9px;font-size:21px;line-height:1.35}.sc-3months-card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.75}.sc-3months-end{margin:20px 0 0;padding:18px 20px;background:#092b44;color:#dce8ec;font-size:15px;font-weight:700;line-height:1.7}.sc-3months-end b{color:#84e0bd}@media(max-width:900px){.sc-3months-grid{grid-template-columns:1fr}}
+</style>
+<style id="sales-kit-style">
+.sc-sales-kit{background:#092b44;color:#fff}.sc-sales-kit .sectionHead>p:last-child{color:#c5d4da}.sc-sales-kit .eyebrow{color:#e4bd68}.sc-sales-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}.sc-sales-flow article{position:relative;min-height:184px;padding:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}.sc-sales-flow article:not(:last-child):after{content:"→";position:absolute;right:-12px;top:45%;z-index:2;color:#84e0bd;font-size:20px}.sc-sales-flow span{display:block;color:#84e0bd;font:800 11px/1 Arial,sans-serif;letter-spacing:.12em}.sc-sales-flow h3{margin:13px 0 8px;font-size:18px}.sc-sales-flow p{margin:0;color:#d2dfe3;font-size:12.5px;line-height:1.7}.sc-evidence{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}.sc-evidence div{padding:18px;background:#fff;color:var(--ink)}.sc-evidence b{display:block;font-size:16px}.sc-evidence p{margin:7px 0 0;color:var(--muted);font-size:13px;line-height:1.7}@media(max-width:900px){.sc-sales-flow{grid-template-columns:1fr 1fr}.sc-sales-flow article:nth-child(2):after{display:none}}@media(max-width:560px){.sc-sales-flow,.sc-evidence{grid-template-columns:1fr}.sc-sales-flow article:after{display:none}}
+</style>
 </head>
 <body>
 <div class="sc-banner">SHOWCASE v0.2（作成中・社内確認用）── 原案は <a href="../../../codex/">codex/</a> に保存。こちらの複製ページを「248パックで何ができるか」用にカスタマイズしていきます。構成は「AIDX_248ショーケース_構成推奨案 v1.1」に基づく。</div>
 <nav class="sc-nav" aria-label="ページ内ナビ"><span class="sc-brand">AIDX SHOWCASE</span>
-<a href="#mock">動くところを見る</a><a href="#industry">業種</a><a href="#diagnosis">ROI</a><a href="#why">なぜアルファベース</a><a href="#after">3か月後</a>
+<a href="#mock">動くところを見る</a><a href="#industry">業種</a><a href="#diagnosis">ROI</a><a href="#why">なぜアルファベース</a><a href="#after">3か月後</a><a href="#sales-kit">営業の見せ方</a>
 <div class="sc-view" role="group" aria-label="見え方の切替"><button id="vCust" class="on" type="button">客側（社長・決裁者）</button><button id="vMgmt" type="button">管理側（現場管理者）</button></div></nav>
   <main>
     <section class="hero" aria-labelledby="hero-title">
@@ -245,8 +251,28 @@
   <p class="sc-drive-note"><b>最初に決めること：</b>共有ドライブのオーナーと、各フォルダの更新責任者。</p>
 </div>
 </section>
-<section class="sc-sec" id="after" aria-labelledby="after-title">
-<div class="sectionHead"><p class="eyebrow blue">3 MONTHS &amp; AFTER</p><h2 id="after-title">契約から3か月で、何が変わるか。</h2><p>（準備中）「AIDX立上げパック248 ─ 3か月で何が変わるか」のカードと、3か月後の効果測定・継続の選択肢を、承認済みの概要書面と同じ言葉で載せます。</p></div>
+<section class="sc-sec sc-3months" id="after" aria-labelledby="after-title">
+<div class="sectionHead"><p class="eyebrow blue">3 MONTHS &amp; AFTER</p><h2 id="after-title">契約から3か月で、<br>何が変わるか。</h2><p>248はプロンプトを渡して終わる商品ではありません。実機で確かめ、御社の業務に合わせ、人が判断できる形で使い続けられる状態までをつくります。</p></div>
+<div class="sc-3months-grid">
+  <article class="sc-3months-card"><span class="n">WEEK 1–4 / 導入設計</span><h3>会社の言葉と、<br>使う業務を決める。</h3><p>キックオフとヒアリングで、対象部門・業務・確認者・利用ルールを明確にします。AIに任せることと、人が最終判断することを最初に分けます。</p></article>
+  <article class="sc-3months-card"><span class="n">WEEK 4–8 / 実機確認</span><h3>実際の環境で、<br>使えることを確かめる。</h3><p>セットアップ後、業務ごとに実機テストを行います。曖昧な丸投げは必要な材料へ戻し、出力は下書き・要確認として扱えるかまで確認します。</p></article>
+  <article class="sc-3months-card"><span class="n">WEEK 9–12 / 定着・改善</span><h3>成果物と改善の記録を、<br>会社に残す。</h3><p>共有ドライブに業務メニュー、出力例、改善履歴を残し、効果測定と次の90日計画につなげます。担当が変わっても使い続けられる状態を目指します。</p></article>
+</div>
+<p class="sc-3months-end"><b>経営者が確認するのは、AIの機能数ではありません。</b> 投資効果、現場での再現性、そして3か月後に会社へ何が残るかです。</p>
+</section>
+
+<section class="sc-sec sc-sales-kit" id="sales-kit" aria-labelledby="sales-kit-title">
+<div class="sectionHead"><p class="eyebrow">SALES DEMO FLOW</p><h2 id="sales-kit-title">営業が見せるのは、<br>プロンプトの本数ではない。</h2><p>経営者が知りたい「入れたらどうなるのか」に、実機デモ・投資効果・導入後の姿で答えるための、提案時の見せ方です。</p></div>
+<div class="sc-sales-flow">
+  <article><span>01 / 15秒</span><h3>実機で見せる</h3><p>合言葉から材料待ち、そして成果物が出る瞬間を見せます。AIに丸投げする仕組みではないことも、ここで伝わります。</p></article>
+  <article><span>02 / 3分</span><h3>効果を試算する</h3><p>対象業務と時間を入力し、削減時間・年間効果・投資回収の目安を、その会社の前提で見ます。</p></article>
+  <article><span>03 / 3か月</span><h3>導入後を見せる</h3><p>ヒアリング、セットアップ、実機確認、定着・改善までの工程を示し、何を一緒に行う商品かを具体化します。</p></article>
+  <article><span>04 / 継続</span><h3>会社に残す</h3><p>共有ドライブに使い方・成果物・改善履歴を蓄積し、必要に応じてAI顧問・業務変革支援へつなげます。</p></article>
+</div>
+<div class="sc-evidence">
+  <div><b>実機テストで確かめる</b><p>セットアップ済みの実環境で、合言葉、材料入力、会社設定の反映、曖昧な依頼の扱いを確認し、結果を運用台帳へ記録します。</p></div>
+  <div><b>「渡して終わり」にしない</b><p>業種別パックは入口です。現場の業務・確認ルール・言葉に合わせ、使い続けられる運用まで整えることが248の提供価値です。</p></div>
+</div>
 </section>
 
 <div class="notice">表示中の数値はモデルケースであり、実際の効果を保証するものではありません。生成映像は顧客現場や導入実績を表すものではなく、説明用のイメージです。</div>
