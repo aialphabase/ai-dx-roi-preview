@@ -89,7 +89,8 @@
 .sc-lb{position:fixed;inset:0;background:rgba(2,18,29,.9);display:none;align-items:center;justify-content:center;z-index:100;cursor:zoom-out}.sc-lb img{max-width:96vw;max-height:94vh}.sc-lb.on{display:flex}
 .sc-why{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:34px}.sc-why div{background:#fff;border:1px solid var(--line);padding:22px}.sc-why b{display:block;font-size:17px;margin-bottom:8px}.sc-why p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.7}
 .sc-why a{color:var(--blue)}
-@media(max-width:900px){.sc-grid3,.sc-why{grid-template-columns:1fr}.sc-nav .sc-view{margin-left:0}}
+.sc-drive{margin-top:26px;padding:22px;background:#f5f8f7;border:1px solid #d7e2db}.sc-drive-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.sc-drive-head h3{margin:0;font-size:20px}.sc-drive-head span{padding:6px 9px;background:#e3efe8;color:#16775b;font-size:11px;font-weight:800}.sc-drive>p{max-width:760px;margin:10px 0 16px;color:var(--muted);font-size:13px;line-height:1.7}.sc-drive-root{padding:11px 13px;background:#092b44;color:#fff;font-weight:800;font-size:13px}.sc-drive-root b{color:#e4bd68;margin:0 8px}.sc-drive-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:12px;margin-top:12px}.sc-drive-area{padding:15px;background:#fff;border:1px solid var(--line)}.sc-drive-area strong{display:block;margin-bottom:9px;font-size:13px}.sc-drive-folders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.sc-drive-folder{padding:8px 9px;border:1px solid #e2e8e5;color:#355147;font-size:11px;font-weight:700}.sc-drive-folder b{display:inline-block;margin-right:5px;color:#16775b;font:800 10px/1 Arial}.sc-drive-growth{background:#fff9ee;border-color:#eadcc5}.sc-drive-growth p{margin:0;color:#655d4f;font-size:12px;line-height:1.7}.sc-drive-growth ul{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:10px 0 0;padding:0;list-style:none}.sc-drive-growth li{padding:7px 8px;border-left:3px solid #d6a052;background:#fffdf8;font-size:11px}.sc-drive-note{margin:12px 0 0;color:#6d7774;font-size:11px}.sc-drive-note b{color:#16775b}
+@media(max-width:900px){.sc-grid3,.sc-why,.sc-drive-grid{grid-template-columns:1fr}.sc-nav .sc-view{margin-left:0}}@media(max-width:560px){.sc-drive-folders,.sc-drive-growth ul{grid-template-columns:1fr}.sc-drive-head{display:block}.sc-drive-head span{display:inline-block;margin-top:8px}}
 </style>
 </head>
 <body>
@@ -232,6 +233,16 @@
 <div><b>② 導入が、仕組みになっている</b><p>契約前の準備から導入日、動作確認、困ったときの手引きまで文書で公開しています。<br><a href="../AIDX_faq_users_v1.2.html">よくある質問</a>／<a href="../AIDX_device_test_common_v1.2.html">実機テスト</a>／<a href="../AIDX_version_ledger_policy_v1.1.html">版管理の運用</a></p></div>
 <div><b>③ 入力した情報は、AIの学習に使われない</b><p>法人向けプラン（Team）で運用。入力・出力は既定で学習に使われません（Anthropic商用規約）。業務に不要な個人情報は入力しない運用ルールも設けています。</p></div>
 <div><b>④ 3か月後も、終わらない</b><p>定着した業務を土台に、オプション追加・月次・パートナーへ。次の区画へ。</p></div>
+</div>
+<div class="sc-drive">
+  <div class="sc-drive-head"><h3>導入後、会社のどこに残るか。</h3><span>顧客企業の共有ドライブ</span></div>
+  <p>AI Alphaが標準の入口を用意し、導入企業は日々の成果物を同じ場所に増やします。担当が変わっても、使い方・確認ルール・改善履歴が残る構成です。</p>
+  <div class="sc-drive-root">顧客企業の共有ドライブ <b>›</b> AIDX_導入・運用</div>
+  <div class="sc-drive-grid">
+    <div class="sc-drive-area"><strong>AI Alphaが用意する標準部分</strong><div class="sc-drive-folders"><div class="sc-drive-folder"><b>00</b>はじめに</div><div class="sc-drive-folder"><b>01</b>利用ルール</div><div class="sc-drive-folder"><b>02</b>業務メニュー</div><div class="sc-drive-folder"><b>03</b>テンプレートと出力例</div><div class="sc-drive-folder"><b>04</b>運用・改善記録</div><div class="sc-drive-folder"><b>05</b>スキル・配布ファイル</div></div></div>
+    <div class="sc-drive-area sc-drive-growth"><strong>導入企業が日々使う部分</strong><p><b>06_部門別の成果物</b><br>確認済みの成果物を、部門ごとに蓄積します。</p><ul><li>営業</li><li>管理・バックオフィス</li><li>現場・業務部門</li><li>経営・管理者確認</li></ul></div>
+  </div>
+  <p class="sc-drive-note"><b>最初に決めること：</b>共有ドライブのオーナーと、各フォルダの更新責任者。</p>
 </div>
 </section>
 <section class="sc-sec" id="after" aria-labelledby="after-title">
