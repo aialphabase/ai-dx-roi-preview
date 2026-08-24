@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>アルファ商事株式会社｜AIDX 導入ワークスペース</title>
+<style>
+:root{
+  --paper:#F7F5F0; --card:#FFFFFF; --ink:#26302B; --sub:#6E7A72;
+  --green:#244D3E; --green-soft:#E7EEE9; --gold:#B08A4F; --line:#E3DFD6;
+  --done:#2E7D4F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  font-size:15px;line-height:1.85;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 80px;}
+header.hero{padding:64px 0 40px;border-bottom:1px solid var(--line);margin-bottom:36px;}
+.brand{font-size:12px;letter-spacing:.22em;color:var(--gold);font-weight:700;}
+h1{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-weight:600;
+  font-size:clamp(30px,4.6vw,44px);margin:14px 0 10px;letter-spacing:.02em;}
+.hero p{color:var(--sub);max-width:640px;margin:0;}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;align-items:start;}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:28px 30px;margin-bottom:26px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--gold);margin-bottom:6px;}
+h2{font-size:20px;margin:0 0 14px;font-weight:700;}
+.people{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
+.person{display:flex;gap:10px;align-items:center;}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+.person small{display:block;color:var(--sub);font-size:12px;}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px;}
+.tstep{background:var(--green-soft);border-radius:8px;padding:10px 12px;font-size:12.5px;position:relative;}
+.tstep b{display:block;font-size:13px;}
+.tstep.now{background:var(--green);color:#fff;}
+.tstep.now small{color:#CBDCD2;}
+.tstep small{color:var(--sub);}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.goal{border:1px solid var(--line);border-radius:10px;padding:16px;}
+.goal .num{font-size:26px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;}
+.goal p{margin:4px 0 0;font-size:12.5px;color:var(--sub);}
+ul.check{list-style:none;padding:0;margin:0;}
+ul.check li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line);}
+ul.check li:last-child{border-bottom:none;}
+ul.check input{margin-top:6px;accent-color:var(--done);width:16px;height:16px;}
+ul.check b{font-weight:600;}
+ul.check small{display:block;color:var(--sub);font-size:12.5px;}
+.phases{display:grid;gap:10px;}
+.phase{display:grid;grid-template-columns:88px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line);}
+.phase:last-child{border-bottom:none;}
+.phase .tag{font-size:12px;font-weight:700;color:var(--green);}
+.phase p{margin:2px 0 0;font-size:13px;color:var(--sub);}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;}
+.aikotoba{border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;
+  display:flex;justify-content:space-between;align-items:center;background:#FDFCFA;}
+.aikotoba b{color:var(--green);}
+.aikotoba span{font-size:11px;color:var(--sub);}
+.docs a{display:flex;justify-content:space-between;align-items:center;padding:11px 4px;
+  border-bottom:1px dashed var(--line);color:var(--ink);text-decoration:none;font-size:14px;}
+.docs a:last-child{border-bottom:none;}
+.docs a::after{content:"↗";color:var(--gold);font-size:12px;}
+.funnel{display:grid;gap:6px;margin-top:8px;}
+.frow{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;font-size:13px;}
+.fbar{height:18px;border-radius:0 4px 4px 0;background:var(--green);}
+.frow .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;}
+aside .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:20px;position:sticky;top:20px;}
+aside h3{margin:0 0 10px;font-size:14px;}
+.next{background:var(--green);color:#fff;border-radius:10px;padding:16px;font-size:13.5px;line-height:1.7;}
+.next b{display:block;font-size:15px;margin-bottom:4px;}
+.next small{color:#CBDCD2;}
+footer{margin-top:40px;color:var(--sub);font-size:12px;border-top:1px solid var(--line);padding-top:16px;}
+@media(max-width:840px){.layout{grid-template-columns:1fr}.timeline,.goals{grid-template-columns:1fr 1fr}aside .panel{position:static}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="brand">ALPHABASE / AIDX WORKSPACE</div>
+  <h1>アルファ商事株式会社さま<br>AI導入ワークスペース</h1>
+  <p>導入から定着までの3か月、このページがすべての入口です。いま何が済んでいて、次に何をするかが、ここを見ればわかります。（モック・データは架空）</p>
+</header>
+
+<div class="layout">
+<main>
+  <section class="block">
+    <div class="eyebrow">01 · TEAM &amp; TIMELINE</div>
+    <h2>担当チームと進行</h2>
+    <div class="people">
+      <div class="person"><div class="avatar">西</div><div>西村<small>アルファベース／導入責任</small></div></div>
+      <div class="person"><div class="avatar">清</div><div>清水<small>アルファベース／営業窓口</small></div></div>
+      <div class="person"><div class="avatar">貴</div><div>貴社ご担当<small>導入担当（1名）</small></div></div>
+    </div>
+    <div class="timeline">
+      <div class="tstep"><b>手順0</b><small>契約・アカウント準備</small></div>
+      <div class="tstep now"><b>導入日</b><small>セットアップ7問 ← いまここ</small></div>
+      <div class="tstep"><b>実機テスト</b><small>チェック表で確認</small></div>
+      <div class="tstep"><b>定着・実測</b><small>月次スコアで見る</small></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">02 · SUCCESS PLAN</div>
+    <h2>3か月のゴール</h2>
+    <div class="goals">
+      <div class="goal"><div class="num">2部門</div><p>営業部・管理部で日常利用が始まっている</p></div>
+      <div class="goal"><div class="num">16業務</div><p>共通12＋営業2＋α が合言葉1語で動く</p></div>
+      <div class="goal"><div class="num">実測値</div><p>時間削減が「想定」でなく実測で言える</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">03 · SETUP CHECKLIST</div>
+    <h2>導入日のチェックリスト（管理者）</h2>
+    <ul class="check">
+      <li><input type="checkbox" checked><div><b>Teamプラン契約・メンバー招待</b><small>手順0マニュアルどおり</small></div></li>
+      <li><input type="checkbox" checked><div><b>組織スキルにパックを登録</b><small>管理者が1回。全社員に配布されます</small></div></li>
+      <li><input type="checkbox"><div><b>セットアップ7問（3分）</b><small>会社名・文体・禁止語などを1回だけ</small></div></li>
+      <li><input type="checkbox"><div><b>成果物フォルダの接続</b><small>出てきた下書きの保存先を決める</small></div></li>
+      <li><input type="checkbox"><div><b>実機テスト1本（議事録）</b><small>チェック表の1行目に✔が付いたら完了</small></div></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">04 · BUSINESS MENU</div>
+    <h2>使える業務（合言葉1語）</h2>
+    <div class="menu">
+      <div class="aikotoba"><b>議事録</b><span>会議メモ→議事録</span></div>
+      <div class="aikotoba"><b>日報</b><span>面談メモ→CRM</span></div>
+      <div class="aikotoba"><b>提案書</b><span>要点→下書き</span></div>
+      <div class="aikotoba"><b>FAQ</b><span>資料→FAQ</span></div>
+      <div class="aikotoba"><b>返信</b><span>メール→回答案</span></div>
+      <div class="aikotoba"><b>商談前</b><span>1枚ブリーフ</span></div>
+      <div class="aikotoba"><b>見積</b><span>メモ→見積案</span></div>
+      <div class="aikotoba"><b>契約書</b><span>論点チェック</span></div>
+      <div class="aikotoba"><b>振り分け</b><span>問い合わせ分類</span></div>
+      <div class="aikotoba"><b>手順書</b><span>説明→マニュアル</span></div>
+      <div class="aikotoba"><b>稟議</b><span>メモ→稟議書案</span></div>
+      <div class="aikotoba"><b>レポート</b><span>実績→月次整形</span></div>
+      <div class="aikotoba"><b>トーク</b><span>営業台本</span></div>
+      <div class="aikotoba"><b>営業教育</b><span>商談録→教材</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">05 · TRAINING</div>
+    <h2>使い方を身につける</h2>
+    <div class="phases">
+      <div class="phase"><div class="tag">導入月</div><div>合言葉と材料の渡し方（15秒の実機収録で見る）<p>「議事録」→メモを貼る→下書きと要確認欄が返る、を全員が1回体験</p></div></div>
+      <div class="phase"><div class="tag">定着月</div><div>よくある失敗と直し方<p>材料が足りないとき・数字が矛盾しているとき、AIがどう止まるかを知る</p></div></div>
+      <div class="phase"><div class="tag">自走月</div><div>部門ごとの応用<p>自部門の実データで1業務を回し、月次スコアで振り返る</p></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">06 · DOCUMENTS</div>
+    <h2>資料センター</h2>
+    <div class="docs">
+      <a href="#">手順0：契約から初期セットアップまで（v1.2）</a>
+      <a href="#">セットアップマニュアル（v1.4）</a>
+      <a href="#">実機テスト チェック表（v1.2）</a>
+      <a href="#">よくある質問 FAQ（v1.2）</a>
+      <a href="#">成果物フォルダ運用マニュアル（v1.1）</a>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow">07 · ADOPTION</div>
+    <h2>定着の状況（月次・実測）</h2>
+    <div class="funnel" role="img" aria-label="アカウント発行30名、週1回以上利用21名、日常利用12名">
+      <div class="frow"><span>アカウント発行</span><div><div class="fbar" style="width:100%"></div></div><span class="v">30名</span></div>
+      <div class="frow"><span>週1回以上利用</span><div><div class="fbar" style="width:70%;opacity:.75"></div></div><span class="v">21名</span></div>
+      <div class="frow"><span>日常利用（週3+）</span><div><div class="fbar" style="width:40%;opacity:.55"></div></div><span class="v">12名</span></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--sub);margin:12px 0 0;">詳細は月次の「AI活用スコア月報」で。数字はすべて実測（測定日つき）で報告します。</p>
+  </section>
+</main>
+
+<aside>
+  <div class="panel">
+    <div class="next"><b>次のアクション</b>セットアップ7問（3分）を実施し、実機テストの1本目「議事録」を流す<small>期日：今週金曜｜担当：貴社導入担当＋西村</small></div>
+    <h3 style="margin-top:18px;">すぐに開く</h3>
+    <div class="docs">
+      <a href="#">実機テスト チェック表</a>
+      <a href="#">プロンプト実演キット</a>
+      <a href="#">質問する（担当直通）</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+<footer>AIDX by アルファベース｜このページはデザインモックです。社名・数値・担当はすべて架空。出力はすべて下書きで、送る・出す最後の判断は人が行います。</footer>
+</div>
+</body>
+</html>

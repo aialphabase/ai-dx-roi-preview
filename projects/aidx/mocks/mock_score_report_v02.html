@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>AI活用スコア月報 v0.2｜アルファ商事株式会社 2026年9月</title>
+<style>
+:root{
+  --bg:#F5F6F5; --card:#FFFFFF; --ink:#1F2A26; --sub:#66736C; --line:#E1E5E2;
+  --g900:#2E6B4F; --g600:#5E9478; --g300:#A8C8B8; --g100:#DCE9E2;
+  --neutral:#98A6A0;
+  --srcA:#2B5B75; --srcA-bg:#E8F0F4;   /* 管理画面Analytics */
+  --srcB:#2E6B4F; --srcB-bg:#E7EFEA;   /* AIDX実測 */
+  --srcC:#6E4E62; --srcC-bg:#F0E8EE;   /* 成果物フォルダ */
+  --srcD:#8A6A2F; --srcD-bg:#F4EDDE;   /* 換算 */
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  font-size:14px;line-height:1.7;}
+.wrap{max-width:960px;margin:0 auto;padding:36px 22px 70px;}
+header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;
+  border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:16px;}
+h1{font-size:22px;margin:0;font-weight:700;}
+header .meta{font-size:12px;color:var(--sub);text-align:right;}
+.badge{display:inline-block;background:var(--g100);color:var(--g900);font-size:11px;font-weight:700;
+  border-radius:99px;padding:3px 10px;letter-spacing:.06em;margin-bottom:8px;}
+.srckey{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;font-size:11.5px;}
+.src{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:4px 12px;font-weight:700;}
+.src::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;}
+.sA{background:var(--srcA-bg);color:var(--srcA);}
+.sB{background:var(--srcB-bg);color:var(--srcB);}
+.sC{background:var(--srcC-bg);color:var(--srcC);}
+.sD{background:var(--srcD-bg);color:var(--srcD);}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 10px;font-size:10.5px;font-weight:700;vertical-align:middle;}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+.grid{display:grid;grid-template-columns:280px 1fr;gap:18px;margin-bottom:18px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;}
+.cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;}
+h2{font-size:15px;margin:0;font-weight:700;}
+.hero-num{font-size:56px;font-weight:700;color:var(--g900);line-height:1.1;font-variant-numeric:tabular-nums;}
+.hero-num small{font-size:20px;color:var(--sub);font-weight:600;}
+.delta{font-size:13px;color:var(--g900);font-weight:600;}
+.hero-note{font-size:12px;color:var(--sub);margin-top:8px;}
+.cat{display:grid;grid-template-columns:130px 1fr 74px;gap:10px;align-items:center;margin-bottom:12px;font-size:13px;}
+.track{height:14px;background:var(--g100);border-radius:4px;position:relative;}
+.fill{height:100%;border-radius:4px 0 0 4px;background:var(--g600);}
+.fill.hi{background:var(--g900);}
+.target{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--neutral);}
+.cat .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+.cat .v small{display:block;font-weight:400;color:var(--sub);font-size:11px;}
+.legend{font-size:11.5px;color:var(--sub);margin-top:4px;}
+.legend i{display:inline-block;width:10px;height:2px;background:var(--neutral);vertical-align:middle;margin:0 4px 2px 0;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+.f1{background:var(--g900)} .f2{background:var(--g600)} .f3{background:var(--g300)}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);}
+th{font-size:11px;color:var(--sub);letter-spacing:.06em;font-weight:700;}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+tfoot td{font-weight:700;border-bottom:none;border-top:2px solid var(--ink);}
+.actions{counter-reset:a;}
+.action{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line);}
+.action:last-child{border-bottom:none;}
+.action::before{counter-increment:a;content:counter(a);width:26px;height:26px;border-radius:50%;
+  background:var(--g900);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.action b{font-weight:700;}
+.action small{display:block;color:var(--sub);font-size:12px;}
+.note{font-size:11.5px;color:var(--sub);background:var(--g100);border-radius:8px;padding:10px 14px;margin-top:16px;line-height:1.7;}
+footer{margin-top:28px;font-size:11.5px;color:var(--sub);border-top:1px solid var(--line);padding-top:14px;line-height:1.8;}
+@media(max-width:760px){.grid,.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <div class="badge">MONTHLY REPORT v0.2 · 全指標に出どころ明記</div>
+    <h1>AI活用スコア月報 — アルファ商事株式会社</h1>
+  </div>
+  <div class="meta">2026年9月度（9/1–9/30）<br>作成：アルファベース 西村／発行 10/2</div>
+</header>
+
+<div class="srckey">
+  <span class="src sA">A｜Claude管理画面 Analytics（実データ・自動）</span>
+  <span class="src sB">B｜AIDX実測（タイマー・n≥3）</span>
+  <span class="src sC">C｜成果物フォルダ 02_出力（件数）</span>
+  <span class="src sD">D｜換算（単価は契約時に合意）</span>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="cardhead"><h2>総合スコア</h2><span class="chip sA" style="background:var(--srcA-bg);color:var(--srcA)">A+B+C</span></div>
+    <div class="hero-num">58<small> / 100</small></div>
+    <div class="delta">▲ +14（前月 44）</div>
+    <p class="hero-note">4カテゴリの平均。目標（3か月目：70）まであと12。推測値は含みません。</p>
+  </div>
+  <div class="card">
+    <div class="cardhead"><h2>カテゴリ別スコア（｜は3か月目標）</h2></div>
+    <div class="cat"><span>定着（利用率）<br><span class="chip" style="background:var(--srcA-bg);color:var(--srcA)">A</span></span>
+      <div class="track"><div class="fill hi" style="width:70%"></div><div class="target" style="left:80%"></div></div>
+      <div class="v">70<small>目標80</small></div></div>
+    <div class="cat"><span>業務カバー<br><span class="chip" style="background:var(--srcA-bg);color:var(--srcA)">A</span></span>
+      <div class="track"><div class="fill" style="width:56%"></div><div class="target" style="left:75%"></div></div>
+      <div class="v">56<small>目標75</small></div></div>
+    <div class="cat"><span>品質運用<br><span class="chip" style="background:var(--srcC-bg);color:var(--srcC)">C</span></span>
+      <div class="track"><div class="fill" style="width:62%"></div><div class="target" style="left:70%"></div></div>
+      <div class="v">62<small>目標70</small></div></div>
+    <div class="cat"><span>効果実測<br><span class="chip" style="background:var(--srcB-bg);color:var(--srcB)">B</span></span>
+      <div class="track"><div class="fill" style="width:44%"></div><div class="target" style="left:55%"></div></div>
+      <div class="v">44<small>目標55</small></div></div>
+    <div class="legend"><i></i>縦線＝3か月目標。定着＝週次アクティブ率、業務カバー＝スキル別使用実績のある業務の割合、品質運用＝02_出力の版・確定運用の遵守率、効果実測＝実測済み業務の割合。</div>
+  </div>
+</div>
+
+<div class="two">
+  <div class="card">
+    <div class="cardhead"><h2>定着ファネル（9月末時点）</h2><span class="chip" style="background:var(--srcA-bg);color:var(--srcA)">A · 管理画面の実データ</span></div>
+    <div class="cat"><span>アカウント発行</span><div class="track"><div class="fill f1" style="width:100%"></div></div><div class="v">30名</div></div>
+    <div class="cat"><span>週1回以上利用</span><div class="track"><div class="fill f2" style="width:70%"></div></div><div class="v">21名</div></div>
+    <div class="cat"><span>日常利用（週3+）</span><div class="track"><div class="fill f3" style="width:40%"></div></div><div class="v">12名</div></div>
+    <div class="legend">濃→淡＝発行から日常利用への絞り込み。前月：30／16／8名。メンバー別の内訳はCSVで別紙（管理者のみ・会話内容は誰にも見えません）。</div>
+  </div>
+  <div class="card">
+    <div class="cardhead"><h2>時間の実測（1件あたり）</h2><span class="chip" style="background:var(--srcB-bg);color:var(--srcB)">B＋C</span></div>
+    <table>
+      <thead><tr><th>業務</th><th class="num">人力*</th><th class="num">AI＋人</th><th class="num">件数</th></tr></thead>
+      <tbody>
+        <tr><td>議事録</td><td class="num">55分</td><td class="num"><b>14分</b></td><td class="num">18件</td></tr>
+        <tr><td>日報・CRM</td><td class="num">25分</td><td class="num"><b>8分</b></td><td class="num">42件</td></tr>
+        <tr><td>提案書 初稿</td><td class="num">120分</td><td class="num"><b>35分</b></td><td class="num">6件</td></tr>
+        <tr><td>問い合わせ返信</td><td class="num">18分</td><td class="num"><b>6分</b></td><td class="num">31件</td></tr>
+      </tbody>
+    </table>
+    <div class="legend">AI＋人＝タイマー実測平均（B）。件数＝02_出力の保存数（C）。*人力＝貴社担当者の見立て（出どころ明記の上で使用）。</div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:18px;">
+  <div class="cardhead"><h2>人件費換算（工程単位）</h2><span class="chip" style="background:var(--srcD-bg);color:var(--srcD)">D · B×合意単価から算出</span></div>
+  <table>
+    <thead><tr><th>代替している工程</th><th class="num">月間削減時間</th><th class="num">工程単価*</th><th class="num">月間換算額</th></tr></thead>
+    <tbody>
+      <tr><td>会議記録の整理・清書（事務工程）</td><td class="num">12.3h</td><td class="num">2,500円/h</td><td class="num">30,750円</td></tr>
+      <tr><td>日報・CRM入力（事務工程）</td><td class="num">11.9h</td><td class="num">2,500円/h</td><td class="num">29,750円</td></tr>
+      <tr><td>提案書の初稿作成（企画・編集工程）</td><td class="num">8.5h</td><td class="num">4,000円/h</td><td class="num">34,000円</td></tr>
+      <tr><td>問い合わせ回答の下書き（事務工程）</td><td class="num">6.2h</td><td class="num">2,500円/h</td><td class="num">15,500円</td></tr>
+    </tbody>
+    <tfoot><tr><td>合計（9月・日常利用12名時点）</td><td class="num">38.9h</td><td class="num">—</td><td class="num">110,000円/月</td></tr></tfoot>
+  </table>
+  <div class="note">読み方：これは「職種をまるごと代替した」という意味ではなく、<b>各業務の下書き・整理工程</b>をAIが担った分の換算です。*工程単価は契約時に貴社と合意した値を使用。確認・確定は引き続き人が行います。日常利用が30名に広がった場合の単純比例は約27万円/月——これが10月の「次にやる3つ」の根拠です。</div>
+</div>
+
+<div class="card">
+  <div class="cardhead"><h2>次にやる3つ（10月）</h2></div>
+  <div class="actions">
+    <div class="action"><div><b>未利用9名への15分ハンズオン</b><small>定着70→80へ。換算額は利用人数にほぼ比例します（A：メンバー別CSVで対象を特定済み）</small></div></div>
+    <div class="action"><div><b>「見積」「稟議」を営業部で開始</b><small>業務カバー56→65。材料テンプレは資料センターに配布済み</small></div></div>
+    <div class="action"><div><b>提案書の実測をn=10に</b><small>効果実測44→55。件数が貯まれば11月報から換算額の月次推移グラフを掲載</small></div></div>
+  </div>
+</div>
+
+<footer>
+出どころの詳細：A＝Claude管理画面 Analytics（Team/Enterpriseの管理者向け実データ。約1日遅延。会話の中身は管理者にも見えません）／B＝AIDX標準の測定プロトコル（同一材料・タイマー・n≥3。エビデンスレベルE2）／C＝成果物フォルダ「02_出力」の保存件数（導入日に設定した保存ルールに基づく）／D＝B×契約時合意単価による換算値。<br>
+AIDX by アルファベース｜デザインモック v0.2（社名・数値・単価はすべて架空）。
+</footer>
+</div>
+</body>
+</html>
