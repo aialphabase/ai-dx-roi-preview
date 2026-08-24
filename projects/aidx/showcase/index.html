@@ -89,8 +89,9 @@
 .sc-lb{position:fixed;inset:0;background:rgba(2,18,29,.9);display:none;align-items:center;justify-content:center;z-index:100;cursor:zoom-out}.sc-lb img{max-width:96vw;max-height:94vh}.sc-lb.on{display:flex}
 .sc-why{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:34px}.sc-why div{background:#fff;border:1px solid var(--line);padding:22px}.sc-why b{display:block;font-size:17px;margin-bottom:8px}.sc-why p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.7}
 .sc-why a{color:var(--blue)}
+.sc-owner{background:#f5f8f7}.sc-owner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.sc-owner-card{background:#fff;border:1px solid var(--line);padding:24px}.sc-owner-card .n{display:block;color:var(--gold);font:800 11px/1 Arial,sans-serif;letter-spacing:.14em}.sc-owner-card h3{margin:13px 0 10px;font-size:21px;line-height:1.35}.sc-owner-card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.75}.sc-owner-card strong{display:block;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);color:var(--green);font-size:13px}.sc-owner-note{margin-top:18px;padding:18px 20px;border-left:3px solid var(--gold);background:#fffaf0;color:#625a4d;font-size:12px;line-height:1.8}.sc-owner-note b{color:var(--ink)}
 .sc-drive{margin-top:26px;padding:22px;background:#f5f8f7;border:1px solid #d7e2db}.sc-drive-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.sc-drive-head h3{margin:0;font-size:20px}.sc-drive-head span{padding:6px 9px;background:#e3efe8;color:#16775b;font-size:11px;font-weight:800}.sc-drive>p{max-width:760px;margin:10px 0 16px;color:var(--muted);font-size:13px;line-height:1.7}.sc-drive-root{padding:11px 13px;background:#092b44;color:#fff;font-weight:800;font-size:13px}.sc-drive-root b{color:#e4bd68;margin:0 8px}.sc-drive-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:12px;margin-top:12px}.sc-drive-area{padding:15px;background:#fff;border:1px solid var(--line)}.sc-drive-area strong{display:block;margin-bottom:9px;font-size:13px}.sc-drive-folders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.sc-drive-folder{padding:8px 9px;border:1px solid #e2e8e5;color:#355147;font-size:11px;font-weight:700}.sc-drive-folder b{display:inline-block;margin-right:5px;color:#16775b;font:800 10px/1 Arial}.sc-drive-growth{background:#fff9ee;border-color:#eadcc5}.sc-drive-growth p{margin:0;color:#655d4f;font-size:12px;line-height:1.7}.sc-drive-growth ul{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:10px 0 0;padding:0;list-style:none}.sc-drive-growth li{padding:7px 8px;border-left:3px solid #d6a052;background:#fffdf8;font-size:11px}.sc-drive-note{margin:12px 0 0;color:#6d7774;font-size:11px}.sc-drive-note b{color:#16775b}
-@media(max-width:900px){.sc-grid3,.sc-why,.sc-drive-grid{grid-template-columns:1fr}.sc-nav .sc-view{margin-left:0}}@media(max-width:560px){.sc-drive-folders,.sc-drive-growth ul{grid-template-columns:1fr}.sc-drive-head{display:block}.sc-drive-head span{display:inline-block;margin-top:8px}}
+@media(max-width:900px){.sc-grid3,.sc-why,.sc-owner-grid,.sc-drive-grid{grid-template-columns:1fr}.sc-nav .sc-view{margin-left:0}}@media(max-width:560px){.sc-drive-folders,.sc-drive-growth ul{grid-template-columns:1fr}.sc-drive-head{display:block}.sc-drive-head span{display:inline-block;margin-top:8px}}
 </style>
 <style id="three-month-style">
 .sc-3months{background:#eef4f1}.sc-3months-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.sc-3months-card{padding:24px;background:#fff;border:1px solid var(--line)}.sc-3months-card .n{display:block;color:#b67b19;font:800 11px/1 Arial,sans-serif;letter-spacing:.14em}.sc-3months-card h3{margin:13px 0 9px;font-size:21px;line-height:1.35}.sc-3months-card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.75}.sc-3months-end{margin:20px 0 0;padding:18px 20px;background:#092b44;color:#dce8ec;font-size:15px;font-weight:700;line-height:1.7}.sc-3months-end b{color:#84e0bd}@media(max-width:900px){.sc-3months-grid{grid-template-columns:1fr}}
@@ -102,7 +103,7 @@
 <body>
 <div class="sc-banner">SHOWCASE v0.2（作成中・社内確認用）── 原案は <a href="../../../codex/">codex/</a> に保存。こちらの複製ページを「248パックで何ができるか」用にカスタマイズしていきます。構成は「AIDX_248ショーケース_構成推奨案 v1.1」に基づく。</div>
 <nav class="sc-nav" aria-label="ページ内ナビ"><span class="sc-brand">AIDX SHOWCASE</span>
-<a href="#mock">動くところを見る</a><a href="#industry">業種</a><a href="#diagnosis">ROI</a><a href="#why">なぜアルファベース</a><a href="#after">3か月後</a>
+<a href="#mock">動くところを見る</a><a href="#industry">業種</a><a href="#diagnosis">ROI</a><a href="#why">なぜアルファベース</a><a href="#owner">導入後の判断</a><a href="#after">3か月後</a>
 <div class="sc-view" role="group" aria-label="ページの切替"><button id="vCust" class="on" type="button">顧客向け</button><a id="vMgmt" href="management/">管理側ページ</a></div></nav>
   <main>
     <section class="hero" aria-labelledby="hero-title">
@@ -250,6 +251,15 @@
   </div>
   <p class="sc-drive-note"><b>最初に決めること：</b>共有ドライブのオーナーと、各フォルダの更新責任者。</p>
 </div>
+</section>
+<section class="sc-sec sc-owner" id="owner" aria-labelledby="owner-title">
+<div class="sectionHead"><p class="eyebrow blue">OWNER DECISIONS</p><h2 id="owner-title">AIを導入して終わりにしない。<br>経営者が、次の判断をできる状態へ。</h2><p>日常の定着、業務の効果、例外時の引き継ぎまで。会社として判断できる材料を残し、導入を育てます。</p></div>
+<div class="sc-owner-grid">
+  <article class="sc-owner-card"><span class="n">CASE 01 / CONTINUITY</span><h3>突然の離任で、<br>業務が止まった。</h3><p>担当者しか知らない入口や手順があると、連絡が取れないだけで配信・確認・引き継ぎが止まります。業務メニュー、担当、出力例、改善履歴を会社の資産として残します。</p><strong>次の担当者が、どこから再開するかを判断できる。</strong></article>
+  <article class="sc-owner-card"><span class="n">CASE 02 / ADOPTION</span><h3>導入したのに、<br>一部の人しか使わない。</h3><p>利用状況と業務ごとの活用を確認し、使われない理由を「研修」「入口」「業務設計」のどこにあるかへ分けます。必要な支援だけを次の改善へつなげます。</p><strong>定着を、感覚ではなく運用データで育てる。</strong></article>
+  <article class="sc-owner-card"><span class="n">CASE 03 / VALUE</span><h3>便利と言われるが、<br>効果を説明できない。</h3><p>対象業務の時間、出力件数、確認・やり直しを工程ごとに測ります。人を丸ごと置き換えるのではなく、削減できた工程を人件費換算し、次の投資判断へつなげます。</p><strong>「便利」を、経営が判断できる数字に変える。</strong></article>
+</div>
+<p class="sc-owner-note"><b>データの扱い：</b>日常は利用量・定着状況・業務台帳を確認します。会話内容の確認は日常の監視目的ではなく、組織の権限、社内規程、契約、必要な手続きに沿った例外対応として設計します。利用できる範囲は導入するプランと組織設定を確認して決めます。</p>
 </section>
 <section class="sc-sec sc-3months" id="after" aria-labelledby="after-title">
 <div class="sectionHead"><p class="eyebrow blue">3 MONTHS &amp; AFTER</p><h2 id="after-title">契約から3か月で、<br>何が変わるか。</h2><p>248はプロンプトを渡して終わる商品ではありません。実機で確かめ、御社の業務に合わせ、人が判断できる形で使い続けられる状態までをつくります。</p></div>
