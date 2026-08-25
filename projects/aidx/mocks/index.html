@@ -42,7 +42,7 @@ code{color:#dceaf5;background:rgba(255,255,255,.08);padding:1px 6px;border-radiu
 <div id="grid"></div>
 
 <div class="rule">
-追加ルール：下の <code>MOCKS</code> 配列に1件足してコミットするだけ。fields: <code>title</code> / <code>ref</code>（手本の出典）/ <code>status</code>（draft・review・adopted・retired）/ <code>desc</code> / <code>href</code> / <code>added</code>。ファイル名は <code>mock_〔名前〕_v01.html</code>。顧客実データは置かない（すべて架空データで作る）。GPT側HQ（ミライテラシー）からはこのページのURL1本をリンクすれば全モックに届きます。
+追加ルール：下の <code>MOCKS</code> 配列に1件足してコミットするだけ。fields: <code>title</code> / <code>ref</code>（手本の出典）/ <code>status</code>（draft・review・option・adopted・retired）/ <code>desc</code> / <code>href</code> / <code>added</code>。ファイル名は <code>mock_〔名前〕_v01.html</code>。顧客実データは置かない（すべて架空データで作る）。GPT側HQ（ミライテラシー）からはこのページのURL1本をリンクすれば全モックに届きます。
 </div>
 </main>
 
@@ -51,8 +51,8 @@ const MOCKS = [
   {title:"顧客ワークスペース（1社1枚）", ref:"Dock 8セクション型", status:"draft",
    desc:"導入から定着までの入口を1枚に。チーム・ゴール・チェックリスト・業務メニュー・資料・定着ファネル＋右に次のアクション。顧客向けTCD寄りの落ち着いた演出。",
    href:"./mock_workspace_v01.html", added:"2026-08-24"},
-  {title:"AI活用スコア月報 v0.2", ref:"MS Adoption Score型＋Slackファネル", status:"review",
-   desc:"v0.2：全指標に出どころチップ（A=Claude管理画面Analytics実データ／B=タイマー実測／C=02_出力件数／D=工程単位の人件費換算）を明記し、人件費換算セクションを追加。営業が「この数字はどこから」に即答できる形。",
+  {title:"AI活用スコア月報 v0.2（効果測定オプション）", ref:"MS Adoption Score型＋Slackファネル", status:"option",
+   desc:"標準納品には含めず、効果測定を希望する企業・チームプラン向けの任意提供。全指標に出どころチップ（A=Claude管理画面Analytics実データ／B=タイマー実測／C=02_出力件数／D=工程単位の人件費換算）を明記し、人件費換算セクションを追加。",
    href:"./mock_score_report_v02.html", added:"2026-08-24"},
   {title:"（旧）AI活用スコア月報 v0.1", ref:"同上・履歴", status:"retired",
    desc:"出どころ明記前の初版。比較参照用に残置。",
@@ -61,7 +61,7 @@ const MOCKS = [
    desc:"経営者/導入担当/現場の3分岐→導入月・定着月・自走月の連載カード→FAQトップ5。マニュアルの山に導線を付ける入口。",
    href:"./mock_guide_hub_v01.html", added:"2026-08-24"},
 ];
-const label={draft:"DRAFT",review:"REVIEW",adopted:"ADOPTED",retired:"RETIRED"};
+const label={draft:"DRAFT",review:"REVIEW",option:"OPTION · 効果測定",adopted:"ADOPTED",retired:"RETIRED"};
 document.getElementById("grid").innerHTML = MOCKS.map(m=>`
 <article class="card">
   <div class="meta">${label[m.status]||m.status} · ${m.added} · 手本：${m.ref}</div>
