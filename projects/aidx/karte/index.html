@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDXカルテ v1.2 — ヒアリング→提案→ROI連動</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --panel:#fff; --ink:#1a2433; --sub:#5b6b80; --line:#dde4ec;
+    --accent:#0f62fe; --accent-soft:#e8f0fe; --gold:#b7791f; --gold-soft:#fdf3e0;
+    --ok:#0e8345; --ok-soft:#e6f4ec; --radius:12px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg); color:var(--ink); font-size:14px; line-height:1.65;}
+  header.appbar{display:flex; align-items:center; gap:14px; padding:12px 20px; background:#10233f; color:#fff; position:sticky; top:0; z-index:50;}
+  header.appbar h1{font-size:17px; font-weight:700;}
+  header.appbar .tagline{font-size:12px; opacity:.75;}
+  main{max-width:1080px; margin:0 auto; padding:18px 20px 80px;}
+  .steps{display:flex; gap:0; margin-bottom:18px; border-radius:10px; overflow:hidden; border:1px solid var(--line);}
+  .steps div{flex:1; text-align:center; padding:9px 4px; font-size:13px; font-weight:600; background:#fff; color:var(--sub); border-right:1px solid var(--line);}
+  .steps div:last-child{border-right:0;}
+  .steps div.on{background:var(--accent); color:#fff;}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin-bottom:16px;}
+  .card h2{font-size:15px; font-weight:700; margin-bottom:12px;}
+  .card h3{font-size:13.5px; font-weight:700; margin:14px 0 8px; color:var(--ink);}
+  label.f{display:block; font-size:11px; color:var(--sub); font-weight:600; margin-bottom:2px;}
+  input[type=text],select,textarea{width:100%; border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:13.5px; font-family:inherit; background:#fff; color:var(--ink);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media(max-width:700px){.grid2{grid-template-columns:1fr;}}
+  .ind-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:8px;}
+  .ind-grid button{border:1px solid var(--line); background:#fbfcfe; border-radius:10px; padding:12px 8px; cursor:pointer; font-size:13.5px; font-weight:600; color:var(--ink);}
+  .ind-grid button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent);}
+  .checks{display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;}
+  @media(max-width:700px){.checks{grid-template-columns:1fr;}}
+  .checks label{display:flex; gap:8px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line); border-radius:9px; cursor:pointer; font-size:13px; background:#fbfcfe;}
+  .checks label:has(input:checked){border-color:var(--accent); background:var(--accent-soft);}
+  .checks input{margin-top:3px; accent-color:var(--accent);}
+  .checks .pj{font-size:10.5px; color:var(--sub); display:block;}
+  .btn{border:0; border-radius:10px; padding:12px 22px; font-size:14px; font-weight:700; cursor:pointer;}
+  .btn.primary{background:var(--accent); color:#fff;}
+  .btn.primary:hover{background:#0043ce;}
+  .btn.ghost{background:#fff; border:1px solid var(--line); color:var(--ink);}
+  .btn.big{font-size:15.5px; padding:14px 28px;}
+  .actions{display:flex; gap:10px; margin-top:6px; flex-wrap:wrap;}
+  .hint{font-size:12px; color:var(--sub); margin-top:8px;}
+  .hide{display:none;}
+
+  /* 結果 */
+  .plan-head{background:#10233f; color:#fff; border-radius:var(--radius); padding:18px 20px; margin-bottom:16px;}
+  .plan-head .co{font-size:19px; font-weight:700;}
+  .plan-head .meta{font-size:12.5px; opacity:.8; margin-top:2px;}
+  .plan-head .count{font-size:13px; margin-top:8px;}
+  .plan-head .count b{font-size:22px;}
+  .tierlbl{display:inline-block; font-size:11px; font-weight:700; border-radius:5px; padding:1px 8px; margin-right:6px; vertical-align:1px;}
+  .t1{background:var(--ok-soft); color:var(--ok);}
+  .t2{background:var(--accent-soft); color:var(--accent);}
+  .t3{background:var(--gold-soft); color:var(--gold);}
+  table.plan{width:100%; border-collapse:collapse; font-size:13px;}
+  table.plan th{font-size:11px; color:var(--sub); text-align:left; padding:5px 8px; border-bottom:1px solid var(--line);}
+  table.plan td{padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top;}
+  table.plan tr.hit td{background:#f4fff8;}
+  .hitmark{color:var(--ok); font-weight:700; font-size:12px;}
+  pre.copybox{background:#0f1722; color:#dbe4f0; border-radius:10px; padding:14px; font-size:12px; line-height:1.6; white-space:pre-wrap; word-break:break-word; max-height:300px; overflow:auto; font-family:inherit;}
+  .roi-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px;}
+  .roi-stat{background:#fbfcfe; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .roi-stat .n{font-size:24px; font-weight:700; color:var(--accent); font-variant-numeric:tabular-nums;}
+  .roi-stat .n span{font-size:12px; color:var(--sub); font-weight:600; margin-left:2px;}
+  .roi-stat .l{font-size:11.5px; color:var(--sub); margin-top:2px; line-height:1.5;}
+  .import-report{background:var(--ok-soft); border:1px solid #b9dcc6; border-radius:10px; padding:10px 14px; font-size:12.5px; margin:10px 0 14px; line-height:1.7;}
+  .import-report .warn{color:var(--gold);}
+  .toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:#111; color:#fff; padding:9px 20px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .25s; pointer-events:none; z-index:99;}
+  .toast.show{opacity:.92;}
+  @media print{
+    body{background:#fff;}
+    header.appbar,.steps,.no-print{display:none !important;}
+    main{max-width:none; padding:0;}
+    .card{border:0; padding:8px 0; margin-bottom:6px;}
+    #step1,#step2{display:none !important;}
+    #step3{display:block !important;}
+    pre.copybox{display:none;}
+    .copy-section{display:none;}
+    @page{size:A4; margin:14mm;}
+  }
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <h1>AIDXカルテ</h1>
+  <span class="tagline">ヒアリングを入力すると、その場で「御社ならこの20本」プラン・提案骨子・ROI目安ができあがります。</span>
+  <span style="margin-left:auto;"><a href="../" style="color:#fff; opacity:.75; font-size:12px; text-decoration:none;">← AIDX入口へ</a></span>
+</header>
+
+<main>
+<div class="steps">
+  <div id="st1" class="on">1. 顧客情報</div>
+  <div id="st2">2. 課題ヒアリング</div>
+  <div id="st3">3. 提案プラン</div>
+</div>
+
+<!-- ========== STEP 1 ========== -->
+<section id="step1">
+  <div class="card">
+    <h2>顧客の基本情報</h2>
+    <div class="grid2">
+      <div><label class="f">会社名</label><input type="text" id="fCo" placeholder="例）株式会社サンプル工務店"></div>
+      <div><label class="f">面談日・担当</label><input type="text" id="fWho" placeholder="例）2026/8/27 面談：西村"></div>
+      <div><label class="f">従業員数（目安）</label>
+        <select id="fSize"><option>〜5名</option><option selected>6〜20名</option><option>21〜50名</option><option>51名〜</option></select></div>
+      <div><label class="f">現在のAI利用状況</label>
+        <select id="fAI"><option selected>ほぼ使っていない</option><option>一部の社員が個人利用</option><option>会社として一部導入済み</option></select></div>
+    </div>
+    <h3>業種を選択（提案セットの土台が決まります）</h3>
+    <div class="ind-grid" id="indGrid"></div>
+    <div class="actions" style="margin-top:16px;">
+      <button class="btn primary big" onclick="goStep(2)">次へ：課題ヒアリング →</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⚡ 自動入力（任意）— Notion議事録・文字起こしから</h2>
+    <textarea id="fImport" rows="5" placeholder="次のどちらかを貼り付けてください：&#10;・Claudeスキル「商談取り込み」が出力した取り込みコード（{ で始まるコード）&#10;・商談の文字起こしテキストそのまま（Notionミーティングノート等からコピー）"></textarea>
+    <div class="actions">
+      <button class="btn primary" onclick="runImport()">⚡ 取り込んで自動チェック</button>
+    </div>
+    <div id="importResult"></div>
+    <p class="hint">文字起こしを貼った場合はキーワード解析（このPC内で完結・外部送信なし）で課題を自動チェックします。精度を上げたい場合はClaudeの「商談取り込み」スキルでコード化してから貼ってください。自動チェックの結果は次の画面で必ず目視確認を。</p>
+  </div>
+</section>
+
+<!-- ========== STEP 2 ========== -->
+<section id="step2" class="hide">
+  <div id="importBanner"></div>
+  <div class="card">
+    <h2>共通の課題（あてはまるものにチェック）</h2>
+    <div class="checks" id="commonChecks"></div>
+  </div>
+  <div class="card" id="indCard">
+    <h2 id="indTitle">業種特有の課題</h2>
+    <div class="checks" id="indChecks"></div>
+  </div>
+  <div class="card">
+    <h2>その他、ヒアリングで出た固有の業務・課題（顧客固有枠の候補）</h2>
+    <textarea id="fCustom" rows="3" placeholder="例）オーナー向け月次報告書づくりに毎月2日かかっている／協力会社への手配連絡が電話頼み　など（1行に1件）"></textarea>
+    <p class="hint">ここに書いた内容は「顧客固有枠（4〜5本）」の候補として提案に載ります。</p>
+  </div>
+  <div class="actions">
+    <button class="btn ghost" onclick="goStep(1)">← 戻る</button>
+    <button class="btn primary big" onclick="buildPlan()">▶ 提案プランを作成する</button>
+  </div>
+</section>
+
+<!-- ========== STEP 3 ========== -->
+<section id="step3" class="hide">
+  <div class="plan-head">
+    <div class="co" id="pCo">—</div>
+    <div class="meta" id="pMeta">—</div>
+    <div class="count">ご提案プロンプト本数：<b id="pCount">0</b> 本（標準20本枠）</div>
+  </div>
+
+  <div class="card">
+    <h2>推奨セット（チェックいただいた課題に直結するものから順に）</h2>
+    <p style="font-size:12.5px; color:var(--sub); margin-bottom:8px;">
+      <span class="tierlbl t1">今すぐ効く</span>ヒアリングで課題が確認できたもの
+      <span class="tierlbl t2">土台</span>全業種共通の基本パック
+      <span class="tierlbl t3">固有枠</span>ヒアリングから設計する御社専用枠
+    </p>
+    <table class="plan">
+      <thead><tr><th style="width:70px">区分</th><th style="width:60px">PJ</th><th>業務プロンプト</th><th>ヒアリング結果・ねらい</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="roiCard">
+    <h2>ROI目安（この場で見せる費用対効果）</h2>
+    <div class="grid2" style="margin-bottom:10px;">
+      <div><label class="f">平均時給（円・人件費換算）</label><input type="text" id="roiWage" value="2500" inputmode="numeric" oninput="renderROI()"></div>
+      <div><label class="f">想定プラン（月額円／初期費用円）</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="roiMonthly" value="98000" inputmode="numeric" oninput="renderROI()">
+          <input type="text" id="roiInitial" value="150000" inputmode="numeric" oninput="renderROI()">
+        </div>
+      </div>
+    </div>
+    <div id="roiBody"></div>
+    <p class="hint">削減時間は「ヒアリングで課題を確認できた業務」だけを、標準の目安値（1業務あたり月3〜10時間）で保守的に積み上げたものです。<b>目安であり効果の約束ではありません。</b>導入後はAI活用スコア月報の実測値に置き換えます。詳しい体験は <a href="../../../codex/" target="_blank" rel="noopener">ROI診断（Web体験）↗</a> へ。</p>
+  </div>
+
+  <div class="card copy-section">
+    <h2>提案骨子（そのまま読める・コピーして提案書の下敷きに）</h2>
+    <pre class="copybox" id="draftBox"></pre>
+    <div class="actions"><button class="btn ghost" onclick="copyBox('draftBox')">📋 提案骨子をコピー</button></div>
+  </div>
+
+  <div class="card copy-section">
+    <h2>Claude用・提案書生成プロンプト（AIDX「提案書」スキルに貼るだけ）</h2>
+    <pre class="copybox" id="promptBox"></pre>
+    <div class="actions"><button class="btn ghost" onclick="copyBox('promptBox')">📋 プロンプトをコピー</button></div>
+    <p class="hint">Claudeのプロジェクトで「提案書」と入力してこの内容を貼ると、会社設定に沿った提案書ドラフトが生成されます。</p>
+  </div>
+
+  <div class="actions no-print">
+    <button class="btn ghost" onclick="goStep(2)">← ヒアリングに戻る</button>
+    <button class="btn primary" onclick="window.print()">🖨 このプランを印刷 / PDF保存</button>
+  </div>
+  <p class="hint">※本プランは提案の下書きです。金額・導入範囲の確定は担当者が最終判断してください。</p>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ===== カタログ（AIDX_業種別20本セット_確定_v1.0 準拠） ===== */
+const COMMON = [
+  {pj:"PJ-01", name:"議事録・決定事項・TODO化", pain:"会議のあと、議事録づくりに時間がかかっている", aim:"会議直後に議事録・TODOが完成し、共有までの時間をなくす"},
+  {pj:"PJ-02", name:"日報・営業報告", pain:"日報・商談報告が集まらない、書くのが負担になっている", aim:"話すだけ・メモを貼るだけで日報が整い、報告が続く仕組みに"},
+  {pj:"PJ-03", name:"営業資料・提案書作成", pain:"提案書・営業資料づくりに時間がかかっている", aim:"会社のトーンに合った提案書の下書きを数分で用意"},
+  {pj:"PJ-04", name:"FAQ・社内ナレッジ整備", pain:"同じ質問に何度も答えている、ノウハウが人に付いている", aim:"よくある質問を型にして、新人でも同じ答えを出せる状態に"},
+  {pj:"PJ-05", name:"メール・問い合わせ回答", pain:"メール・問い合わせ対応に毎日追われている", aim:"返信案が先にできあがり、確認して送るだけの流れに"},
+  {pj:"PJ-06", name:"商談準備（1枚メモ）", pain:"商談前の情報整理が間に合わない・準備がばらばら", aim:"過去のやり取りから「今日の勝ち筋」を1枚に自動整理"},
+  {pj:"PJ-07", name:"見積書ドラフト", pain:"見積書の作成が遅く、商機を逃すことがある", aim:"商談中にその場で見積書ドラフトを提示（見積もりくん連携）"},
+  {pj:"PJ-08", name:"契約書レビュー補助", pain:"契約書の確認が担当者任せで、見落としが不安", aim:"リスク条項・要確認点を先に洗い出し、確認漏れを防ぐ"},
+  {pj:"PJ-09", name:"問い合わせ一次分類・振り分け", pain:"問い合わせの振り分け・優先度付けが混乱している", aim:"緊急度・種別で自動分類し、対応漏れをなくす"},
+  {pj:"PJ-10", name:"マニュアル・手順書作成", pain:"マニュアルがなく、教えるたびに時間を取られている", aim:"口頭説明から手順書を作り、教育の負荷を減らす"},
+  {pj:"PJ-11", name:"稟議・申請書ドラフト", pain:"稟議・社内申請の書類づくりが面倒で滞りがち", aim:"目的・費用メモから稟議の下書きを自動作成"},
+  {pj:"PJ-12", name:"定期レポート整形", pain:"週報・月報などレポートの整形に時間がかかっている", aim:"散らばった実績を定型レポートに自動整形"},
+];
+const IND_PJ = {
+  "PJ-13":{name:"物件紹介文・広告文作成", pain:"物件紹介文・広告文づくりに時間がかかる", aim:"物件情報から紹介文を複数案、景表法チェックの観点付き"},
+  "PJ-14":{name:"追客・フォローメール", pain:"反響客・既存客へのフォロー連絡が後回しになっている", aim:"段階別のフォロー文面を自動作成し、追客を仕組み化"},
+  "PJ-15":{name:"重要事項・契約書類の要点下書き", pain:"重説・契約書類の要点整理に時間がかかる", aim:"書類の要点と確認事項を先に整理（法務判断は人）"},
+  "PJ-16":{name:"現場報告書作成", pain:"現場からの報告書づくりが夜の残業になっている", aim:"写真・口頭メモから日報・報告書を自動作成"},
+  "PJ-17":{name:"施工・完了報告作成", pain:"施主向けの完了報告づくりが負担になっている", aim:"工程実績から顧客向け完了報告を自動作成"},
+  "PJ-18":{name:"工程・仕様説明資料", pain:"施主に工程・仕様を分かりやすく説明する資料がない", aim:"見積・仕様から施主が分かる説明資料に変換"},
+  "PJ-19":{name:"営業トークスクリプト", pain:"トークが人任せで、成果に個人差が大きい", aim:"商材・想定反論からスクリプトを作成し、営業を標準化"},
+  "PJ-20":{name:"営業教育・成功事例ナレッジ化", pain:"トップ営業のやり方が共有されず属人化している", aim:"商談録から勝ちパターンを抽出し、教材化"},
+  "PJ-21":{name:"比較表・比較資料作成", pain:"プラン・商品の比較資料づくりに時間がかかる", aim:"顧客提示用の比較表を自動作成（比較表メーカー連携）"},
+  "PJ-22":{name:"面談記録の論点整理", pain:"面談・面接・施術記録の整理が追いつかない", aim:"面談音声・メモから論点・宿題・所見を構造化"},
+  "PJ-23":{name:"調査・分析レポート作成", pain:"調査・分析レポートの作成に時間を取られている", aim:"収集資料を論点別・出典付きで整理"},
+  "PJ-24":{name:"求人票・募集要項作成", pain:"求人票・募集要項づくりに時間がかかる", aim:"要件メモから求人票を作成（不当表現チェック観点付き）"},
+  "PJ-25":{name:"候補者推薦文作成", pain:"企業向けの推薦文・サマリーづくりが負担", aim:"経歴・面談記録から推薦文を作成"},
+};
+const INDUSTRIES = {
+  "不動産会社":["PJ-13","PJ-14","PJ-15","PJ-21"],
+  "建設会社":["PJ-16","PJ-17","PJ-18"],
+  "リフォーム会社":["PJ-16","PJ-17","PJ-18","PJ-21"],
+  "営業会社":["PJ-19","PJ-20","PJ-21","PJ-22"],
+  "士業・コンサル":["PJ-21","PJ-22","PJ-23"],
+  "保険代理店":["PJ-21","PJ-22","PJ-23"],
+  "人材紹介会社":["PJ-24","PJ-25","PJ-22"],
+  "整体・整骨":["PJ-22","PJ-14","PJ-21"],
+  "クリニック":["PJ-22","PJ-14","PJ-21"],
+  "その他":[],
+};
+let industry = "不動産会社";
+let checkedSet = new Set();
+let lastHitPJs = [];
+
+/* ===== ROI目安: 1業務あたりの月間削減時間（保守的な標準値・導入後は実測に置換） ===== */
+const HOURS = {
+  "PJ-01":8,"PJ-02":6,"PJ-03":10,"PJ-04":6,"PJ-05":10,"PJ-06":4,"PJ-07":6,"PJ-08":4,
+  "PJ-09":4,"PJ-10":6,"PJ-11":3,"PJ-12":6,"PJ-13":6,"PJ-14":5,"PJ-15":4,"PJ-16":8,
+  "PJ-17":5,"PJ-18":4,"PJ-19":5,"PJ-20":4,"PJ-21":4,"PJ-22":6,"PJ-23":6,"PJ-24":4,"PJ-25":4
+};
+function roiNum(id){ return parseInt((document.getElementById(id).value||"").replace(/[^0-9]/g,""))||0; }
+function renderROI(){
+  const box = document.getElementById("roiBody");
+  if(!lastHitPJs.length){
+    box.innerHTML = '<p class="hint">課題にチェックが入ると、ここに削減時間と回収目安が表示されます。</p>';
+    return;
+  }
+  const wage = roiNum("roiWage"), monthly = roiNum("roiMonthly"), initial = roiNum("roiInitial");
+  const hours = lastHitPJs.reduce((s,pj)=>s+(HOURS[pj]||0),0);
+  const save = hours*wage;
+  const net = save - monthly;
+  const payback = net>0 ? Math.ceil(initial/net) : null;
+  box.innerHTML = `<div class="roi-grid">
+    <div class="roi-stat"><div class="n">${hours}<span>時間/月</span></div><div class="l">削減時間の目安（確認できた課題${lastHitPJs.length}件分）</div></div>
+    <div class="roi-stat"><div class="n">¥${save.toLocaleString("ja-JP")}<span>/月</span></div><div class="l">人件費換算の削減額目安</div></div>
+    <div class="roi-stat"><div class="n">${net>0?("¥"+net.toLocaleString("ja-JP")):"—"}<span>/月</span></div><div class="l">月額費用を引いたプラス分</div></div>
+    <div class="roi-stat"><div class="n">${payback?(payback+'<span>か月</span>'):"—"}</div><div class="l">初期費用の回収目安</div></div>
+  </div>`;
+}
+
+/* ===== 文字起こし解析用キーワード（PC内で完結・外部送信なし） ===== */
+const KEYWORDS = {
+  "PJ-01":["議事録"],
+  "PJ-02":["日報","営業報告","商談記録"],
+  "PJ-03":["提案書","営業資料","企画書"],
+  "PJ-04":["FAQ","よくある質問","同じ質問","属人化","ナレッジ"],
+  "PJ-05":["メール対応","問い合わせ対応","メールの返信","返信に追われ","問い合わせが多"],
+  "PJ-06":["商談準備","商談前"],
+  "PJ-07":["見積"],
+  "PJ-08":["契約書"],
+  "PJ-09":["振り分け","トリアージ","問い合わせの分類"],
+  "PJ-10":["マニュアル","手順書","教育に時間","教えるのに"],
+  "PJ-11":["稟議","申請書"],
+  "PJ-12":["週報","月報","定期レポート","レポート作成"],
+  "PJ-13":["物件紹介","物件の紹介文","広告文"],
+  "PJ-14":["追客","フォローメール","フォロー連絡","再来"],
+  "PJ-15":["重要事項","重説"],
+  "PJ-16":["現場報告","現場からの報告"],
+  "PJ-17":["完了報告","施工報告"],
+  "PJ-18":["工程説明","仕様説明","工程表"],
+  "PJ-19":["トークスクリプト","テレアポ","切り返し"],
+  "PJ-20":["営業教育","成功事例","トップ営業"],
+  "PJ-21":["比較表","比較資料","プラン比較"],
+  "PJ-22":["面談記録","カルテ記録","問診","施術記録","面接記録"],
+  "PJ-23":["調査レポート","分析レポート"],
+  "PJ-24":["求人票","募集要項"],
+  "PJ-25":["推薦文"]
+};
+
+/* ===== UI ===== */
+function renderIndustries(){
+  const g = document.getElementById("indGrid");
+  g.innerHTML = Object.keys(INDUSTRIES).map(k=>
+    `<button class="${k===industry?'on':''}" onclick="setIndustry('${k}')">${k}</button>`).join("");
+}
+function setIndustry(k){ industry=k; renderIndustries(); }
+
+function renderChecks(){
+  document.getElementById("commonChecks").innerHTML = COMMON.map((c,i)=>
+    `<label><input type="checkbox" data-pj="${c.pj}"${checkedSet.has(c.pj)?" checked":""} onchange="toggleCheck(this)"><span>${c.pain}<span class="pj">→ ${c.pj} ${c.name}</span></span></label>`).join("");
+  const pjs = INDUSTRIES[industry]||[];
+  document.getElementById("indTitle").textContent = industry==="その他" ? "業種特有の課題（該当業種なし）" : `${industry}に多い課題`;
+  document.getElementById("indChecks").innerHTML = pjs.map(pj=>{
+    const c = IND_PJ[pj];
+    return `<label><input type="checkbox" data-pj="${pj}"${checkedSet.has(pj)?" checked":""} onchange="toggleCheck(this)"><span>${c.pain}<span class="pj">→ ${pj} ${c.name}</span></span></label>`;
+  }).join("") || `<p class="hint">この業種向けの特化パックは今後拡充予定です。共通の課題と固有枠でプランを組みます。</p>`;
+}
+function toggleCheck(el){ el.checked ? checkedSet.add(el.dataset.pj) : checkedSet.delete(el.dataset.pj); }
+function isVisiblePJ(pj){ return COMMON.some(c=>c.pj===pj) || (INDUSTRIES[industry]||[]).includes(pj); }
+function setSelect(id,val){ const el=document.getElementById(id); [...el.options].forEach(o=>{ if(o.text===val||o.value===val) el.value=o.value; }); }
+
+/* ===== 自動入力（取り込みコード／文字起こし） ===== */
+function runImport(){
+  const raw = document.getElementById("fImport").value.trim();
+  if(!raw){ toast("取り込みコードまたは文字起こしを貼り付けてください"); return; }
+  const report = [];
+  let jsonData = null;
+  const m = raw.match(/\{[\s\S]*\}/);
+  if(m){ try{ const d = JSON.parse(m[0]); if(d && d.format && String(d.format).startsWith("aidx_karte")) jsonData = d; }catch(e){} }
+
+  if(jsonData){
+    if(jsonData.industry && INDUSTRIES.hasOwnProperty(jsonData.industry)){ industry = jsonData.industry; renderIndustries(); }
+    if(jsonData.company) document.getElementById("fCo").value = jsonData.company;
+    if(jsonData.who) document.getElementById("fWho").value = jsonData.who;
+    if(jsonData.size) setSelect("fSize", jsonData.size);
+    if(jsonData.ai) setSelect("fAI", jsonData.ai);
+    let applied = 0; const skipped = [];
+    (jsonData.checks||[]).forEach(pj=>{ if(isVisiblePJ(pj)){ checkedSet.add(pj); applied++; } else skipped.push(pj); });
+    if(Array.isArray(jsonData.custom) && jsonData.custom.length){
+      const ta = document.getElementById("fCustom");
+      const lines = ta.value.split("\n").map(s=>s.trim()).filter(Boolean);
+      jsonData.custom.forEach(t=>{ if(t && !lines.includes(t)) lines.push(t); });
+      ta.value = lines.join("\n");
+    }
+    report.push(`<b>取り込みコードを読み込みました。</b>会社名：${jsonData.company||"—"}／業種：${jsonData.industry||"（変更なし）"}／課題チェック：${applied}件／固有枠：${(jsonData.custom||[]).length}件`);
+    if(skipped.length) report.push(`<span class="warn">選択中の業種セットに無いためスキップ：${skipped.join("、")}</span>`);
+  } else {
+    const hits = [];
+    Object.keys(KEYWORDS).forEach(pj=>{
+      if(!isVisiblePJ(pj)) return;
+      for(const kw of KEYWORDS[pj]){ if(raw.includes(kw)){ hits.push({pj, kw}); checkedSet.add(pj); break; } }
+    });
+    if(hits.length){
+      report.push(`<b>文字起こしを解析し、${hits.length}件の課題を自動チェックしました。</b>根拠キーワード：` +
+        hits.map(h=>`${h.pj}（「${h.kw}」）`).join("　"));
+      report.push("誤検出・拾い漏れがないか、下のチェックを目視で確認してください。");
+    } else {
+      report.push("文字起こしから該当キーワードを検出できませんでした。下で手動チェックするか、Claudeの「商談取り込み」スキルでコード化してから貼り直してください。");
+    }
+  }
+  document.getElementById("importBanner").innerHTML = `<div class="import-report">${report.map(r=>`<div>${r}</div>`).join("")}</div>`;
+  goStep(2);
+  toast("取り込みました");
+}
+
+function goStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById("step"+i).classList.toggle("hide", i!==n);
+    document.getElementById("st"+i).classList.toggle("on", i===n);
+  });
+  if(n===2) renderChecks();
+  window.scrollTo({top:0});
+}
+
+/* ===== プラン生成 ===== */
+function buildPlan(){
+  const checked = new Set([...document.querySelectorAll('#step2 input[type=checkbox]:checked')].map(el=>el.dataset.pj));
+  const customLines = document.getElementById("fCustom").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  const co = document.getElementById("fCo").value || "（会社名未入力）";
+  const size = document.getElementById("fSize").value;
+  const ai = document.getElementById("fAI").value;
+  const who = document.getElementById("fWho").value;
+
+  // 並び：今すぐ効く(チェック済) → 土台(未チェック共通) → 業種特化(未チェック) → 固有枠
+  const rows = [];
+  COMMON.forEach(c=>{ if(checked.has(c.pj)) rows.push({tier:1, pj:c.pj, name:c.name, note:"✔ ヒアリングで課題を確認。"+c.aim}); });
+  (INDUSTRIES[industry]||[]).forEach(pj=>{ if(checked.has(pj)) rows.push({tier:1, pj, name:IND_PJ[pj].name, note:"✔ ヒアリングで課題を確認。"+IND_PJ[pj].aim}); });
+  COMMON.forEach(c=>{ if(!checked.has(c.pj)) rows.push({tier:2, pj:c.pj, name:c.name, note:c.aim}); });
+  (INDUSTRIES[industry]||[]).forEach(pj=>{ if(!checked.has(pj)) rows.push({tier:2, pj, name:IND_PJ[pj].name, note:IND_PJ[pj].aim}); });
+  customLines.slice(0,5).forEach((t,i)=>rows.push({tier:3, pj:"固有-"+(i+1), name:"（ヒアリングから設計）", note:t}));
+
+  const total = rows.length;
+  document.getElementById("pCo").textContent = co + " 様　AIDX導入プラン（案）";
+  document.getElementById("pMeta").textContent = `業種：${industry}／規模：${size}／AI利用状況：${ai}${who?("／"+who):""}`;
+  document.getElementById("pCount").textContent = total;
+
+  lastHitPJs = rows.filter(r=>r.tier===1).map(r=>r.pj);
+  renderROI();
+
+  const tierLbl = {1:'<span class="tierlbl t1">今すぐ効く</span>', 2:'<span class="tierlbl t2">土台</span>', 3:'<span class="tierlbl t3">固有枠</span>'};
+  document.getElementById("planBody").innerHTML = rows.map(r=>
+    `<tr class="${r.tier===1?'hit':''}"><td>${tierLbl[r.tier]}</td><td>${r.pj}</td><td><b>${r.name}</b></td><td>${r.note}</td></tr>`).join("");
+
+  // 提案骨子
+  const hit = rows.filter(r=>r.tier===1);
+  const draft = [
+    `【${co} 様向け AIDX導入プラン（案）】`,
+    `業種：${industry}／規模：${size}／AI利用状況：${ai}`,
+    ``,
+    `■ ヒアリングで確認できた課題（${hit.length}件）`,
+    ...hit.map(r=>`・${r.pj} ${r.name}：${r.note.replace("✔ ヒアリングで課題を確認。","")}`),
+    ...(customLines.length?[``, `■ 御社固有の業務・課題（専用プロンプトとして設計）`, ...customLines.slice(0,5).map(t=>`・${t}`)]:[]),
+    ``,
+    `■ ご提案の全体像`,
+    `・共通の業務プロンプト12本（議事録／日報／提案書／FAQ／メール返信 ほか）を土台に、`,
+    `　${industry==="その他"?"御社の業務":industry}向け特化プロンプトと、ヒアリングから設計する御社専用枠を組み合わせた`,
+    `　「御社専用セット（標準20本枠）」をご提供します。`,
+    `・プロンプトをお渡しして終わりではなく、会社設定（用語・文体・禁止表現）の初期セットアップ、`,
+    `　社員向け研修、伴走サポートまで含めて業務に定着させます。`,
+    ``,
+    `■ 導入の進め方（標準3ステップ）`,
+    `1. 初期セットアップ：会社設定の登録・優先業務プロンプトの調整（〜2週間）`,
+    `2. 定着支援：対象部署での実運用・社員研修（〜1か月）`,
+    `3. 伴走・拡張：効果測定と、固有枠プロンプトの追加設計（継続）`,
+    ``,
+    `※本資料は提案の下書きです。範囲・金額の確定は担当者が最終判断します。`,
+  ].join("\n");
+  document.getElementById("draftBox").textContent = draft;
+
+  // Claude用プロンプト
+  const prompt = [
+    `提案書`,
+    ``,
+    `以下のヒアリング結果をもとに、${co} 様向けのAIDX導入提案書を作成してください。`,
+    ``,
+    `# 顧客情報`,
+    `- 会社名：${co}`,
+    `- 業種：${industry}／従業員規模：${size}／AI利用状況：${ai}`,
+    ``,
+    `# ヒアリングで確認できた課題`,
+    ...hit.map(r=>`- ${r.name}（${r.pj}）`),
+    ...(customLines.length?[`# 顧客固有の業務・課題`, ...customLines.slice(0,5).map(t=>`- ${t}`)]:[]),
+    ``,
+    `# 提案するセット`,
+    `- 共通プロンプト12本＋${industry}特化パック＋顧客固有枠（合計${total}本・標準20本枠）`,
+    ``,
+    `# 構成の指定`,
+    `- 表紙／課題の整理／提案の全体像／導入ステップ／期待効果／次のアクション の構成で。`,
+    `- ヒアリングにない事実・数値・料金は記載せず「要確認」とすること。`,
+  ].join("\n");
+  document.getElementById("promptBox").textContent = prompt;
+
+  goStep(3);
+}
+
+function copyBox(id){
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>toast("コピーしました"), ()=>{
+    const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
+    ta.select(); document.execCommand("copy"); ta.remove(); toast("コピーしました");
+  });
+}
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); }
+
+renderIndustries();
+</script>
+</body>
+</html>
