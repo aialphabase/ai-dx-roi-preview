@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDX 比較表メーカー v1.0</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --panel:#fff; --ink:#1a2433; --sub:#5b6b80; --line:#dde4ec;
+    --accent:#0f62fe; --accent-soft:#e8f0fe; --hl:#fff7e0; --hl-border:#eab308; --radius:12px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg); color:var(--ink); font-size:14px; line-height:1.6;}
+  header.appbar{display:flex; align-items:center; gap:14px; padding:12px 20px; background:#10233f; color:#fff; position:sticky; top:0; z-index:50;}
+  header.appbar h1{font-size:17px; font-weight:700;}
+  header.appbar .tagline{font-size:12px; opacity:.75;}
+  main{max-width:1180px; margin:0 auto; padding:18px 20px 80px;}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin-bottom:16px;}
+  .card h2{font-size:14.5px; font-weight:700; margin-bottom:10px;}
+  .presets{display:flex; gap:8px; flex-wrap:wrap;}
+  .presets button{border:1px solid var(--line); background:#fbfcfe; border-radius:999px; padding:7px 16px; font-size:13px; font-weight:600; cursor:pointer;}
+  .presets button:hover{border-color:var(--accent); background:var(--accent-soft);}
+  label.f{display:block; font-size:11px; color:var(--sub); font-weight:600; margin-bottom:2px;}
+  input[type=text],textarea{width:100%; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:13px; font-family:inherit; color:var(--ink); background:#fff;}
+  .btn{border:0; border-radius:10px; padding:10px 18px; font-size:13.5px; font-weight:700; cursor:pointer;}
+  .btn.primary{background:var(--accent); color:#fff;}
+  .btn.ghost{background:#fff; border:1px solid var(--line); color:var(--ink);}
+  .btn.mini{font-size:12px; padding:6px 12px;}
+  .actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .hint{font-size:12px; color:var(--sub); margin-top:8px;}
+
+  /* エディタ表 */
+  .tblwrap{overflow-x:auto;}
+  table.editor{border-collapse:collapse; min-width:100%;}
+  table.editor th, table.editor td{border:1px solid var(--line); padding:4px; vertical-align:top; min-width:130px;}
+  table.editor th.crit{min-width:150px; background:#f8fafc;}
+  table.editor thead th{background:#f1f5f9;}
+  table.editor thead th input{font-weight:700;}
+  table.editor input, table.editor textarea{border:1px solid transparent; background:transparent; padding:5px 6px;}
+  table.editor input:focus, table.editor textarea:focus{border-color:var(--accent); background:#fff; outline:none;}
+  table.editor textarea{min-height:34px; resize:vertical;}
+  th.reco-col{background:var(--hl) !important; border-top:2px solid var(--hl-border) !important;}
+  .colctl{display:flex; justify-content:space-between; align-items:center; gap:4px; margin-top:3px;}
+  .colctl button{border:0; background:none; cursor:pointer; font-size:11px; color:var(--sub); padding:1px 4px;}
+  .colctl button.star.on{color:var(--hl-border); font-weight:700;}
+  .rowdel{border:0; background:none; color:#b42318; cursor:pointer; font-size:14px;}
+
+  /* プレビュー */
+  .sheet{background:#fff; width:100%; max-width:257mm; margin:0 auto; padding:12mm 10mm;
+    box-shadow:0 2px 14px rgba(16,35,63,.14); color:#111;}
+  .sheet h2.title{font-size:20px; text-align:center; margin-bottom:2mm; font-weight:700;}
+  .sheet .sub{font-size:12px; text-align:center; color:#475467; margin-bottom:6mm;}
+  table.p{width:100%; border-collapse:collapse; font-size:12px; table-layout:fixed;}
+  table.p th, table.p td{border:1px solid #98a2b3; padding:2.4mm 2mm; vertical-align:top; word-break:break-word;}
+  table.p thead th{background:#eef1f5; font-size:12.5px;}
+  table.p th.crit{width:16%; background:#f8fafc; text-align:left; font-size:11.5px;}
+  table.p .reco{background:var(--hl);}
+  table.p thead th.reco{border-top:2.5px solid var(--hl-border);}
+  .recobadge{display:block; font-size:10px; color:#92400e; font-weight:700; margin-bottom:1mm;}
+  .sheet .note{font-size:10.5px; color:#475467; margin-top:4mm; white-space:pre-wrap;}
+  .sheet .draftnote{font-size:9.5px; color:#667085; margin-top:3mm; text-align:center;}
+  .toolbar{display:flex; gap:10px; justify-content:center; margin:0 0 14px;}
+  .hide{display:none;}
+  .toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:#111; color:#fff; padding:9px 20px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .25s; pointer-events:none; z-index:99;}
+  .toast.show{opacity:.92;}
+  @media print{
+    body{background:#fff;}
+    header.appbar, .no-print, #editView{display:none !important;}
+    main{max-width:none; padding:0;}
+    #previewView{display:block !important;}
+    .sheet{box-shadow:none; max-width:none; padding:0;}
+    @page{size:A4 landscape; margin:12mm;}
+  }
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <h1>比較表メーカー</h1>
+  <span class="tagline">物件・プラン・保険商品・競合… 複数の候補を、その場で顧客に見せられる比較表に。</span>
+  <span style="margin-left:auto;"><a href="../" style="color:#fff; opacity:.7; font-size:12px; text-decoration:none;">← AIDX入口へ</a></span>
+</header>
+
+<main>
+
+<div id="editView">
+  <div class="card no-print">
+    <h2>1. ひな型を選ぶ（あとから自由に編集できます)</h2>
+    <div class="presets" id="presets"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. タイトルと内容を編集する</h2>
+    <div style="display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-bottom:10px;">
+      <div><label class="f">比較表タイトル</label><input type="text" id="fTitle" placeholder="例）ご提案プラン比較表"></div>
+      <div><label class="f">サブタイトル（宛名・日付など）</label><input type="text" id="fSub" placeholder="例）株式会社サンプル様 2026/8/27"></div>
+    </div>
+    <div class="tblwrap">
+      <table class="editor">
+        <thead><tr id="headRow"></tr></thead>
+        <tbody id="bodyRows"></tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <button class="btn ghost mini" onclick="addRow()">＋ 比較項目（行）を追加</button>
+      <button class="btn ghost mini" onclick="addCol()">＋ 候補（列）を追加</button>
+    </div>
+    <div style="margin-top:10px;">
+      <label class="f">注記（出典・前提条件など）</label>
+      <textarea id="fNote" rows="2" placeholder="例）金額は2026年8月時点の税込表示です。詳細条件は各社資料をご確認ください。"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn primary" style="font-size:15px; padding:13px 26px;" onclick="preview()">▶ 顧客提示用の比較表を作る</button>
+    </div>
+    <p class="hint">列ヘッダの「★おすすめ」を押すと、その候補の列が強調表示されます。各項目の事実（数値・条件）は担当者が資料と照合してください。</p>
+  </div>
+</div>
+
+<div id="previewView" class="hide">
+  <div class="toolbar no-print">
+    <button class="btn primary" onclick="window.print()">🖨 印刷 / PDF保存（A4横）</button>
+    <button class="btn ghost" onclick="backToEdit()">← 編集に戻る</button>
+  </div>
+  <div class="sheet" id="sheet"></div>
+</div>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* data model: cols=[{name, reco}], rows=[{crit, cells:[...]}] */
+let cols=[], rows=[];
+
+const PRESETS = {
+  "物件比較（不動産）":{
+    title:"おすすめ物件 比較表", cols:["物件A","物件B","物件C"],
+    rows:["価格・賃料","所在地・最寄駅","間取り・面積","築年数","管理費・その他費用","特徴・設備","注意点"]},
+  "リフォームプラン比較":{
+    title:"リフォームプラン 比較表", cols:["プランA（標準）","プランB（おすすめ）","プランC（ハイグレード）"],
+    rows:["概算金額（税込）","工期","工事範囲","使用建材・設備","保証・アフター","こんな方に"]},
+  "保険商品比較":{
+    title:"保険商品 比較表", cols:["商品A","商品B","商品C"],
+    rows:["月々の保険料","保障内容","保障期間","解約返戻金","付帯サービス","留意点"]},
+  "提案プラン比較（営業）":{
+    title:"ご提案プラン 比較表", cols:["ライト","スタンダード","プレミアム"],
+    rows:["月額費用","初期費用","含まれる内容","サポート","契約期間","こんな会社に"]},
+  "競合比較":{
+    title:"サービス比較表", cols:["当社","A社","B社"],
+    rows:["価格","主な機能・範囲","導入までの期間","サポート体制","実績","特徴"]},
+  "白紙から作る":{
+    title:"比較表", cols:["候補1","候補2"], rows:["項目1","項目2","項目3"]},
+};
+
+function renderPresets(){
+  document.getElementById("presets").innerHTML = Object.keys(PRESETS).map(k=>
+    `<button onclick="loadPreset('${k}')">${k}</button>`).join("");
+}
+function loadPreset(k){
+  const p = PRESETS[k];
+  document.getElementById("fTitle").value = p.title;
+  cols = p.cols.map((n,i)=>({name:n, reco:false}));
+  rows = p.rows.map(c=>({crit:c, cells:p.cols.map(()=> "")}));
+  renderEditor();
+  toast(`「${k}」のひな型を読み込みました`);
+}
+
+function renderEditor(){
+  const hr = document.getElementById("headRow");
+  hr.innerHTML = `<th class="crit">比較項目</th>` + cols.map((c,ci)=>`
+    <th class="${c.reco?'reco-col':''}">
+      <input type="text" value="${esc(c.name)}" onchange="cols[${ci}].name=this.value">
+      <div class="colctl">
+        <button class="star ${c.reco?'on':''}" onclick="toggleReco(${ci})">★おすすめ</button>
+        <button onclick="delCol(${ci})" title="列を削除">✕列</button>
+      </div>
+    </th>`).join("") + `<th style="border:0; background:none; min-width:20px;"></th>`;
+
+  const tb = document.getElementById("bodyRows");
+  tb.innerHTML = rows.map((r,ri)=>`<tr>
+    <th class="crit"><input type="text" value="${esc(r.crit)}" onchange="rows[${ri}].crit=this.value"></th>
+    ${cols.map((c,ci)=>`<td class="${c.reco?'reco-col':''}"><textarea rows="1" onchange="rows[${ri}].cells[${ci}]=this.value">${esc(r.cells[ci]||"")}</textarea></td>`).join("")}
+    <td style="border:0;"><button class="rowdel" onclick="delRow(${ri})" title="行を削除">✕</button></td>
+  </tr>`).join("");
+}
+function esc(s){ return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+function toggleReco(ci){ cols[ci].reco = !cols[ci].reco; renderEditor(); }
+function addRow(){ rows.push({crit:"", cells:cols.map(()=> "")}); renderEditor(); }
+function addCol(){ cols.push({name:"候補"+(cols.length+1), reco:false}); rows.forEach(r=>r.cells.push("")); renderEditor(); }
+function delCol(ci){ if(cols.length<=1) return; cols.splice(ci,1); rows.forEach(r=>r.cells.splice(ci,1)); renderEditor(); }
+function delRow(ri){ rows.splice(ri,1); renderEditor(); }
+
+function preview(){
+  const title = document.getElementById("fTitle").value || "比較表";
+  const sub = document.getElementById("fSub").value;
+  const note = document.getElementById("fNote").value;
+  const sheet = document.getElementById("sheet");
+  sheet.innerHTML = `
+    <h2 class="title">${esc(title)}</h2>
+    ${sub?`<div class="sub">${esc(sub)}</div>`:""}
+    <table class="p">
+      <thead><tr><th class="crit"></th>${cols.map(c=>`
+        <th class="${c.reco?'reco':''}">${c.reco?'<span class="recobadge">おすすめ</span>':''}${esc(c.name)}</th>`).join("")}</tr></thead>
+      <tbody>${rows.filter(r=>r.crit||r.cells.some(x=>x)).map(r=>`<tr>
+        <th class="crit">${esc(r.crit)}</th>
+        ${cols.map((c,ci)=>`<td class="${c.reco?'reco':''}">${esc(r.cells[ci]||"—").replace(/\n/g,"<br>")}</td>`).join("")}
+      </tr>`).join("")}</tbody>
+    </table>
+    ${note?`<div class="note">※ ${esc(note)}</div>`:""}
+    <p class="draftnote">本資料は「AIDX 比較表メーカー」で作成した下書きです。各項目の事実・数値は担当者が元資料と照合のうえご提示ください。</p>`;
+  document.getElementById("editView").classList.add("hide");
+  document.getElementById("previewView").classList.remove("hide");
+  window.scrollTo({top:0});
+}
+function backToEdit(){
+  document.getElementById("previewView").classList.add("hide");
+  document.getElementById("editView").classList.remove("hide");
+}
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); }
+
+renderPresets();
+loadPreset("提案プラン比較（営業）");
+</script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDX 見積もりくん v1.0</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --panel:#ffffff; --ink:#1a2433; --sub:#5b6b80;
+    --line:#dde4ec; --accent:#0f62fe; --accent-soft:#e8f0fe;
+    --ok:#0e8345; --warn:#b54708; --danger:#b42318;
+    --radius:12px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg); color:var(--ink); font-size:14px; line-height:1.6;
+  }
+  header.appbar{
+    display:flex; align-items:center; gap:14px; padding:12px 20px;
+    background:#10233f; color:#fff; position:sticky; top:0; z-index:50;
+  }
+  header.appbar h1{font-size:17px; font-weight:700; letter-spacing:.02em;}
+  header.appbar .tagline{font-size:12px; opacity:.75;}
+  header.appbar .spacer{flex:1;}
+  .tabs{display:flex; gap:6px;}
+  .tabs button{
+    border:0; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;
+    background:rgba(255,255,255,.12); color:#fff;
+  }
+  .tabs button.active{background:#fff; color:#10233f;}
+  main{max-width:1280px; margin:0 auto; padding:18px 20px 60px;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ---------- 商談画面 ---------- */
+  .deal-grid{display:grid; grid-template-columns:minmax(340px,1fr) minmax(420px,1.2fr); gap:18px; align-items:start;}
+  @media(max-width:900px){.deal-grid{grid-template-columns:1fr;}}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px;}
+  .card h2{font-size:14px; font-weight:700; margin-bottom:10px; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .card h2 .step{background:var(--accent); color:#fff; font-size:11px; border-radius:999px; padding:1px 9px;}
+  .catalog{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; max-height:420px; overflow-y:auto;}
+  .catalog button.item{
+    border:1px solid var(--line); background:#fbfcfe; border-radius:10px; padding:10px 10px 8px;
+    text-align:left; cursor:pointer; transition:border-color .12s, background .12s;
+  }
+  .catalog button.item:hover{border-color:var(--accent); background:var(--accent-soft);}
+  .catalog .nm{font-weight:600; font-size:13px; display:block; margin-bottom:2px;}
+  .catalog .pr{font-size:12px; color:var(--sub);}
+  .catalog .cat{display:inline-block; font-size:10px; color:var(--accent); background:var(--accent-soft); border-radius:4px; padding:0 5px; margin-bottom:4px;}
+  .cat-filter{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
+  .cat-filter button{border:1px solid var(--line); background:#fff; border-radius:999px; padding:3px 12px; font-size:12px; cursor:pointer;}
+  .cat-filter button.on{background:var(--ink); color:#fff; border-color:var(--ink);}
+  table.lines{width:100%; border-collapse:collapse; font-size:13px;}
+  table.lines th{font-size:11px; color:var(--sub); text-align:left; padding:4px 6px; border-bottom:1px solid var(--line); font-weight:600;}
+  table.lines td{padding:6px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  table.lines td.num, table.lines th.num{text-align:right;}
+  .qty{display:flex; align-items:center; gap:4px;}
+  .qty button{width:24px; height:24px; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; font-size:14px; line-height:1;}
+  .qty input{width:48px; text-align:center; border:1px solid var(--line); border-radius:6px; padding:3px 2px; font-size:13px;}
+  .del{border:0; background:none; color:var(--danger); cursor:pointer; font-size:15px;}
+  .totalbox{margin-top:12px; background:#10233f; color:#fff; border-radius:10px; padding:12px 16px;}
+  .totalbox .row{display:flex; justify-content:space-between; font-size:13px; padding:2px 0; opacity:.85;}
+  .totalbox .grand{display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid rgba(255,255,255,.25); margin-top:6px; padding-top:8px;}
+  .totalbox .grand .amt{font-size:26px; font-weight:700; letter-spacing:.01em;}
+  .meta-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .meta-grid .full{grid-column:1/-1;}
+  label.f{display:block; font-size:11px; color:var(--sub); font-weight:600; margin-bottom:2px;}
+  input[type=text],input[type=number],input[type=date],select,textarea{
+    width:100%; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:13px;
+    font-family:inherit; background:#fff; color:var(--ink);
+  }
+  textarea{resize:vertical;}
+  .actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;}
+  .btn{border:0; border-radius:10px; padding:11px 20px; font-size:14px; font-weight:700; cursor:pointer;}
+  .btn.primary{background:var(--accent); color:#fff;}
+  .btn.primary:hover{background:#0043ce;}
+  .btn.ghost{background:#fff; border:1px solid var(--line); color:var(--ink);}
+  .btn.big{font-size:16px; padding:14px 26px; width:100%;}
+  .hint{font-size:12px; color:var(--sub); margin-top:8px;}
+  .empty{color:var(--sub); font-size:13px; padding:14px 6px; text-align:center;}
+
+  /* ---------- 設定画面 ---------- */
+  .settings-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start;}
+  @media(max-width:900px){.settings-grid{grid-template-columns:1fr;}}
+  table.master{width:100%; border-collapse:collapse; font-size:13px;}
+  table.master th{font-size:11px; color:var(--sub); text-align:left; padding:4px 6px; border-bottom:1px solid var(--line);}
+  table.master td{padding:4px 4px; border-bottom:1px solid var(--line);}
+  table.master input, table.master select{padding:5px 7px; font-size:12.5px;}
+  .mini{font-size:12px; padding:6px 12px;}
+  .io-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+
+  /* ---------- 見積書プレビュー ---------- */
+  #quoteView .sheet-wrap{display:flex; flex-direction:column; align-items:center; gap:14px;}
+  .sheet{
+    background:#fff; width:210mm; min-height:280mm; padding:18mm 16mm;
+    box-shadow:0 2px 14px rgba(16,35,63,.14); color:#111;
+  }
+  .sheet h2.title{font-size:24px; text-align:center; letter-spacing:.5em; text-indent:.5em; margin-bottom:10mm; font-weight:700;}
+  .sheet .head{display:flex; justify-content:space-between; gap:10mm; margin-bottom:8mm;}
+  .sheet .to{font-size:15px;}
+  .sheet .to .name{font-size:18px; font-weight:700; border-bottom:1.5px solid #111; padding:0 8px 2px 2px; margin-bottom:4mm; display:inline-block; min-width:70mm;}
+  .sheet .to .greeting{font-size:12px; margin-top:3mm;}
+  .sheet .from{font-size:12px; text-align:left; min-width:60mm; position:relative;}
+  .sheet .from .co{font-size:14px; font-weight:700; margin-bottom:1mm;}
+  .sheet .qmeta{font-size:11.5px; margin-bottom:3mm; text-align:right;}
+  .sheet .stamp{position:absolute; right:0; bottom:-2mm; width:17mm; height:17mm; border:1.5px solid #c33; border-radius:50%; color:#c33; display:flex; align-items:center; justify-content:center; font-size:9px; opacity:.55;}
+  .sheet .grandline{display:flex; align-items:baseline; gap:8mm; border-bottom:2.5px double #111; padding:2mm 2mm 2.5mm; margin-bottom:6mm;}
+  .sheet .grandline .lbl{font-size:14px; font-weight:700;}
+  .sheet .grandline .amt{font-size:24px; font-weight:700; letter-spacing:.03em;}
+  .sheet .grandline .taxnote{font-size:11px; color:#333;}
+  .sheet table.q{width:100%; border-collapse:collapse; font-size:12px; margin-bottom:5mm;}
+  .sheet table.q th{background:#eef1f5; border:1px solid #98a2b3; padding:2.2mm 2mm; font-size:11.5px;}
+  .sheet table.q td{border:1px solid #98a2b3; padding:2mm; }
+  .sheet table.q td.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .sheet table.q td.ctr{text-align:center;}
+  .sheet .sums{width:70mm; margin-left:auto; font-size:12.5px; margin-bottom:6mm;}
+  .sheet .sums .r{display:flex; justify-content:space-between; padding:1.2mm 2mm; border-bottom:1px solid #d0d5dd;}
+  .sheet .sums .r.g{font-weight:700; border-bottom:2px solid #111; font-size:14px;}
+  .sheet .notes{font-size:11px; border:1px solid #98a2b3; padding:3mm; min-height:16mm; margin-bottom:4mm; white-space:pre-wrap;}
+  .sheet .notes .nlbl{font-weight:700; font-size:11px; margin-bottom:1mm;}
+  .sheet .draftnote{font-size:9.5px; color:#667085; text-align:center;}
+  .sheet-toolbar{display:flex; gap:10px;}
+  @media(max-width:920px){.sheet{width:100%; min-height:auto; padding:8mm 6mm;}}
+
+  /* ---------- 印刷 ---------- */
+  @media print{
+    body{background:#fff;}
+    header.appbar, .sheet-toolbar, .no-print{display:none !important;}
+    main{max-width:none; padding:0;}
+    .view{display:none !important;}
+    #quoteView{display:block !important;}
+    .sheet{box-shadow:none; width:auto; min-height:auto; padding:0;}
+    @page{size:A4; margin:14mm;}
+  }
+  .toast{
+    position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+    background:#111; color:#fff; padding:9px 20px; border-radius:999px; font-size:13px;
+    opacity:0; transition:opacity .25s; pointer-events:none; z-index:99;
+  }
+  .toast.show{opacity:.92;}
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <h1>見積もりくん</h1>
+  <span class="tagline">ボタンを押したら、見積書。商談中に「もう見積書はできていますよ」— 売上機会を逃しません。</span>
+  <span class="spacer"></span>
+  <a href="../" style="color:#fff; opacity:.7; font-size:12px; text-decoration:none; margin-right:12px;">← AIDX入口へ</a>
+  <nav class="tabs">
+    <button id="tabDeal" class="active" onclick="showView('deal')">商談画面</button>
+    <button id="tabQuote" onclick="showView('quote')">見積書</button>
+    <button id="tabSettings" onclick="showView('settings')">初期設定</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ 商談画面 ============ -->
+<section id="dealView" class="view active">
+  <div class="deal-grid">
+    <div class="card">
+      <h2><span class="step">1</span>商品・サービスをタップして追加</h2>
+      <div class="cat-filter" id="catFilter"></div>
+      <div class="catalog" id="catalog"></div>
+      <p class="hint">商品マスタは「初期設定」タブで自社の商材に入れ替えられます。</p>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2><span class="step">2</span>明細を確認（数量・値引きを調整）</h2>
+        <table class="lines">
+          <thead><tr><th>品名</th><th style="width:110px">数量</th><th class="num">単価</th><th class="num">金額</th><th style="width:28px"></th></tr></thead>
+          <tbody id="lineBody"><tr><td colspan="5" class="empty">左の一覧から商品をタップすると、ここに明細が入ります。</td></tr></tbody>
+        </table>
+        <div style="margin-top:8px;">
+          <button class="btn ghost mini" onclick="addDiscount()">▲ 値引き行を追加</button>
+          <button class="btn ghost mini" onclick="addFreeLine()">＋ 自由入力行を追加</button>
+        </div>
+        <div class="totalbox">
+          <div class="row"><span>小計（税抜）</span><span id="tSub">¥0</span></div>
+          <div class="row"><span>消費税</span><span id="tTax">¥0</span></div>
+          <div class="grand"><span>合計（税込）</span><span class="amt" id="tGrand">¥0</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h2><span class="step">3</span>宛先を入れて、見積書を出す</h2>
+        <div class="meta-grid">
+          <div class="full"><label class="f">宛名（会社名・氏名）</label><input type="text" id="mTo" placeholder="例）株式会社サンプル商事 御中"></div>
+          <div class="full"><label class="f">件名</label><input type="text" id="mSubject" placeholder="例）業務システム導入 御見積"></div>
+          <div><label class="f">見積日</label><input type="date" id="mDate"></div>
+          <div><label class="f">有効期限</label><input type="date" id="mUntil"></div>
+          <div class="full"><label class="f">備考（納期・支払条件など）</label><textarea id="mNotes" rows="2" placeholder="例）納期：ご発注後2週間／お支払い：月末締め翌月末払い"></textarea></div>
+        </div>
+        <div class="actions">
+          <button class="btn primary big" onclick="makeQuote()">▶ 見積書を作成する</button>
+        </div>
+        <p class="hint">※金額・数量・税区分は必ず担当者が最終確認してください（AIDX運用ルール）。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 見積書プレビュー ============ -->
+<section id="quoteView" class="view">
+  <div class="sheet-wrap">
+    <div class="sheet-toolbar no-print">
+      <button class="btn primary" onclick="window.print()">🖨 印刷 / PDF保存</button>
+      <button class="btn ghost" onclick="showView('deal')">← 商談画面に戻る</button>
+    </div>
+    <div class="sheet" id="sheet">
+      <h2 class="title">御見積書</h2>
+      <div class="head">
+        <div class="to">
+          <div class="qmeta" style="text-align:left; margin-bottom:4mm;">
+            見積番号：<span id="qNo">-</span><br>
+            見積日：<span id="qDate">-</span>　有効期限：<span id="qUntil">-</span>
+          </div>
+          <span class="name" id="qTo">　</span>
+          <div class="greeting">下記のとおりお見積り申し上げます。</div>
+          <div class="greeting" style="margin-top:2mm;">件名：<span id="qSubject">-</span></div>
+        </div>
+        <div class="from" id="qFrom"></div>
+      </div>
+      <div class="grandline">
+        <span class="lbl">御見積金額</span>
+        <span class="amt" id="qGrand">¥0</span>
+        <span class="taxnote">（税込）</span>
+      </div>
+      <table class="q">
+        <thead><tr><th style="width:8mm">No.</th><th>品名・仕様</th><th style="width:16mm">数量</th><th style="width:12mm">単位</th><th style="width:24mm">単価</th><th style="width:26mm">金額（税抜）</th></tr></thead>
+        <tbody id="qBody"></tbody>
+      </table>
+      <div class="sums">
+        <div class="r"><span>小計（税抜）</span><span id="qSub">¥0</span></div>
+        <div class="r" id="qTaxRows"></div>
+        <div class="r g"><span>合計（税込）</span><span id="qTotal">¥0</span></div>
+      </div>
+      <div class="notes"><div class="nlbl">備考</div><span id="qNotes"></span></div>
+      <p class="draftnote">本見積書は「AIDX 見積もりくん」で作成した下書きです。金額・数量・税区分・納期は担当者が最終確認のうえ確定してください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 初期設定 ============ -->
+<section id="settingsView" class="view">
+  <div class="settings-grid">
+    <div class="card">
+      <h2>自社情報（見積書の発行元）</h2>
+      <div class="meta-grid">
+        <div class="full"><label class="f">会社名</label><input type="text" id="sCo" placeholder="例）株式会社アルファ"></div>
+        <div class="full"><label class="f">住所</label><input type="text" id="sAddr" placeholder="例）東京都〇〇区〇〇 1-2-3"></div>
+        <div><label class="f">電話</label><input type="text" id="sTel" placeholder="03-0000-0000"></div>
+        <div><label class="f">メール</label><input type="text" id="sMail" placeholder="info@example.co.jp"></div>
+        <div><label class="f">担当者</label><input type="text" id="sPerson" placeholder="担当：〇〇"></div>
+        <div><label class="f">登録番号（インボイス）</label><input type="text" id="sInvoice" placeholder="T0000000000000"></div>
+        <div><label class="f">見積番号の頭文字</label><input type="text" id="sPrefix" placeholder="Q"></div>
+        <div><label class="f">有効期限（日数）</label><input type="number" id="sValidDays" value="30" min="1"></div>
+        <div><label class="f">端数処理</label>
+          <select id="sRound"><option value="floor">切り捨て</option><option value="round">四捨五入</option><option value="ceil">切り上げ</option></select>
+        </div>
+        <div><label class="f">印影風マーク</label>
+          <select id="sStamp"><option value="on">表示する</option><option value="off">表示しない</option></select>
+        </div>
+      </div>
+      <div class="actions"><button class="btn primary" onclick="saveSettings()">自社情報を保存</button></div>
+      <p class="hint">保存内容はこのパソコンのブラウザ内にのみ保存されます（外部送信はありません）。</p>
+    </div>
+
+    <div class="card">
+      <h2>商品マスタ（商材・価格の事前設定）</h2>
+      <table class="master">
+        <thead><tr><th>カテゴリ</th><th>品名</th><th style="width:90px">単価(税抜)</th><th style="width:56px">単位</th><th style="width:70px">税率</th><th style="width:30px"></th></tr></thead>
+        <tbody id="masterBody"></tbody>
+      </table>
+      <div class="io-row">
+        <button class="btn ghost mini" onclick="addMasterRow()">＋ 商品を追加</button>
+        <button class="btn primary mini" onclick="saveMaster()">商品マスタを保存</button>
+      </div>
+      <div class="io-row">
+        <button class="btn ghost mini" onclick="exportMaster()">⭳ 設定を書き出し（JSON）</button>
+        <label class="btn ghost mini" style="display:inline-block;">⭱ 設定を読み込み<input type="file" accept=".json" style="display:none" onchange="importMaster(this)"></label>
+        <button class="btn ghost mini" onclick="loadDemo(true)">デモ用データに戻す</button>
+      </div>
+      <p class="hint">導入時：お客様の価格表をこの形式で登録すれば、翌日から「タップ→見積書」が使えます。JSONの書き出し・読み込みで設定の配布もできます。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const LS_SET="mitsumori_settings_v1", LS_MST="mitsumori_master_v1";
+const yen = n => "¥" + Math.round(n).toLocaleString("ja-JP");
+
+const DEMO_MASTER = [
+  {cat:"AI導入",   name:"AIDX スタンダードプラン（月額）", price:98000,  unit:"月", tax:10},
+  {cat:"AI導入",   name:"AIDX ライトプラン（月額）",       price:49800,  unit:"月", tax:10},
+  {cat:"AI導入",   name:"初期セットアップ（会社設定・研修込み）", price:150000, unit:"式", tax:10},
+  {cat:"AI導入",   name:"業種別プロンプトパック追加",       price:80000,  unit:"式", tax:10},
+  {cat:"サポート", name:"伴走サポート（月4回・オンライン）", price:60000,  unit:"月", tax:10},
+  {cat:"サポート", name:"社員向けAI研修（半日）",           price:120000, unit:"回", tax:10},
+  {cat:"サポート", name:"追加ヒアリング・業務分析",         price:50000,  unit:"回", tax:10},
+  {cat:"制作",     name:"社内マニュアル整備（10本まで）",   price:100000, unit:"式", tax:10},
+  {cat:"制作",     name:"FAQチャットボット構築",           price:180000, unit:"式", tax:10},
+];
+const DEMO_SET = {co:"株式会社サンプル", addr:"東京都千代田区丸の内1-1-1", tel:"03-0000-0000", mail:"info@example.co.jp",
+  person:"営業部", invoice:"", prefix:"Q", validDays:30, round:"floor", stamp:"on"};
+
+let master=[], settings={}, lines=[], activeCat="すべて";
+
+function load(){
+  try{ master = JSON.parse(localStorage.getItem(LS_MST)) || null; }catch(e){ master=null; }
+  try{ settings = JSON.parse(localStorage.getItem(LS_SET)) || null; }catch(e){ settings=null; }
+  if(!master){ master = JSON.parse(JSON.stringify(DEMO_MASTER)); }
+  if(!settings){ settings = JSON.parse(JSON.stringify(DEMO_SET)); }
+}
+function persist(key,val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); }
+
+/* ---------- ビュー切替 ---------- */
+function showView(v){
+  document.querySelectorAll(".view").forEach(el=>el.classList.remove("active"));
+  document.getElementById(v+"View").classList.add("active");
+  ["Deal","Quote","Settings"].forEach(n=>document.getElementById("tab"+n).classList.remove("active"));
+  document.getElementById("tab"+{deal:"Deal",quote:"Quote",settings:"Settings"}[v]).classList.add("active");
+  if(v==="settings") renderSettings();
+}
+
+/* ---------- カタログ ---------- */
+function renderCatalog(){
+  const cats = ["すべて", ...new Set(master.map(m=>m.cat||"未分類"))];
+  const cf = document.getElementById("catFilter");
+  cf.innerHTML = cats.map(c=>`<button class="${c===activeCat?'on':''}" onclick="setCat('${c.replace(/'/g,"\\'")}')">${c}</button>`).join("");
+  const box = document.getElementById("catalog");
+  const list = master.filter(m => activeCat==="すべて" || (m.cat||"未分類")===activeCat);
+  box.innerHTML = list.map((m,i)=>{
+    const idx = master.indexOf(m);
+    return `<button class="item" onclick="addLine(${idx})">
+      <span class="cat">${m.cat||"未分類"}</span>
+      <span class="nm">${m.name}</span>
+      <span class="pr">${yen(m.price)} / ${m.unit||"式"}</span>
+    </button>`;
+  }).join("") || `<div class="empty">商品マスタが空です。「初期設定」で登録してください。</div>`;
+}
+function setCat(c){ activeCat=c; renderCatalog(); }
+
+/* ---------- 明細 ---------- */
+function addLine(idx){
+  const m = master[idx];
+  const ex = lines.find(l => l.name===m.name && l.price===m.price && !l.free);
+  if(ex){ ex.qty += 1; } else {
+    lines.push({name:m.name, unit:m.unit||"式", price:m.price, qty:1, tax:m.tax??10, free:false});
+  }
+  renderLines();
+}
+function addDiscount(){
+  lines.push({name:"お値引き", unit:"式", price:-10000, qty:1, tax:10, free:true});
+  renderLines();
+}
+function addFreeLine(){
+  lines.push({name:"", unit:"式", price:0, qty:1, tax:10, free:true});
+  renderLines();
+}
+function renderLines(){
+  const tb = document.getElementById("lineBody");
+  if(!lines.length){
+    tb.innerHTML = `<tr><td colspan="5" class="empty">左の一覧から商品をタップすると、ここに明細が入ります。</td></tr>`;
+  } else {
+    tb.innerHTML = lines.map((l,i)=>`<tr>
+      <td>${l.free ? `<input type="text" value="${escAttr(l.name)}" placeholder="品名を入力" onchange="edit(${i},'name',this.value)">` : l.name}</td>
+      <td><div class="qty">
+        <button onclick="bump(${i},-1)">−</button>
+        <input type="number" value="${l.qty}" min="1" onchange="edit(${i},'qty',this.value)">
+        <button onclick="bump(${i},1)">＋</button>
+      </div></td>
+      <td class="num">${l.free ? `<input type="number" value="${l.price}" style="width:90px;text-align:right" onchange="edit(${i},'price',this.value)">` : yen(l.price)}</td>
+      <td class="num">${yen(l.price*l.qty)}</td>
+      <td><button class="del" onclick="removeLine(${i})">✕</button></td>
+    </tr>`).join("");
+  }
+  renderTotals();
+}
+function escAttr(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function edit(i,k,v){
+  if(k==="qty"){ lines[i].qty = Math.max(1, parseInt(v)||1); }
+  else if(k==="price"){ lines[i].price = parseFloat(v)||0; }
+  else lines[i][k]=v;
+  renderLines();
+}
+function bump(i,d){ lines[i].qty = Math.max(1, lines[i].qty+d); renderLines(); }
+function removeLine(i){ lines.splice(i,1); renderLines(); }
+
+function roundFn(){ return {floor:Math.floor, round:Math.round, ceil:Math.ceil}[settings.round||"floor"]; }
+function calc(){
+  const sub = lines.reduce((s,l)=>s+l.price*l.qty, 0);
+  const byRate = {};
+  lines.forEach(l=>{ const r=l.tax??10; byRate[r]=(byRate[r]||0)+l.price*l.qty; });
+  const rf = roundFn();
+  let tax=0; const taxDetail=[];
+  Object.keys(byRate).sort().forEach(r=>{
+    const t = rf(byRate[r]*Number(r)/100);
+    tax += t; taxDetail.push({rate:r, base:byRate[r], tax:t});
+  });
+  return {sub, tax, grand:sub+tax, taxDetail};
+}
+function renderTotals(){
+  const {sub,tax,grand} = calc();
+  document.getElementById("tSub").textContent = yen(sub);
+  document.getElementById("tTax").textContent = yen(tax);
+  document.getElementById("tGrand").textContent = yen(grand);
+}
+
+/* ---------- 見積書生成 ---------- */
+function makeQuote(){
+  if(!lines.length){ toast("明細が空です。商品をタップして追加してください。"); return; }
+  const {sub,tax,grand,taxDetail} = calc();
+  const d = document.getElementById("mDate").value || todayStr();
+  const until = document.getElementById("mUntil").value || addDaysStr(d, settings.validDays||30);
+  const no = (settings.prefix||"Q") + "-" + d.replace(/-/g,"") + "-" + String(Math.floor(performance.now())%1000).padStart(3,"0");
+
+  document.getElementById("qNo").textContent = no;
+  document.getElementById("qDate").textContent = jpDate(d);
+  document.getElementById("qUntil").textContent = jpDate(until);
+  document.getElementById("qTo").textContent = document.getElementById("mTo").value || "（宛名未入力）　御中";
+  document.getElementById("qSubject").textContent = document.getElementById("mSubject").value || "御見積の件";
+  document.getElementById("qGrand").textContent = yen(grand);
+  document.getElementById("qSub").textContent = yen(sub);
+  document.getElementById("qTotal").textContent = yen(grand);
+  document.getElementById("qNotes").textContent = document.getElementById("mNotes").value || "特になし";
+
+  document.getElementById("qTaxRows").outerHTML = taxDetail.map(t=>
+    `<div class="r" id="qTaxRows"><span>消費税（${t.rate}%）</span><span>${yen(t.tax)}</span></div>`).join("") || `<div class="r" id="qTaxRows"><span>消費税</span><span>¥0</span></div>`;
+
+  document.getElementById("qBody").innerHTML = lines.map((l,i)=>`<tr>
+    <td class="ctr">${i+1}</td><td>${l.name||"（品名未入力）"}</td>
+    <td class="num">${l.qty}</td><td class="ctr">${l.unit}</td>
+    <td class="num">${yen(l.price)}</td><td class="num">${yen(l.price*l.qty)}</td>
+  </tr>`).join("");
+
+  const f = document.getElementById("qFrom");
+  f.innerHTML = `
+    <div class="co">${settings.co||"（会社名未設定）"}</div>
+    <div>${settings.addr||""}</div>
+    <div>${settings.tel?("TEL: "+settings.tel):""}${settings.mail?("　"+settings.mail):""}</div>
+    <div>${settings.person||""}</div>
+    ${settings.invoice?`<div>登録番号: ${settings.invoice}</div>`:""}
+    ${settings.stamp!=="off"?`<div class="stamp">印</div>`:""}`;
+  showView("quote");
+}
+function todayStr(){ const d=new Date(); return d.toISOString().slice(0,10); }
+function addDaysStr(base,days){ const d=new Date(base); d.setDate(d.getDate()+Number(days)); return d.toISOString().slice(0,10); }
+function jpDate(s){ const [y,m,d]=s.split("-"); return `${y}年${Number(m)}月${Number(d)}日`; }
+
+/* ---------- 設定 ---------- */
+function renderSettings(){
+  const s=settings;
+  sCo.value=s.co||""; sAddr.value=s.addr||""; sTel.value=s.tel||""; sMail.value=s.mail||"";
+  sPerson.value=s.person||""; sInvoice.value=s.invoice||""; sPrefix.value=s.prefix||"Q";
+  sValidDays.value=s.validDays||30; sRound.value=s.round||"floor"; sStamp.value=s.stamp||"on";
+  renderMaster();
+}
+function saveSettings(){
+  settings = {co:sCo.value, addr:sAddr.value, tel:sTel.value, mail:sMail.value, person:sPerson.value,
+    invoice:sInvoice.value, prefix:sPrefix.value||"Q", validDays:Number(sValidDays.value)||30,
+    round:sRound.value, stamp:sStamp.value};
+  persist(LS_SET, settings); toast("自社情報を保存しました");
+}
+function renderMaster(){
+  const tb=document.getElementById("masterBody");
+  tb.innerHTML = master.map((m,i)=>`<tr>
+    <td><input type="text" value="${escAttr(m.cat||"")}" onchange="mEdit(${i},'cat',this.value)"></td>
+    <td><input type="text" value="${escAttr(m.name)}" onchange="mEdit(${i},'name',this.value)"></td>
+    <td><input type="number" value="${m.price}" onchange="mEdit(${i},'price',this.value)"></td>
+    <td><input type="text" value="${escAttr(m.unit||"式")}" onchange="mEdit(${i},'unit',this.value)"></td>
+    <td><select onchange="mEdit(${i},'tax',this.value)">
+      <option value="10" ${m.tax==10?"selected":""}>10%</option>
+      <option value="8" ${m.tax==8?"selected":""}>8%</option>
+      <option value="0" ${m.tax==0?"selected":""}>非課税</option>
+    </select></td>
+    <td><button class="del" onclick="mDel(${i})">✕</button></td>
+  </tr>`).join("");
+}
+function mEdit(i,k,v){ master[i][k] = (k==="price")? (parseFloat(v)||0) : (k==="tax")? Number(v) : v; }
+function mDel(i){ master.splice(i,1); renderMaster(); }
+function addMasterRow(){ master.push({cat:"", name:"", price:0, unit:"式", tax:10}); renderMaster(); }
+function saveMaster(){ master = master.filter(m=>m.name); persist(LS_MST, master); renderMaster(); renderCatalog(); toast("商品マスタを保存しました"); }
+function exportMaster(){
+  const blob = new Blob([JSON.stringify({settings, master}, null, 2)], {type:"application/json"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = "mitsumori_settings.json"; a.click(); URL.revokeObjectURL(a.href);
+}
+function importMaster(input){
+  const f = input.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const data = JSON.parse(r.result);
+      if(data.master) master = data.master;
+      if(data.settings) settings = data.settings;
+      persist(LS_MST, master); persist(LS_SET, settings);
+      renderSettings(); renderCatalog(); toast("設定を読み込みました");
+    }catch(e){ toast("読み込みに失敗しました（JSON形式を確認）"); }
+  };
+  r.readAsText(f);
+}
+function loadDemo(confirmFirst){
+  if(confirmFirst && !confirm("商品マスタと自社情報をデモ用データに戻します。よろしいですか？")) return;
+  master = JSON.parse(JSON.stringify(DEMO_MASTER));
+  settings = JSON.parse(JSON.stringify(DEMO_SET));
+  persist(LS_MST, master); persist(LS_SET, settings);
+  renderSettings(); renderCatalog(); toast("デモ用データに戻しました");
+}
+
+/* ---------- 起動 ---------- */
+load();
+renderCatalog();
+renderLines();
+document.getElementById("mDate").value = todayStr();
+document.getElementById("mUntil").value = addDaysStr(todayStr(), settings.validDays||30);
+</script>
+</body>
+</html>
