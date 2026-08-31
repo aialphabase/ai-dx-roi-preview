@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ミライ週次ブリーフ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#f8f8f8; --surface:#ffffff; --surface-2:#f4f6f9;
+  --ink:#0e2445; --ink-2:#33465f; --muted:#6b7b91;
+  --line:#dfe4ea; --line-2:#ecf0f4;
+  --accent:#ee7800; --accent-soft:#fdf0e2; --gold:#eca526; --navy:#1e3a5f;
+  --s-strong:#0e7c8c; --s-mid:#a37206; --s-weak:#c0453f;
+  --line-c:#06c755;
+  --shadow:0 1px 2px rgba(14,36,69,.06), 0 8px 24px rgba(14,36,69,.05);
+  --radius:6px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0a1626; --surface:#0f2138; --surface-2:#132a45;
+    --ink:#eaf0f7; --ink-2:#c3d1e2; --muted:#8ea3bd;
+    --line:#22405f; --line-2:#1a3350;
+    --accent:#ff9333; --accent-soft:#2a1c0d; --gold:#eca526; --navy:#a8c4e6;
+    --s-strong:#4fd4e6; --s-mid:#f0c05a; --s-weak:#ff8087;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0a1626; --surface:#0f2138; --surface-2:#132a45;
+  --ink:#eaf0f7; --ink-2:#c3d1e2; --muted:#8ea3bd;
+  --line:#22405f; --line-2:#1a3350;
+  --accent:#ff9333; --accent-soft:#2a1c0d; --gold:#eca526; --navy:#a8c4e6;
+  --s-strong:#4fd4e6; --s-mid:#f0c05a; --s-weak:#ff8087;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  font-size:15px;line-height:1.9;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px 90px;}
+h1,h2,h3{font-family:"Shippori Mincho B1","Yu Mincho",serif;font-weight:700;text-wrap:balance;line-height:1.45;margin:0;}
+h1{font-size:clamp(25px,4vw,38px);}
+h2{font-size:clamp(19px,2.4vw,24px);}
+p{margin:0;}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.lede{font-size:15px;color:var(--ink-2);max-width:60ch;}
+.note{font-size:12.5px;color:var(--muted);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+header.top{background:var(--navy);color:#fff;}
+:root[data-theme="dark"] header.top{background:var(--surface-2);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) header.top{background:var(--surface-2);}}
+.top-inner{max-width:860px;margin:0 auto;padding:16px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;}
+.brandline{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;color:#fff;}
+:root[data-theme="dark"] .brandline{color:var(--ink);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brandline{color:var(--ink);}}
+.top-right{display:flex;gap:10px;align-items:center;}
+.verchip{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:2px 9px;}
+select.weeksel{font-family:"IBM Plex Mono",monospace;font-size:11px;background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:2px 6px;}
+select.weeksel option{color:var(--ink);background:var(--surface);}
+.hero{padding:48px 0 36px;display:flex;flex-direction:column;gap:16px;}
+.hero-rule{height:3px;width:56px;background:var(--accent);}
+.shape{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;}
+.shape .lab{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted);}
+.shape .txt{font-family:"Shippori Mincho B1",serif;font-size:clamp(17px,2.2vw,21px);line-height:1.7;font-weight:700;}
+section{padding:38px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:20px;}
+.sec-head{display:flex;flex-direction:column;gap:7px;}
+.meter-wrap{display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
+.mrow{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;}
+@media(max-width:560px){.mrow{grid-template-columns:1fr;gap:6px;}}
+.mrow .who{font-size:13px;font-weight:700;line-height:1.5;}
+.mrow .who small{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.08em;}
+.band{display:flex;height:26px;border-radius:4px;overflow:hidden;border:1px solid var(--line);}
+.band span{display:flex;align-items:center;justify-content:center;font-size:10.5px;font-family:"IBM Plex Mono",monospace;letter-spacing:.04em;color:#fff;white-space:nowrap;overflow:hidden;}
+.b-bull{background:var(--s-strong);} .b-mix{background:var(--s-mid);} .b-bear{background:var(--s-weak);}
+:root[data-theme="dark"] .band span{color:#0a1626;font-weight:600;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .band span{color:#0a1626;font-weight:600;}}
+.mnote{font-size:12.5px;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:12px;line-height:1.8;}
+.tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px;}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line-2);vertical-align:top;line-height:1.7;}
+thead th{background:var(--surface-2);font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;white-space:nowrap;}
+tbody tr:last-child td{border-bottom:0;}
+td.k{font-weight:700;white-space:nowrap;}
+td.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;}
+td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
+.fig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);overflow-x:auto;}
+.fig svg{width:100%;min-width:520px;height:auto;display:block;color:var(--ink-2);font-family:"Zen Kaku Gothic New",system-ui,sans-serif;}
+.fig figcaption{font-size:12px;color:var(--muted);line-height:1.75;}
+.sparkline{stroke:var(--accent);stroke-width:1.8;fill:none;}
+.spark-area{fill:var(--accent-soft);stroke:none;opacity:.7;}
+.axis-t{fill:var(--muted);font-size:10px;font-family:"IBM Plex Mono",monospace;}
+.pt-label{fill:var(--ink);font-size:11px;font-weight:700;font-family:"IBM Plex Mono",monospace;}
+.learn{border:1px solid var(--gold);border-left-width:4px;border-radius:var(--radius);background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:8px;}
+.learn h3{font-size:14.5px;font-family:"Zen Kaku Gothic New",sans-serif;}
+.learn p{font-size:13.5px;color:var(--ink-2);}
+.learn.ans{border-color:var(--s-strong);}
+.points{display:flex;flex-direction:column;gap:10px;}
+.pt{display:grid;grid-template-columns:auto 1fr;gap:13px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 17px;}
+.pt .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);font-weight:600;padding-top:3px;}
+.pt .t{font-weight:700;font-size:14px;}
+.pt .dsc{font-size:13px;color:var(--ink-2);margin-top:2px;}
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);}
+.quiz .q{font-family:"Shippori Mincho B1",serif;font-size:16.5px;font-weight:700;line-height:1.7;}
+.quiz ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);}
+.quiz .cta{align-self:flex-start;display:inline-block;background:var(--line-c);color:#fff;
+  font-weight:700;font-size:13.5px;border-radius:4px;padding:9px 18px;text-decoration:none;}
+footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+#loading{padding:60px 0;color:var(--muted);font-size:14px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brandline">ミライテラシー ／ ミライ週次ブリーフ</div>
+    <div class="top-right">
+      <select class="weeksel" id="weekSel" aria-label="号を選ぶ"></select>
+      <div class="verchip" id="issueChip">読込中…</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="loading">ブリーフを読み込んでいます…</div>
+  <main id="app" style="display:none">
+
+    <div class="hero">
+      <div class="hero-rule"></div>
+      <div class="eyebrow">今週の形 — 1文で</div>
+      <div class="shape">
+        <span class="lab">SHAPE OF THE WEEK</span>
+        <span class="txt" id="shapeTxt"></span>
+      </div>
+      <p class="lede" id="introTxt"></p>
+    </div>
+
+    <section id="secAnswer" style="display:none">
+      <div class="sec-head">
+        <div class="eyebrow">答え合わせ</div>
+        <h2>先週の確認ポイント、どうなった？</h2>
+      </div>
+      <div id="answerBody" class="points"></div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div class="eyebrow">経験者の傾き</div>
+        <h2 id="tiltTitle">経験者コミュニティの傾き</h2>
+      </div>
+      <div class="meter-wrap" id="tiltWrap"></div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div class="eyebrow">話題の入れ替わり</div>
+        <h2 id="topicsTitle"></h2>
+        <p class="lede" id="topicsLede"></p>
+      </div>
+      <div class="tbl-scroll"><table id="topicsTbl"><thead></thead><tbody></tbody></table></div>
+      <div class="learn"><h3>💡 マップで言うと</h3><p id="topicsLearn"></p></div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div class="eyebrow">市場の現在地</div>
+        <h2 id="marketTitle"></h2>
+      </div>
+      <figure class="fig">
+        <svg id="marketSvg" viewBox="0 0 820 210" role="img" aria-label="市場データの週次推移"></svg>
+        <figcaption id="marketCaption"></figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div class="eyebrow">今週の確認ポイント</div>
+        <h2>答え合わせは来週。先に「何を見るか」を決めておく</h2>
+      </div>
+      <div class="points" id="checksBody"></div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div class="eyebrow">今週の1問</div>
+        <h2>あなたはどう読む？</h2>
+      </div>
+      <div class="quiz">
+        <p class="q" id="quizText"></p>
+        <ol id="quizOpts"></ol>
+        <a class="cta" id="quizCta" href="#">Discordで回答する →</a>
+        <p class="note" id="quizNote"></p>
+      </div>
+    </section>
+
+    <footer>
+      <p class="note" id="footSource"></p>
+      <p class="note">本ブリーフは経済ニュースの読み方を学ぶための教材であり、特定の売買を推奨する投資助言ではありません。個別銘柄の売買推奨・個別相談への回答は行いません。</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var qs = new URLSearchParams(location.search);
+
+  function el(id){ return document.getElementById(id); }
+  function esc(s){ var d=document.createElement('div'); d.textContent=String(s==null?'':s); return d.innerHTML; }
+  // 信頼できるのは自分たちのJSONだけだが、b/strong以外は落とす軽いフィルタを通す
+  function rich(s){
+    s=String(s==null?'':s);
+    s=s.replace(/<(?!\/?(b|strong)>)/g,'&lt;');
+    return s;
+  }
+
+  function fetchJson(url){
+    return fetch(url,{cache:'no-store'}).then(function(r){
+      if(!r.ok) throw new Error(url+' → '+r.status);
+      return r.json();
+    });
+  }
+
+  function render(d){
+    el('issueChip').textContent = d.issueLabel || d.week;
+    el('shapeTxt').textContent = d.shape || '';
+    el('introTxt').innerHTML = rich(d.intro||'');
+
+    // 答え合わせ（データがある号だけ表示）
+    if(d.answerCheck && d.answerCheck.length){
+      el('secAnswer').style.display='';
+      el('answerBody').innerHTML = d.answerCheck.map(function(a,i){
+        return '<div class="pt"><span class="n">'+String(i+1).padStart(2,'0')+'</span><div>'+
+          '<div class="t">'+esc(a.t)+'</div><div class="dsc">'+rich(a.d)+'</div></div></div>';
+      }).join('');
+    } else { el('secAnswer').style.display='none'; }
+
+    // 傾き
+    var tw = el('tiltWrap'); tw.innerHTML='';
+    (d.tilt&&d.tilt.rows||[]).forEach(function(r){
+      var bands = r.bands.map(function(b){
+        return '<span class="b-'+esc(b.type)+'" style="width:'+Number(b.width)+'%">'+esc(b.label)+'</span>';
+      }).join('');
+      tw.insertAdjacentHTML('beforeend',
+        '<div class="mrow"><div class="who">'+esc(r.who)+'<small>'+esc(r.sub||'')+'</small></div>'+
+        '<div class="band">'+bands+'</div></div>');
+    });
+    if(d.tilt&&d.tilt.note) tw.insertAdjacentHTML('beforeend','<div class="mnote">'+rich(d.tilt.note)+'</div>');
+
+    // 話題
+    el('topicsTitle').textContent=(d.topics&&d.topics.title)||'';
+    el('topicsLede').textContent=(d.topics&&d.topics.lede)||'';
+    var thead='<tr><th>話題</th>'+(d.topics.weeks||[]).map(function(w){return '<th style="text-align:right">'+esc(w)+'</th>';}).join('')+'</tr>';
+    var tbody=(d.topics.rows||[]).map(function(r){
+      return '<tr><td class="k">'+esc(r.name)+'</td>'+r.vals.map(function(v,i){
+        return '<td class="num'+(r.hot===i?' hot':'')+'">'+esc(v)+'</td>';
+      }).join('')+'</tr>';
+    }).join('');
+    el('topicsTbl').querySelector('thead').innerHTML=thead;
+    el('topicsTbl').querySelector('tbody').innerHTML=tbody;
+    el('topicsLearn').innerHTML=rich(d.topics.learn||'');
+
+    // 市場スパークライン
+    var m=d.market||{}; el('marketTitle').textContent=m.title||'';
+    el('marketCaption').innerHTML=rich(m.caption||'');
+    var s=m.series||[];
+    if(s.length>1){
+      var W=820,H=210,x0=36,x1=784,y0=176,y1=22;
+      var mn=Math.min.apply(null,s), mx=Math.max.apply(null,s);
+      var pts=s.map(function(v,i){
+        var x=x0+(x1-x0)*i/(s.length-1);
+        var y=y0-(y0-y1)*((v-mn)/((mx-mn)||1));
+        return [Math.round(x),Math.round(y)];
+      });
+      var line=pts.map(function(p){return p[0]+','+p[1];}).join(' ');
+      var area=line+' '+x1+',190 '+x0+',190';
+      var pk=(typeof m.peakIndex==='number')?pts[Math.min(m.peakIndex,pts.length-1)]:pts[0];
+      var last=pts[pts.length-1];
+      var svg='<polyline class="spark-area" points="'+area+'"/>'+
+        '<polyline class="sparkline" points="'+line+'"/>'+
+        '<circle cx="'+pk[0]+'" cy="'+pk[1]+'" r="3.5" fill="var(--gold)"/>'+
+        '<circle cx="'+last[0]+'" cy="'+last[1]+'" r="3.5" fill="var(--s-weak)"/>'+
+        (m.startLabel?'<text x="'+x0+'" y="'+(pts[0][1]-8)+'" class="pt-label">'+esc(m.startLabel)+'</text>':'')+
+        (m.peakLabel?'<text x="'+Math.max(x0,pk[0]-72)+'" y="'+Math.max(14,pk[1]-10)+'" class="pt-label">'+esc(m.peakLabel)+'</text>':'')+
+        (m.endLabel?'<text x="'+(last[0]-58)+'" y="'+(last[1]+20)+'" class="pt-label">'+esc(m.endLabel)+'</text>':'');
+      var ax=m.axis||[];
+      ax.forEach(function(a,i){
+        var x=[x0,Math.round((x0+x1)/2),x1-36][Math.min(i,2)];
+        svg+='<text x="'+x+'" y="204" class="axis-t">'+esc(a)+'</text>';
+      });
+      el('marketSvg').innerHTML=svg;
+    }
+
+    // 確認ポイント
+    el('checksBody').innerHTML=(d.checks||[]).map(function(c,i){
+      return '<div class="pt"><span class="n">'+String(i+1).padStart(2,'0')+'</span><div>'+
+        '<div class="t">'+esc(c.t)+'</div><div class="dsc">'+rich(c.d)+'</div></div></div>';
+    }).join('');
+
+    // 1問
+    var q=d.quiz||{};
+    el('quizText').textContent=q.text||'';
+    el('quizOpts').innerHTML=(q.options||[]).map(function(o){return '<li>'+esc(o)+'</li>';}).join('');
+    if(q.discordUrl) el('quizCta').href=q.discordUrl;
+    el('quizNote').textContent=q.note||'';
+
+    el('footSource').textContent=(d.footerSource||'')+'　／　発行 '+(d.published||'');
+    document.title='ミライ週次ブリーフ '+(d.issue||d.week||'');
+    el('loading').style.display='none';
+    el('app').style.display='';
+  }
+
+  fetchJson('data/index.json').then(function(idx){
+    var weeks=idx.weeks||[];
+    var want=qs.get('week')||idx.latest;
+    var sel=el('weekSel');
+    weeks.slice().reverse().forEach(function(w){
+      var o=document.createElement('option');
+      o.value=w.id; o.textContent=w.label||w.id;
+      if(w.id===want) o.selected=true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener('change',function(){
+      var u=new URL(location.href); u.searchParams.set('week',sel.value); location.href=u.toString();
+    });
+    if(weeks.length<2) sel.style.display='none';
+    return fetchJson('data/'+encodeURIComponent(want)+'.json');
+  }).then(render).catch(function(e){
+    el('loading').textContent='読み込みに失敗しました（'+e.message+'）。時間をおいて再読み込みしてください。';
+  });
+})();
+</script>
+</body>
+</html>
