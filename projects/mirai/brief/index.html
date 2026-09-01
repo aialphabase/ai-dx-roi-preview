@@ -109,6 +109,16 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .quiz ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);}
 .quiz .cta{align-self:flex-start;display:inline-block;background:var(--line-c);color:#fff;
   font-weight:700;font-size:13.5px;border-radius:4px;padding:9px 18px;text-decoration:none;}
+.minimap{max-width:860px;margin:26px auto 0;padding:0 22px;display:flex;flex-direction:column;gap:8px;}
+.minimap .mm-head{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between;}
+.minimap .mm-label{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted);}
+.minimap .mm-label b{color:var(--accent);font-weight:600;}
+.minimap .mm-open{font-size:12px;color:var(--accent);text-decoration:none;font-weight:700;}
+.minimap .mm-open:hover{text-decoration:underline;}
+.mini-frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#03060c;box-shadow:var(--shadow);}
+.mini-frame iframe{position:absolute;left:0;top:0;border:0;pointer-events:none;transform-origin:0 0;}
+.mini-frame .mm-cover{position:absolute;inset:0;display:block;}
+.mini-frame .mm-tag{position:absolute;right:10px;bottom:8px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:#8f9cac;background:rgba(3,6,12,.72);border:1px solid rgba(143,156,172,.35);border-radius:3px;padding:2px 8px;}
 .story{padding:52px 0 8px;display:flex;flex-direction:column;gap:20px;}
 .story .slabel{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--accent);font-weight:600;}
 .story h1{font-size:clamp(26px,4.2vw,40px);line-height:1.5;}
@@ -153,6 +163,18 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     </div>
   </div>
 </header>
+
+<div class="minimap" id="minimap" style="display:none">
+  <div class="mm-head">
+    <span class="mm-label"><b>市場の現在地</b>　アセットクラス強弱マップ ／ 瞬間マップ</span>
+    <a class="mm-open" id="mmOpen" href="https://aihukugyou.info/17/asset-map.html" target="_blank" rel="noopener">フルマップを開く ↗</a>
+  </div>
+  <div class="mini-frame" id="mmFrame">
+    <iframe id="mmIframe" title="アセットクラス強弱マップ（瞬間マップ）" scrolling="no" loading="lazy"></iframe>
+    <a class="mm-cover" id="mmCover" href="https://aihukugyou.info/17/asset-map.html" target="_blank" rel="noopener" aria-label="アセットクラス強弱マップを開く"></a>
+    <span class="mm-tag">LIVE ・ タップで全体へ</span>
+  </div>
+</div>
 
 <div class="wrap">
   <div id="loading">ブリーフを読み込んでいます…</div>
@@ -289,6 +311,35 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
   function render(d){
     el('issueChip').textContent = d.issueLabel || d.week;
+    // ミニマップ（アセットクラス強弱マップの瞬間マップ部分をクロップ表示）
+    (function(){
+      var cfg = Object.assign({
+        src:"https://aihukugyou.info/17/asset-map.html",
+        srcW:1100,      // マップを描画する仮想幅
+        offsetY:506,    // 上から何pxを読み飛ばすか（ヒーロー部分）
+        srcH:500        // 見せる高さ（瞬間マップのステージ）
+      }, d.minimap||{});
+      if(cfg.hide){ return; }
+      var wrapEl=document.getElementById('minimap');
+      var frame=document.getElementById('mmFrame');
+      var ifr=document.getElementById('mmIframe');
+      document.getElementById('mmOpen').href=cfg.src;
+      document.getElementById('mmCover').href=cfg.src;
+      ifr.src=cfg.src+(cfg.src.indexOf('?')<0?'?':'&')+'embed=mini';
+      wrapEl.style.display='';
+      function size(){
+        var w=frame.clientWidth;
+        var scale=w/cfg.srcW;
+        var h=Math.round(cfg.srcH*scale);
+        frame.style.height=h+'px';
+        ifr.style.width=cfg.srcW+'px';
+        ifr.style.height=(cfg.offsetY+cfg.srcH+200)+'px';
+        ifr.style.transform='scale('+scale+') translateY(-'+cfg.offsetY+'px)';
+      }
+      size();
+      window.addEventListener('resize',size);
+    })();
+
     // 連載本文（storyがある号）
     if(d.story){
       el('storyHero').style.display='';
