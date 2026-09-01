@@ -109,6 +109,20 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .quiz ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);}
 .quiz .cta{align-self:flex-start;display:inline-block;background:var(--line-c);color:#fff;
   font-weight:700;font-size:13.5px;border-radius:4px;padding:9px 18px;text-decoration:none;}
+.story{padding:52px 0 8px;display:flex;flex-direction:column;gap:20px;}
+.story .slabel{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--accent);font-weight:600;}
+.story h1{font-size:clamp(26px,4.2vw,40px);line-height:1.5;}
+.story-body{display:flex;flex-direction:column;gap:1.35em;max-width:40em;}
+.story-body p{font-family:"Shippori Mincho B1","Yu Mincho",serif;font-size:16.5px;line-height:2.15;color:var(--ink);}
+.story-body p b{color:var(--accent);font-weight:700;}
+.mitate{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;max-width:46em;}
+.mitate .ml{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted);}
+.mitate .mt{font-family:"Shippori Mincho B1",serif;font-size:clamp(17px,2.2vw,21px);font-weight:700;line-height:1.7;}
+.mitate .mh{font-size:13px;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:10px;line-height:1.8;}
+.gauge-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.gauge-n{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;color:var(--muted);border:1px solid var(--line);border-radius:2px;padding:1px 8px;}
+.gauge-block{display:flex;flex-direction:column;gap:12px;padding:22px 0 6px;}
+.gauge-block>h3{font-size:16px;}
 .upd{border:1px solid var(--accent);border-left-width:4px;border-radius:var(--radius);background:var(--surface);padding:16px 19px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);}
 .upd .ud{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;color:var(--accent);font-weight:600;}
 .upd .ut{font-weight:700;font-size:14.5px;}
@@ -144,14 +158,25 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
   <div id="loading">ブリーフを読み込んでいます…</div>
   <main id="app" style="display:none">
 
-    <div class="hero">
+    <div class="story" id="storyHero" style="display:none">
+      <div class="hero-rule"></div>
+      <span class="slabel" id="storyLabel"></span>
+      <h1 id="storyTitle"></h1>
+      <div class="story-body" id="storyBody"></div>
+      <div class="mitate" id="mitateBox" style="display:none">
+        <span class="ml">今週の見立て</span>
+        <span class="mt" id="mitateTxt"></span>
+        <span class="mh" id="hazureTxt"></span>
+      </div>
+      <p class="note" id="introTxt"></p>
+    </div>
+    <div class="hero" id="shapeHero" style="display:none">
       <div class="hero-rule"></div>
       <div class="eyebrow">今週の形 — 1文で</div>
       <div class="shape">
         <span class="lab">SHAPE OF THE WEEK</span>
         <span class="txt" id="shapeTxt"></span>
       </div>
-      <p class="lede" id="introTxt"></p>
     </div>
 
     <section id="secUpd" style="display:none">
@@ -172,44 +197,44 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
     <section>
       <div class="sec-head">
-        <div class="eyebrow">経験者の傾き</div>
-        <h2 id="tiltTitle">経験者コミュニティの傾き</h2>
+        <div class="gauge-h"><span class="gauge-n">計器盤</span><div class="eyebrow">私たちが毎週見ている計器</div></div>
+        <h2>数字は語りの根拠。ここから下は確認用</h2>
+      </div>
+      <div class="gauge-block">
+        <div class="gauge-h"><span class="gauge-n">計器 01 ／ 混雑度</span></div>
+        <h3 id="tiltTitle">空気はどちらに寄っているか</h3>
       </div>
       <div class="meter-wrap" id="tiltWrap"></div>
-    </section>
 
-    <section>
-      <div class="sec-head">
-        <div class="eyebrow">話題の入れ替わり</div>
-        <h2 id="topicsTitle"></h2>
-        <p class="lede" id="topicsLede"></p>
+      <div class="gauge-block">
+        <div class="gauge-h"><span class="gauge-n">計器 02 ／ 語彙</span></div>
+        <h3 id="topicsTitle"></h3>
+        <p class="note" id="topicsLede"></p>
       </div>
       <div class="tbl-scroll"><table id="topicsTbl"><thead></thead><tbody></tbody></table></div>
       <div class="learn"><h3>💡 マップで言うと</h3><p id="topicsLearn"></p></div>
-    </section>
 
-    <section>
-      <div class="sec-head">
-        <div class="eyebrow">市場の現在地</div>
-        <h2 id="marketTitle"></h2>
+      <div class="gauge-block">
+        <div class="gauge-h"><span class="gauge-n">計器 03 ／ 市場</span></div>
+        <h3 id="marketTitle"></h3>
       </div>
       <figure class="fig">
         <svg id="marketSvg" viewBox="0 0 820 210" role="img" aria-label="市場データの週次推移"></svg>
         <figcaption id="marketCaption"></figcaption>
       </figure>
-    </section>
 
-    <section id="secEtf" style="display:none">
-      <div class="sec-head">
-        <div class="eyebrow">資金の流れ — ETFフロー</div>
-        <h2 id="etfTitle"></h2>
-        <p class="lede" id="etfLede"></p>
+      <div id="secEtf" style="display:none">
+      <div class="gauge-block">
+        <div class="gauge-h"><span class="gauge-n">計器 04 ／ 資金</span></div>
+        <h3 id="etfTitle"></h3>
+        <p class="note" id="etfLede"></p>
       </div>
       <div class="etf-stats" id="etfStats"></div>
       <div class="flowbars" id="etfBars" style="display:none"></div>
       <div class="learn"><h3>💡 マップで言うと</h3><p id="etfLearn"></p></div>
       <p class="note" id="etfNoteRow"></p>
       <p class="note" id="etfSource"></p>
+      </div>
     </section>
 
     <section>
@@ -264,8 +289,25 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
   function render(d){
     el('issueChip').textContent = d.issueLabel || d.week;
-    el('shapeTxt').textContent = d.shape || '';
+    // 連載本文（storyがある号）
+    if(d.story){
+      el('storyHero').style.display='';
+      el('shapeHero').style.display='none';
+      el('storyLabel').textContent=(d.story.label||'')+'　'+(d.issue||'');
+      el('storyTitle').textContent=d.story.title||'';
+      el('storyBody').innerHTML=(d.story.paras||[]).map(function(t){return '<p>'+rich(t)+'</p>';}).join('');
+      if(d.story.mitate){
+        el('mitateBox').style.display='';
+        el('mitateTxt').textContent=d.story.mitate;
+        el('hazureTxt').textContent=d.story.hazure||'';
+      }
+    } else {
+      el('storyHero').style.display='none';
+      el('shapeHero').style.display='';
+      el('shapeTxt').textContent = d.shape || '';
+    }
     el('introTxt').innerHTML = rich(d.intro||'');
+
 
     // 週中の追記（updates がある号だけ）
     if(d.updates && d.updates.length){
