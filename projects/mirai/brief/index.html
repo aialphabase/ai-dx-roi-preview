@@ -109,6 +109,10 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .quiz ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);}
 .quiz .cta{align-self:flex-start;display:inline-block;background:var(--line-c);color:#fff;
   font-weight:700;font-size:13.5px;border-radius:4px;padding:9px 18px;text-decoration:none;}
+.upd{border:1px solid var(--accent);border-left-width:4px;border-radius:var(--radius);background:var(--surface);padding:16px 19px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);}
+.upd .ud{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;color:var(--accent);font-weight:600;}
+.upd .ut{font-weight:700;font-size:14.5px;}
+.upd .ub{font-size:13px;color:var(--ink-2);line-height:1.85;}
 .etf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow);}
 .stat .lb{font-size:11.5px;color:var(--muted);line-height:1.6;}
@@ -149,6 +153,14 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       </div>
       <p class="lede" id="introTxt"></p>
     </div>
+
+    <section id="secUpd" style="display:none">
+      <div class="sec-head">
+        <div class="eyebrow">週中の追記</div>
+        <h2>配信後に動いたこと</h2>
+      </div>
+      <div id="updBody" style="display:flex;flex-direction:column;gap:12px;"></div>
+    </section>
 
     <section id="secAnswer" style="display:none">
       <div class="sec-head">
@@ -254,6 +266,16 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     el('issueChip').textContent = d.issueLabel || d.week;
     el('shapeTxt').textContent = d.shape || '';
     el('introTxt').innerHTML = rich(d.intro||'');
+
+    // 週中の追記（updates がある号だけ）
+    if(d.updates && d.updates.length){
+      el('secUpd').style.display='';
+      el('updBody').innerHTML=d.updates.map(function(u){
+        return '<div class="upd"><span class="ud">'+esc(u.date)+' 追記</span>'+
+          '<span class="ut">'+esc(u.title)+'</span>'+
+          '<span class="ub">'+rich(u.body)+'</span></div>';
+      }).join('');
+    } else { el('secUpd').style.display='none'; }
 
     // 答え合わせ（データがある号だけ表示）
     if(d.answerCheck && d.answerCheck.length){
