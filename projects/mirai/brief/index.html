@@ -109,6 +109,17 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .quiz ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);}
 .quiz .cta{align-self:flex-start;display:inline-block;background:var(--line-c);color:#fff;
   font-weight:700;font-size:13.5px;border-radius:4px;padding:9px 18px;text-decoration:none;}
+.etf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow);}
+.stat .lb{font-size:11.5px;color:var(--muted);line-height:1.6;}
+.stat .vl{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4;}
+.stat.in .vl{color:var(--s-strong);} .stat.out .vl{color:var(--s-weak);} .stat.px .vl{color:var(--ink);font-size:16px;}
+.flowbars{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
+.fb{display:grid;grid-template-columns:86px 1fr 84px;gap:10px;align-items:center;font-size:12px;}
+.fb .fl{font-family:"IBM Plex Mono",monospace;color:var(--muted);}
+.fb .tr{position:relative;height:14px;background:var(--line-2);border-radius:2px;}
+.fb .tr i{position:absolute;top:2px;bottom:2px;border-radius:1px;}
+.fb .fv{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;}
 footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
 #loading{padding:60px 0;color:var(--muted);font-size:14px;}
 </style>
@@ -174,6 +185,19 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
         <svg id="marketSvg" viewBox="0 0 820 210" role="img" aria-label="市場データの週次推移"></svg>
         <figcaption id="marketCaption"></figcaption>
       </figure>
+    </section>
+
+    <section id="secEtf" style="display:none">
+      <div class="sec-head">
+        <div class="eyebrow">資金の流れ — ETFフロー</div>
+        <h2 id="etfTitle"></h2>
+        <p class="lede" id="etfLede"></p>
+      </div>
+      <div class="etf-stats" id="etfStats"></div>
+      <div class="flowbars" id="etfBars" style="display:none"></div>
+      <div class="learn"><h3>💡 マップで言うと</h3><p id="etfLearn"></p></div>
+      <p class="note" id="etfNoteRow"></p>
+      <p class="note" id="etfSource"></p>
     </section>
 
     <section>
@@ -295,6 +319,31 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       });
       el('marketSvg').innerHTML=svg;
     }
+
+    // ETFフロー（データがある号だけ表示）
+    if(d.etf){
+      var e=d.etf;
+      el('secEtf').style.display='';
+      el('etfTitle').textContent=e.title||'';
+      el('etfLede').textContent=e.lede||'';
+      el('etfStats').innerHTML=(e.stats||[]).map(function(st){
+        return '<div class="stat '+esc(st.dir||'')+'"><span class="lb">'+esc(st.label)+'</span><span class="vl">'+esc(st.value)+'</span></div>';
+      }).join('');
+      var fl=e.flows||[];
+      if(fl.length){
+        el('etfBars').style.display='';
+        var mxv=Math.max.apply(null,fl.map(function(f){return Math.abs(Number(f.v)||0);}))||1;
+        el('etfBars').innerHTML=fl.map(function(f){
+          var v=Number(f.v)||0, w=Math.abs(v)/mxv*50;
+          var style=v>=0?('left:50%;width:'+w+'%;background:var(--s-strong);'):('right:50%;width:'+w+'%;background:var(--s-weak);');
+          var sign=v>=0?'+':'−';
+          return '<div class="fb"><span class="fl">'+esc(f.label)+'</span><span class="tr"><i style="'+style+'"></i></span><span class="fv">'+sign+Math.abs(v).toLocaleString()+(e.unit?esc(e.unit):'M$')+'</span></div>';
+        }).join('');
+      } else { el('etfBars').style.display='none'; }
+      el('etfNoteRow').innerHTML=rich(e.note||'');
+      el('etfLearn').innerHTML=rich(e.learn||'');
+      el('etfSource').textContent=e.source||'';
+    } else { el('secEtf').style.display='none'; }
 
     // 確認ポイント
     el('checksBody').innerHTML=(d.checks||[]).map(function(c,i){
