@@ -295,7 +295,7 @@ footer{padding:28px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       {lb:'公開済みの号数',vl:esc((idx.weeks||[]).length)+' 号（自動アーカイブ）'},
       {lb:'今週の確認ポイント',vl:esc((d.checks||[]).length)+' 件 → 次号で答え合わせ'},
       {lb:'週中の追記',vl:(d.updates&&d.updates.length)?esc(d.updates.length)+' 件（最新: '+esc(d.updates[d.updates.length-1].date)+'）':'なし'},
-      {lb:'次号でやること',vl:'answerCheck '+esc((d.checks||[]).length)+'件の記入＋投票分布の発表'}
+      {lb:'次号でやること',vl:'answerCheck '+esc((d.checks||[]).length)+'件の記入＋次回予告の更新'}
     ];
     document.getElementById('stateCards').innerHTML=cards.map(function(c){
       return '<div class="st-card'+(c.hot?' hot':'')+'"><span class="lb">'+c.lb+'</span><span class="vl">'+c.vl+'</span></div>';

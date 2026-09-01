@@ -104,11 +104,10 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .pt .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);font-weight:600;padding-top:3px;}
 .pt .t{font-weight:700;font-size:14px;}
 .pt .dsc{font-size:13px;color:var(--ink-2);margin-top:2px;}
-.quiz{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);}
-.quiz .q{font-family:"Shippori Mincho B1",serif;font-size:16.5px;font-weight:700;line-height:1.7;}
-.quiz ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);}
-.quiz .cta{align-self:flex-start;display:inline-block;background:var(--line-c);color:#fff;
-  font-weight:700;font-size:13.5px;border-radius:4px;padding:9px 18px;text-decoration:none;}
+.nextbox{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius);padding:20px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);}
+.nx-mitate{font-family:"Shippori Mincho B1",serif;font-size:16.5px;font-weight:700;line-height:1.75;}
+.nx-list{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2);line-height:1.75;}
+.nx-date{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--accent);font-weight:600;border-top:1px dashed var(--line-2);padding-top:11px;}
 .minimap{max-width:860px;margin:26px auto 0;padding:0 22px;display:flex;flex-direction:column;gap:8px;}
 .minimap .mm-head{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between;}
 .minimap .mm-label{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted);}
@@ -267,16 +266,15 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       <div class="points" id="checksBody"></div>
     </section>
 
-    <section>
+    <section id="secNext">
       <div class="sec-head">
-        <div class="eyebrow">今週の1問</div>
-        <h2>あなたはどう読む？</h2>
+        <div class="eyebrow">次回予告</div>
+        <h2>来週、この見立てを答え合わせします</h2>
       </div>
-      <div class="quiz">
-        <p class="q" id="quizText"></p>
-        <ol id="quizOpts"></ol>
-        <a class="cta" id="quizCta" href="#">Discordで回答する →</a>
-        <p class="note" id="quizNote"></p>
+      <div class="nextbox">
+        <p class="nx-mitate" id="nxMitate"></p>
+        <ol class="nx-list" id="nxList"></ol>
+        <p class="nx-date" id="nxDate"></p>
       </div>
     </section>
 
@@ -466,12 +464,11 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
         '<div class="t">'+esc(c.t)+'</div><div class="dsc">'+rich(c.d)+'</div></div></div>';
     }).join('');
 
-    // 1問
-    var q=d.quiz||{};
-    el('quizText').textContent=q.text||'';
-    el('quizOpts').innerHTML=(q.options||[]).map(function(o){return '<li>'+esc(o)+'</li>';}).join('');
-    if(q.discordUrl) el('quizCta').href=q.discordUrl;
-    el('quizNote').textContent=q.note||'';
+    // 次回予告（見立て＋確認ポイントの再掲＋発行予定）
+    var mit=(d.story&&d.story.mitate)||d.shape||'';
+    el('nxMitate').textContent=mit.replace(/。$/,'')+'——この読みがどうだったか、次号の冒頭で検証します。見るのはこの'+String((d.checks||[]).length)+'点。';
+    el('nxList').innerHTML=(d.checks||[]).map(function(c){return '<li>'+esc(c.t)+'</li>';}).join('');
+    el('nxDate').textContent=(d.next&&d.next.date)||'次号は毎週火曜に発行予定';
 
     el('footSource').textContent=(d.footerSource||'')+'　／　発行 '+(d.published||'');
     document.title='ミライ週次ブリーフ '+(d.issue||d.week||'');
