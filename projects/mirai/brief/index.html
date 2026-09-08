@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>ミライ週次ブリーフ</title>
+<title>ミライ週間ストーリーボード</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
@@ -147,6 +147,9 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .fb .tr{position:relative;height:14px;background:var(--line-2);border-radius:2px;}
 .fb .tr i{position:absolute;top:2px;bottom:2px;border-radius:1px;}
 .fb .fv{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;}
+.gatebox{margin:60px auto;max-width:560px;background:var(--surface);border:1px solid var(--gold);border-left-width:4px;border-radius:var(--radius);padding:26px 26px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);}
+.gatebox h2{font-size:19px;}
+.gatebox p{font-size:13.5px;color:var(--ink-2);line-height:1.9;}
 footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
 #loading{padding:60px 0;color:var(--muted);font-size:14px;}
 </style>
@@ -155,7 +158,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
 <header class="top">
   <div class="top-inner">
-    <div class="brandline">ミライテラシー ／ ミライ週次ブリーフ</div>
+    <div class="brandline">ミライテラシー ／ ミライ週間ストーリーボード</div>
     <div class="top-right">
       <select class="weeksel" id="weekSel" aria-label="号を選ぶ"></select>
       <div class="verchip" id="issueChip">読込中…</div>
@@ -176,7 +179,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 </div>
 
 <div class="wrap">
-  <div id="loading">ブリーフを読み込んでいます…</div>
+  <div id="loading">ストーリーボードを読み込んでいます…</div>
   <main id="app" style="display:none">
 
     <div class="story" id="storyHero" style="display:none">
@@ -280,7 +283,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
     <footer>
       <p class="note" id="footSource"></p>
-      <p class="note">本ブリーフは経済ニュースの読み方を学ぶための教材であり、特定の売買を推奨する投資助言ではありません。個別銘柄の売買推奨・個別相談への回答は行いません。</p>
+      <p class="note">本ストーリーボードは経済ニュースの読み方を学ぶための教材であり、特定の売買を推奨する投資助言ではありません。個別銘柄の売買推奨・個別相談への回答は行いません。</p>
     </footer>
 
   </main>
@@ -471,7 +474,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     el('nxDate').textContent=(d.next&&d.next.date)||'次号は毎週火曜に発行予定';
 
     el('footSource').textContent=(d.footerSource||'')+'　／　発行 '+(d.published||'');
-    document.title='ミライ週次ブリーフ '+(d.issue||d.week||'');
+    document.title='ミライ週間ストーリーボード '+(d.issue||d.week||'');
     el('loading').style.display='none';
     el('app').style.display='';
   }
@@ -479,10 +482,12 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
   fetchJson('data/index.json').then(function(idx){
     var weeks=idx.weeks||[];
     var want=qs.get('week')||idx.latest;
+    var hasKey=(qs.get('m')||'')===(idx.memberKey||'');
     var sel=el('weekSel');
     weeks.slice().reverse().forEach(function(w){
       var o=document.createElement('option');
-      o.value=w.id; o.textContent=w.label||w.id;
+      o.value=w.id;
+      o.textContent=(w.memberOnly&&!hasKey?'\uD83D\uDD12 ':'')+(w.label||w.id);
       if(w.id===want) o.selected=true;
       sel.appendChild(o);
     });
@@ -490,8 +495,21 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       var u=new URL(location.href); u.searchParams.set('week',sel.value); location.href=u.toString();
     });
     if(weeks.length<2) sel.style.display='none';
+    var entry=null; weeks.forEach(function(w){ if(w.id===want) entry=w; });
+    if(entry&&entry.memberOnly&&!hasKey){
+      el('loading').style.display='none';
+      el('issueChip').textContent=entry.label||want;
+      var g=document.createElement('div');
+      g.className='gatebox';
+      g.innerHTML='<h2>\uD83D\uDD12 この号はバックナンバー（会員限定）です</h2>'+
+        '<p>ミライ週間ストーリーボードのバックナンバーは、毎週の見立てと答え合わせを積み重ねた記録です。会員のかたには、いま有効な合言葉つきのリンクをお届けしています。お手元のリンクから開き直してください。</p>'+
+        '<p><a href="./">\u2192 最新号を読む（どなたでも）</a></p>';
+      document.querySelector('.wrap').appendChild(g);
+      return Promise.reject({handled:true});
+    }
     return fetchJson('data/'+encodeURIComponent(want)+'.json');
   }).then(render).catch(function(e){
+    if(e&&e.handled) return;
     el('loading').textContent='読み込みに失敗しました（'+e.message+'）。時間をおいて再読み込みしてください。';
   });
 })();
