@@ -51,6 +51,24 @@ def fetch(sym):
             "above_ma20": cl[-1] > ma20,
             "stale_days": (NOW.date() - last_day).days}
 
+# 判定に応じて縦位置(y)を並べ直す。マップのルール「上にいる球ほど強い」を保つため。
+# x(安全⇔リスクの横軸)と s(大きさ)は人の設計なので触らない。
+MARK_ORDER = {"◎": 0, "○": 1, "△": 2, "▼": 3}
+Y_BANDS = {"◎": (28, 36), "○": (46, 58), "△": (62, 70), "▼": (78, 86)}
+
+def reposition(assets):
+    """markごとのバンド内にyを均等配置する(posを持つ資産のみ)。"""
+    targets = [a for a in assets if isinstance(a.get("pos"), dict) and not a.get("manual")]
+    by_mark = {}
+    for a in targets:
+        by_mark.setdefault(a.get("mark"), []).append(a)
+    for mk, group in by_mark.items():
+        lo, hi = Y_BANDS.get(mk, (50, 50))
+        group.sort(key=lambda a: a["pos"].get("x", 50))
+        n = len(group)
+        for i, a in enumerate(group):
+            a["pos"]["y"] = lo if n == 1 else round(lo + (hi - lo) * i / (n - 1))
+
 def suggest_mark(m):
     s = 0
     s += 1 if m["above_ma20"] else 0
@@ -125,7 +143,9 @@ def main():
                 a["state"] = state_text(name, m)
             marks[SHORT.get(name, name)] = a["mark"]
             report.append(f"| {name} | {m['price']:,.2f} | {m['chg']:+.2f}% | {m['wk']:+.2f}% | {a['mark']} | {note} |")
+        reposition(draft.get("assets", []))
         report.append("")
+        report.append("※ 判定に合わせて球の縦位置(y)を自動で並べ直しています(x・大きさは不変)")
         report.append("※ shape / TODAY'S PICK / learn / 今週の1問 は人の編集領域のため未変更")
 
         # 4) history ドラフト（当日行を追記 or 置換）
