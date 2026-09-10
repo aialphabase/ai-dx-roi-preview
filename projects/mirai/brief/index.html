@@ -114,6 +114,8 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .minimap .mm-label b{color:var(--accent);font-weight:600;}
 .minimap .mm-open{font-size:12px;color:var(--accent);text-decoration:none;font-weight:700;}
 .minimap .mm-open:hover{text-decoration:underline;}
+.brandline .homelink{color:inherit;text-decoration:none;}
+.brandline .homelink:hover{text-decoration:underline;}
 .mini-frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#03060c;box-shadow:var(--shadow);}
 .mini-frame::before{content:"瞬間マップを読み込んでいます…";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#6b7889;font-size:12px;letter-spacing:.08em;z-index:0;}
 .mini-frame iframe{z-index:1;background:#03060c;}
@@ -160,7 +162,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
 <header class="top">
   <div class="top-inner">
-    <div class="brandline">ミライテラシー ／ 週間ストーリーボード</div>
+    <div class="brandline"><a href="../" class="homelink">← ミライテラシー ／ 週間ストーリーボード</a></div>
     <div class="top-right">
       <select class="weeksel" id="weekSel" aria-label="号を選ぶ"></select>
       <div class="verchip" id="issueChip">読込中…</div>

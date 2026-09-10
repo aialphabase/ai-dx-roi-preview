@@ -36,6 +36,21 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:34px 0}
 
 h3.sec{font-size:15px;color:var(--sub);font-weight:600;letter-spacing:.06em;
   margin:0 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+h3.sec .open{float:right;font-size:12.5px;color:var(--accent);text-decoration:none;font-weight:700}
+h3.sec .open:hover{text-decoration:underline}
+
+/* 今の相場: 強弱マップのミニ埋め込み */
+.mapnote{color:var(--sub);font-size:13px;margin:-4px 0 14px}
+.mini-frame{position:relative;overflow:hidden;border:1px solid var(--line);
+  border-radius:12px;background:#03060c;box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.mini-frame::before{content:"マップを読み込んでいます…";position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;color:#6b7889;font-size:12px;letter-spacing:.08em;z-index:0}
+.mini-frame iframe{position:absolute;left:0;top:0;border:0;pointer-events:none;
+  transform-origin:0 0;z-index:1;background:#03060c}
+.mini-frame .mm-cover{position:absolute;inset:0;display:block;z-index:2}
+.mini-frame .mm-tag{position:absolute;right:10px;bottom:8px;z-index:3;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:#8f9cac;
+  background:rgba(3,6,12,.72);border:1px solid rgba(143,156,172,.35);border-radius:3px;padding:2px 8px}
 
 /* バックナンバー */
 .back{display:flex;flex-direction:column;gap:9px}
@@ -68,6 +83,16 @@ footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
 
   <hr class="sep">
 
+  <h3 class="sec">今の相場<a class="open" href="map/" target="_blank" rel="noopener">フルマップを開く ↗</a></h3>
+  <p class="mapnote">株・金・暗号資産・金利・ドル・原油の強弱を1枚で。平日の夜に自動で更新されます。</p>
+  <div class="mini-frame" id="mmFrame">
+    <iframe id="mmIframe" title="アセットクラス強弱マップ" scrolling="no" loading="eager"></iframe>
+    <a class="mm-cover" href="map/" target="_blank" rel="noopener" aria-label="アセットクラス強弱マップを開く"></a>
+    <span class="mm-tag">LIVE ・ タップで全体へ</span>
+  </div>
+
+  <hr class="sep">
+
   <h3 class="sec">今週のロードマップ</h3>
   <a class="latest" id="latestCard" href="brief/">
     <span class="chip" id="latestChip">読み込み中…</span>
@@ -96,6 +121,25 @@ footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
 </div>
 
 <script>
+/* 今の相場: マップページの「瞬間マップ」部分だけを切り抜いて表示する */
+(function(){
+  var SRC_W = 1100, OFFSET_Y = 506, SRC_H = 500;
+  var frame = document.getElementById('mmFrame');
+  var ifr = document.getElementById('mmIframe');
+  if(!frame || !ifr) return;
+  ifr.src = 'map/?embed=mini';
+  function size(){
+    var w = frame.clientWidth;
+    var scale = w / SRC_W;
+    frame.style.height = Math.round(SRC_H * scale) + 'px';
+    ifr.style.width = SRC_W + 'px';
+    ifr.style.height = (OFFSET_Y + SRC_H + 200) + 'px';
+    ifr.style.transform = 'scale(' + scale + ') translateY(-' + OFFSET_Y + 'px)';
+  }
+  size();
+  addEventListener('resize', size);
+})();
+
 (function(){
   var qs = new URLSearchParams(location.search);
   var mkey = qs.get('m') || '';
