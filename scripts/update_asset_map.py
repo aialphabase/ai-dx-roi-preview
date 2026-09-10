@@ -19,8 +19,12 @@ JST = datetime.timezone(datetime.timedelta(hours=9))
 NOW = datetime.datetime.now(JST)
 TODAY = NOW.strftime("%Y-%m-%d")
 OUT = os.path.join(os.path.dirname(__file__), "..", "automation", "out")
-PROD_DATA = "https://aihukugyou.info/17/asset-data.json"
-PROD_HIST = "https://aihukugyou.info/17/asset-history.json"
+PROD_DATA = "https://aihukugyou.info/17/asset-data.json"   # 移行用フォールバック
+PROD_HIST = "https://aihukugyou.info/17/asset-history.json"  # 移行用フォールバック
+# 公開ファイル: automation/out に置くとGitHub Pagesがそのまま配信する。
+# ワークフローが `git add automation/out` しているため、追加設定なしで反映される。
+PUB_DATA = "asset-data.json"
+PUB_HIST = "asset-history.json"
 
 # マップ7資産 ← Yahooシンボル。max_move=前日比の異常閾値(%)
 ASSETS = [
@@ -108,14 +112,13 @@ def main():
         except Exception as e:
             errors.append(f"{name}: 取得失敗 {e}")
 
-    # 2) 本番JSONを取得（人の編集を土台にする）
+    # 2) 基準JSONを読む（人の編集を土台にする）
+    #    公開ファイル(automation/out)があればそれを、無ければ旧本番URLから（移行用）
     try:
-        req = urllib.request.Request(PROD_DATA + f"?v={int(NOW.timestamp())}", headers={"User-Agent": UA})
-        prod = json.load(urllib.request.urlopen(req, timeout=30))
-        req = urllib.request.Request(PROD_HIST + f"?v={int(NOW.timestamp())}", headers={"User-Agent": UA})
-        hist = json.load(urllib.request.urlopen(req, timeout=30))
+        prod = load_base(PROD_DATA, PUB_DATA)
+        hist = load_base(PROD_HIST, PUB_HIST)
     except Exception as e:
-        errors.append(f"本番JSON取得失敗: {e}")
+        errors.append(f"基準JSON取得失敗: {e}")
         prod, hist = None, None
 
     ok = not errors and prod is not None
@@ -157,20 +160,30 @@ def main():
         json.dump(draft, open(os.path.join(OUT,"asset-data.draft.json"),"w"), ensure_ascii=False, indent=1)
         json.dump(hist_d, open(os.path.join(OUT,"asset-history.draft.json"),"w"), ensure_ascii=False, indent=1)
 
-        # 5) live: 合格時のみアップロード＋Discord投稿
+        # 5) live: 検証合格時のみ公開ファイルを更新（GitHub Pagesが配信 → マップページが直接読む）
         if MODE == "live" and ok:
             try:
-                upload_ftp(os.path.join(OUT,"asset-data.draft.json"), "asset-data.json")
-                upload_ftp(os.path.join(OUT,"asset-history.draft.json"), "asset-history.json")
-                report.append("\n## live: FTPアップロード完了")
-                post_discord(draft, marks)
-                report.append("## live: Discord投稿完了")
+                json.dump(draft,  open(os.path.join(OUT, PUB_DATA), "w"), ensure_ascii=False, indent=1)
+                json.dump(hist_d, open(os.path.join(OUT, PUB_HIST), "w"), ensure_ascii=False, indent=1)
+                report.append("\n## live: 公開ファイルを更新（Pages経由で反映）")
             except Exception as e:
                 report.append(f"\n## live: ❌ 失敗 {e}")
                 notify_ops(f"⚠ マップ自動更新の反映に失敗: {e}")
         elif MODE == "live" and not ok:
+            report.append("\n## live: 検証不合格のため公開ファイルは更新せず（前回値が残る）")
             notify_ops("⚠ 本日のマップ自動更新は検証不合格のため中止しました。レポートを確認してください。")
     write_report(report)
+
+def fetch_json(url):
+    req = urllib.request.Request(url + f"?v={int(NOW.timestamp())}", headers={"User-Agent": UA})
+    return json.load(urllib.request.urlopen(req, timeout=30))
+
+def load_base(url, pubname):
+    """基準データ: リポジトリの公開ファイルを優先。無ければ旧本番URLから取得(移行用)。"""
+    local = os.path.join(OUT, pubname)
+    if os.path.exists(local):
+        return json.load(open(local))
+    return fetch_json(url)
 
 def upload_ftp(local, remote):
     from ftplib import FTP_TLS
