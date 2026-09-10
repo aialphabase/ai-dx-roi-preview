@@ -171,11 +171,11 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 <div class="minimap" id="minimap" style="display:none">
   <div class="mm-head">
     <span class="mm-label"><b>市場の現在地</b>　アセットクラス強弱マップ ／ 瞬間マップ</span>
-    <a class="mm-open" id="mmOpen" href="https://aihukugyou.info/17/asset-map.html" target="_blank" rel="noopener">フルマップを開く ↗</a>
+    <a class="mm-open" id="mmOpen" href="../map/" target="_blank" rel="noopener">フルマップを開く ↗</a>
   </div>
   <div class="mini-frame" id="mmFrame">
     <iframe id="mmIframe" title="アセットクラス強弱マップ（瞬間マップ）" scrolling="no" loading="eager"></iframe>
-    <a class="mm-cover" id="mmCover" href="https://aihukugyou.info/17/asset-map.html" target="_blank" rel="noopener" aria-label="アセットクラス強弱マップを開く"></a>
+    <a class="mm-cover" id="mmCover" href="../map/" target="_blank" rel="noopener" aria-label="アセットクラス強弱マップを開く"></a>
     <span class="mm-tag">LIVE ・ タップで全体へ</span>
   </div>
 </div>
@@ -317,7 +317,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     // ミニマップ（アセットクラス強弱マップの瞬間マップ部分をクロップ表示）
     (function(){
       var cfg = Object.assign({
-        src:"https://aihukugyou.info/17/asset-map.html",
+        src:"../map/",
         srcW:1100,      // マップを描画する仮想幅
         offsetY:506,    // 上から何pxを読み飛ばすか（ヒーロー部分）
         srcH:500        // 見せる高さ（瞬間マップのステージ）
