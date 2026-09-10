@@ -115,6 +115,8 @@ td.hot{background:var(--accent-soft);font-weight:700;color:var(--accent);}
 .minimap .mm-open{font-size:12px;color:var(--accent);text-decoration:none;font-weight:700;}
 .minimap .mm-open:hover{text-decoration:underline;}
 .mini-frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#03060c;box-shadow:var(--shadow);}
+.mini-frame::before{content:"瞬間マップを読み込んでいます…";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#6b7889;font-size:12px;letter-spacing:.08em;z-index:0;}
+.mini-frame iframe{z-index:1;background:#03060c;}
 .mini-frame iframe{position:absolute;left:0;top:0;border:0;pointer-events:none;transform-origin:0 0;}
 .mini-frame .mm-cover{position:absolute;inset:0;display:block;}
 .mini-frame .mm-tag{position:absolute;right:10px;bottom:8px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:#8f9cac;background:rgba(3,6,12,.72);border:1px solid rgba(143,156,172,.35);border-radius:3px;padding:2px 8px;}
@@ -172,7 +174,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     <a class="mm-open" id="mmOpen" href="https://aihukugyou.info/17/asset-map.html" target="_blank" rel="noopener">フルマップを開く ↗</a>
   </div>
   <div class="mini-frame" id="mmFrame">
-    <iframe id="mmIframe" title="アセットクラス強弱マップ（瞬間マップ）" scrolling="no" loading="lazy"></iframe>
+    <iframe id="mmIframe" title="アセットクラス強弱マップ（瞬間マップ）" scrolling="no" loading="eager"></iframe>
     <a class="mm-cover" id="mmCover" href="https://aihukugyou.info/17/asset-map.html" target="_blank" rel="noopener" aria-label="アセットクラス強弱マップを開く"></a>
     <span class="mm-tag">LIVE ・ タップで全体へ</span>
   </div>
