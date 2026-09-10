@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>ミライ週間ロードマップ</title>
+<title>ミライテラシー 週間ストーリーボード</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.85}
 .wrap{max-width:860px;margin:0 auto;padding:40px 22px 70px}
-.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.28em;color:var(--gold)}
+.eyebrow{font-size:12.5px;letter-spacing:.22em;color:var(--gold);font-weight:600}
 h1{font-family:"Shippori Mincho",serif;font-size:clamp(26px,5vw,38px);margin:10px 0 6px;line-height:1.35}
 .tagline{color:var(--sub);font-size:14.5px;margin-bottom:6px}
 hr.sep{border:0;border-top:1px solid var(--line);margin:34px 0}
@@ -62,8 +62,8 @@ footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
 <body>
 <div class="wrap">
 
-  <div class="eyebrow">MIRAI LITERACY</div>
-  <h1>ミライ週間ロードマップ</h1>
+  <div class="eyebrow">ミライテラシー</div>
+  <h1>週間ストーリーボード</h1>
   <p class="tagline">毎週おなじ手順で相場を定点観測し、翌週にその答え合わせをする ——<br>その積み重ねを、ここに置いていきます。</p>
 
   <hr class="sep">
@@ -114,10 +114,10 @@ footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
     document.getElementById('latestChip').textContent = (lw && lw.label) ? lw.label : latestId;
     document.getElementById('latestCard').href = link(latestId);
     fetch('brief/data/' + latestId + '.json?v=' + Date.now()).then(function(r){ return r.json(); }).then(function(d){
-      document.getElementById('latestTitle').textContent = (d.story && d.story.title) ? d.story.title : 'ミライ週間ロードマップ';
+      document.getElementById('latestTitle').textContent = (d.story && d.story.title) ? d.story.title : '週間ストーリーボード';
       document.getElementById('latestShape').textContent = d.shape || '';
     }).catch(function(){
-      document.getElementById('latestTitle').textContent = 'ミライ週間ロードマップ';
+      document.getElementById('latestTitle').textContent = '週間ストーリーボード';
     });
 
     // バックナンバー(新しい順・最新号は除く)
@@ -139,7 +139,7 @@ footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
     }
   }).catch(function(){
     document.getElementById('latestChip').textContent = '—';
-    document.getElementById('latestTitle').textContent = 'ミライ週間ロードマップ';
+    document.getElementById('latestTitle').textContent = '週間ストーリーボード';
     document.getElementById('latestShape').textContent = '一覧を読み込めませんでした。時間をおいて開き直してください。';
   });
 })();

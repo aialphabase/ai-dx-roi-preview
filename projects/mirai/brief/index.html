@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>ミライ週間ストーリーボード</title>
+<title>週間ストーリーボード</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
@@ -158,7 +158,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
 
 <header class="top">
   <div class="top-inner">
-    <div class="brandline">ミライテラシー ／ ミライ週間ストーリーボード</div>
+    <div class="brandline">ミライテラシー ／ 週間ストーリーボード</div>
     <div class="top-right">
       <select class="weeksel" id="weekSel" aria-label="号を選ぶ"></select>
       <div class="verchip" id="issueChip">読込中…</div>
@@ -474,7 +474,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     el('nxDate').textContent=(d.next&&d.next.date)||'次号は毎週火曜に発行予定';
 
     el('footSource').textContent=(d.footerSource||'')+'　／　発行 '+(d.published||'');
-    document.title='ミライ週間ストーリーボード '+(d.issue||d.week||'');
+    document.title='週間ストーリーボード '+(d.issue||d.week||'');
     el('loading').style.display='none';
     el('app').style.display='';
   }
@@ -502,7 +502,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       var g=document.createElement('div');
       g.className='gatebox';
       g.innerHTML='<h2>\uD83D\uDD12 この号はバックナンバー（会員限定）です</h2>'+
-        '<p>ミライ週間ストーリーボードのバックナンバーは、毎週の見立てと答え合わせを積み重ねた記録です。会員のかたには、いま有効な合言葉つきのリンクをお届けしています。お手元のリンクから開き直してください。</p>'+
+        '<p>週間ストーリーボードのバックナンバーは、毎週の見立てと答え合わせを積み重ねた記録です。会員のかたには、いま有効な合言葉つきのリンクをお届けしています。お手元のリンクから開き直してください。</p>'+
         '<p><a href="./">\u2192 最新号を読む（どなたでも）</a></p>';
       document.querySelector('.wrap').appendChild(g);
       return Promise.reject({handled:true});
