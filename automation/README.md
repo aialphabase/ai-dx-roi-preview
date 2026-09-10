@@ -3,14 +3,23 @@
 平日23:00 JST に GitHub Actions が `scripts/update_asset_map.py` を実行する。PC不要。
 
 ## モード
-- **dry**（既定）: 取得→検証→`automation/out/` にドラフト生成のみ。本番に触れない
-- **live**: 検証合格時のみ `/17/asset-data.json`・`asset-history.json` をFTP更新し、DiscordへWebhook投稿。不合格の日は更新せず運営Webhookへ通知
+- **dry**: 取得→検証→`automation/out/*.draft.json` のみ生成。公開ファイルに触れない
+- **live**（現在こちら）: 検証合格時のみ `automation/out/asset-data.json`・`asset-history.json` を更新。
+  GitHub Pages がこれを配信し、`/17/asset-map.html` が直接読むので**FTPも認証情報も不要**。
+  不合格の日は公開ファイルを更新しない（前回値が残る）
 
-## live への切り替え（素振り1週間の後に）
-1. リポジトリ Settings → Secrets and variables → Actions
-2. **Secrets** に登録: `FTP_HOST` / `FTP_USER` / `FTP_PASS` / `DISCORD_WEBHOOK_URL` / `DISCORD_OPS_WEBHOOK_URL`（運営通知用・任意）
-3. **Variables** に登録: `ASSET_MAP_MODE` = `live`、`FTP_REMOTE_DIR` = `/17/` の実パス
-4. Actionsタブ → asset-map-nightly → Run workflow で手動テスト
+## 公開の流れ（2026-09-10〜）
+```
+夜間ジョブ → automation/out/asset-{data,history}.json を更新 → ワークフローがコミット
+   → GitHub Pages が配信 → asset-map.html が fetch（サーバー上のファイルはフォールバック）
+```
+- 一次ソース: `https://aialphabase.github.io/ai-dx-roi-preview/automation/out/asset-data.json`
+- Discordへの自動投稿は**廃案**（会員は週間ロードマップのページで見る）
+
+## 設定済み（2026-09-10）
+- Variables: `ASSET_MAP_MODE` = `live`
+- Secrets: **不要**（FTP経路は廃止。`upload_ftp` は未使用のまま残置）
+- 人が書く欄（shapeRead / news / question / imp）を直すときは `automation/out/asset-data.json` を編集してコミットする
 
 ## 自動と人の境界（原則）
 - 自動が書く: `mark` / `cls` / `c` / `state`、history の当日1行
