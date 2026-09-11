@@ -146,6 +146,44 @@
             </select>
           </label>
 
+          <div class="field-grid">
+            <label class="field">
+              <span class="field-label">勤続年数</span>
+              <span class="input-group">
+                <input class="input" id="tenure" name="tenure" type="number" min="0" max="60" step="1" value="5">
+                <span class="input-suffix">年</span>
+              </span>
+            </label>
+            <label class="field">
+              <span class="field-label">住宅ローン以外の借入</span>
+              <span class="input-group">
+                <input class="input" id="loans" name="loans" type="number" min="0" max="10000" step="10" value="0">
+                <span class="input-suffix">万円</span>
+              </span>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field-label">世帯構成</span>
+            <select class="select" id="household" name="household">
+              <option value="single">単身</option>
+              <option value="couple" selected>夫婦・パートナーあり</option>
+              <option value="family">子どもと同居</option>
+              <option value="other">その他</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">住まいについて、いま近いのは</span>
+            <select class="select" id="property" name="property">
+              <option value="none" selected>いまは考えていない</option>
+              <option value="interested">いつか持ちたい（時期は未定）</option>
+              <option value="planning">3年以内に検討したい</option>
+              <option value="owned">すでに持ち家がある</option>
+              <option value="investment">投資用の物件に関心がある</option>
+            </select>
+          </label>
+
           <fieldset class="interest-fieldset">
             <legend>今後気になるテーマ</legend>
             <div class="check-grid">

@@ -62,6 +62,10 @@
       future,
       required,
       interests,
+      tenureYears: Math.max(0, core.number(byId("tenure") ? byId("tenure").value : 0)),
+      otherLoans: Math.max(0, core.number(byId("loans") ? byId("loans").value : 0)),
+      household: byId("household") ? byId("household").value : "other",
+      propertyInterest: byId("property") ? byId("property").value : "none",
     };
   };
 
@@ -75,6 +79,49 @@
     const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
     Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
     return el;
+  };
+
+  const buildOps = (state, diagnosis, scores) => {
+    const householdLabel = { single:"単身", couple:"夫婦・パートナーあり", family:"子どもと同居", other:"その他" };
+    const businessLabel  = { employee:"会社員・公務員", self:"個人事業主・フリーランス", owner:"法人経営者・役員", other:"その他" };
+    const propertyLabel  = { none:"いまは考えていない", interested:"いつか持ちたい（時期は未定）", planning:"3年以内に検討したい", owned:"すでに持ち家がある", investment:"投資用の物件に関心がある" };
+    const ops = {
+      schema: "mirai-karte-ops/v2",
+      source: "pattern-a",
+      created: new Date().toISOString(),
+      answers: {
+        age: state.age,
+        goal_age: state.goalAge,
+        household: householdLabel[state.household] || state.household,
+        business: businessLabel[state.business] || state.business,
+        monthly_saving_man: state.monthly,
+        monthly_expense_man: state.expenses,
+        target_man: state.target,
+        rate_percent: Math.round(state.rate * 1000) / 10,
+        experience_years_code: state.experience,
+        risk: state.risk,
+        consult_timing: state.consult,
+        meeting_requested: state.meeting,
+        interests: state.interests
+      },
+      screening: {
+        income_band: state.annualIncome > 0 ? `年収 約${state.annualIncome}万円` : null,
+        asset_band: `金融資産 約${state.assets}万円`,
+        debt_status: state.otherLoans > 0 ? `住宅ローン以外の借入 約${state.otherLoans}万円` : "住宅ローン以外の借入なし",
+        employment: businessLabel[state.business] || null,
+        tenure_years: state.tenureYears,
+        annual_income: state.annualIncome,
+        existing_loans: state.otherLoans,
+        family: householdLabel[state.household] || null,
+        property_interest: propertyLabel[state.propertyInterest] || null
+      },
+      diagnosis: diagnosis ? { primary: diagnosis.primary, secondary: diagnosis.secondary, stage: diagnosis.stage } : null,
+      scores: scores || null
+    };
+    window.__ops = ops;
+    try { localStorage.setItem("mirai_karte_ops_a", JSON.stringify(ops)); } catch (e) {}
+    document.dispatchEvent(new CustomEvent("mirai:ops", { detail: ops }));
+    return ops;
   };
 
   const renderChart = (state) => {
@@ -280,6 +327,7 @@
     const diagnosis = core.diagnose(state, scores);
     const actions = core.actionPlan(state, diagnosis);
     const tags = core.buildTags(state, diagnosis, scores);
+    buildOps(state, diagnosis, scores);
 
     setText("diagnosis-type", `${diagnosis.primary} × ${diagnosis.secondary}タイプ`);
     setText("stage-label", `現在の顧客ステージ：${diagnosis.stage}`);
