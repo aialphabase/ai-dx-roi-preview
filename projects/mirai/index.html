@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ミライテラシー 週間ストーリーボード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1216; --surface:#171b21; --line:#2a313a;
+  --ink:#e8ecf1; --sub:#98a4b3; --gold:#c9a227; --accent:#7ec8ff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.85}
+.wrap{max-width:860px;margin:0 auto;padding:40px 22px 70px}
+.eyebrow{font-size:12.5px;letter-spacing:.22em;color:var(--gold);font-weight:600}
+h1{font-family:"Shippori Mincho",serif;font-size:clamp(26px,5vw,38px);margin:10px 0 6px;line-height:1.35}
+.tagline{color:var(--sub);font-size:14.5px;margin-bottom:6px}
+hr.sep{border:0;border-top:1px solid var(--line);margin:34px 0}
+
+/* 軸: 最新のロードマップ */
+.latest{display:block;text-decoration:none;color:inherit;
+  background:linear-gradient(160deg,#1b2230,#141922);
+  border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:12px;padding:26px 26px 24px;transition:.25s}
+.latest:hover{border-color:var(--gold);transform:translateY(-2px)}
+.latest .chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:2px 9px;margin-bottom:14px}
+.latest h2{font-family:"Shippori Mincho",serif;font-size:clamp(20px,3.6vw,27px);margin:0 0 10px;line-height:1.45}
+.latest .shape{color:var(--sub);font-size:14px;margin-bottom:16px}
+.latest .go{font-size:13.5px;color:var(--accent)}
+
+h3.sec{font-size:15px;color:var(--sub);font-weight:600;letter-spacing:.06em;
+  margin:0 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+h3.sec .open{float:right;font-size:12.5px;color:var(--accent);text-decoration:none;font-weight:700}
+h3.sec .open:hover{text-decoration:underline}
+
+/* 今の相場: 強弱マップのミニ埋め込み */
+.mapnote{color:var(--sub);font-size:13px;margin:-4px 0 14px}
+.mini-frame{position:relative;overflow:hidden;border:1px solid var(--line);
+  border-radius:12px;background:#03060c;box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.mini-frame::before{content:"マップを読み込んでいます…";position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;color:#6b7889;font-size:12px;letter-spacing:.08em;z-index:0}
+.mini-frame iframe{position:absolute;left:0;top:0;border:0;pointer-events:none;
+  transform-origin:0 0;z-index:1;background:#03060c}
+.mini-frame .mm-cover{position:absolute;inset:0;display:block;z-index:2}
+.mini-frame .mm-tag{position:absolute;right:10px;bottom:8px;z-index:3;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:#8f9cac;
+  background:rgba(3,6,12,.72);border:1px solid rgba(143,156,172,.35);border-radius:3px;padding:2px 8px}
+
+/* バックナンバー */
+.back{display:flex;flex-direction:column;gap:9px}
+.back a{display:flex;align-items:baseline;gap:12px;text-decoration:none;color:inherit;
+  background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:13px 16px;transition:.2s}
+.back a:hover{border-color:var(--accent)}
+.back .no{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--gold);white-space:nowrap}
+.back .ttl{font-size:14.5px;flex:1}
+.back .lock{font-size:11.5px;color:var(--sub);white-space:nowrap}
+
+/* 資料(おまけ) */
+.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.docs a{text-decoration:none;color:inherit;background:var(--surface);
+  border:1px solid var(--line);border-radius:9px;padding:15px 17px;transition:.2s}
+.docs a:hover{border-color:var(--accent)}
+.docs b{display:block;font-size:14.5px;margin-bottom:4px}
+.docs span{display:block;color:var(--sub);font-size:12.5px;line-height:1.7}
+
+.note{color:var(--sub);font-size:12.5px;margin-top:12px}
+footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--sub);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">ミライテラシー</div>
+  <h1>週間ストーリーボード</h1>
+  <p class="tagline">毎週おなじ手順で相場を定点観測し、翌週にその答え合わせをする ——<br>その積み重ねを、ここに置いていきます。</p>
+
+  <hr class="sep">
+
+  <h3 class="sec">今の相場<a class="open" href="map/" target="_blank" rel="noopener">フルマップを開く ↗</a></h3>
+  <p class="mapnote">株・金・暗号資産・金利・ドル・原油の強弱を1枚で。平日の夜に自動で更新されます。</p>
+  <div class="mini-frame" id="mmFrame">
+    <iframe id="mmIframe" title="アセットクラス強弱マップ" scrolling="no" loading="eager"></iframe>
+    <a class="mm-cover" href="map/" target="_blank" rel="noopener" aria-label="アセットクラス強弱マップを開く"></a>
+    <span class="mm-tag">LIVE ・ タップで全体へ</span>
+  </div>
+
+  <hr class="sep">
+
+  <h3 class="sec">今週のロードマップ</h3>
+  <a class="latest" id="latestCard" href="brief/">
+    <span class="chip" id="latestChip">読み込み中…</span>
+    <h2 id="latestTitle">　</h2>
+    <p class="shape" id="latestShape">　</p>
+    <span class="go">読む →</span>
+  </a>
+
+  <hr class="sep">
+
+  <h3 class="sec">バックナンバー</h3>
+  <div class="back" id="backList"></div>
+  <p class="note" id="backNote"></p>
+
+  <!-- 資料(おまけ): 中身が決まり次第ここに並べる。空のあいだは非表示 -->
+  <div id="docsSection" hidden>
+    <hr class="sep">
+    <h3 class="sec">資料</h3>
+    <div class="docs" id="docsList"></div>
+    <p class="note">資料は補助です。まずはロードマップから読んでみてください。</p>
+  </div>
+
+  <footer>
+    出典: 公開市場データ＋経験者コミュニティの傾き集計。特定の売買を推奨するものではありません。
+  </footer>
+</div>
+
+<script>
+/* 今の相場: マップページの「瞬間マップ」部分だけを切り抜いて表示する */
+(function(){
+  var SRC_W = 1100, OFFSET_Y = 506, SRC_H = 500;
+  var frame = document.getElementById('mmFrame');
+  var ifr = document.getElementById('mmIframe');
+  if(!frame || !ifr) return;
+  ifr.src = 'map/?embed=mini';
+  function size(){
+    var w = frame.clientWidth;
+    var scale = w / SRC_W;
+    frame.style.height = Math.round(SRC_H * scale) + 'px';
+    ifr.style.width = SRC_W + 'px';
+    ifr.style.height = (OFFSET_Y + SRC_H + 200) + 'px';
+    ifr.style.transform = 'scale(' + scale + ') translateY(-' + OFFSET_Y + 'px)';
+  }
+  size();
+  addEventListener('resize', size);
+})();
+
+(function(){
+  var qs = new URLSearchParams(location.search);
+  var mkey = qs.get('m') || '';
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function link(id){ return 'brief/?week=' + encodeURIComponent(id) + (mkey ? '&m=' + encodeURIComponent(mkey) : ''); }
+
+  fetch('brief/data/index.json?v=' + Date.now()).then(function(r){ return r.json(); }).then(function(idx){
+    var weeks = (idx.weeks || []).slice();
+    var hasKey = mkey === (idx.memberKey || '');
+    var latestId = idx.latest || (weeks.length ? weeks[weeks.length-1].id : null);
+    if(!latestId) throw 0;
+
+    // 最新号カード
+    var lw = null; weeks.forEach(function(w){ if(w.id === latestId) lw = w; });
+    document.getElementById('latestChip').textContent = (lw && lw.label) ? lw.label : latestId;
+    document.getElementById('latestCard').href = link(latestId);
+    fetch('brief/data/' + latestId + '.json?v=' + Date.now()).then(function(r){ return r.json(); }).then(function(d){
+      document.getElementById('latestTitle').textContent = (d.story && d.story.title) ? d.story.title : '週間ストーリーボード';
+      document.getElementById('latestShape').textContent = d.shape || '';
+    }).catch(function(){
+      document.getElementById('latestTitle').textContent = '週間ストーリーボード';
+    });
+
+    // バックナンバー(新しい順・最新号は除く)
+    var html = '';
+    weeks.slice().reverse().forEach(function(w){
+      if(w.id === latestId) return;
+      var locked = w.memberOnly && !hasKey;
+      html += '<a href="' + link(w.id) + '">'
+            + '<span class="no">' + esc((w.label||w.id).split('・')[0].trim()) + '</span>'
+            + '<span class="ttl">' + esc(w.label || w.id) + '</span>'
+            + (locked ? '<span class="lock">🔒 会員限定</span>' : '')
+            + '</a>';
+    });
+    document.getElementById('backList').innerHTML = html
+      || '<p class="note">バックナンバーは次号から並びます。</p>';
+    if(!hasKey && weeks.some(function(w){ return w.memberOnly; })){
+      document.getElementById('backNote').textContent =
+        '🔒 の号は会員限定です。Discordで案内しているリンクから開くと読めます。';
+    }
+  }).catch(function(){
+    document.getElementById('latestChip').textContent = '—';
+    document.getElementById('latestTitle').textContent = '週間ストーリーボード';
+    document.getElementById('latestShape').textContent = '一覧を読み込めませんでした。時間をおいて開き直してください。';
+  });
+})();
+</script>
+<script src="https://aihukugyou.info/17/track-mirai/t.js" defer></script>
+</body>
+</html>

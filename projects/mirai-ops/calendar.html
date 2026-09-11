@@ -1,0 +1,433 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ミライニュース 運用カレンダー</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  --paper:#F5F7F4; --surface:#FFFFFF; --surface-2:#EEF2EE;
+  --ink:#0F1A16; --ink-2:#4C5C56; --ink-3:#7C8C86;
+  --line:#DCE3DE; --line-2:#C3CEC8;
+  --accent:#0B8F63; --accent-soft:#E2F4EC;
+  --new:#0A6F94; --new-soft:#E0F0F6;
+  --warn:#9E6612; --warn-soft:#F7EEDC;
+  --alert:#B4413C; --alert-soft:#F8E6E5;
+  --free:#6C4BA6; --free-soft:#EEE8F7;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1411; --surface:#121E19; --surface-2:#18261F;
+    --ink:#E9F0EC; --ink-2:#95A79F; --ink-3:#6E827A;
+    --line:#23332C; --line-2:#31453B;
+    --accent:#46E8AA; --accent-soft:#123326;
+    --new:#42DDFF; --new-soft:#0C2E38;
+    --warn:#F4C66B; --warn-soft:#332714;
+    --alert:#FF7B83; --alert-soft:#37181B;
+    --free:#B79BEC; --free-soft:#231A38;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1411; --surface:#121E19; --surface-2:#18261F;
+  --ink:#E9F0EC; --ink-2:#95A79F; --ink-3:#6E827A;
+  --line:#23332C; --line-2:#31453B;
+  --accent:#46E8AA; --accent-soft:#123326;
+  --new:#42DDFF; --new-soft:#0C2E38;
+  --warn:#F4C66B; --warn-soft:#332714;
+  --alert:#FF7B83; --alert-soft:#37181B;
+  --free:#B79BEC; --free-soft:#231A38;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+  line-height:1.7; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px; margin:0 auto; padding:0 22px 90px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+.top{padding:48px 0 8px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--accent);
+  display:flex; align-items:center; gap:10px; margin-bottom:14px}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+h1{font-size:clamp(26px,4vw,38px); font-weight:900; margin:0 0 10px; letter-spacing:-.01em}
+.lede{color:var(--ink-2); font-size:15px; max-width:64ch; margin:0 0 20px}
+.stamp{display:inline-flex; gap:16px; flex-wrap:wrap; padding:10px 16px;
+  background:var(--surface); border:1px solid var(--line); border-radius:9px;
+  font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-2); margin-bottom:8px}
+.stamp b{color:var(--ink)}
+
+.sec{margin:46px 0 16px}
+.sec .k{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px}
+.sec h2{font-size:20px; font-weight:900; margin:0 0 6px}
+.sec p{margin:0; color:var(--ink-2); font-size:14px; max-width:66ch}
+
+/* today strip */
+#todayStrip{display:flex; flex-direction:column; gap:10px; margin-top:14px}
+.tRow{display:flex; gap:14px; align-items:flex-start; background:var(--surface);
+  border:1px solid var(--line); border-radius:10px; padding:13px 16px}
+.tRow.today{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
+.tRow .d{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600;
+  width:96px; flex:none; padding-top:2px}
+.tRow .d small{display:block; font-weight:400; color:var(--ink-3); font-size:10.5px}
+.tRow .body{flex:1; display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.tRow.closed{background:var(--surface-2)}
+.pill{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:500;
+  padding:4px 11px; border-radius:6px; border:1px solid var(--line-2); background:var(--surface-2)}
+.pill.b-daily{background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:700}
+.pill.b-weekly{background:var(--free-soft); border-color:var(--free); color:var(--free); font-weight:700}
+.pill.b-funda{background:var(--new-soft); border-color:var(--new); color:var(--new); font-weight:700}
+.pill.b-closed{background:var(--alert-soft); border-color:var(--alert); color:var(--alert); font-weight:700}
+.pill.ind{font-family:"IBM Plex Mono",monospace; font-size:11.5px}
+.pill.ind .st{color:var(--warn); letter-spacing:-.08em}
+.pill.ind.big{border-color:var(--warn); background:var(--warn-soft)}
+
+/* rules */
+.rules{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.rule{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px 18px}
+.rule .h{font-weight:700; font-size:14.5px; margin-bottom:6px; display:flex; gap:8px; align-items:center}
+.rule .h .mono{font-size:12px; color:var(--accent)}
+.rule p{font-size:13px; margin:0; color:var(--ink-2)}
+.rule table{border-collapse:collapse; width:100%; margin-top:8px; font-size:12.5px}
+.rule td{padding:5px 4px; border-bottom:1px solid var(--line); vertical-align:top}
+.rule tr:last-child td{border-bottom:0}
+.rule td:first-child{white-space:nowrap; color:var(--ink-3); padding-right:10px}
+
+/* flow */
+.flow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:14px}
+.flow span{font-family:"IBM Plex Mono",monospace; font-size:12px; padding:8px 13px;
+  border-radius:7px; background:var(--surface); border:1px solid var(--line)}
+.flow span.on{background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:600}
+.flow i{color:var(--ink-3); font-style:normal}
+
+/* calendar */
+.calhead{display:flex; align-items:center; gap:14px; margin:20px 0 10px}
+.calhead h3{font-size:16px; font-weight:900; margin:0}
+.calhead button{appearance:none; border:1px solid var(--line-2); background:var(--surface);
+  color:var(--ink); border-radius:7px; width:32px; height:32px; cursor:pointer; font-size:15px}
+.calhead button:hover{border-color:var(--accent)}
+.calhead button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.legend{display:flex; flex-wrap:wrap; gap:12px; margin-left:auto;
+  font-size:11.5px; color:var(--ink-2)}
+.legend i{display:inline-block; width:9px; height:9px; border-radius:3px; margin-right:5px; font-style:normal}
+.calscroll{overflow-x:auto; border:1px solid var(--line); border-radius:11px; background:var(--surface)}
+table.cal{border-collapse:collapse; width:100%; min-width:760px; table-layout:fixed}
+table.cal th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+  color:var(--ink-3); padding:9px 6px; border-bottom:1px solid var(--line-2);
+  background:var(--surface-2); text-transform:uppercase}
+table.cal th.sun{color:var(--alert)} table.cal th.sat{color:var(--new)}
+table.cal td{border:1px solid var(--line); vertical-align:top; padding:7px 8px; height:86px}
+table.cal td .n{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600}
+table.cal td.out{background:var(--surface-2); opacity:.42}
+table.cal td.closed{background:var(--alert-soft)}
+table.cal td.closed .n{color:var(--alert)}
+table.cal td.today{outline:2px solid var(--accent); outline-offset:-2px}
+.ev{display:block; font-size:10.5px; line-height:1.45; margin-top:4px;
+  padding:2px 6px; border-radius:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ev.daily{background:var(--accent-soft); color:var(--accent); font-weight:700}
+.ev.weekly{background:var(--free-soft); color:var(--free); font-weight:700}
+.ev.funda{background:var(--new-soft); color:var(--new); font-weight:700}
+.ev.ind{background:var(--warn-soft); color:var(--warn); font-family:"IBM Plex Mono",monospace}
+.ev.hol{background:var(--alert-soft); color:var(--alert); font-weight:700}
+
+/* indicator list */
+.indlist{margin-top:14px; border:1px solid var(--line); border-radius:11px; overflow:hidden; background:var(--surface)}
+.indlist table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:560px}
+.indlist th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--ink-3); text-align:left; padding:10px 14px;
+  border-bottom:1px solid var(--line-2); background:var(--surface-2)}
+.indlist td{padding:10px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+.indlist tr:last-child td{border-bottom:0}
+.indlist .dt{font-family:"IBM Plex Mono",monospace; font-size:12.5px; white-space:nowrap}
+.indlist .st{color:var(--warn); font-family:"IBM Plex Mono",monospace; letter-spacing:-.06em; white-space:nowrap}
+.indlist tr.big td{background:var(--warn-soft)}
+.tbd{margin-top:10px; font-size:13px; color:var(--ink-2); background:var(--surface);
+  border:1px dashed var(--line-2); border-radius:9px; padding:12px 16px}
+.tbd b{color:var(--warn)}
+
+/* links */
+.links{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:14px}
+.links a{display:block; background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); transition:border-color .15s}
+.links a:hover{border-color:var(--accent)}
+.links a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.links .t{font-weight:700; font-size:14px; margin-bottom:3px}
+.links .u{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.links .d{font-size:12px; color:var(--ink-2); margin-top:4px}
+
+.howto{margin-top:16px; background:var(--surface); border-left:3px solid var(--new);
+  border-radius:0 10px 10px 0; padding:15px 18px; font-size:13.5px; color:var(--ink-2)}
+.howto b{color:var(--ink)}
+.howto code{font-family:"IBM Plex Mono",monospace; font-size:12px; background:var(--surface-2);
+  padding:1px 6px; border-radius:4px}
+
+footer{margin-top:60px; padding-top:18px; border-top:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3);
+  display:flex; flex-wrap:wrap; gap:6px 18px}
+@media (max-width:640px){ .wrap{padding:0 14px 70px} .top{padding-top:32px} }
+</style>
+
+<div class="wrap">
+<div class="top">
+  <div class="eyebrow">ミライニュース ／ 運用カレンダー</div>
+  <h1>配信スケジュールと市場カレンダー</h1>
+  <p class="lede">平日Discord投稿・日曜のミライニュース配信・経済指標・東証休場日を1枚で。祝日と指標はページ末尾のDATAブロックを書き換えるだけで更新できます。</p>
+  <div class="stamp"><span>最終更新 <b id="stampUpd">—</b></span><span>今日 <b id="stampToday">—</b></span><span id="stampNext"></span></div>
+</div>
+
+<div class="sec">
+  <div class="k">This Week</div>
+  <h2>直近7日の予定</h2>
+</div>
+<div id="todayStrip"></div>
+
+<div class="sec">
+  <div class="k">Rules</div>
+  <h2>平日Discord投稿枠のルール</h2>
+  <p>2026-09-01 制定。数字が確定してから、毎日同じ時刻に。</p>
+</div>
+<div class="rules">
+  <div class="rule">
+    <div class="h">投稿時刻 <span class="mono">15:15 固定</span></div>
+    <p>大引け15:00の確定値で書く。日経平均は二度と動かない数字になるため、訂正が発生しない。読者側も「毎日15時過ぎに来る」で習慣化する。</p>
+  </div>
+  <div class="rule">
+    <div class="h">制作フロー</div>
+    <div class="flow" style="margin-top:8px">
+      <span class="on">15:00 大引け</span><i>→</i><span>15:05 データ取得・マップ更新</span><i>→</i><span class="on">15:15 投稿</span>
+    </div>
+  </div>
+  <div class="rule">
+    <div class="h">数字の表記ルール</div>
+    <table>
+      <tr><td>日経平均</td><td><b>終値</b>で言い切る（「66,141円で取引を終えました」）</td></tr>
+      <tr><td>米国株</td><td>「<b>昨晩の</b>ダウは…」— 前日終値</td></tr>
+      <tr><td>為替・原油・金・BTC</td><td>「<b>15時時点で</b>159円85銭」— 時刻明記</td></tr>
+      <tr><td>比較基準</td><td>すべて<b>前日終値比</b>に統一。始値比・週間比は混ぜない</td></tr>
+    </table>
+  </div>
+  <div class="rule">
+    <div class="h">例外日</div>
+    <table>
+      <tr><td>半日立会</td><td>11:30確定 → <b>11:45</b> 投稿</td></tr>
+      <tr><td>祝日・休場日</td><td>投稿なし（前日に翌営業日を予告）</td></tr>
+      <tr><td>15:30超過時</td><td>翌日に回さず「本日15時時点」と明記して当日中に出す。空白日を作らない</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="k">Calendar</div>
+  <h2>月間カレンダー</h2>
+  <p>祝日=東証休場。指標は日本時間。</p>
+</div>
+<div class="calhead">
+  <button id="calPrev" aria-label="前の月">‹</button>
+  <h3 id="calTitle">—</h3>
+  <button id="calNext" aria-label="次の月">›</button>
+  <div class="legend">
+    <span><i style="background:var(--accent)"></i>平日Discord 15:15</span>
+    <span><i style="background:var(--free)"></i>ミライニュース配信（日）</span>
+    <span><i style="background:var(--new)"></i>ファンダ学習（月）</span>
+    <span><i style="background:var(--warn)"></i>経済指標</span>
+    <span><i style="background:var(--alert)"></i>休場</span>
+  </div>
+</div>
+<div class="calscroll"><table class="cal">
+  <thead><tr><th class="sun">日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th class="sat">土</th></tr></thead>
+  <tbody id="calBody"></tbody>
+</table></div>
+
+<div class="sec">
+  <div class="k">Indicators</div>
+  <h2>経済指標（確定分）</h2>
+</div>
+<div class="indlist"><div style="overflow-x:auto"><table>
+  <thead><tr><th>日時（日本時間）</th><th>指標</th><th>重要度</th><th>メモ</th></tr></thead>
+  <tbody id="indBody"></tbody>
+</table></div></div>
+<div class="tbd" id="tbdBox"></div>
+
+<div class="sec">
+  <div class="k">Links</div>
+  <h2>運用ページ</h2>
+</div>
+<div class="links" id="linkGrid"></div>
+
+<div class="howto">
+  <b>このページの更新方法。</b>ファイル末尾の <code>const DATA = {…}</code> を書き換えて、WPファイルマネージャーで
+  <code>/17/mirai-ops-calendar.html</code> に上書きするだけです。祝日は <code>closures</code>、指標は <code>indicators</code>、
+  リンクは <code>links</code> に1行足せば、カレンダー・一覧の両方に自動反映されます。HTMLやCSSを触る必要はありません。
+</div>
+
+<footer>
+  <span>ミライニュース 運用カレンダー v1.0</span>
+  <span>ルール制定 2026-09-01</span>
+  <span>データ更新はDATAブロックのみ</span>
+</footer>
+</div>
+
+<script>
+/* ================================================================
+   ▼▼▼ 更新するのはこの DATA ブロックだけ ▼▼▼
+   ================================================================ */
+const DATA = {
+  updated: "2026-09-01",
+
+  // 祝日・東証休場日（土日は自動で休場扱い）
+  closures: [
+    { date:"2026-09-21", name:"敬老の日" },
+    { date:"2026-09-22", name:"国民の休日" },
+    { date:"2026-09-23", name:"秋分の日" },
+    { date:"2026-10-12", name:"スポーツの日" },
+    { date:"2026-11-03", name:"文化の日" },
+    { date:"2026-11-23", name:"勤労感謝の日" },
+    { date:"2026-12-31", name:"大晦日・休場" },
+    { date:"2027-01-01", name:"元日" },
+    { date:"2027-01-02", name:"休場" },
+    { date:"2027-01-03", name:"休場" }
+  ],
+
+  // 半日立会（11:30引け → 11:45投稿）
+  halfDays: [],
+
+  // 経済指標（確定分のみ。時刻は日本時間）
+  indicators: [
+    { date:"2026-09-01", time:"23:00", name:"米ISM製造業景況指数（8月）", imp:4, memo:"利上げ観測の初回チェック" },
+    { date:"2026-09-01", time:"23:00", name:"米JOLTS求人件数（7月）", imp:4, memo:"雇用3連発の1本目" },
+    { date:"2026-09-02", time:"21:15", name:"米ADP雇用統計（8月）", imp:4, memo:"雇用3連発の2本目" },
+    { date:"2026-09-03", time:"03:00", name:"FRB ベージュブック", imp:3, memo:"" },
+    { date:"2026-09-03", time:"21:30", name:"米新規失業保険申請件数", imp:3, memo:"" },
+    { date:"2026-09-03", time:"23:00", name:"米ISM非製造業景況指数（8月）", imp:4, memo:"米経済の本体はサービス業" },
+    { date:"2026-09-04", time:"21:30", name:"米雇用統計（8月）", imp:5, memo:"今週最大の山場。シナリオA/B/C判定" }
+  ],
+
+  // 日付未確定（カレンダーには載せず、下のボックスに表示）
+  tbd: [
+    "米CPI（9月中旬・日付要確認）",
+    "9月FOMC（会合数削減後の日程・要確認）",
+    "米PCEデフレーター（9月下旬・要確認）"
+  ],
+
+  // 定例配信（自動でカレンダーに描画）
+  recurring: [
+    { dow:[1,2,3,4,5], label:"Discord 15:15", cls:"daily",  skipClosed:true  },
+    { dow:[0],          label:"ミライニュース配信", cls:"weekly", skipClosed:false },
+    { dow:[1],          label:"ファンダ学習 14時", cls:"funda",  skipClosed:false }
+  ],
+
+  links: [
+    { t:"アセットクラス強弱マップ", u:"https://aihukugyou.info/17/asset-map.html", d:"毎営業日更新。投稿前にここを更新する" },
+    { t:"ミライ観測ノート（会員向け）", u:"https://aialphabase.github.io/ai-dx-roi-preview/projects/mirai/brief/", d:"予測ではなく記録。先週の見立てを毎週たしかめる。号データはdata/*.jsonで週次追加" },
+    { t:"ミライテラシー業務司令塔（HQ）", u:"https://mirai-literacy-ops.ai-3b97.chatgpt.site/", d:"業務全体の正本。ミライニュースカテゴリ" },
+    { t:"AIトレンドユニバース 司令塔", u:"https://aihukugyou.info/17/ai-trend-universe-command-center.html", d:"運営テーマの進捗管理" },
+    { t:"UTAGE（メール・LINE配信）", u:"https://utage-system.com/login", d:"配信実績。複製時は管理名称を当該回に変更" }
+  ]
+};
+/* ================================================================
+   ▲▲▲ ここから下は触らない ▲▲▲
+   ================================================================ */
+
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const DOW=["日","月","火","水","木","金","土"];
+const closureMap=Object.fromEntries(DATA.closures.map(c=>[c.date,c.name]));
+const indByDate={};
+DATA.indicators.forEach(x=>{(indByDate[x.date]=indByDate[x.date]||[]).push(x)});
+const stars=n=>"★".repeat(n)+"☆".repeat(5-n);
+
+function isClosed(d){ const w=d.getDay(); return w===0||w===6||closureMap[iso(d)]; }
+function eventsFor(d){
+  const w=d.getDay(), key=iso(d), out=[];
+  if(closureMap[key]) out.push({cls:"hol", label:closureMap[key]+"・休場"});
+  DATA.recurring.forEach(r=>{
+    if(!r.dow.includes(w)) return;
+    if(r.skipClosed && isClosed(d)) return;
+    out.push({cls:r.cls, label:r.label});
+  });
+  (indByDate[key]||[]).forEach(x=>out.push({cls:"ind", label:`${x.time} ${x.name.replace(/（.*?）/g,"")}`, big:x.imp>=5}));
+  return out;
+}
+
+/* ---- header stamps ---- */
+const today=new Date(); today.setHours(0,0,0,0);
+$("stampUpd").textContent=DATA.updated;
+$("stampToday").textContent=`${iso(today)}（${DOW[today.getDay()]}）`;
+{ // 次の休場
+  let d=new Date(today), found=null;
+  for(let i=1;i<=45 && !found;i++){ d.setDate(d.getDate()+1);
+    if(closureMap[iso(d)]) found={d:new Date(d), n:closureMap[iso(d)]}; }
+  if(found) $("stampNext").innerHTML=`次の休場 <b>${iso(found.d).slice(5)}（${DOW[found.d.getDay()]}）${found.n}</b>`;
+}
+
+/* ---- this week strip ---- */
+{
+  const host=$("todayStrip");
+  for(let i=0;i<7;i++){
+    const d=new Date(today); d.setDate(d.getDate()+i);
+    const evs=eventsFor(d), closed=isClosed(d);
+    const row=document.createElement("div");
+    row.className="tRow"+(i===0?" today":"")+(closed?" closed":"");
+    let chips="";
+    if(closed && !closureMap[iso(d)] ) chips+=`<span class="pill">休場（週末）</span>`;
+    evs.forEach(e=>{
+      const map={daily:"b-daily",weekly:"b-weekly",funda:"b-funda",hol:"b-closed"};
+      if(e.cls==="ind") chips+=`<span class="pill ind${e.big?" big":""}"><span class="st"></span>${e.label}</span>`;
+      else chips+=`<span class="pill ${map[e.cls]||""}">${e.label}</span>`;
+    });
+    if(!chips) chips=`<span class="pill">予定なし</span>`;
+    row.innerHTML=`<div class="d">${iso(d).slice(5)}<small>${DOW[d.getDay()]}曜${i===0?"・今日":""}</small></div><div class="body">${chips}</div>`;
+    host.appendChild(row);
+  }
+}
+
+/* ---- calendar ---- */
+let calY=today.getFullYear(), calM=today.getMonth();
+function drawCal(){
+  $("calTitle").textContent=`${calY}年 ${calM+1}月`;
+  const first=new Date(calY,calM,1), start=new Date(first); start.setDate(1-first.getDay());
+  const body=$("calBody"); body.innerHTML="";
+  for(let w=0;w<6;w++){
+    const tr=document.createElement("tr"); let anyIn=false;
+    for(let i=0;i<7;i++){
+      const d=new Date(start); d.setDate(start.getDate()+w*7+i);
+      const inM=d.getMonth()===calM; if(inM) anyIn=true;
+      const td=document.createElement("td");
+      const cls=[];
+      if(!inM) cls.push("out");
+      if(inM && isClosed(d)) cls.push("closed");
+      if(iso(d)===iso(today)) cls.push("today");
+      td.className=cls.join(" ");
+      let h=`<span class="n">${d.getDate()}</span>`;
+      if(inM) eventsFor(d).forEach(e=>{ h+=`<span class="ev ${e.cls}">${e.label}</span>`; });
+      td.innerHTML=h; tr.appendChild(td);
+    }
+    if(anyIn) body.appendChild(tr);
+  }
+}
+$("calPrev").onclick=()=>{ calM--; if(calM<0){calM=11;calY--;} drawCal(); };
+$("calNext").onclick=()=>{ calM++; if(calM>11){calM=0;calY++;} drawCal(); };
+drawCal();
+
+/* ---- indicator table ---- */
+{
+  const tb=$("indBody");
+  DATA.indicators.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).forEach(x=>{
+    const d=new Date(x.date+"T00:00:00");
+    const tr=document.createElement("tr"); if(x.imp>=5) tr.className="big";
+    tr.innerHTML=`<td class="dt">${x.date.slice(5)}（${DOW[d.getDay()]}）${x.time}</td><td>${x.name}</td><td class="st">${stars(x.imp)}</td><td style="color:var(--ink-2);font-size:12.5px">${x.memo||""}</td>`;
+    tb.appendChild(tr);
+  });
+  $("tbdBox").innerHTML=`<b>日付未確定：</b>${DATA.tbd.join(" ／ ")} — 確定し次第 DATA.indicators へ移す`;
+}
+
+/* ---- links ---- */
+{
+  const g=$("linkGrid");
+  DATA.links.forEach(l=>{
+    const a=document.createElement("a"); a.href=l.u; a.target="_blank"; a.rel="noopener";
+    a.innerHTML=`<div class="t">${l.t}</div><div class="u">${l.u.replace(/^https?:\/\//,"")}</div><div class="d">${l.d}</div>`;
+    g.appendChild(a);
+  });
+}
+</script>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アセットクラス強弱マップ｜AI TREND UNIVERSE</title>
+<meta name="description" content="経済初心者向け:どのニュースがどの資産に影響するのか、強弱はどう決まるのかを1枚で学ぶ教材マップ">
+<style>
+:root{--bg:#0a0f14;--panel:rgba(255,255,255,.045);--panel-border:rgba(255,255,255,.12);--text-1:#f1f5f9;--text-2:#94a3b8;--green:#6ee7b7;--cyan:#22d3ee;--amber:#fbbf24;--red:#f87171;--violet:#a78bfa;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:radial-gradient(circle at 12% 0%,rgba(16,185,129,.10),transparent 45%),radial-gradient(circle at 90% 100%,rgba(34,211,238,.07),transparent 45%),var(--bg);color:var(--text-1);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;line-height:1.8;min-height:100vh;}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 20px 80px;}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(110,231,183,.5);color:var(--green);padding:7px 18px;border-radius:100px;font-size:12px;letter-spacing:.2em;font-weight:700;}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+h1{font-size:clamp(24px,4.5vw,38px);margin:18px 0 10px;line-height:1.45;}
+h1 .g{color:var(--green);}
+.lead{color:var(--text-2);font-size:14.5px;max-width:640px;}
+.updated{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text-2);background:var(--panel);border:1px solid var(--panel-border);border-radius:100px;padding:8px 16px;margin:18px 0 0;}
+.updated .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+h2{font-size:20px;margin:56px 0 6px;}
+h2 .num{color:var(--cyan);font-size:13px;letter-spacing:.2em;display:block;margin-bottom:4px;}
+.sub{color:var(--text-2);font-size:13.5px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.card{background:var(--panel);border:1px solid var(--panel-border);border-radius:16px;padding:18px 20px;transition:transform .15s,border-color .15s;cursor:default;}
+.card:hover{transform:translateY(-2px);border-color:rgba(110,231,183,.45);}
+.card .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.card .name{font-weight:700;font-size:15px;}
+.mark{font-size:20px;font-weight:800;}
+.m-s{color:var(--green);} .m-a{color:var(--cyan);} .m-b{color:var(--amber);} .m-c{color:var(--red);}
+.card .state{font-size:12.5px;color:var(--text-2);}
+.card .imp{font-size:12px;color:var(--text-1);background:rgba(255,255,255,.05);border-radius:8px;padding:8px 10px;margin-top:10px;line-height:1.6;}
+.flow{background:var(--panel);border:1px solid var(--panel-border);border-radius:16px;padding:22px;margin-bottom:12px;}
+.flow .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.chip{display:inline-block;padding:7px 14px;border-radius:100px;font-size:13px;font-weight:700;}
+.c-green{background:rgba(110,231,183,.15);color:var(--green);border:1px solid rgba(110,231,183,.4);}
+.c-cyan{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.4);}
+.c-amber{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.4);}
+.c-red{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.4);}
+.c-violet{background:rgba(167,139,250,.12);color:var(--violet);border:1px solid rgba(167,139,250,.4);}
+.arr{color:var(--text-2);font-size:16px;}
+.flow .why{font-size:12.5px;color:var(--text-2);margin-top:10px;padding-left:4px;}
+.seesaw{background:var(--panel);border:1px solid var(--panel-border);border-radius:16px;padding:26px 22px;text-align:center;margin-top:14px;}
+.seesaw .boxes{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;}
+.bigbox{border-radius:14px;padding:18px 26px;font-weight:700;font-size:15px;}
+.bb-risk{background:rgba(34,211,238,.10);border:1px solid rgba(34,211,238,.45);color:var(--cyan);}
+.bb-safe{background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.45);color:var(--amber);}
+.rule{display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--panel-border);border-radius:16px;padding:18px 20px;margin-bottom:12px;}
+.rule .n{flex:0 0 40px;height:40px;border-radius:50%;background:rgba(110,231,183,.15);border:1px solid rgba(110,231,183,.5);color:var(--green);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;}
+.rule b{display:block;font-size:15px;margin-bottom:4px;}
+.rule p{font-size:13px;color:var(--text-2);}
+.rule .ex{font-size:12.5px;color:var(--text-1);background:rgba(255,255,255,.05);border-radius:8px;padding:6px 12px;margin-top:8px;display:inline-block;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--text-2);margin:14px 0 0;}
+.note{background:var(--panel);border:1px solid var(--panel-border);border-radius:14px;padding:16px 20px;font-size:12.5px;color:var(--text-2);margin-top:48px;line-height:1.9;}
+footer{text-align:center;color:var(--text-2);font-size:12px;margin-top:40px;letter-spacing:.1em;}
+
+.stage{position:relative;height:480px;margin-top:28px;border:1px solid rgba(66,221,255,.25);border-radius:20px;overflow:hidden;background:radial-gradient(ellipse at 50% 120%,rgba(66,221,255,.12),transparent 60%),#03060c;}
+.floor{position:absolute;left:-25%;right:-25%;bottom:-46%;height:78%;background:repeating-linear-gradient(0deg,rgba(66,221,255,.16) 0 1px,transparent 1px 34px),repeating-linear-gradient(90deg,rgba(66,221,255,.10) 0 1px,transparent 1px 46px);transform:perspective(500px) rotateX(66deg);animation:floorMove 16s linear infinite;}
+@keyframes floorMove{to{background-position:0 34px,46px 0;}}
+.axis{position:absolute;font-size:10.5px;color:#8f9cac;letter-spacing:.18em;z-index:4;font-weight:700;}
+.core{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#bff3ff,#42ddff 45%,#0a2740 85%);box-shadow:0 0 30px rgba(66,221,255,.7),0 0 90px rgba(66,221,255,.25);animation:corePulse 3.2s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#03222e;text-align:center;line-height:1.3;z-index:3;}
+@keyframes corePulse{50%{box-shadow:0 0 48px rgba(66,221,255,.95),0 0 130px rgba(66,221,255,.4);transform:translate(-50%,-50%) scale(1.05);}}
+.orb{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:3;}
+.orb .ball{display:block;margin:0 auto;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),var(--c) 45%,rgba(0,0,0,.78) 94%);box-shadow:0 0 20px var(--c),0 16px 26px rgba(0,0,0,.55);animation:bob var(--sp,5s) ease-in-out var(--d,0s) infinite alternate;}
+@keyframes bob{from{transform:translateY(-8px);}to{transform:translateY(8px);}}
+.orb .lbl{display:block;margin-top:9px;font-size:12.5px;font-weight:700;color:#f5f8fb;text-shadow:0 2px 8px #000;}
+.orb .st{font-size:10px;color:#9fb2c8;display:block;letter-spacing:.05em;}
+.hline{position:absolute;inset:0;width:100%;height:100%;z-index:2;}
+.hline line{stroke:rgba(66,221,255,.30);stroke-width:.25;stroke-dasharray:1.6 1.8;animation:dash 3s linear infinite;}
+@keyframes dash{to{stroke-dashoffset:-7;}}
+.headline{position:absolute;top:14px;left:16px;right:16px;z-index:5;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.headline .hbox{background:rgba(3,6,12,.6);border:1px solid rgba(66,221,255,.35);backdrop-filter:blur(4px);border-radius:10px;padding:8px 14px;font-size:12.5px;color:#e5faff;}
+.read{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#8f9cac;margin-top:12px;}
+.read b{color:#f5f8fb;}
+@media(max-width:640px){.stage{height:420px;}.orb .lbl{font-size:11px;}}
+
+.news-card{background:var(--panel);border:1px solid var(--panel-border);border-left:4px solid var(--green);border-radius:14px;padding:20px 22px;}
+.news-card .nd{font-size:11.5px;color:var(--text-2);letter-spacing:.1em;margin-bottom:6px;}
+.news-card .nt{font-size:16.5px;font-weight:700;line-height:1.6;margin-bottom:10px;}
+.news-card .ns{font-size:13.5px;color:var(--text-2);line-height:1.9;}
+.news-card .nchain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0 4px;}
+.news-card .nlearn{font-size:12.5px;color:var(--text-1);background:rgba(110,231,183,.08);border:1px solid rgba(110,231,183,.25);border-radius:10px;padding:10px 14px;margin-top:12px;line-height:1.8;}
+.news-card .nsrc{font-size:11px;color:var(--text-2);margin-top:10px;}
+.news-card .nsrc a{color:var(--cyan);text-decoration:none;}
+
+/* ===== v2: 答え合わせ・今週の1問・アーカイブ ===== */
+.qa-card{background:var(--panel);border:1px solid var(--panel-border);border-left:4px solid var(--cyan);border-radius:14px;padding:20px 22px;}
+.qa-card .qd{font-size:11.5px;color:var(--text-2);letter-spacing:.1em;margin-bottom:6px;}
+.qa-card .qt{font-size:15px;font-weight:700;line-height:1.7;margin-bottom:8px;}
+.qa-card .qb{font-size:13.5px;color:var(--text-2);line-height:1.9;white-space:pre-line;}
+.quiz-card{background:var(--panel);border:1px solid rgba(167,139,250,.4);border-left:4px solid var(--violet);border-radius:14px;padding:20px 22px;}
+.quiz-card .qopts{margin:12px 0 4px;display:flex;flex-direction:column;gap:8px;}
+.quiz-card .qopt{background:rgba(255,255,255,.05);border:1px solid var(--panel-border);border-radius:10px;padding:9px 14px;font-size:13.5px;}
+.quiz-btn{display:inline-block;margin-top:14px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.5);color:var(--violet);border-radius:100px;padding:10px 22px;font-size:13.5px;font-weight:700;text-decoration:none;}
+.quiz-btn:hover{background:rgba(167,139,250,.25);}
+.quiz-note{font-size:11.5px;color:var(--text-2);margin-top:10px;}
+.delta{font-size:11px;font-weight:700;margin-left:6px;vertical-align:2px;border-radius:6px;padding:1px 7px;}
+.d-up{color:var(--green);background:rgba(110,231,183,.12);border:1px solid rgba(110,231,183,.35);}
+.d-down{color:var(--red);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);}
+.d-flat{color:var(--text-2);background:rgba(255,255,255,.05);border:1px solid var(--panel-border);}
+.hist-wrap{overflow-x:auto;}
+table.hist{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px;}
+table.hist th{color:var(--text-2);font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--panel-border);font-size:11.5px;letter-spacing:.05em;}
+table.hist td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.07);}
+table.hist td.mk{text-align:center;font-weight:800;}
+table.hist tr:first-child td{color:var(--text-1);}
+table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<span class="badge">MARKET EDUCATION</span>
+<h1>アセットクラス<span class="g">強弱マップ</span><br>お金の流れを1枚で読む</h1>
+<p class="lead">株・金・暗号資産・金利・ドル・原油 — バラバラに見えるニュースは、実はつながっています。「どのニュースが、どの資産に、どう効くのか」を初心者向けに1枚へ整理した教材ページです。</p>
+<div class="updated"><span class="dot"></span>最終更新: <span id="lastUpdated"></span> ・ 強弱判定は下のルールに基づく定点観測です</div>
+
+<h2 style="margin-top:36px;"><span class="num">SECTION 00</span>瞬間マップ — 今の相場のかたち</h2>
+<p class="sub">読まなくてもわかるゾーン。<b style="color:var(--text-1);">上にいる球ほど強く、下ほど弱い。左は安全資産、右はリスク資産。</b>中央で脈打つのが金利 — すべての球はここに繋がれています。詳しく知りたくなったら下のパネルへ。</p>
+<div class="stage" id="stage">
+  <div class="floor"></div>
+  <div class="headline"><span class="hbox" id="shapeRead">今の形: 左上が重い =「守りながら攻める」相場</span><span class="hbox" style="color:#8f9cac;">🔄 <span id="stageDate"></span> 更新</span></div>
+  <span class="axis" style="top:52px;left:16px;">▲ 強い</span>
+  <span class="axis" style="bottom:12px;left:16px;">▼ 弱い</span>
+  <span class="axis" style="bottom:12px;left:50%;transform:translateX(-120%);">← 安全資産</span>
+  <span class="axis" style="bottom:12px;left:50%;transform:translateX(20%);">リスク資産 →</span>
+  <svg class="hline" id="gravLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+  <div class="core">金利<br>(重力)</div>
+  <div id="orbLayer"></div>
+</div>
+<div class="read"><span><b>球の色</b> = 強弱(緑=強い/水色=強いが注意/黄=拮抗/赤=弱い)</span><span><b>球の大きさ</b> = 市場への影響力</span><span><b>点線</b> = 金利の重力(全資産に効く)</span><span><b>揺れ</b> = 常に動いている=固定された答えはない</span></div>
+
+<h2><span class="num">TODAY'S PICK</span>今日知るべきニュース(1本だけ)</h2>
+<p class="sub">更新のたびに、その日いちばん上のマップを動かしているニュースを1本だけ選んで、やさしく要約します。たくさん追う必要はありません — 主役の1本を深く。</p>
+<div id="newsBox"></div>
+
+<div id="answerSection" style="display:none;">
+<h2><span class="num">答え合わせ</span>先週の1問、どうなった?</h2>
+<p class="sub">予想を当てるゲームではありません。「どのルールが、どう効いたか」を毎週確かめる練習です。</p>
+<div id="answerBox"></div>
+</div>
+
+<h2><span class="num">SECTION 01</span>いまの強弱ボード</h2>
+<p class="sub">◎=強い ○=強いが注意あり △=どちらでもない(拮抗) ▼=弱い。この記号はニュースの見出しではなく、下の「3つのルール」で機械的に決めています。</p>
+<div class="grid" id="assetBoard"></div>
+<div class="legend"><span>◎ 強い(上昇トレンド)</span><span>○ 強いが過熱・注意</span><span>△ 拮抗・様子見</span><span>▼ 弱い(下降・重石あり)</span></div>
+
+<div id="histSection" style="display:none;">
+<h2><span class="num">ARCHIVE</span>定点観測アーカイブ — 強弱はこう動いてきた</h2>
+<p class="sub">毎週の判定を同じルールで記録し続けています。<b style="color:var(--text-1);">蓄積そのものが「ニュースの読み方」の教科書</b>になります。</p>
+<div class="hist-wrap"><table class="hist" id="histTable"></table></div>
+</div>
+
+<h2><span class="num">SECTION 02</span>ニュースはどこに効くのか(影響の流れ)</h2>
+<p class="sub">ニュースは「直接効く資産」と「そこを経由して波及する資産」があります。矢印の順番ごと覚えるのがコツです。</p>
+<div class="flow"><div class="row"><span class="chip c-violet">CPI・雇用統計</span><span class="arr">→</span><span class="chip c-cyan">金利(観測)</span><span class="arr">→</span><span class="chip c-green">株</span><span class="chip c-amber">金</span><span class="chip c-cyan">BTC</span></div><p class="why">物価や雇用が強い→「利上げされるかも」→金利上昇→利息を生まない金や、将来の利益で買われる株・BTCの重石に。弱い数字なら逆回転。</p></div>
+<div class="flow"><div class="row"><span class="chip c-violet">FRBの発言・FOMC議事録</span><span class="arr">→</span><span class="chip c-cyan">金利(観測)</span><span class="arr">→</span><span class="chip c-green">ほぼ全資産</span></div><p class="why">中央銀行の一言は金利観測を直接動かすので、全資産の「重力」が変わる。最優先で見るニュース。</p></div>
+<div class="flow"><div class="row"><span class="chip c-red">中東情勢・地政学</span><span class="arr">→</span><span class="chip c-amber">原油</span><span class="arr">→</span><span class="chip c-cyan">金利(インフレ経由)</span><span class="arr">＋</span><span class="chip c-amber">金(有事の買い)</span></div><p class="why">緊張→原油高→インフレ懸念→金利上昇圧力、という遠回りの悪影響と、「怖いから金を買う」直接の追い風が同時に起きる。</p></div>
+<div class="flow"><div class="row"><span class="chip c-red">ハッキング・事故</span><span class="arr">→</span><span class="chip c-cyan">BTC</span><span class="arr">→</span><span class="chip c-red">アルトコイン(増幅)</span></div><p class="why">個別事件はまずその資産だけに効くが、暗号資産は「BTCが咳をするとアルトは風邪をひく」増幅構造がある。</p></div>
+<div class="flow"><div class="row"><span class="chip c-green">株(指数)</span><span class="arr">→</span><span class="chip c-cyan">BTC</span><span class="arr">→</span><span class="chip c-red">アルトコイン</span></div><p class="why">リスク選好の鎖。同じ方向に動き、後ろへ行くほど値幅が増幅される(順相関チェーン)。逆に、指数が上がるのにアルトが脱落し始めたら「資金の裾野が狭くなった」警報。</p></div>
+<div class="seesaw">
+<p style="font-weight:700;margin-bottom:14px;">おおもとの構図: お金は2つの箱を行き来する</p>
+<div class="boxes"><div class="bigbox bb-risk">リスク資産の箱<br><span style="font-size:12px;font-weight:400;">株・BTC・アルト</span></div><span style="font-size:22px;color:var(--text-2);">⇄</span><div class="bigbox bb-safe">安全資産の箱<br><span style="font-size:12px;font-weight:400;">金・現金・国債</span></div></div>
+<p style="font-size:12.5px;color:var(--text-2);margin-top:14px;">景気に自信がある時は左へ、怖い時は右へ。ただし「全部が同時に上がる/下がる」例外があり、それを起こすのが金利とドルの大変動。だから金利が主役。</p>
+</div>
+
+<h2><span class="num">SECTION 03</span>強弱はどう決まるのか(3つのルール)</h2>
+<p class="sub">感想やニュースの雰囲気では決めません。誰がやっても同じ答えになる3つの物差しで決めます。</p>
+<div class="rule"><div class="n">1</div><div><b>位置 — 平均線の上か、下か</b><p>直近20日の平均価格より上にいれば買い方が優勢、下なら売り方が優勢。トレンドの向きは「今の値段と平均の位置関係」でまず判定する。</p><span class="ex">例: 平均線の上で推移が続く=◎や○の候補</span></div></div>
+<div class="rule"><div class="n">2</div><div><b>勢い — 直近の変化のスピード</b><p>1週間でどれだけ動いたか。急ぎすぎ(例: 1日+3%超)は強さと同時に「買い疲れ」のサインでもあるので、◎ではなく○(注意つき)に格下げする。</p><span class="ex">例: 8月の金は+10%と強いが急騰日は過熱扱い</span></div></div>
+<div class="rule"><div class="n">3</div><div><b>混雑度 — みんなが同じ側にいないか</b><p>専門家の9割が強気、のような極端な一致は「もう買う人が残っていない」状態。満員のバスは次の停留所で降りる人の方が多い。極端な数字はむしろ逆方向の警報として読む。</p><span class="ex">例: 強気84%=強さの証明ではなく混雑の警告</span></div></div>
+
+<div class="note">📌 このページは経済ニュースの読み方を学ぶための<b>教材</b>です。特定の売買を推奨する投資助言ではありません。強弱ボードは上記ルールによる定点観測で、市場の変化に合わせて不定期に更新されます。URLは変わらないので、ブックマークすればいつでも最新の状態を確認できます。</div>
+<footer>Powered by AI TREND UNIVERSE</footer>
+</div>
+<script>
+// ===== データは asset-data.json に分離(n8n等で自動更新)。ここは触らない =====
+async function loadMap(){
+ let D = null;
+ // 一次ソース: GitHub Pages(夜間ジョブが自動更新)。落ちていたらサーバー上のファイルにフォールバック
+ // データは同じリポジトリの automation/out/ にある（夜間ジョブが自動更新）。
+ // 相対パス優先＝将来ドメインを変えても壊れない。落ちたら絶対URLへフォールバック。
+ const SRC = '../../../automation/out/';
+ const SRC2 = 'https://aialphabase.github.io/ai-dx-roi-preview/automation/out/';
+ try{ D = await fetch(SRC+'asset-data.json?v='+Date.now()).then(r=>{ if(!r.ok) throw 0; return r.json(); }); }
+ catch(e){ try{ D = await fetch(SRC2+'asset-data.json?v='+Date.now()).then(r=>{ if(!r.ok) throw 0; return r.json(); }); }catch(e2){ D = null; } }
+ if(!D || !D.assets || !D.updated){ document.getElementById('shapeRead').textContent = '⚠ データ読み込みエラー: asset-data.json を確認してください'; return; }
+ // 鮮度チェック: 更新が7日以上止まっていたら警告(「正常です」の嘘を防ぐ)
+ const age = (Date.now() - new Date(D.updated+'T00:00:00+09:00').getTime()) / 86400000;
+ const stale = age > 7 ? ' ⚠ 更新が'+Math.floor(age)+'日止まっています' : '';
+ document.getElementById('lastUpdated').textContent = D.updated + stale;
+ document.getElementById('stageDate').textContent = D.updated;
+ document.getElementById('shapeRead').textContent = D.shapeRead;
+ // v2: 履歴を読み(無くても動く)、前回との変化を出す
+ let H = [];
+ try{ H = await fetch(SRC+'asset-history.json?v='+Date.now()).then(r=>{ if(!r.ok) throw 0; return r.json(); }); }
+ catch(e){ try{ H = await fetch(SRC2+'asset-history.json?v='+Date.now()).then(r=>{ if(!r.ok) throw 0; return r.json(); }); }catch(e2){ H = []; } }
+ if(!Array.isArray(H)) H = [];
+ H.sort((a,b)=> (a.date<b.date?1:-1));
+ const prev = H.find(h=>h.date < D.updated) || null;
+ const RANK = {'◎':3,'○':2,'△':1,'▼':0};
+ const deltaOf = (a)=>{
+  if(!prev) return '';
+  const key = a.short||a.name;
+  const pm = prev.marks ? prev.marks[key] : undefined;
+  if(pm===undefined) return '';
+  if(pm===a.mark) return '<span class="delta d-flat">→ 先週'+pm+'</span>';
+  const up = RANK[a.mark]>RANK[pm];
+  return '<span class="delta '+(up?'d-up':'d-down')+'">'+(up?'↑':'↓')+' 先週'+pm+'</span>';
+ };
+ document.getElementById('assetBoard').innerHTML = D.assets.map(a=>
+  '<div class="card"><div class="top"><span class="name">'+a.name+deltaOf(a)+'</span><span class="mark '+a.cls+'">'+a.mark+'</span></div><p class="state">'+a.state+'</p><div class="imp">'+a.imp+'</div></div>').join('');
+ const orbs = D.assets.filter(a=>a.pos);
+ document.getElementById('orbLayer').innerHTML = orbs.map((a,i)=>
+  '<div class="orb" style="left:'+a.pos.x+'%;top:'+a.pos.y+'%;"><span class="ball" style="--c:'+a.c+';--sp:'+(4.5+i*0.6)+'s;--d:'+(i*0.7)+'s;width:'+a.pos.s+'px;height:'+a.pos.s+'px;"></span><span class="lbl">'+(a.short||a.name)+' '+a.mark+'</span><span class="st">'+a.state.split('。')[0]+'</span></div>').join('');
+ document.getElementById('gravLines').innerHTML = orbs.map(a=>'<line x1="50" y1="58" x2="'+a.pos.x+'" y2="'+a.pos.y+'"/>').join('');
+ const n = D.news, nb = document.getElementById('newsBox');
+ if(n && nb){ nb.innerHTML = '<div class="news-card"><div class="nd">📰 '+n.date+' PICK</div><div class="nt">'+n.title+'</div><p class="ns">'+n.summary+'</p><div class="nchain">'+n.chain.map(c=>c[1]?'<span class="chip '+c[1]+'">'+c[0]+'</span>':'<span class="arr">'+c[0]+'</span>').join('')+'</div><div class="nlearn">'+n.learn+'</div><div class="nsrc">出典: <a href="'+n.url+'" target="_blank" rel="noopener">'+n.src+'</a></div></div>'; }
+
+ // v2: 先週の答え合わせ(answerCheckがある時だけ表示)
+ const ac = D.answerCheck;
+ if(ac && ac.text){
+  document.getElementById('answerSection').style.display='';
+  document.getElementById('answerBox').innerHTML =
+   '<div class="qa-card"><div class="qd">✅ '+(ac.date||D.updated)+' 答え合わせ</div><div class="qt">'+(ac.title||'先週の1問の結果')+'</div><p class="qb">'+ac.text+'</p></div>';
+ }
+
+ // v2: 定点観測アーカイブ(履歴が2週以上ある時だけ表示)
+ if(H.length >= 2){
+  document.getElementById('histSection').style.display='';
+  const cols = D.assets.map(a=>a.short||a.name);
+  document.getElementById('histTable').innerHTML =
+   '<tr><th>週</th>'+cols.map(c=>'<th style="text-align:center;">'+c+'</th>').join('')+'<th>今週の形</th></tr>'+
+   H.map(h=>'<tr><td>'+h.date+(h.pickTitle?'<span class="sh">'+h.pickTitle+'</span>':'')+'</td>'+
+     cols.map(c=>'<td class="mk">'+((h.marks&&h.marks[c])||'—')+'</td>').join('')+
+     '<td style="font-size:11.5px;color:var(--text-2);">'+(h.shapeRead||'').replace(/^今の形:\s*/,'')+'</td></tr>').join('');
+ }
+}
+loadMap();
+</script>
+<script src="https://aihukugyou.info/17/track-mirai/t.js" defer></script>
+</body>
+</html>
