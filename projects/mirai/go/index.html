@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<title>ミライテラシー</title>
+<style>body{margin:0;background:#0f1216;color:#98a4b3;font-family:-apple-system,"Hiragino Sans",sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;font-size:14px}</style>
+</head><body><div>開いています…</div>
+<script>
+/* 会員向けリンクの転送ページ。クリックをミライテラシー専用の行動計測(track-mirai)に1件記録してから行き先へ移動する。
+   個人情報は送らない(t.jsと同じ形式: 匿名セッションID・ページ・入口ID のみ) */
+(function(){
+  var q = location.search.match(/[?&]src=([^&]+)/i);
+  var id = q ? decodeURIComponent(q[1]).replace(/[^0-9A-Za-z_\-]/g,'').slice(0,100) : '';
+  var EP = 'https://aihukugyou.info/17/track-mirai/track.php';
+  function go(url){ location.replace(url); }
+  fetch('links.json?v=' + Date.now()).then(function(r){ return r.json(); }).then(function(map){
+    var url = map[id];
+    if(!url){ document.body.innerHTML = '<div>リンクが見つかりません</div>'; return; }
+    try{
+      if(navigator.doNotTrack !== '1' && localStorage.getItem('_atu_exclude') !== '1'){
+        var sid = (Math.random().toString(16) + '0000000000').slice(2, 18);
+        var body = JSON.stringify({events:[{sid:sid, ev:'view', pg:location.pathname.slice(0,190), src:id, vw:innerWidth, dw:innerWidth, dh:innerHeight, ref:(document.referrer||'').slice(0,190)}]});
+        if(navigator.sendBeacon) navigator.sendBeacon(EP, new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        else fetch(EP,{method:'POST',body:body,keepalive:true});
+      }
+    }catch(e){}
+    setTimeout(function(){ go(url); }, 250);
+  }).catch(function(){ document.body.innerHTML = '<div>読み込めませんでした。時間をおいて開き直してください</div>'; });
+})();
+</script></body></html>
