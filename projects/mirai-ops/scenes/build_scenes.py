@@ -31,8 +31,31 @@ CSS = '''
  --line:#33425c;--line2:#2b3850;--line3:#44536e;
  --bar1:#3d5c7a;--bar2:#6f92b5;--bar-key:#8a6f34;
  --ui-bg:#0c1323d9;
- --serif:"Hiragino Mincho ProN","Yu Mincho",serif;
+ --font:"Hiragino Mincho ProN","Yu Mincho",serif;
 }
+/* ウィークリーミライニュース本編に合わせた明るい地（第4回・第26回の実画面に準拠） */
+body[data-theme="light"]{
+ --font:"Hiragino Sans","Noto Sans JP",sans-serif;
+ --page:#f2efe9;--bg1:#ffffff;--bg2:#fbfaf6;--bg3:#f4f1ea;
+ --key:#b8862f;--on-key:#ffffff;--key-line:#b8862f55;--key-tint:#b8862f14;
+ --sub:#2f6f66;--warn:#b0463c;
+ --ink:#1b2c43;--ink2:#33465f;--muted:#6d7b8c;
+ --card:#ffffff;--card2:#fbf9f4;--card3:#ffffff;
+ --line:#ddd7ca;--line2:#e8e3d8;--line3:#c7bfae;
+ --bar1:#9fb4c9;--bar2:#6d8faf;--bar-key:#d8b46a;
+ --ui-bg:#ffffffd9;
+}
+body[data-theme="light"] .two article,body[data-theme="light"] .rate-cards article,
+body[data-theme="light"] .abc article,body[data-theme="light"] .three article,
+body[data-theme="light"] .blk,body[data-theme="light"] .head-card,
+body[data-theme="light"] .side div,body[data-theme="light"] .aside,
+body[data-theme="light"] .band{box-shadow:0 2px 12px rgba(27,44,67,.07)}
+body[data-theme="light"] .head-card,body[data-theme="light"] .two article{background:#fff}
+body[data-theme="light"] h2.t{font-weight:700;letter-spacing:.01em}
+body[data-theme="light"] .badge,body[data-theme="light"] .head-card .tag{color:#fff}
+body[data-theme="light"] .abc .tag{background:#eceadf;color:#33465f;border-color:#ddd7ca}
+body[data-theme="light"] .abc article.best .tag{background:#b8862f;color:#fff}
+body[data-theme="light"] .lvl .txt b{font-family:var(--font);font-weight:700}
 /* ミライテラシー：藍と若草。落ち着いた学びの側 */
 body[data-theme="literacy"]{
  --page:#060a12;--bg1:#16283f;--bg2:#0b1626;--bg3:#060c16;
@@ -53,7 +76,7 @@ body[data-theme="crypto"]{
 }
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--page)}
-body{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:var(--ink)}
+body{font-family:var(--font);color:var(--ink)}
 #stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;
  transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center;
  background:radial-gradient(120% 90% at 78% 10%,var(--bg1) 0%,var(--bg2) 42%,var(--bg3) 100%);overflow:hidden}
