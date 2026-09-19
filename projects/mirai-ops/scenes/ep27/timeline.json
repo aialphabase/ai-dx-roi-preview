@@ -1,0 +1,106 @@
+{
+ "ep": 27,
+ "fps": 30,
+ "size": "1920x1080",
+ "scenes": [
+  {
+   "id": "A",
+   "no": 1,
+   "kind": "cards2",
+   "steps": 0,
+   "render_ms": 2900,
+   "script_at": "0:30",
+   "script_len": "23秒"
+  },
+  {
+   "id": "B",
+   "no": 2,
+   "kind": "headline",
+   "steps": 0,
+   "render_ms": 2900,
+   "script_at": "0:53",
+   "script_len": "10秒"
+  },
+  {
+   "id": "C",
+   "no": 3,
+   "kind": "bars",
+   "steps": 4,
+   "render_ms": 6500,
+   "script_at": "1:03",
+   "script_len": "46秒"
+  },
+  {
+   "id": "D",
+   "no": 4,
+   "kind": "table2",
+   "steps": 1,
+   "render_ms": 2900,
+   "script_at": "1:49",
+   "script_len": "49秒"
+  },
+  {
+   "id": "E",
+   "no": 5,
+   "kind": "headline",
+   "steps": 0,
+   "render_ms": 2900,
+   "script_at": "2:38",
+   "script_len": "11秒"
+  },
+  {
+   "id": "F",
+   "no": 6,
+   "kind": "levels",
+   "steps": 2,
+   "render_ms": 4100,
+   "script_at": "2:49",
+   "script_len": "48秒"
+  },
+  {
+   "id": "G",
+   "no": 7,
+   "kind": "linechart",
+   "steps": 3,
+   "render_ms": 5300,
+   "script_at": "3:37",
+   "script_len": "47秒"
+  },
+  {
+   "id": "H",
+   "no": 8,
+   "kind": "board",
+   "steps": 0,
+   "render_ms": 2900,
+   "script_at": "4:24",
+   "script_len": "40秒"
+  },
+  {
+   "id": "I",
+   "no": 9,
+   "kind": "compare",
+   "steps": 3,
+   "render_ms": 5300,
+   "script_at": "5:04",
+   "script_len": "53秒"
+  },
+  {
+   "id": "J",
+   "no": 10,
+   "kind": "branches",
+   "steps": 3,
+   "render_ms": 5300,
+   "script_at": "5:57",
+   "script_len": "67秒"
+  },
+  {
+   "id": "K",
+   "no": 11,
+   "kind": "numbers3",
+   "steps": 3,
+   "render_ms": 5300,
+   "script_at": "7:04",
+   "script_len": "15秒"
+  }
+ ]
+}
