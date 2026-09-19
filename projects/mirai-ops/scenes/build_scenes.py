@@ -180,9 +180,16 @@ svg.chart text{font-family:"Hiragino Sans",sans-serif;fill:#cfd8e6}
 .three p{margin:10px 0 0;font:18px "Hiragino Sans",sans-serif;color:#9fb0c6}
 
 /* 収録用UI（既定は非表示） */
-#ui{position:absolute;right:26px;bottom:20px;display:none;align-items:center;gap:10px;
+#ui{position:absolute;right:26px;bottom:20px;display:flex;align-items:center;gap:10px;
  font:15px "Hiragino Sans",sans-serif;color:#9fb0c6;z-index:9}
-body.ui #ui{display:flex}
+body.ui #ui,body.ui #index{display:none}
+#index{position:absolute;left:0;right:0;top:16px;display:flex;justify-content:center;gap:6px;z-index:9}
+#index button{border:1px solid #2f3d55;background:#0c1323cc;color:#8d9bb0;border-radius:8px;
+ font:14px "Hiragino Sans",sans-serif;padding:6px 11px;cursor:pointer}
+#index button.active{border-color:#eac77e;background:#eac77e;color:#20190c;font-weight:700}
+:fullscreen #ui,:fullscreen #index{display:none}
+#hint{position:absolute;left:26px;bottom:22px;font:14px "Hiragino Sans",sans-serif;color:#6b7a91;z-index:9}
+:fullscreen #hint,body.ui #hint{display:none}
 #ui button{border:1px solid #344051;background:#0c1323d9;color:#eac77e;font-size:19px;width:38px;height:38px;border-radius:50%}
 #info{position:absolute;left:26px;bottom:20px;display:none;font:15px/1.7 "Hiragino Sans",sans-serif;color:#9fb0c6;
  background:#0c1323d9;border:1px solid #344051;border-radius:10px;padding:10px 16px;z-index:9;text-align:left}
@@ -357,6 +364,7 @@ SCRIPT = '''
 const scenes=[...document.querySelectorAll('.scene')];let cur=0,step=0;
 function paint(){const s=scenes[cur];s.querySelectorAll('.st').forEach(e=>e.classList.toggle('in',+e.dataset.step<=step));
  document.querySelector('#count').textContent=(cur+1)+' / '+scenes.length+'  '+s.dataset.id;
+ [...document.querySelectorAll('#index button')].forEach(function(b,i){b.classList.toggle('active',i===cur)});
  document.querySelector('#info').innerHTML='資料 '+s.dataset.id+'／シーン'+s.dataset.no+'　'+s.dataset.at+'　'+s.dataset.len+'<br>'+(step)+' / '+s.dataset.steps+' 状態';}
 function show(n,end){if(n<0||n>=scenes.length)return;cur=n;scenes.forEach((s,i)=>{s.classList.toggle('on',i===n);s.inert=i!==n});
  step=end?+scenes[n].dataset.steps:0;paint()}
@@ -368,7 +376,12 @@ addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' ','Enter'].includes
  else if(e.key==='i'){document.body.classList.toggle('info')}
  else if(e.key==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
  else if(e.key==='Home'){show(0)}});
-document.querySelector('#next').onclick=next;document.querySelector('#prev').onclick=prev;
+document.querySelector('#next').onclick=function(e){e.stopPropagation();next()};
+document.querySelector('#prev').onclick=function(e){e.stopPropagation();prev()};
+var idx=document.querySelector('#index');
+scenes.forEach(function(s,i){var b=document.createElement('button');b.textContent=s.dataset.id;
+ b.onclick=function(e){e.stopPropagation();show(i)};idx.appendChild(b)});
+document.querySelector('#stage').addEventListener('click',function(e){if(!e.target.closest('button'))next()});
 function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1440,innerHeight/810))}
 addEventListener('resize',fit);fit();
 const q=new URLSearchParams(location.search);show(Math.max(0,(+q.get('s')||1)-1),q.get('full')==='1');
@@ -379,6 +392,8 @@ page = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<title>{E(meta["title"])}</title><style>{CSS}</style></head><body><div id="stage">'
         + ''.join(build(s) for s in scenes) +
+        '<div id="index"></div>'
+        '<div id="hint">クリック / → で進む　f 全画面　u 画面だけにする　i 尺</div>'
         '<div id="ui"><button id="prev">‹</button><span id="count"></span><button id="next">›</button></div>'
         '<div id="info"></div></div>'
         f'<script>{SCRIPT}</script></body></html>')
