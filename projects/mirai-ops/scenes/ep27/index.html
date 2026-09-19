@@ -1,0 +1,189 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ウィークリーミライニュース 第27回 収録シーン</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05080f}
+body{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:#f4f2e9}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;
+ transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center;
+ background:radial-gradient(120% 90% at 78% 10%,#122240 0%,#0a1223 42%,#060b16 100%);overflow:hidden}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ padding:70px 80px;opacity:0;transition:opacity .8s ease;pointer-events:none}
+.scene.on{opacity:1;pointer-events:auto}
+h2.t{font-size:44px;line-height:1.35;margin:0 0 30px;letter-spacing:.02em;text-align:center}
+h2.t em{font-style:normal;color:#eac77e}
+.sub{font:20px/1.6 "Hiragino Sans",sans-serif;color:#9fb0c6;margin:-16px 0 26px}
+.foot{position:absolute;left:80px;right:80px;bottom:56px;text-align:center;font-size:27px;color:#e7e3d6}
+.foot b{color:#eac77e}
+.st{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.3,1)}
+.st.in{opacity:1;transform:none}
+
+/* A 記事カード2枚 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px;width:1220px}
+.two article{background:linear-gradient(160deg,#16243f,#101a2e);border:1px solid #33425c;border-top:3px solid #eac77e;
+ border-radius:16px;padding:34px 34px 30px;min-height:250px;display:flex;flex-direction:column}
+.two small{font:16px/1 "Hiragino Sans",sans-serif;letter-spacing:.16em;color:#8bbdb9}
+.two h3{font-size:29px;line-height:1.5;margin:16px 0 auto}
+.two .m{font:16px "Hiragino Sans",sans-serif;color:#8d9bb0;margin-top:22px}
+
+/* B/E 見出しカード */
+.head-card{width:1180px;background:linear-gradient(150deg,#17263f,#0f1a2d);border:1px solid #3a4862;border-radius:18px;
+ padding:56px 60px;position:relative}
+.head-card .src{font:17px "Hiragino Sans",sans-serif;letter-spacing:.2em;color:#8bbdb9;margin-bottom:26px}
+.head-card h1{font-size:52px;line-height:1.5;margin:0}
+.head-card .by{font:18px "Hiragino Sans",sans-serif;color:#8d9bb0;margin-top:30px}
+.head-card .tag{position:absolute;right:52px;top:48px;background:#eac77e;color:#20190c;border-radius:8px;
+ font:700 21px "Hiragino Sans",sans-serif;padding:10px 20px}
+
+/* C 横バー */
+.bars{width:1180px;display:flex;flex-direction:column;gap:30px}
+.bar{display:grid;grid-template-columns:230px 1fr;align-items:center;gap:26px}
+.bar .lb{font:20px "Hiragino Sans",sans-serif;color:#b8c4d5;text-align:right}
+.bar .track{position:relative;height:66px;background:#101b31;border:1px solid #2b3850;border-radius:10px}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:9px;
+ background:linear-gradient(90deg,#3d5c7a,#6f92b5);transition:width 1s cubic-bezier(.25,.9,.3,1)}
+.bar.accent .fill{background:linear-gradient(90deg,#8a6f34,#eac77e)}
+.bar.in .fill{width:var(--w)}
+.bar .val{position:absolute;left:24px;top:0;height:66px;display:flex;align-items:center;gap:16px;
+ font-size:30px;color:#fdfbf4;opacity:0;transition:opacity .5s ease .45s}
+.bar.in .val{opacity:1}
+.bar .val i{font-style:normal;font:17px "Hiragino Sans",sans-serif;color:#cfd8e6}
+.badge{margin:34px auto 0;background:#eac77e;color:#20190c;font:700 30px "Hiragino Sans",sans-serif;
+ padding:12px 30px;border-radius:10px}
+
+/* D 対比表 */
+table.cmp{width:1180px;border-collapse:collapse;font-size:27px}
+table.cmp th{font:17px "Hiragino Sans",sans-serif;letter-spacing:.14em;color:#b8c4d5;padding:0 22px 18px;text-align:left}
+table.cmp th.c{color:#eac77e;font-size:24px;letter-spacing:.04em}
+table.cmp td{border-top:1px solid #2b3850;padding:26px 22px;color:#eef0f4}
+table.cmp td.h{font:19px "Hiragino Sans",sans-serif;color:#9fb0c6;width:220px}
+table.cmp td.mark{position:relative;color:#eac77e}
+table.cmp td.mark:after{content:'';position:absolute;left:8px;right:8px;top:8px;bottom:8px;border:1px solid #eac77e60;
+ border-radius:10px;background:#eac77e12;opacity:0;transition:opacity .6s ease}
+table.cmp tr.in td.mark:after{opacity:1}
+
+/* F 2本のライン */
+.levels{width:1180px;position:relative;height:420px;border-left:1px solid #2b3850}
+.lvl{position:absolute;left:0;right:0;display:flex;align-items:center;gap:22px}
+.lvl:before{content:'';flex:1;height:2px;border-radius:2px;background:currentColor}
+.lvl .txt{font:20px "Hiragino Sans",sans-serif;color:#b8c4d5;white-space:nowrap}
+.lvl .txt b{display:block;font:40px "Hiragino Mincho ProN",serif;margin-top:6px}
+.lvl.gold .txt b{color:#eac77e}.lvl.red .txt b{color:#d98a8a}
+.lvl.gold{color:#eac77e;top:110px}
+.lvl.red{color:#d98a8a;top:320px}
+.chip{position:absolute;left:0;top:-6px;background:#16243f;border:1px solid #3a4862;border-radius:999px;
+ font:19px "Hiragino Sans",sans-serif;color:#cfd8e6;padding:10px 22px}
+
+/* G 折れ線 */
+.chart-wrap{display:grid;grid-template-columns:880px 340px;gap:40px;width:1260px;align-items:center}
+.chart-box{position:relative;width:880px;height:440px}
+svg.chart{position:absolute;left:0;top:0;width:880px;height:440px;overflow:visible}
+.clbl{position:absolute;font-family:"Hiragino Sans",sans-serif;white-space:nowrap;line-height:1.3}
+.clbl.big{font-size:31px;color:#f4f2e9;letter-spacing:.01em}
+.clbl.note{font-size:18px;color:#9fb0c6}
+.clbl.ref{font-size:19px;color:#8bbdb9}
+.clbl.tick{font-size:18px;color:#9fb0c6;transform:translateX(-50%)}
+.clbl.ev{font-size:18px;color:#b8c4d5;transform:translateX(-50%)}
+.clbl.r{transform:translateX(-100%)}
+.clbl.r.st{transform:translateX(-100%) translateY(16px)}
+.clbl.r.st.in{transform:translateX(-100%)}
+.clbl.tick.st{transform:translateX(-50%) translateY(16px)}
+.clbl.tick.st.in{transform:translateX(-50%)}
+svg.chart .axis{stroke:#2b3850;stroke-width:1}
+svg.chart .ref{stroke:#8bbdb9;stroke-width:2;stroke-dasharray:8 8}
+svg.chart .line{fill:none;stroke:#eac77e;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;
+ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.8s cubic-bezier(.4,.1,.3,1)}
+svg.chart .line.in{stroke-dashoffset:0}
+svg.chart text{font-family:"Hiragino Sans",sans-serif;fill:#cfd8e6}
+.side{display:flex;flex-direction:column;gap:22px}
+.side div{background:#12203a;border:1px solid #33425c;border-left:3px solid #8bbdb9;border-radius:12px;padding:22px 24px}
+.side small{font:16px "Hiragino Sans",sans-serif;letter-spacing:.1em;color:#9fb0c6}
+.side b{display:block;font-size:32px;color:#eac77e;margin:8px 0 6px}
+.side p{margin:0;font:16px/1.6 "Hiragino Sans",sans-serif;color:#b8c4d5}
+
+/* H タイトル板＋政策金利カード */
+.board{width:1240px;text-align:center;font-size:50px;line-height:1.45;margin-bottom:44px}
+.board em{font-style:normal;color:#eac77e}
+.rate-cards{display:grid;grid-template-columns:1fr 1fr;gap:34px;width:1180px}
+.rate-cards article{background:#12203a;border:1px solid #33425c;border-radius:16px;padding:30px 34px}
+.rate-cards small{font:17px "Hiragino Sans",sans-serif;letter-spacing:.1em;color:#8bbdb9}
+.rate-cards b{display:block;font-size:56px;color:#eac77e;margin:10px 0 14px}
+.rate-cards li{font:19px/1.8 "Hiragino Sans",sans-serif;color:#cfd8e6;list-style:none}
+.rate-cards ul{margin:0;padding:0}
+
+/* I 動いたもの／動かなかったもの */
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:34px;width:1220px}
+.blk{background:#101b31;border:1px solid #2f3d55;border-radius:16px;padding:26px 30px}
+.blk .day{font:19px "Hiragino Sans",sans-serif;letter-spacing:.08em;color:#8bbdb9;margin-bottom:18px}
+.row{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:14px 0;border-top:1px solid #253149}
+.row:first-of-type{border-top:0}
+.row .n{font:20px "Hiragino Sans",sans-serif;color:#b8c4d5}
+.row .v{font-size:38px}
+.row.up .v{color:#8bbdb9}.row.down .v{color:#d98a8a}
+.row.mark{background:#eac77e12;border-radius:10px;padding:14px 16px;margin-top:8px}
+.row.mark .v{color:#eac77e}
+.blk .note{font:17px/1.6 "Hiragino Sans",sans-serif;color:#9fb0c6;margin-top:10px}
+.band{width:1220px;margin-top:30px;display:flex;align-items:center;gap:24px;background:#12203a;border:1px solid #33425c;
+ border-radius:14px;padding:22px 30px;font:22px "Hiragino Sans",sans-serif;color:#cfd8e6}
+.band .g{font:700 30px "Hiragino Sans",sans-serif;color:#eac77e;padding:0 10px}
+.band .nt{margin-left:auto;font-size:18px;color:#9fb0c6}
+
+/* J ABC */
+.abc-wrap{display:grid;grid-template-columns:270px 1fr;gap:38px;width:1260px;align-items:start}
+.aside{background:#101b31;border:1px solid #2f3d55;border-radius:14px;padding:24px 26px}
+.aside h4{margin:0 0 14px;font:18px "Hiragino Sans",sans-serif;letter-spacing:.12em;color:#8bbdb9}
+.aside li{list-style:none;font:19px/2 "Hiragino Sans",sans-serif;color:#cfd8e6}
+.aside ul{margin:0;padding:0}
+.aside .nt{font:16px/1.6 "Hiragino Sans",sans-serif;color:#8d9bb0;margin-top:14px}
+.abc{display:flex;flex-direction:column;gap:20px}
+.abc article{position:relative;display:grid;grid-template-columns:70px 1fr 300px;align-items:center;gap:24px;background:#12203a;
+ border:1px solid #33425c;border-radius:14px;padding:22px 26px}
+.abc .tag{width:56px;height:56px;border-radius:50%;background:#1d2c49;border:1px solid #44536e;color:#cfd8e6;
+ display:flex;align-items:center;justify-content:center;font:700 28px "Hiragino Sans",sans-serif}
+.abc h3{margin:0 0 8px;font-size:30px}
+.abc li{list-style:none;font:19px/1.7 "Hiragino Sans",sans-serif;color:#cfd8e6}
+.abc ul{margin:0;padding:0}
+.abc .cond{font:18px/1.6 "Hiragino Sans",sans-serif;color:#9fb0c6;text-align:right}
+.abc article.best{border-color:#eac77e;background:linear-gradient(120deg,#1d2b1a00,#eac77e12)}
+.abc article.best .tag{background:#eac77e;color:#20190c;border-color:#eac77e}
+.abc article.best h3{color:#eac77e}
+.abc .best-chip{position:absolute;top:-15px;right:26px;background:#eac77e;color:#20190c;
+ font:700 17px "Hiragino Sans",sans-serif;border-radius:6px;padding:5px 14px;letter-spacing:.06em}
+
+/* K 3つの数字 */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;width:1220px}
+.three article{background:#12203a;border:1px solid #33425c;border-top:3px solid #8bbdb9;border-radius:16px;
+ padding:34px 30px;text-align:center}
+.three small{font:16px "Hiragino Sans",sans-serif;letter-spacing:.2em;color:#8bbdb9}
+.three h3{margin:14px 0 6px;font-size:26px;color:#cfd8e6}
+.three b{display:block;font-size:52px;color:#eac77e}
+.three p{margin:10px 0 0;font:18px "Hiragino Sans",sans-serif;color:#9fb0c6}
+
+/* 収録用UI（既定は非表示） */
+#ui{position:absolute;right:26px;bottom:20px;display:none;align-items:center;gap:10px;
+ font:15px "Hiragino Sans",sans-serif;color:#9fb0c6;z-index:9}
+body.ui #ui{display:flex}
+#ui button{border:1px solid #344051;background:#0c1323d9;color:#eac77e;font-size:19px;width:38px;height:38px;border-radius:50%}
+#info{position:absolute;left:26px;bottom:20px;display:none;font:15px/1.7 "Hiragino Sans",sans-serif;color:#9fb0c6;
+ background:#0c1323d9;border:1px solid #344051;border-radius:10px;padding:10px 16px;z-index:9;text-align:left}
+body.info #info{display:block}
+@media(prefers-reduced-motion:reduce){.st,.bar .fill,svg.chart .line{transition:none}}
+</style></head><body><div id="stage"><section class="scene sc-cards2" data-steps="0" data-id="A" data-no="1" data-at="0:30" data-len="23秒"><h2 class="t">今週の2本</h2><div class="two"><article><small>ニュース①</small><h3>OpenAI、「最大約240兆円の<br>評価額」で新たな<br>資金調達を検討か</h3><div class="m">Forbes JAPAN ／ 2026-09-17</div></article><article><small>ニュース②</small><h3>FRBの利上げ再開観測で<br>ビットコインが直面する<br>「下落リスク」</h3><div class="m">Forbes JAPAN ／ 2026-09-15</div></article></div><div class="foot"><b>そして今週、日米が2日続けて利上げ</b></div></section><section class="scene sc-headline" data-steps="0" data-id="B" data-no="2" data-at="0:53" data-len="10秒"><div class="head-card"><div class="src">Forbes JAPAN</div><h1>OpenAI、「最大約240兆円の評価額」で<br>新たな資金調達を検討か</h1><div class="by">Siladitya Ray ／ 2026年9月17日</div></div></section><section class="scene sc-bars" data-steps="4" data-id="C" data-no="3" data-at="1:03" data-len="46秒"><h2 class="t">評価額の積み上げ</h2><div class="bars"><div class="bar st" data-step="1" style="--w:48.7%"><div class="lb">前回の資金調達</div><div class="track"><div class="fill"></div><div class="val">7,300億ドル<i>117兆円</i></div></div></div><div class="bar st" data-step="2" style="--w:80.0%"><div class="lb">投資家の提示</div><div class="track"><div class="fill"></div><div class="val">1兆2,000億ドル<i>192兆円</i></div></div></div><div class="bar st accent" data-step="3" style="--w:100.0%"><div class="lb">OpenAIの要求</div><div class="track"><div class="fill"></div><div class="val">1兆5,000億ドル<i>240兆円</i></div></div></div></div><div class="badge st" data-step="4">2倍以上</div></section><section class="scene sc-table2" data-steps="1" data-id="D" data-no="4" data-at="1:49" data-len="49秒"><h2 class="t">OpenAI と アンソロピック</h2><table class="cmp"><tr><th></th><th class="c">OpenAI</th><th class="c">アンソロピック</th></tr><tr><td class="h">評価額</td><td class="">1.5兆ドル（要求）</td><td class="">9,650億ドル</td></tr><tr class="st" data-step="1"><td class="h">年換算売上</td><td class="">400億ドル</td><td class="mark">650億ドル超</td></tr><tr><td class="h">上場</td><td class="">2027年以降</td><td class="">年内見込み</td></tr></table><div class="foot">評価額は売上の37倍。240兆円は「期待の値段」</div></section><section class="scene sc-headline" data-steps="0" data-id="E" data-no="5" data-at="2:38" data-len="11秒"><div class="head-card"><div class="tag">FOMCの前日</div><div class="src">Forbes JAPAN</div><h1>FRBの利上げ再開観測でビットコインが<br>直面する「下落リスク」</h1><div class="by">Billy Bambrough ／ 2026.09.15</div></div></section><section class="scene sc-levels" data-steps="2" data-id="F" data-no="6" data-at="2:49" data-len="48秒"><h2 class="t">記事が見ていた2本のライン</h2><div class="levels"><div class="chip">利上げ確率 90%（CME FedWatch）</div><div class="lvl gold st" data-step="1"><div class="txt">直近レンジの下限<b>75,500ドル</b></div></div><div class="lvl red st" data-step="2"><div class="txt">割れたときの目安<b>70,000ドル</b></div></div></div></section><section class="scene sc-linechart" data-steps="3" data-id="G" data-no="7" data-at="3:37" data-len="47秒"><h2 class="t">9/15 → 9/18 の答え合わせ</h2><div class="chart-wrap"><div class="chart-box"><svg class="chart" viewBox="0 0 880 440" aria-hidden="true"><line class="axis" x1="50" y1="358" x2="860" y2="358"/><line x1="346.7" y1="46" x2="346.7" y2="350" stroke="#44536e" stroke-dasharray="4 6"/><line class="ref" x1="50" y1="302.4" x2="860" y2="302.4"/><path class="line st" data-step="1" pathLength="1" d="M100.0,299.0 C260.0,295.0 640.0,207.6 840.0,117.6"/><g class="st" data-step="2"><circle cx="100.0" cy="299.0" r="8" fill="#eac77e"/><circle cx="840.0" cy="117.6" r="8" fill="#eac77e"/></g></svg><div class="clbl tick" style="left:100.0px;top:390px">9/15</div><div class="clbl tick" style="left:346.7px;top:390px">9/16</div><div class="clbl ev" style="left:346.7px;top:14px">FRB 0.25%利上げ</div><div class="clbl tick" style="left:593.3px;top:390px">9/17</div><div class="clbl tick" style="left:840.0px;top:390px">9/18</div><div class="clbl big st" data-step="2" style="left:118.0px;top:187.0px">安値 75,612</div><div class="clbl note st" data-step="2" style="left:118.0px;top:315.0px">記事とほぼ一致</div><div class="clbl big st r" data-step="2" style="left:824.0px;top:33.599999999999994px">81,702</div><div class="clbl note st r" data-step="2" style="left:824.0px;top:71.6px">9月7日以来の8万ドル台</div><div class="clbl ref r" style="left:840px;top:318.4px">記事の 75,500</div></div><div class="side"><div class="st" data-step="3"><small>強制清算</small><b>1億9,200万ドル</b><p>うち売り方 1億8,300万</p></div><div class="st" data-step="3"><small>現物ETF流入</small><b>1億5,900万ドル</b><p>記事の3条件のうち、先に効いたのはETF流入</p></div></div></div></section><section class="scene sc-board" data-steps="0" data-id="H" data-no="8" data-at="4:24" data-len="40秒"><div class="board">240兆円のAIと、<br>3年ぶりの利上げが同じ週に来た意味</div><h2 class="t sub-t">日米、2日続けての利上げ</h2><div class="rate-cards"><article><small>アメリカ FRB ／ 9月17日</small><b>3.75〜4.00%</b><ul><li>3年2カ月ぶりの利上げ</li><li>投票は12対0の全会一致</li></ul></article><article><small>日本 日銀 ／ 9月18日</small><b>1.25%</b><ul><li>1995年以来、31年ぶりの水準</li><li>投票は7対2</li></ul></article></div></section><section class="scene sc-compare" data-steps="3" data-id="I" data-no="9" data-at="5:04" data-len="53秒"><h2 class="t">動いたもの ／ 動かなかったもの</h2><div class="blocks"><div class="blk st" data-step="1"><div class="day">9/17　FRBが上げた日</div><div class="row down"><span class="n">NYダウ</span><span class="v">−631</span></div><div class="row mark"><span class="n">米10年債の金利</span><span class="v">+0.01pt</span></div><div class="note">金利を決める会議の日に、金利がいちばん動かなかった</div></div><div class="blk st" data-step="2"><div class="day">9/18　日銀が上げた日</div><div class="row up"><span class="n">ドル円</span><span class="v">+1.2円の円安</span></div><div class="row up"><span class="n">日経平均</span><span class="v">+1,114</span></div></div></div><div class="band st" data-step="3"><span>日本 1.25%</span>⇔<span>アメリカ 4.00%</span><span class="g">差 2.75%</span><span class="nt">為替は、どちらが上げたかではなく、差がどれだけ縮んだかで動く</span></div></section><section class="scene sc-branches" data-steps="3" data-id="J" data-no="10" data-at="5:57" data-len="67秒"><h2 class="t">来週のABCシナリオ</h2><div class="abc-wrap"><div class="aside"><h4>来週の予定</h4><ul><li>9/24　米 新築住宅販売</li><li>9/25　米 耐久財受注</li><li>9/30　米 GDP</li></ul><div class="nt">日米の会合はどちらも終了</div></div><div class="abc"><article class="st" data-step="1"><div class="tag">A</div><div><h3>買い戻し継続</h3><ul><li>日経平均 66,399 へ</li><li>BTC 8万ドル台を固める</li></ul></div><div class="cond">条件＝原油100ドル割れ</div></article><article class="st" data-step="2"><div class="tag">B</div><div><h3>金利5%の重さ</h3><ul><li>NYダウ 51,462 を試す</li><li>BTC 8万ドル割れ</li></ul></div><div class="cond">条件＝原油105ドル方向</div></article><article class="st best" data-step="3"><div class="best-chip">最有力</div><div class="tag">C</div><div><h3>レンジ</h3><ul><li>日経平均 64,000〜66,000</li><li>BTC 78,000〜83,000</li></ul></div><div class="cond">材料が少なく、30日のGDPまで</div></article></div></div></section><section class="scene sc-numbers3" data-steps="3" data-id="K" data-no="11" data-at="7:04" data-len="15秒"><h2 class="t">来週見る3つの数字</h2><div class="three"><article class="st" data-step="1"><small>01</small><h3>原油</h3><b>100ドル</b><p>割るかどうか</p></article><article class="st" data-step="2"><small>02</small><h3>ドル円</h3><b>160円</b><p>までの距離</p></article><article class="st" data-step="3"><small>03</small><h3>ビットコイン</h3><b>8万ドル</b><p>週の終値で守れるか</p></article></div></section><div id="ui"><button id="prev">‹</button><span id="count"></span><button id="next">›</button></div><div id="info"></div></div><script>
+const scenes=[...document.querySelectorAll('.scene')];let cur=0,step=0;
+function paint(){const s=scenes[cur];s.querySelectorAll('.st').forEach(e=>e.classList.toggle('in',+e.dataset.step<=step));
+ document.querySelector('#count').textContent=(cur+1)+' / '+scenes.length+'  '+s.dataset.id;
+ document.querySelector('#info').innerHTML='資料 '+s.dataset.id+'／シーン'+s.dataset.no+'　'+s.dataset.at+'　'+s.dataset.len+'<br>'+(step)+' / '+s.dataset.steps+' 状態';}
+function show(n,end){if(n<0||n>=scenes.length)return;cur=n;scenes.forEach((s,i)=>{s.classList.toggle('on',i===n);s.inert=i!==n});
+ step=end?+scenes[n].dataset.steps:0;paint()}
+function next(){const m=+scenes[cur].dataset.steps;if(step<m){step++;paint()}else show(cur+1)}
+function prev(){if(step>0){step--;paint()}else show(cur-1,true)}
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();next()}
+ else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+ else if(e.key==='u'){document.body.classList.toggle('ui')}
+ else if(e.key==='i'){document.body.classList.toggle('info')}
+ else if(e.key==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+ else if(e.key==='Home'){show(0)}});
+document.querySelector('#next').onclick=next;document.querySelector('#prev').onclick=prev;
+function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1440,innerHeight/810))}
+addEventListener('resize',fit);fit();
+const q=new URLSearchParams(location.search);show(Math.max(0,(+q.get('s')||1)-1),q.get('full')==='1');
+if(q.get('step')!==null){step=Math.min(+q.get('step'),+scenes[cur].dataset.steps);paint()}
+</script></body></html>
