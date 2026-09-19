@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11141A" media="(prefers-color-scheme: dark)">
+<title>ミライニュース第27回 台本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%}
+img{max-width:100%}
+[hidden]{display:none!important}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{
+  --paper:#F6F7F9; --surface:#FFFFFF; --surface-2:#FBFCFD;
+  --ink:#151A22; --ink-soft:#56616F; --ink-faint:#8A94A2;
+  --rule:#DCE1E8; --rule-strong:#C3CBD6;
+  --accent:#1B4B7A; --accent-soft:#E7EFF7;
+  --cue:#8A4B00; --cue-bg:#FCF4E8; --cue-rule:#E8D4B4;
+  --up:#1C6B4A; --down:#9B2C2C;
+  --read-size:1.22rem; --read-lh:2.05;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11141A; --surface:#181C23; --surface-2:#1D222A;
+    --ink:#E9ECF1; --ink-soft:#9BA6B4; --ink-faint:#6E7887;
+    --rule:#29303A; --rule-strong:#3A4250;
+    --accent:#84B6E2; --accent-soft:#1C2A38;
+    --cue:#E2A660; --cue-bg:#26200F; --cue-rule:#4A3C22;
+    --up:#63C398; --down:#E58585;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11141A; --surface:#181C23; --surface-2:#1D222A;
+  --ink:#E9ECF1; --ink-soft:#9BA6B4; --ink-faint:#6E7887;
+  --rule:#29303A; --rule-strong:#3A4250;
+  --accent:#84B6E2; --accent-soft:#1C2A38;
+  --cue:#E2A660; --cue-bg:#26200F; --cue-rule:#4A3C22;
+  --up:#63C398; --down:#E58585;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:62rem; margin:0 auto; padding-inline:16px; padding-block:0 4rem}
+
+/* header */
+header.bar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  background:color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.bar-in{
+  max-width:62rem; margin:0 auto; padding:.7rem 16px;
+  display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap;
+}
+.bar h1{
+  margin:0; font-size:1rem; font-weight:700; letter-spacing:.02em;
+}
+.bar .sub{font-size:.78rem; color:var(--ink-soft)}
+.bar .len{
+  margin-left:auto; font-family:"Roboto Mono",ui-monospace,monospace;
+  font-size:.78rem; color:var(--accent); font-variant-numeric:tabular-nums;
+}
+
+/* intro */
+.lede{
+  margin-block:1.6rem 2.2rem;
+  display:grid; gap:.9rem;
+}
+.lede h2{
+  margin:0; font-size:1.55rem; font-weight:700; line-height:1.45; text-wrap:balance;
+}
+.lede p{margin:0; color:var(--ink-soft); font-size:.92rem; line-height:1.85; max-width:44rem}
+.metarow{
+  display:flex; flex-wrap:wrap; gap:.5rem .4rem; margin-top:.2rem;
+}
+.chip{
+  font-family:"Roboto Mono",ui-monospace,monospace; font-size:.72rem;
+  padding:.28rem .55rem; border:1px solid var(--rule-strong); border-radius:2px;
+  color:var(--ink-soft); background:var(--surface); font-variant-numeric:tabular-nums;
+}
+.chip b{color:var(--ink); font-weight:500}
+
+/* section band */
+.band{
+  display:flex; align-items:center; gap:.75rem;
+  margin:2.6rem 0 1rem; padding-bottom:.55rem;
+  border-bottom:2px solid var(--ink);
+}
+.band h3{margin:0; font-size:1.05rem; font-weight:700; letter-spacing:.04em}
+.band .range{
+  margin-left:auto; font-family:"Roboto Mono",ui-monospace,monospace;
+  font-size:.76rem; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+}
+
+/* scene */
+.scene{
+  border-bottom:1px solid var(--rule);
+  padding-block:1.25rem;
+  display:grid; gap:.85rem;
+}
+.scene:last-of-type{border-bottom:none}
+.tc{
+  display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  font-family:"Roboto Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
+}
+.tc .num{
+  font-size:.72rem; font-weight:500; color:var(--surface);
+  background:var(--ink); padding:.18rem .42rem; border-radius:2px;
+}
+.tc .start{font-size:1rem; font-weight:500; color:var(--accent)}
+.tc .dur{font-size:.75rem; color:var(--ink-faint)}
+.tc .name{
+  font-family:"Zen Kaku Gothic New",sans-serif; font-size:.82rem;
+  color:var(--ink-soft); font-weight:500; letter-spacing:.02em;
+}
+.cue{
+  background:var(--cue-bg); border:1px solid var(--cue-rule);
+  border-left:3px solid var(--cue);
+  padding:.7rem .85rem; border-radius:2px;
+  display:grid; gap:.3rem;
+}
+.cue .k{
+  font-size:.68rem; font-weight:700; letter-spacing:.14em; color:var(--cue);
+}
+.cue .v{font-size:.86rem; line-height:1.75; color:var(--ink)}
+.cue .v em{font-style:normal; font-family:"Roboto Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.read{
+  font-family:"BIZ UDPGothic","Hiragino Sans",sans-serif;
+  font-size:var(--read-size); line-height:var(--read-lh);
+  letter-spacing:.01em;
+}
+.read .hl{
+  background:linear-gradient(transparent 62%, var(--accent-soft) 62%);
+  font-weight:700;
+}
+.note{
+  font-size:.8rem; color:var(--ink-soft); line-height:1.8;
+  border-left:2px solid var(--rule-strong); padding-left:.7rem;
+}
+
+@media (min-width:880px){
+  .scene{grid-template-columns:9.5rem 1fr; column-gap:1.6rem; align-items:start}
+  .tc{flex-direction:column; align-items:flex-start; gap:.3rem; position:sticky; top:4.5rem}
+  .cue, .read, .note{grid-column:2}
+}
+
+/* chart block */
+.charts{display:grid; gap:.9rem; margin-top:1rem}
+.chartrow{
+  background:var(--surface); border:1px solid var(--rule); border-radius:3px;
+  padding:.85rem 1rem; display:grid; gap:.35rem;
+}
+.chartrow h4{margin:0; font-size:.95rem; font-weight:700}
+.chartrow p{margin:0; font-size:.86rem; line-height:1.8; color:var(--ink-soft)}
+.chartrow .lv{
+  font-family:"Roboto Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
+  color:var(--ink); font-size:.82rem;
+}
+
+/* assets table */
+.assets{margin-top:1rem; overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:34rem}
+th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--rule); font-size:.84rem; line-height:1.7}
+th{font-size:.7rem; letter-spacing:.1em; color:var(--ink-soft); font-weight:700; background:var(--surface-2)}
+tr:last-child td{border-bottom:none}
+td.n{font-family:"Roboto Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--accent)}
+
+footer{margin-top:2.5rem; padding-top:1.2rem; border-top:1px solid var(--rule); font-size:.78rem; color:var(--ink-faint); line-height:1.9}
+footer a{color:var(--accent)}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <h1>ウィークリーミライニュース 第27回</h1>
+    <span class="sub">9月第3週 ／ 2026-09-20 公開</span>
+    <span class="len">無料版 7:35 ／ 完全版 13:10</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="lede">
+    <h2>240兆円のAIと、3年ぶりの利上げが同じ週に来た</h2>
+    <p>ニュース2本はフォーブスジャパンの記事から。1本目はAI、2本目は暗号資産と金利です。2本目の記事はFOMCの前日に出ているので、そのまま今週の答え合わせになります。読み上げ位置ごとに出す資料を「画面」に書いています。尺は1秒あたり5.2文字で計算した目安です。</p>
+    <div class="metarow">
+      <span class="chip">日経平均 <b>65,019</b> 週+1,008</span>
+      <span class="chip">NYダウ <b>51,683</b> 週−890</span>
+      <span class="chip">ドル円 <b>156.13</b></span>
+      <span class="chip">米10年債 <b>5.00%</b></span>
+      <span class="chip">ゴールド <b>4,425</b></span>
+      <span class="chip">WTI <b>100.3</b></span>
+      <span class="chip">BTC <b>81,046</b></span>
+    </div>
+  </div>
+
+  <div class="band">
+    <h3>無料版</h3>
+    <span class="range">0:00 → 7:35</span>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">OP</span><span class="start">0:00</span><span class="dur">30秒</span><span class="name">オープニング</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v">既存のOP映像（フェードインのみ）。BGMを今回から差し替え ―― <em>OP_採用_案2-a_30秒_フェードアウト6秒.wav</em>（24秒から6秒フェード）。</div>
+    </div>
+    <div class="read">ミライテラシーがお届けする、ウィークリーミライニュース。今週のプレゼンターは、趣味は経済、私西村がお届けいたします。ウィークリーミライニュースでは、まだ経済に詳しくない方に向けて、経済のトピックをなるべく難しい言葉を使わず、それでも確実に経済の知識が身につくよう、毎週厳選したトピックをお届けしています。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">1</span><span class="start">0:30</span><span class="dur">23秒</span><span class="name">導入</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料A</b>／今週の2本。記事カード2枚を並べて表示（左＝OpenAI、右＝ビットコイン）。下に一行「そして今週、日米が2日続けて利上げ」。</div>
+    </div>
+    <div class="read">今回は9月の第3週です。それでは今週も、フォーブスジャパンのところから。今回は2本ですね。1本目はAI、2本目は暗号資産と金利のニュースです。そして今週は、<span class="hl">日本とアメリカが2日続けて利上げをした週</span>でした。2本を見たあと、その答え合わせをしていきます。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">2</span><span class="start">0:53</span><span class="dur">10秒</span><span class="name">ニュース① 見出し</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料B</b>／フォーブス見出しカード。「OpenAI、『最大約240兆円の評価額』で新たな資金調達を検討か」／Siladitya Ray／2026年9月17日。</div>
+    </div>
+    <div class="read">それではまず、このニュースから。OpenAI、最大約240兆円の評価額で、新たな資金調達を検討か。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">3</span><span class="start">1:03</span><span class="dur">46秒</span><span class="name">ニュース① 要約</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料C</b>／評価額の積み上げ。横バー3本を順に伸ばす ―― 前回 <em>7,300億ドル</em>（117兆円）→ 投資家の提示 <em>1兆2,000億ドル</em>（192兆円）→ OpenAIの要求 <em>1兆5,000億ドル</em>（240兆円）。右端に「2倍以上」。</div>
+    </div>
+    <div class="read">ポイントは、AIの会社にいくらの値段がついているか、という話です。OpenAIが、会社の値段を1兆5000億ドル、日本円でおよそ240兆円として、新しくお金を集める協議に入ったと報じられました。投資家の側が示したのは1兆2000億ドル、約192兆円。これをOpenAIが押し返している形ですね。前回の資金調達では7300億ドルでしたから、<span class="hl">2倍以上</span>です。背景には、コーディングツールのCodexや最新のモデルが好調で、年換算の売上が400億ドルと、去年の終わりから倍増していることがあります。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">4</span><span class="start">1:49</span><span class="dur">49秒</span><span class="name">ニュース① ポイント</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料D</b>／OpenAI と アンソロピック の対比表。評価額 <em>1.5兆ドル（要求）</em> ⇄ <em>9,650億ドル</em>／年換算売上 <em>400億ドル</em> ⇄ <em>650億ドル超</em>／上場 <em>2027年以降</em> ⇄ <em>年内見込み</em>。売上の行だけアンソロピック側を強調。</div>
+    </div>
+    <div class="read">ここで押さえたいのは2つです。1つ目、240兆円は<span class="hl">期待の値段</span>であって、実際に入ったお金ではありません。売上は400億ドル。評価額はその37倍です。2つ目、競合のアンソロピック、Claudeの開発元ですね。こちらは売上が650億ドル超で、すでにOpenAIを上回る見通しです。評価額では負けていても、売上では逆転している。そしてアルトマンCEOは、年内の上場はしないと明言しました。AIの安全性への懸念が高まっている今、上場は軽率だと。先週お伝えした安全性の論争が、今週はお金の話として表に出てきた、ということですね。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">5</span><span class="start">2:38</span><span class="dur">11秒</span><span class="name">ニュース② 見出し</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料E</b>／フォーブス見出しカード。「FRBの利上げ再開観測でビットコインが直面する『下落リスク』」／Billy Bambrough／2026.09.15。日付の横に「FOMCの前日」と小さく添える。</div>
+    </div>
+    <div class="read">続いて2本目。FRBの利上げ再開観測で、ビットコインが直面する下落リスク。FOMCの前日、9月15日の記事です。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">6</span><span class="start">2:49</span><span class="dur">48秒</span><span class="name">ニュース② 要約</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料F</b>／ビットコインの2本のライン。上に「直近レンジの下限 <em>75,500ドル</em>」、下に「割れたときの目安 <em>70,000ドル</em>」。左上に「利上げ確率 <em>90%</em>（CME FedWatch）」。</div>
+    </div>
+    <div class="read">まとめていくとですね。この記事が出た時点で、市場は9月16日のFOMCでの利上げの確率を<span class="hl">90%近く</span>まで織り込んでいました。原油がふたたび100ドルを超え、物価の上昇圧力が思ったほど和らいでいない。それが理由です。ここで注目していただきたい数字が2つ。ビットコインが直近のレンジの下限、7万5500ドルを守れるかどうか。そして、そこを割ったときの次の目安が、心理的な節目の7万ドル。記事は、回復が続くには、米国債の利回りと原油が落ち着き、そこに現物ETFへの資金流入が続くことが必要だ、とまとめています。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">7</span><span class="start">3:37</span><span class="dur">47秒</span><span class="name">ニュース② 答え合わせ</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料G</b>／9/15→9/18 の折れ線。9/15の安値 <em>75,612</em> に「記事の75,500」のラインを重ねて的中を示し、9/18 <em>81,702</em> へ跳ねる。右に2つの数字 ―― 強制清算 <em>1億9,200万ドル</em>（うち売り方 1億8,300万）／現物ETF流入 <em>1億5,900万ドル</em>。</div>
+    </div>
+    <div class="read">それでは答え合わせです。記事が出た9月15日、ビットコインの安値は7万5612ドル。記事の7万5500ドルで、<span class="hl">ほぼぴったり止まりました</span>。翌16日、FRBは予想どおり0.25%の利上げ。ここまでは記事のとおりです。ところが18日、8万1702ドルまで急騰しました。9月7日以来の8万ドル台です。動かしたのは金利ではありません。売っていた人たちの買い戻し、強制的な清算が1億9200万ドル。そして現物ETFへの1億5900万ドルの資金流入です。記事が挙げた3つの条件のうち、ETFへの資金流入が先に効いた、という形ですね。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">8</span><span class="start">4:24</span><span class="dur">40秒</span><span class="name">AI分析 事実の整理</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料H</b>／AI分析のタイトル板「240兆円のAIと、3年ぶりの利上げが同じ週に来た意味」。続けて日米の政策金利カード2枚 ―― 米 <em>3.75〜4.00%</em>（9/17・3年2カ月ぶり・12対0）／日 <em>1.25%</em>（9/18・31年ぶり・7対2）。</div>
+    </div>
+    <div class="read">それでは続けて、AIによる分析に入っていきます。今週のタイトルはこちらです。240兆円のAIと、3年ぶりの利上げが、同じ週に来た意味。まず事実の整理からですね。9月17日の午前3時、アメリカのFRBが0.25%の利上げ。政策金利は3.75から4.00%へ。3年2カ月ぶりで、投票は12対0の全会一致でした。そして翌18日のお昼、日本銀行も0.25%の利上げ。政策金利は1.25%で、1995年以来、<span class="hl">31年ぶり</span>の水準です。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">9</span><span class="start">5:04</span><span class="dur">53秒</span><span class="name">AI分析 教科書どおりにならなかった2日</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料I</b>／「動いたもの／動かなかったもの」の対比。9/17＝ダウ <em>−631</em>・金利 <em>+0.01pt</em>（ここを強調）／9/18＝ドル円 <em>+1.2円の円安</em>・日経 <em>+1,114</em>。下に金利差の帯 ―― 日 1.25% ⇔ 米 4.00%、差 <em>2.75%</em>。</div>
+    </div>
+    <div class="read">面白いのは、どちらの日も<span class="hl">教科書どおりにならなかった</span>ことですね。FRBが上げた日、ニューヨークダウは一時900ドル以上下げました。ところが米10年債の金利は5.01%。前日から0.01ポイントしか動いていません。金利を決める会議の日に、金利がいちばん動かなかった。これが織り込み済みという言葉の正体です。そして日銀が上げた日。円は買われるはずが、157円台まで売られました。日経平均は1114円高です。日本が1.25%に上げても、アメリカは4%。差が2.5%以上残っているからですね。為替は、どちらが上げたかではなく、差がどれだけ縮んだかで動く、ということです。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">10</span><span class="start">5:57</span><span class="dur">67秒</span><span class="name">ABCシナリオ</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料J</b>／3分岐の図。A＝買い戻し継続（日経 <em>66,399</em> へ／BTC 8万ドル台を固める／条件＝原油100ドル割れ）、B＝金利5%の重さ（ダウ <em>51,462</em> を試す／BTC 8万ドル割れ／条件＝原油105ドル方向）、C＝レンジ（日経 <em>64,000〜66,000</em>／BTC <em>78,000〜83,000</em>）。<b>Cを最有力として強調</b>。左に来週の予定 ―― 9/24 新築住宅、9/25 耐久財、9/30 米GDP。</div>
+    </div>
+    <div class="read">それでは今週のABCシナリオです。来週は大きな指標がほとんどありません。9月24日に米国の新築住宅販売、25日に耐久財受注、そして30日にアメリカのGDP。日米の会合はどちらも終わりました。まずシナリオA、買い戻しが続く展開。日経平均は9月7日の最高値、6万6399円に向かい、ビットコインは8万ドル台を固める。条件は、原油が100ドルを割ることです。シナリオB、金利5%の重さが効く展開。ニューヨークダウが今週の安値5万1462ドルを試し、ビットコインは8万ドルを割る。条件は、原油が105ドル方向へ戻ること。そして<span class="hl">シナリオC、こちらが今回の最有力です</span>。材料が少ないので大きくは動かず、30日のGDPまで、日経平均は6万4000円から6万6000円、ビットコインは7万8000ドルから8万3000ドルを行ったり来たりする展開ですね。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">11</span><span class="start">7:04</span><span class="dur">15秒</span><span class="name">締め</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v"><b>資料K</b>／来週見る3つの数字。①原油100ドル ②ドル円と160円までの距離 ③BTC 8万ドルの週足。</div>
+    </div>
+    <div class="read">来週見ておく数字は3つです。原油が100ドルを割るか。ドル円と160円までの距離。そしてビットコインが8万ドルを週の終値で守れるか。ここまでがAIの分析になります。</div>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">12</span><span class="start">7:19</span><span class="dur">50秒</span><span class="name">完全版告知（無料版のみ）</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v">既存の完全版告知（51秒）。告知の終盤に「今週も1週間お疲れ様でした」＋サムネのフェード ―― 第26回と同じ相対位置。</div>
+    </div>
+    <div class="note">無料版はここまで。完全版はシーン11のあと、告知を外して後半のチャート解説へ続ける（第26回と同じ作り）。</div>
+  </div>
+
+  <div class="band">
+    <h3>完全版 後半 チャート解説</h3>
+    <span class="range">7:19 → 13:10</span>
+  </div>
+
+  <div class="scene">
+    <div class="tc"><span class="num">13</span><span class="start">7:19</span><span class="dur">約6分</span><span class="name">チャート4本</span></div>
+    <div class="cue">
+      <div class="k">画面</div>
+      <div class="v">チャート画面を110%で表示、レターボックス。順番は第26回と同じ ―― ドル円 → 日経平均（株はまとめて） → ゴールド → ビットコイン。</div>
+    </div>
+    <div class="charts">
+      <div class="chartrow">
+        <h4>ドル円</h4>
+        <p class="lv">153.42（9/14）→ 156.13（9/18）→ 156.85（土曜朝）</p>
+        <p>先週タッチした100週線から折り返し。152円後半〜153円の帯が下で効いた。次に見るのは160円の介入ラインまでの距離。日銀が上げても円安、という形をここで見せる。</p>
+      </div>
+      <div class="chartrow">
+        <h4>日経平均（株はまとめて）</h4>
+        <p class="lv">63,484（9/15 安値）→ 65,019（9/18）／最高値 66,399（9/7）まで1,380円</p>
+        <p>半値戻しの位置を再び上抜けるか。S&amp;P500・ナスダックも木金で戻して同じ形なので、第26回と同様まとめて1つの見方で。</p>
+      </div>
+      <div class="chartrow">
+        <h4>ゴールド</h4>
+        <p class="lv">4,333（9/15 安値）→ 4,425（9/18）／帯 4,337〜4,376</p>
+        <p>3週間守っていた帯を一度割ってから戻した。割れても戻るなら帯はまだ有効。4,460（9/9）を超えるまではレンジ。</p>
+      </div>
+      <div class="chartrow">
+        <h4>ビットコイン</h4>
+        <p class="lv">75,612（9/15）→ 81,702（9/18 高値）→ 81,046（土曜）</p>
+        <p>7万5千〜7万8千の持ち合いを下に抜けてから8万ドルを上抜け。週足で8万を守れれば上、割れば往復。ETF流入が続くかが鍵。</p>
+      </div>
+    </div>
+    <div class="note">締めは本編の終わりでぴたっと切る（ED無し・第26回と同じ）。締めの一言は「来週は静かな週です。数字が少ない週は、今週書いたメモを読み返すのにいちばん向いています」。</div>
+  </div>
+
+  <div class="band">
+    <h3>用意する資料</h3>
+    <span class="range">11点</span>
+  </div>
+
+  <div class="assets">
+    <table>
+      <thead><tr><th>記号</th><th>シーン</th><th>中身</th><th>形</th></tr></thead>
+      <tbody>
+        <tr><td class="n">A</td><td class="n">1</td><td>今週の2本（記事カード2枚）</td><td>静止</td></tr>
+        <tr><td class="n">B</td><td class="n">2</td><td>フォーブス見出し（OpenAI）</td><td>静止</td></tr>
+        <tr><td class="n">C</td><td class="n">3</td><td>評価額の積み上げ 7,300億→1.2兆→1.5兆ドル</td><td>バーが伸びる</td></tr>
+        <tr><td class="n">D</td><td class="n">4</td><td>OpenAI ⇄ アンソロピック 対比表</td><td>静止＋行ハイライト</td></tr>
+        <tr><td class="n">E</td><td class="n">5</td><td>フォーブス見出し（ビットコイン）</td><td>静止</td></tr>
+        <tr><td class="n">F</td><td class="n">6</td><td>75,500 と 70,000 の2本のライン＋利上げ確率90%</td><td>静止</td></tr>
+        <tr><td class="n">G</td><td class="n">7</td><td>9/15→9/18 の折れ線と的中ライン＋清算・ETF</td><td>線が伸びる</td></tr>
+        <tr><td class="n">H</td><td class="n">8</td><td>分析タイトル板＋日米の政策金利カード</td><td>静止</td></tr>
+        <tr><td class="n">I</td><td class="n">9</td><td>動いたもの／動かなかったもの＋金利差2.75%</td><td>静止＋強調</td></tr>
+        <tr><td class="n">J</td><td class="n">10</td><td>ABC 3分岐図（Cを強調）</td><td>1つずつ出す</td></tr>
+        <tr><td class="n">K</td><td class="n">11</td><td>来週見る3つの数字</td><td>静止</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    出典：フォーブスジャパン <a href="https://forbesjapan.com/articles/detail/104865">OpenAI、「最大約240兆円の評価額」で新たな資金調達を検討か</a>（2026-09-17）／<a href="https://forbesjapan.com/articles/detail/104692">FRBの利上げ再開観測でビットコインが直面する「下落リスク」</a>（2026-09-15）。市況はYahoo Finance日足終値（9/18時点、ドル円とビットコインのみ9/19朝）。日米の政策金利は日銀・FRBの発表。<br>
+    読み尺は1秒あたり5.2文字で計算した目安です。実際に読んで合わない箇所は、資料の表示秒数を先に合わせてください。
+  </footer>
+
+</div>
+
+</body>
+</html>
