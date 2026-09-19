@@ -76,5 +76,6 @@ try {
   console.log(`  ${frames}コマ / ${((Date.now() - t0) / 1000).toFixed(1)}秒`);
 } finally {
   chrome.kill();
-  rmSync(profile, { recursive: true, force: true });
+  await sleep(400);
+  try { rmSync(profile, { recursive: true, force: true }); } catch { /* 片付けの失敗は無視する */ }
 }

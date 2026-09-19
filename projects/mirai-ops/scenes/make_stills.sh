@@ -3,8 +3,10 @@
 # 使い方: bash make_stills.sh 27
 set -euo pipefail
 EP="${1:-27}"
+THEME="${2:-light}"   # 番組本編に合わせた明るい地が既定。紺地は news
 DIR="$(cd "$(dirname "$0")" && pwd)/ep$EP"
 OUT="$DIR/stills"
+[ "$THEME" != "light" ] && OUT="$DIR/stills-$THEME"
 CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 mkdir -p "$OUT"
 
@@ -29,7 +31,7 @@ PY
 while read -r n st sid; do
   "$CH" --headless=new --disable-gpu --hide-scrollbars --window-size=1920,1080 \
         --virtual-time-budget=3500 --screenshot="$OUT/${sid}-$st.png" \
-        "file://$DIR/_still.html?s=$n&step=$st" >/dev/null 2>&1
+        "file://$DIR/_still.html?s=$n&step=$st&theme=$THEME" >/dev/null 2>&1
 done < "$OUT/_plan.txt"
 
 rm -f "$DIR/_still.html" "$OUT/_plan.txt"

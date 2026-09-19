@@ -12,9 +12,11 @@ set -euo pipefail
 EP="${1:-27}"
 ONLY="${2:-}"
 MODE="${3:-opaque}"
+THEME="${4:-light}"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 DIR="$HERE/ep$EP"
 OUT="$DIR/clips"
+[ "$THEME" != "light" ] && OUT="$DIR/clips-$THEME"
 TMP="$DIR/.frames"
 CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 FPS=30
@@ -42,7 +44,7 @@ print([s['no'] for s in d['scenes'] if s['id']=='$ID'][0])")
   if [ "$MODE" = "alpha" ]; then BGQ="&bg=0"; BGFLAG="--default-background-color=00000000"; else BGQ=""; BGFLAG=""; fi
 
   PATH="$HOME/.local/bin:$PATH" node "$HERE/render_frames.mjs" \
-    "file://$DIR/index.html?s=$NO&t=0$BGQ" "$TMP" "$FRAMES" "$FPS" "$MODE"
+    "file://$DIR/index.html?s=$NO&t=0&theme=$THEME$BGQ" "$TMP" "$FRAMES" "$FPS" "$MODE"
 
   if [ "$MODE" = "alpha" ]; then
     ffmpeg -y -hide_banner -loglevel error -framerate $FPS -i "$TMP/%04d.png" \
