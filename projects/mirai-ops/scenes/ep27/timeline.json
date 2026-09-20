@@ -33,8 +33,8 @@
   {
    "id": "D",
    "no": 4,
-   "kind": "table2",
-   "steps": 1,
+   "kind": "board",
+   "steps": 0,
    "render_ms": 2900,
    "script_at": "1:49",
    "script_len": "49秒"

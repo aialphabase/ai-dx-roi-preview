@@ -15,7 +15,7 @@ import sys, io
 src, dst = sys.argv[1], sys.argv[2]
 s = io.open(src, encoding='utf-8').read()
 io.open(dst, 'w', encoding='utf-8').write(
-    s.replace('</body>', '<style>*{transition:none!important}</style></body>'))
+    s.replace('</body>', '<style>*{transition:none!important}#index,#ui,#hint{display:none!important}</style></body>'))  # 番組用: ナビと操作UIは映さない
 PY
 
 # シーン数と状態数を index.html から拾う
