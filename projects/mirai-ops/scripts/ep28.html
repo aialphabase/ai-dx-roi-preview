@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>ミライニュース 第28回 台本</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f6f5f0;--paper:#fff;--ink:#1d1f24;--ink2:#5f6472;--line:#dcd9cf;--acc:#1f5fbf;--acc-soft:#e6eefb;--ok:#1f8a4c;--ok-soft:#e3f3e9;--ng:#c8412b;--ng-soft:#fbe7e2;--warn:#a86d05;--warn-soft:#fbf1d9;--talk:#faf8f1;--talk-b:#e8dfc4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171c;--paper:#1e2128;--ink:#ececec;--ink2:#a7abb7;--line:#3a3e48;--acc:#7fa9f0;--acc-soft:#25324a;--ok:#63c98a;--ok-soft:#1f3a2b;--ng:#f08a75;--ng-soft:#4a2620;--warn:#e8b45a;--warn-soft:#42351a;--talk:#24262c;--talk-b:#4a4536}}
+:root[data-theme="dark"]{--bg:#15171c;--paper:#1e2128;--ink:#ececec;--ink2:#a7abb7;--line:#3a3e48;--acc:#7fa9f0;--acc-soft:#25324a;--ok:#63c98a;--ok-soft:#1f3a2b;--ng:#f08a75;--ng-soft:#4a2620;--warn:#e8b45a;--warn-soft:#42351a;--talk:#24262c;--talk-b:#4a4536}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,-apple-system,"Hiragino Sans",sans-serif;font-size:16px;line-height:1.85}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 80px}
+header{margin-bottom:18px}
+.eyebrow{font-size:12px;letter-spacing:.1em;color:var(--ink2)}
+h1{font-size:24px;line-height:1.35;margin:4px 0 6px;text-wrap:balance}
+.meta{color:var(--ink2);font-size:13px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;margin:0 -16px 12px;padding-inline:16px;border-bottom:1px solid var(--line);z-index:5;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;white-space:nowrap}
+section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;scroll-margin-top:64px}
+h2{font-size:19px;margin:0 0 4px;line-height:1.4}
+h2 .t{display:inline-block;font-size:12px;font-weight:500;color:var(--acc);background:var(--acc-soft);border-radius:999px;padding:0 8px;margin-left:6px;vertical-align:middle}
+h3{font-size:15px;margin:16px 0 6px;color:var(--ink2);font-weight:700}
+p{margin:0 0 10px}
+.talk{background:var(--talk);border-left:4px solid var(--talk-b);padding:10px 14px;border-radius:0 10px 10px 0;margin:8px 0 12px;font-size:16.5px}
+.src{font-size:13px;color:var(--ink2);word-break:break-all}
+.src a{color:var(--acc)}
+ol.pts{padding-left:0;margin:6px 0 10px;list-style:none;counter-reset:n}
+ol.pts li{position:relative;padding:8px 10px 8px 40px;counter-increment:n;border-top:1px solid var(--line)}
+ol.pts li:first-child{border-top:0}
+ol.pts li::before{content:counter(n);position:absolute;left:6px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--acc);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:8px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+td.w{white-space:normal;min-width:180px}
+th{font-size:12px;color:var(--ink2);font-weight:500;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;font-size:12px;padding:0 8px;border-radius:999px;font-weight:700}
+.A{background:var(--ok-soft);color:var(--ok)}.B{background:var(--ng-soft);color:var(--ng)}.C{background:var(--warn-soft);color:var(--warn)}
+.note{border-left:4px solid var(--warn);background:var(--warn-soft);padding:8px 12px;border-radius:0 8px 8px 0;font-size:14px;margin:10px 0}
+.sc{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.sc b.h{display:block;margin-bottom:2px}
+details{margin:8px 0}
+summary{cursor:pointer;font-weight:700;color:var(--acc)}
+.ai{background:var(--acc-soft);border-radius:10px;padding:10px 14px;margin:8px 0 4px;font-size:15px}
+.ai b{color:var(--acc)}
+ul.plain{padding-left:20px;margin:6px 0}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="eyebrow">ウィークリーミライニュース</div>
+<h1>第28回 台本 v1</h1>
+<div class="meta">2026-09-27（日）公開・金曜終値ベース。型＝ニュースは要約20秒 → 初心者はここを見る3点 → AI分析ひと言。目安 無料版 5:50／完全版 9:20</div>
+</header>
+<nav>
+<a href="#s1">数字</a><a href="#s2">①AI×クリプト</a><a href="#s3">②円キャリー</a><a href="#s4">答え合わせ</a><a href="#s5">来週ABC</a><a href="#s6">完全版チャート</a><a href="#s7">尺・サムネ</a><a href="#s8">AI分析全文</a>
+</nav>
+
+<section id="s0">
+<h2>0. OP <span class="t">0:30</span></h2>
+<p>確定台本＋OP音楽（案2-a・30秒フェード）。喋り出しは16秒から。</p>
+</section>
+
+<section id="s1">
+<h2>1. 今週の数字ひと目 <span class="t">0:40</span></h2>
+<div class="talk">こんにちは、ウィークリーミライニュースです。まず今週の数字から。</div>
+<div class="tbl"><table>
+<tr><th>資産</th><th>9/18</th><th>9/25</th><th>動き</th></tr>
+<tr><td>日経平均</td><td>65,019</td><td>66,364</td><td class="w">+1,345。9/7の最高値66,399円にほぼ並ぶ</td></tr>
+<tr><td>NYダウ</td><td>51,683</td><td>51,829</td><td class="w">3日続落で51,350まで下げ、金曜+479で戻す</td></tr>
+<tr><td>ナスダック</td><td>26,523</td><td>27,069</td><td class="w">+2.1%。半導体指数は+6.3%</td></tr>
+<tr><td>ドル円</td><td>156.13</td><td>157.18</td><td class="w">9/24に159円04銭まで円安→金曜に156円台まで急反転</td></tr>
+<tr><td>米10年債</td><td>5.00%</td><td>5.16%</td><td class="w">9/25に一時5.22%、19年ぶりの高さ</td></tr>
+<tr><td>ゴールド</td><td>4,425</td><td>4,321</td><td class="w">−104。帯（4,337〜4,376）の下へ</td></tr>
+<tr><td>WTI原油</td><td>100.30</td><td>92.41</td><td class="w">−8ドル。9/23に一時89ドル台</td></tr>
+<tr><td>ビットコイン</td><td>81,046</td><td>84,078（土）</td><td class="w">9/21に87,364＝1月以来8カ月ぶり高値</td></tr>
+</table></div>
+<div class="talk">今週いちばん動いたのは、株でも原油でもなく金利です。原油は100ドルから92ドルまで下がったのに、アメリカの10年債は5%から5.16%、一時5.22%まで上がった。教科書なら「原油が下がれば金利は落ち着く」ですが、今週はその逆でした。この1点を頭に置いて、今週の2本のニュースを見ていきます。</div>
+</section>
+
+<section id="s2">
+<h2>2. ニュース① ブラックロック「AIと暗号資産は融合する」 <span class="t">1:10</span></h2>
+<p class="src">Forbes JAPAN 9/25 <a href="https://forbesjapan.com/articles/detail/105349">ビットコイン急騰の中、ブラックロックが示す「AIと暗号資産」の融合</a></p>
+<h3>要約（20秒）</h3>
+<div class="talk">世界最大の資産運用会社ブラックロックが、レポートで「AIと暗号資産は融合していく」と書きました。理由は3つ。AIとブロックチェーンは似た仕組み（トークン化）で動いていること、AIのエージェントが自分で買い物や支払いをするには「機械が使える決済レール」が要ること、そのために計算資源への需要が新しい暗号資産市場を生むこと。記事は「AIが次の暗号資産ブームの物語になる」と言っています。2017年はICO、2021年はNFT、2024年はETF、そして次はAI、という流れです。</div>
+<h3>初心者はここを見る（35秒・3点）</h3>
+<ol class="pts">
+<li>これは「価格がいくらになる」の話ではなく「物語」の話です。相場は物語で上がって、数字で落ちる。今のビットコイン8万4千ドルは、金利ではなくETFの現物買い（9/18だけで4.3億ドル流入）と、売り方の買い戻し（清算7.5億ドルの87%がショート）で上がりました。見るのは「ETFに毎日いくら入っているか」の1本です。</li>
+<li>記事の中で実際に動いている部品は「x402」という決済の規格。コインベースが作って、ビザ・マスターカード・ストライプ・グーグルが名を連ねる団体に寄贈済み。カルダノやソラナがすでに対応。「AIが支払いをする」を現実にしている部品はここ。名前だけ覚えておいてください。</li>
+<li>同じ週に、オラクルがデータセンターで「不可抗力」を通知して株が4%下げました（9/24）。理由は電力が確保できないかもしれないから。AIの物語は強いけれど、電気とお金という現実の壁もある。物語と現実、両方を見るのが今週の型です。</li>
+</ol>
+<h3>AI分析のひと言（15秒）</h3>
+<div class="ai"><b>補足：</b>ブラックロックの読みが当たるかどうかは分かりません。ただ、当たらなくても「大手がこの物語で資金を集めに来る」こと自体が需給を動かします。ETF流入が続く限り8万ドル台は支えられ、止まった週に本当の強さが分かる。来週見るのは、8万7千ドル（今週の高値）を超えるか、8万ドルを割るか、そのどちらでもない踊り場か、です。</div>
+</section>
+
+<section id="s3">
+<h2>3. ニュース② 「円キャリー時代の黄昏」 <span class="t">1:10</span></h2>
+<p class="src">Forbes JAPAN 9/23（William Pesek）<a href="https://forbesjapan.com/articles/detail/105271">円キャリー時代の黄昏　日銀利上げで変わる世界の金融</a></p>
+<h3>要約（20秒）</h3>
+<div class="talk">先週の日銀利上げ（1.25%、31年ぶり）を受けて、Forbesのコラムは「世界の金融市場の背景で鳴っていた音楽が消え始めた」と書きました。音楽とは円キャリートレード。ほぼゼロ金利の円を借りて、ブラジル国債からシリコンバレーの株まで、世界中の資産を買う仕組みです。日本の金利が上がると、この「安く借りる」前提が崩れる。日本の10年債はすでに3%で30年ぶりの高さ。しかも米政権が日銀に利上げを促している（ドル安のプランB）、という指摘もあります。</div>
+<h3>初心者はここを見る（35秒・3点）</h3>
+<ol class="pts">
+<li>「椅子取りゲームの椅子が一つ減った」が記事の比喩です。円を借りて買われていた資産＝世界の株や不動産が、円の金利が上がると売られやすくなる。日本の話なのに、影響が出るのはニューヨークやムンバイ、というのがポイント。</li>
+<li>では円高になるのか。今週の答えは「金曜まで円安、金曜に急反転」でした。9/24に159円04銭。そこから金曜に156円台まで一気に円高。理由は、9/22の日米首脳会談でトランプ大統領が円安に懸念を示したと分かったこと、片山財務相とベッセント長官が電話で「円の過小評価は問題」と確認したこと、158円台でレートチェックが入ったこと。金利差（日1.25%、米4.00%）だけなら円安、政治が入ると円高。今は両方の綱引きです。</li>
+<li>見るのは2本。日本の10年債が3%の上に居続けるか、ドル円が160円に近づいたときに実弾の介入が出るか。どちらも「いつ」は誰にも分かりませんが、「どこで」は数字で決まっています。</li>
+</ol>
+<h3>AI分析のひと言（15秒）</h3>
+<div class="ai"><b>補足：</b>記事の言う「黄昏」は、一晩で来るものではなく、金利差が縮む速さで来ます。今の差2.75%が2%を切るあたりから、円キャリーの巻き戻しが相場の主語になる。それまでは介入の警戒で往復する、というのが今の位置です。</div>
+</section>
+
+<section id="s4">
+<h2>4. 答え合わせ <span class="t">0:50</span></h2>
+<p>先週（第27回・ストーリーボード第4話）: 最有力は <span class="tag C">C レンジ</span>（日経64,000〜66,000円、BTC 78,000〜83,000ドル）。目盛りは原油。</p>
+<div class="tbl"><table>
+<tr><th>見た点</th><th>実際</th><th>判定</th></tr>
+<tr><td>原油</td><td class="w">初日9/21に94ドル、9/23に一時89ドル台。Aの条件が初日に点灯</td><td><span class="tag A">A</span></td></tr>
+<tr><td>日経平均</td><td class="w">66,364円で最高値圏へ。レンジ上限66,000円を上抜け</td><td><span class="tag A">A</span></td></tr>
+<tr><td>米10年債</td><td class="w">5.00→5.16%（一時5.22%）。「金利5%の重さ」がそのまま出た</td><td><span class="tag B">B</span></td></tr>
+<tr><td>NYダウ</td><td class="w">9/24に51,124まで下げ、目印51,462ドルを一度割る</td><td><span class="tag B">B</span></td></tr>
+<tr><td>ゴールド</td><td class="w">帯（4,337〜4,376）を割って4,278まで</td><td><span class="tag B">B</span></td></tr>
+<tr><td>ビットコイン</td><td class="w">8万ドルを守って87,364まで上げた</td><td><span class="tag A">A</span></td></tr>
+</table></div>
+<p><b>判定：株とビットコインはA、金利とゴールドはB。Cは外れ。</b></p>
+<div class="talk">先週は「原油が目盛り」と言いました。原油は確かに下がった。でも金利は上がった。理由は、原油ではなくアメリカの景気が強かったからです。新規失業保険が少ない、製造業もサービス業も強い、FRBの高官が「追加利上げ」と言い、10月利上げの確率が7割まで上がった。原油が下がって物価の心配が減ったぶんより、景気が強くて利上げの心配が増えたぶんのほうが大きかった。「原油→金利」という1本の矢印だけで読んだのが今週の外れ方です。矢印はもう1本ある、と覚えておいてください。</div>
+</section>
+
+<section id="s5">
+<h2>5. 来週のシナリオ A/B/C <span class="t">1:00</span></h2>
+<p>前提: 来週は今週と正反対で<b>指標が3日続く</b>。9/30（水）米コアPCE＋米GDP、10/1（木）日銀短観＋米ISM製造業、10/2（金）米雇用統計。10月FOMCの利上げ確率は約7割。</p>
+<div class="sc"><b class="h"><span class="tag A">A</span> 金利がいったん天井</b>PCEが落ち着き、雇用統計も過熱しない → 10年債が5.1%を割って戻る。日経は66,399円を終値で更新、BTCは8万7千ドル超え、ドル円は155円台へ円高。<br><span class="src">条件＝PCE前月比が予想以下＋雇用の伸びが鈍い</span></div>
+<div class="sc"><b class="h"><span class="tag B">B</span> 金利もう一段（AIの最有力）</b>景気の強さが続き、雇用統計が強い → 10年債5.2%台に定着、10月利上げが既定路線に。NYダウは51,000ドル割れを試し、ゴールドは4,250、BTCは8万ドル割れを試す。日経は円安が支えるが最高値は届かず。<br><span class="src">条件＝ISM50超え＋雇用統計が予想上振れ</span></div>
+<div class="sc"><b class="h"><span class="tag C">C</span> 指標ごとに往復</b>水曜と金曜で逆の結果が出て方向が決まらない。日経65,000〜66,500円、BTC 8万〜8万7千ドル、10年債5.0〜5.2%で行ったり来たり。<br><span class="src">条件＝PCEは弱く雇用は強い、のような食い違い</span></div>
+<div class="ai"><b>最有力はB。</b>今週は「悪い材料（原油安・介入）が出ても金利が下がらなかった」週で、金利の流れが上を向いたまま指標週に入るから。ただし今週の外れ方（矢印は1本ではない）を踏まえ、Aの条件も同じ重さで置く。</div>
+<h3>見るべき3点（第5話と共通）</h3>
+<ol class="pts">
+<li>米10年債 5.22%（今週の高値）を超えるか、5.1%を割るか</li>
+<li>ドル円 158円のレートチェック水準に戻るか、155円まで円高が進むか</li>
+<li>ビットコイン 8万7千ドル（9/21高値）と8万ドルのどちらを先に触るか</li>
+</ol>
+<h3>締め（無料版）</h3>
+<div class="talk">今週は原油が下がったのに金利が上がった週。ノートに書いた矢印を1本足してください。「景気が強い → 金利が上がる」。来週は指標が3日続きます。数字が出るたびに、その矢印がどっちを向くか確かめる週です。完全版ではチャートで、ドル円・日経・ゴールド・ビットコインの位置を見ていきます。</div>
+</section>
+
+<section id="s6">
+<h2>6. 完全版・チャート解説 <span class="t">4:00</span></h2>
+<p class="src">順番＝ドル円→日経（株はまとめて）→ゴールド→ビットコイン</p>
+<ol class="pts">
+<li><b>ドル円</b>: 156→159円04銭の5日続伸のあと、金曜に156円台まで急反転。158円台のレートチェック水準が上の壁、152円後半〜153円の帯（100週線）が下の支え。介入が出れば一気に数円動く。見るのは155円（反転が本物なら割る）と158円（戻れば介入は効いていない）。</li>
+<li><b>日経平均</b>: 63,484（9/15安値）→66,364。最高値66,399円まで35円。半値戻しを上抜けて最高値に「並んだ」形。終値で更新すれば上、更新できず65,500を割れば二番天井。半導体（SOX +6.3%）が主役なので、ナスダック・SOXと同じレンズで見る。</li>
+<li><b>ゴールド</b>: 帯（4,337〜4,376）を9/23に割って4,278まで。今回は「割れて戻らない」＝金利5.2%の重さ。4,250が次の支え、帯の下限4,337に戻せるかが回復の条件。</li>
+<li><b>ビットコイン</b>: 8万ドル上抜け→87,364（9/21）→84,000で踊り場。週足で8万を守った（先週の確認点はクリア）。8万7千を超えれば9万、8万を割れば7万8千へ往復。ETF流入の継続が鍵（9/18は4.33億ドル）。</li>
+</ol>
+<div class="talk">来週は数字が多い週。全部を追わず、金利・ドル円・ビットコインの3本だけ。</div>
+<p class="src">↑ここで本編終わり、ぷつっと切る（ED無し・第26/27回と同じ）</p>
+</section>
+
+<section id="s7">
+<h2>7. 尺・サムネ・スライド順</h2>
+<div class="tbl"><table>
+<tr><th>区間</th><th>内容</th><th>尺</th></tr>
+<tr><td>OP</td><td class="w">確定台本＋BGM</td><td>0:30</td></tr>
+<tr><td>1</td><td class="w">今週の数字ひと目</td><td>0:40</td></tr>
+<tr><td>2</td><td class="w">ニュース① ブラックロック AI×クリプト</td><td>1:10</td></tr>
+<tr><td>3</td><td class="w">ニュース② 円キャリーの黄昏</td><td>1:10</td></tr>
+<tr><td>4</td><td class="w">答え合わせ</td><td>0:50</td></tr>
+<tr><td>5</td><td class="w">来週のABC＋締め</td><td>1:00</td></tr>
+<tr><td>—</td><td class="w">無料版告知／完全版チャート</td><td>0:30／4:00</td></tr>
+<tr><td><b>合計</b></td><td class="w"><b>無料版 5:50 ／ 完全版 9:20</b></td><td></td></tr>
+</table></div>
+<h3>サムネ案</h3>
+<ol class="pts">
+<li>「AIが、暗号資産で払う日」×「金利5.2%」。ブラックロックの物語と現実の金利を並べる</li>
+<li>「原油が下がったのに、金利が上がった」。答え合わせの意外性</li>
+<li>「円キャリー、黄昏」。記事タイトルの強さで引く</li>
+</ol>
+<h3>NotebookLM投入の順番</h3>
+<p class="src">p01表紙（未使用）／p02 今週の数字ひと目／p03 ブラックロック AI×暗号資産（3点）／p04 x402とオラクル／p05 円キャリーの黄昏（3点）／p06 ドル円の反転（9/22首脳会談→9/25）／p07 答え合わせ（A/B分岐の表）／p08 来週のABC／p09 ドル円／p10 日経（株）／p11 ゴールド／p12 ビットコイン／p13 来週の3点</p>
+<details><summary>出典</summary>
+<ul class="plain src">
+<li>Forbes JAPAN 9/25 ブラックロック「AIと暗号資産」の融合 forbesjapan.com/articles/detail/105349</li>
+<li>Forbes JAPAN 9/23 円キャリー時代の黄昏 forbesjapan.com/articles/detail/105271</li>
+<li>Forbes JAPAN 9/25 オラクル株が急落、大型データセンター事業で「不可抗力」通知 forbesjapan.com/articles/detail/105440</li>
+<li>日経 9/25 円急伸、一時156円台 トランプ氏の円安発言に反応／9/26 NYダウ反発478ドル高</li>
+<li>日経 9/21 ビットコイン一時8%急騰、8万7000ドル台／ichizen 8カ月ぶり高値（ETF 4.33億ドル・清算7.47億ドル）</li>
+<li>外為どっとコム 9/25（新規失業保険19.7万件、FRB高官発言、10月利上げ確率約7割、158円台レートチェック）</li>
+<li>みんかぶ 9/26 米10年債 5.16%で終了（一時5.22%）／財経新聞 9/26 来週の注目3ポイント</li>
+<li>価格は Yahoo Finance 日足終値（9/25、BTCは9/26朝）</li>
+</ul></details>
+</section>
+
+<section id="s8">
+<h2>8. AI分析 全文（NotebookLM投入用・短縮版）</h2>
+<p class="src">経済を読み解く ｜ 原油が下がったのに、金利が上がった週 ── 2026年9月27日 週次分析</p>
+<h3>■ 今週の起点：原油が下がって、金利が上がった</h3>
+<p>先週この番組は「来週の目盛りは原油」と置きました。原油が100ドルを割って居続ければ買い戻し（A）、105ドルへ戻れば金利の重さ（B）。</p>
+<p>原油は週の初日に94ドルまで下げ、木曜には一時89ドル台。条件Aは初日に点きました。ところがアメリカの10年債金利は5.00%から5.16%へ、一時5.22%と2007年以来の高さまで上がりました。</p>
+<p>理由は原油ではなく、アメリカの景気の強さです。新規失業保険の申請が19.7万件と少なく、製造業もサービス業の調査も強く、FRBの高官からは「追加利上げが正当化される」という発言。10月の利上げ確率は約7割まで上がりました。原油が下がって物価の心配が減ったぶんより、景気が強くて利上げの心配が増えたぶんのほうが大きかった。</p>
+<p>先週の読みは「原油→金利」の矢印1本でした。今週は「景気→金利」というもう1本の矢印が勝った週です。</p>
+<h3>■ 記事1：ブラックロック「AIと暗号資産は融合する」</h3>
+<p>世界最大の資産運用会社ブラックロックが、AIと暗号資産が「ますます融合しつつある」というレポートを出しました。AIのエージェント（自分で判断して動くプログラム）が買い物や支払いをするには、機械が使える決済の仕組みが要る。それがステーブルコインやブロックチェーン決済だ、という筋です。記事は、2017年のICO、2021年のNFT、2024年のETFに続く「次の物語」がAIだと書いています。</p>
+<p>見ていただきたいのは3点。①これは価格ではなく「物語」の話。今の8万4千ドルを動かしたのは現物ETFへの流入（9月18日だけで4億3,300万ドル）と売り方の買い戻し（清算7億4,700万ドルの87%がショート）。見るのはETFの日々の流入額。②実際に動いている部品は決済規格「x402」。コインベースが作り、ビザ・マスターカード・ストライプ・グーグルが名を連ねる団体に寄贈済み。③同じ週にオラクルがデータセンターで「不可抗力」を通知し株価が4%下落（9月24日）。物語と現実の両方を見る。</p>
+<p>補足: 大手がこの物語で資金を集めに来ること自体が需給を動かします。ETF流入が続く限り8万ドル台は支えられ、止まった週に本当の強さが分かります。</p>
+<h3>■ 記事2：円キャリー時代の黄昏</h3>
+<p>先週の日銀利上げ（1.25%、31年ぶり）を受けて、Forbesのコラムは「世界の金融市場の背景で鳴っていた音楽が消え始めた」と書きました。音楽とは円キャリートレード。ほぼゼロ金利の円を借りて世界中の資産を買う仕組みです。日本の10年債はすでに3%で30年ぶりの高さ。米政権が日銀に利上げを促している、という指摘もあります。</p>
+<p>見ていただきたいのは3点。①「椅子取りゲームの椅子が一つ減った」。円を借りて買われていた世界の株や不動産が売られやすくなる。②今週の為替は「金曜まで円安、金曜に急反転」。9月24日に159円04銭、金曜に156円台。理由は9月22日の日米首脳会談でのトランプ大統領の円安懸念、片山財務相とベッセント財務長官の電話（「円の過小評価は問題」）、158円台でのレートチェック。金利差だけなら円安、政治が入ると円高。③見るのは日本10年債3%と、160円に近づいたときの実弾介入。</p>
+<p>補足: 「黄昏」は一晩では来ません。日米の金利差（今2.75%）が2%を切るあたりから、円キャリーの巻き戻しが相場の主語になる。それまでは介入の警戒で往復する、というのが今の位置です。</p>
+<h3>■ 答え合わせ</h3>
+<p>先週の最有力はC（レンジ）でした。実際は、株とビットコインはA（日経は最高値圏、BTCは8万ドルを守って87,364ドル）、金利とゴールドはB（10年債5.16%、NYダウは目印の51,462ドルを一度割り、ゴールドは帯の下へ）。Cは外れです。</p>
+<h3>■ 来週のシミュレーション</h3>
+<p>9月30日（水）米コアPCEと米GDP、10月1日（木）日銀短観と米ISM製造業、10月2日（金）米雇用統計。</p>
+<p><b>A 金利がいったん天井</b>: PCEが落ち着き雇用も過熱しない。10年債5.1%割れ、日経は66,399円を終値で更新、BTC 8万7千ドル超え、ドル円155円台。<br><b>B 金利もう一段（最有力）</b>: 雇用統計が強く10年債5.2%台に定着、10月利上げが既定路線。NYダウ51,000ドル割れ、ゴールド4,250、BTC 8万ドル割れを試す。<br><b>C 指標ごとに往復</b>: 日経65,000〜66,500円、BTC 8万〜8万7千、10年債5.0〜5.2%。</p>
+<p>最有力をBとする理由は、今週「金利を下げる材料が出ても金利が下がらなかった」から。流れが上を向いたまま指標週に入ります。ただしAの条件も同じ重さで置きます。</p>
+<h3>■ 来週、見ておく3つの数字</h3>
+<p>1. 米10年債 5.22%を超えるか、5.1%を割るか　2. ドル円 158円に戻るか、155円まで進むか　3. ビットコイン 8万7千ドルと8万ドルのどちらを先に触るか</p>
+<h3>■ 投資初心者へのまとめ</h3>
+<p>今週は、原油が下がったのに金利が上がった週でした。「原油が下がれば金利は落ち着く」という矢印は間違いではありません。ただ、矢印はもう1本ありました。「景気が強ければ金利は上がる」。今週は2本目が勝った。ノートの矢印にこの1本を足してください。来週は指標が3日続きます。数字が出るたびに、どちらの矢印が勝ったかを確かめる。それだけで、金利のニュースが「上がった、下がった」ではなく「なぜ」で読めるようになります。</p>
+</section>
+</div>
+
+</body>
+</html>
