@@ -59,7 +59,24 @@ footer{text-align:center;color:var(--text-2);font-size:12px;margin-top:40px;lett
 .axis{position:absolute;font-size:10.5px;color:#8f9cac;letter-spacing:.18em;z-index:4;font-weight:700;}
 .core{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#bff3ff,#42ddff 45%,#0a2740 85%);box-shadow:0 0 30px rgba(66,221,255,.7),0 0 90px rgba(66,221,255,.25);animation:corePulse 3.2s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#03222e;text-align:center;line-height:1.3;z-index:3;}
 @keyframes corePulse{50%{box-shadow:0 0 48px rgba(66,221,255,.95),0 0 130px rgba(66,221,255,.4);transform:translate(-50%,-50%) scale(1.05);}}
-.orb{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:3;}
+.orb{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:3;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit;}
+.orb:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:12px;}
+.orb.on .ball{box-shadow:0 0 0 3px rgba(255,255,255,.85),0 0 28px var(--c),0 16px 26px rgba(0,0,0,.55);}
+.pop{position:absolute;z-index:8;width:min(340px,calc(100% - 24px));background:rgba(5,10,18,.96);border:1px solid rgba(66,221,255,.45);border-radius:14px;padding:14px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;text-align:left;}
+.pop.show{display:block;}
+.pop .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;}
+.pop .pn{font-size:15px;font-weight:800;}
+.pop .pm{font-size:18px;font-weight:900;}
+.pop .ps{font-size:12.5px;color:#cfe3ee;line-height:1.7;}
+.pop .pi{font-size:12px;color:var(--text-1);background:rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;margin-top:8px;line-height:1.65;}
+.pop .pa{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.pop .pa a,.pop .pa button{font-size:12px;font-weight:700;border-radius:100px;padding:7px 12px;text-decoration:none;border:1px solid rgba(66,221,255,.5);color:var(--cyan);background:rgba(66,221,255,.08);cursor:pointer;font-family:inherit;}
+.pop .pa .pc{border-color:var(--panel-border);color:var(--text-2);background:transparent;}
+.pop .px{position:absolute;top:6px;right:10px;background:none;border:0;color:var(--text-2);font-size:18px;cursor:pointer;}
+.tap-hint{font-size:11.5px;color:var(--cyan);margin-top:8px;}
+.next-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.next-row a{font-size:12.5px;font-weight:700;color:var(--green);border:1px solid rgba(110,231,183,.45);background:rgba(110,231,183,.08);border-radius:100px;padding:9px 16px;text-decoration:none;}
+h1 a{color:inherit;text-decoration:none;}
 .orb .ball{display:block;margin:0 auto;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),var(--c) 45%,rgba(0,0,0,.78) 94%);box-shadow:0 0 20px var(--c),0 16px 26px rgba(0,0,0,.55);animation:bob var(--sp,5s) ease-in-out var(--d,0s) infinite alternate;}
 @keyframes bob{from{transform:translateY(-8px);}to{transform:translateY(8px);}}
 .orb .lbl{display:block;margin-top:9px;font-size:12.5px;font-weight:700;color:#f5f8fb;text-shadow:0 2px 8px #000;}
@@ -109,7 +126,7 @@ table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
 <body>
 <div class="wrap">
 <span class="badge">MARKET EDUCATION</span>
-<h1>アセットクラス<span class="g">強弱マップ</span><br>お金の流れを1枚で読む</h1>
+<h1><a href="../?src=map-title" title="ミライテラシーのハブに戻る">アセットクラス<span class="g">強弱マップ</span><br>お金の流れを1枚で読む</a></h1>
 <p class="lead">株・金・暗号資産・金利・ドル・原油 — バラバラに見えるニュースは、実はつながっています。「どのニュースが、どの資産に、どう効くのか」を初心者向けに1枚へ整理した教材ページです。</p>
 <div class="updated"><span class="dot"></span>最終更新: <span id="lastUpdated"></span> ・ 強弱判定は下のルールに基づく定点観測です</div>
 
@@ -125,12 +142,15 @@ table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
   <svg class="hline" id="gravLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
   <div class="core">金利<br>(重力)</div>
   <div id="orbLayer"></div>
+  <div class="pop" id="pop" role="dialog" aria-live="polite"></div>
 </div>
+<p class="tap-hint">👆 球を押すと、その資産の「今の状態」と「何が効いているか」が出ます。</p>
 <div class="read"><span><b>球の色</b> = 強弱(緑=強い/水色=強いが注意/黄=拮抗/赤=弱い)</span><span><b>球の大きさ</b> = 市場への影響力</span><span><b>点線</b> = 金利の重力(全資産に効く)</span><span><b>揺れ</b> = 常に動いている=固定された答えはない</span></div>
 
 <h2><span class="num">TODAY'S PICK</span>今日知るべきニュース(1本だけ)</h2>
 <p class="sub">更新のたびに、その日いちばん上のマップを動かしているニュースを1本だけ選んで、やさしく要約します。たくさん追う必要はありません — 主役の1本を深く。</p>
 <div id="newsBox"></div>
+<div class="next-row"><a href="../brief/?m=mirai2609&src=map-news">📖 週間ストーリーボードで答え合わせを読む →</a><a href="../?src=map-news">🏠 ミライテラシーのハブに戻る</a></div>
 
 <div id="answerSection" style="display:none;">
 <h2><span class="num">答え合わせ</span>先週の1問、どうなった?</h2>
@@ -162,7 +182,7 @@ table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
 <p style="font-size:12.5px;color:var(--text-2);margin-top:14px;">景気に自信がある時は左へ、怖い時は右へ。ただし「全部が同時に上がる/下がる」例外があり、それを起こすのが金利とドルの大変動。だから金利が主役。</p>
 </div>
 
-<h2><span class="num">SECTION 03</span>強弱はどう決まるのか(3つのルール)</h2>
+<h2 id="rules"><span class="num">SECTION 03</span>強弱はどう決まるのか(3つのルール)</h2>
 <p class="sub">感想やニュースの雰囲気では決めません。誰がやっても同じ答えになる3つの物差しで決めます。</p>
 <div class="rule"><div class="n">1</div><div><b>位置 — 平均線の上か、下か</b><p>直近20日の平均価格より上にいれば買い方が優勢、下なら売り方が優勢。トレンドの向きは「今の値段と平均の位置関係」でまず判定する。</p><span class="ex">例: 平均線の上で推移が続く=◎や○の候補</span></div></div>
 <div class="rule"><div class="n">2</div><div><b>勢い — 直近の変化のスピード</b><p>1週間でどれだけ動いたか。急ぎすぎ(例: 1日+3%超)は強さと同時に「買い疲れ」のサインでもあるので、◎ではなく○(注意つき)に格下げする。</p><span class="ex">例: 8月の金は+10%と強いが急騰日は過熱扱い</span></div></div>
@@ -210,7 +230,31 @@ async function loadMap(){
   '<div class="card"><div class="top"><span class="name">'+a.name+deltaOf(a)+'</span><span class="mark '+a.cls+'">'+a.mark+'</span></div><p class="state">'+a.state+'</p><div class="imp">'+a.imp+'</div></div>').join('');
  const orbs = D.assets.filter(a=>a.pos);
  document.getElementById('orbLayer').innerHTML = orbs.map((a,i)=>
-  '<div class="orb" style="left:'+a.pos.x+'%;top:'+a.pos.y+'%;"><span class="ball" style="--c:'+a.c+';--sp:'+(4.5+i*0.6)+'s;--d:'+(i*0.7)+'s;width:'+a.pos.s+'px;height:'+a.pos.s+'px;"></span><span class="lbl">'+(a.short||a.name)+' '+a.mark+'</span><span class="st">'+a.state.split('。')[0]+'</span></div>').join('');
+  '<button type="button" class="orb" data-i="'+i+'" aria-label="'+(a.short||a.name)+' の説明を開く" style="left:'+a.pos.x+'%;top:'+a.pos.y+'%;"><span class="ball" style="--c:'+a.c+';--sp:'+(4.5+i*0.6)+'s;--d:'+(i*0.7)+'s;width:'+a.pos.s+'px;height:'+a.pos.s+'px;"></span><span class="lbl">'+(a.short||a.name)+' '+a.mark+'</span><span class="st">'+a.state.split('。')[0]+'</span></button>').join('');
+ // v3: 球を押すと、その資産の説明(状態・何が効いているか)が吹き出しで出る
+ const stage = document.getElementById('stage'), pop = document.getElementById('pop');
+ const MARKWORD = {'◎':'強い(上昇トレンド)','○':'強いが過熱・注意','△':'拮抗・様子見','▼':'弱い(下降・重石あり)'};
+ function closePop(){ pop.classList.remove('show'); pop.innerHTML=''; stage.querySelectorAll('.orb.on').forEach(o=>o.classList.remove('on')); }
+ function openPop(btn){
+  const a = orbs[+btn.dataset.i]; if(!a) return;
+  stage.querySelectorAll('.orb.on').forEach(o=>o.classList.remove('on')); btn.classList.add('on');
+  pop.innerHTML = '<button class="px" type="button" aria-label="閉じる">×</button>'+
+   '<div class="ph"><span class="pn">'+a.name+deltaOf(a)+'</span><span class="pm '+a.cls+'">'+a.mark+'</span></div>'+
+   '<div class="ps"><b>'+(MARKWORD[a.mark]||'')+'</b>　'+a.state+'</div>'+
+   '<div class="pi">💡 '+a.imp+'</div>'+
+   '<div class="pa"><a href="#assetBoard">強弱ボードで全部見る ↓</a><a href="#rules">なぜこの判定か(3つのルール) ↓</a><button type="button" class="pc">閉じる</button></div>';
+  // 位置: 球の近く。右半分の球は左に出す。上下は枠内に収める
+  const r = btn.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+  pop.classList.add('show');
+  const pw = pop.offsetWidth, ph = pop.offsetHeight;
+  let left = (r.left - sr.left) + r.width/2 + 14; if(left + pw > sr.width - 12) left = (r.left - sr.left) + r.width/2 - pw - 14; if(left < 12) left = 12;
+  let top = (r.top - sr.top) - ph/2 + r.height/2; if(top < 56) top = 56; if(top + ph > sr.height - 12) top = Math.max(56, sr.height - ph - 12);
+  pop.style.left = left+'px'; pop.style.top = top+'px';
+  pop.querySelector('.px').onclick = closePop; pop.querySelector('.pc').onclick = closePop;
+ }
+ stage.querySelectorAll('.orb').forEach(b=>b.addEventListener('click', e=>{ e.stopPropagation(); if(b.classList.contains('on')) closePop(); else openPop(b); }));
+ document.addEventListener('click', e=>{ if(pop.classList.contains('show') && !pop.contains(e.target)) closePop(); });
+ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePop(); });
  document.getElementById('gravLines').innerHTML = orbs.map(a=>'<line x1="50" y1="58" x2="'+a.pos.x+'" y2="'+a.pos.y+'"/>').join('');
  const n = D.news, nb = document.getElementById('newsBox');
  if(n && nb){ nb.innerHTML = '<div class="news-card"><div class="nd">📰 '+n.date+' PICK</div><div class="nt">'+n.title+'</div><p class="ns">'+n.summary+'</p><div class="nchain">'+n.chain.map(c=>c[1]?'<span class="chip '+c[1]+'">'+c[0]+'</span>':'<span class="arr">'+c[0]+'</span>').join('')+'</div><div class="nlearn">'+n.learn+'</div><div class="nsrc">出典: <a href="'+n.url+'" target="_blank" rel="noopener">'+n.src+'</a></div></div>'; }
