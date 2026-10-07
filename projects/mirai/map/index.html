@@ -251,7 +251,7 @@ async function loadMap(){
  // 横の並び順で上下に互い違いにずらし、隣の球とラベルが重ならないようにする
  const par = {}; orbs.map((a,i)=>i).sort((i,j)=>orbs[i].pos.x-orbs[j].pos.x).forEach((idx,k)=>{ par[idx] = k%2; });
  const px = a => mob ? Math.round(8 + a.pos.x*0.78) : a.pos.x;
- const py = a => mob ? Math.round(10 + a.pos.y*0.9 + (par[orbs.indexOf(a)] ? 11 : -7)) : a.pos.y;
+ const py = a => mob ? Math.round(8 + a.pos.y*0.92 + (par[orbs.indexOf(a)] ? 13 : -9)) : a.pos.y;
  document.getElementById('orbLayer').innerHTML = orbs.map((a,i)=>
   '<button type="button" class="orb" data-i="'+i+'" aria-label="'+(a.short||a.name)+' の説明を開く" style="left:'+px(a)+'%;top:'+py(a)+'%;"><span class="ball" style="--c:'+a.c+';--sp:'+(4.5+i*0.6)+'s;--d:'+(i*0.7)+'s;width:'+a.pos.s+'px;height:'+a.pos.s+'px;"></span><span class="lbl">'+(a.short||a.name)+' '+a.mark+'</span><span class="st">'+a.state.split('。')[0]+'</span></button>').join('');
  // v3: 球を押すと、その資産の説明(状態・何が効いているか)が吹き出しで出る
