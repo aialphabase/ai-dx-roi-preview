@@ -88,7 +88,22 @@ h1 a{color:inherit;text-decoration:none;}
 .headline .hbox{background:rgba(3,6,12,.6);border:1px solid rgba(66,221,255,.35);backdrop-filter:blur(4px);border-radius:10px;padding:8px 14px;font-size:12.5px;color:#e5faff;}
 .read{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#8f9cac;margin-top:12px;}
 .read b{color:#f5f8fb;}
-@media(max-width:640px){.stage{height:420px;}.orb .lbl{font-size:11px;}}
+.shape-mobile{display:none;background:rgba(3,6,12,.6);border:1px solid rgba(66,221,255,.35);border-radius:10px;padding:10px 14px;font-size:12.5px;color:#e5faff;margin-top:20px;line-height:1.7;}
+.shape-mobile .sd{display:block;font-size:11px;color:#8f9cac;margin-top:4px;}
+@media(max-width:640px){
+ .stage{height:400px;margin-top:14px;}
+ .headline{display:none;}
+ .shape-mobile{display:block;}
+ .orb .lbl{font-size:11px;white-space:nowrap;margin-top:6px;}
+ .orb .st{display:none;}
+ .orb .ball{transform:scale(.72);}
+ @keyframes bob{from{transform:translateY(-5px) scale(.72);}to{transform:translateY(5px) scale(.72);}}
+ .core{width:62px;height:62px;font-size:10.5px;}
+ .axis{font-size:9.5px;}
+ .updated{white-space:normal;line-height:1.5;}
+ .updated .usub{display:none;}
+ .pop{width:calc(100% - 20px);left:10px !important;}
+}
 
 .news-card{background:var(--panel);border:1px solid var(--panel-border);border-left:4px solid var(--green);border-radius:14px;padding:20px 22px;}
 .news-card .nd{font-size:11.5px;color:var(--text-2);letter-spacing:.1em;margin-bottom:6px;}
@@ -128,10 +143,11 @@ table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
 <span class="badge">MARKET EDUCATION</span>
 <h1><a href="../?src=map-title" title="ミライテラシーのハブに戻る">アセットクラス<span class="g">強弱マップ</span><br>お金の流れを1枚で読む</a></h1>
 <p class="lead">株・金・暗号資産・金利・ドル・原油 — バラバラに見えるニュースは、実はつながっています。「どのニュースが、どの資産に、どう効くのか」を初心者向けに1枚へ整理した教材ページです。</p>
-<div class="updated"><span class="dot"></span>最終更新: <span id="lastUpdated"></span> ・ 強弱判定は下のルールに基づく定点観測です</div>
+<div class="updated"><span class="dot"></span>最終更新: <span id="lastUpdated"></span><span class="usub"> ・ 強弱判定は下のルールに基づく定点観測です</span></div>
 
 <h2 style="margin-top:36px;"><span class="num">SECTION 00</span>瞬間マップ — 今の相場のかたち</h2>
 <p class="sub">読まなくてもわかるゾーン。<b style="color:var(--text-1);">上にいる球ほど強く、下ほど弱い。左は安全資産、右はリスク資産。</b>中央で脈打つのが金利 — すべての球はここに繋がれています。詳しく知りたくなったら下のパネルへ。</p>
+<div class="shape-mobile" id="shapeMobile"></div>
 <div class="stage" id="stage">
   <div class="floor"></div>
   <div class="headline"><span class="hbox" id="shapeRead">今の形: 左上が重い =「守りながら攻める」相場</span><span class="hbox" style="color:#8f9cac;">🔄 <span id="stageDate"></span> 更新</span></div>
@@ -209,6 +225,7 @@ async function loadMap(){
  document.getElementById('lastUpdated').textContent = D.updated + stale;
  document.getElementById('stageDate').textContent = D.updated;
  document.getElementById('shapeRead').textContent = D.shapeRead;
+ document.getElementById('shapeMobile').innerHTML = '<span>'+D.shapeRead+'</span><span class="sd">🔄 '+D.updated+' 更新 ・ 球を押すと説明が出ます</span>';
  // v2: 履歴を読み(無くても動く)、前回との変化を出す
  let H = [];
  try{ H = await fetch(SRC+'asset-history.json?v='+Date.now()).then(r=>{ if(!r.ok) throw 0; return r.json(); }); }
@@ -229,8 +246,14 @@ async function loadMap(){
  document.getElementById('assetBoard').innerHTML = D.assets.map(a=>
   '<div class="card"><div class="top"><span class="name">'+a.name+deltaOf(a)+'</span><span class="mark '+a.cls+'">'+a.mark+'</span></div><p class="state">'+a.state+'</p><div class="imp">'+a.imp+'</div></div>').join('');
  const orbs = D.assets.filter(a=>a.pos);
+ // スマホ: 横は 12〜88% に収め、縦は少し広げる（ラベルが隣の球に被らないように）
+ const mob = innerWidth < 640;
+ // 横の並び順で上下に互い違いにずらし、隣の球とラベルが重ならないようにする
+ const par = {}; orbs.map((a,i)=>i).sort((i,j)=>orbs[i].pos.x-orbs[j].pos.x).forEach((idx,k)=>{ par[idx] = k%2; });
+ const px = a => mob ? Math.round(8 + a.pos.x*0.78) : a.pos.x;
+ const py = a => mob ? Math.round(10 + a.pos.y*0.9 + (par[orbs.indexOf(a)] ? 11 : -7)) : a.pos.y;
  document.getElementById('orbLayer').innerHTML = orbs.map((a,i)=>
-  '<button type="button" class="orb" data-i="'+i+'" aria-label="'+(a.short||a.name)+' の説明を開く" style="left:'+a.pos.x+'%;top:'+a.pos.y+'%;"><span class="ball" style="--c:'+a.c+';--sp:'+(4.5+i*0.6)+'s;--d:'+(i*0.7)+'s;width:'+a.pos.s+'px;height:'+a.pos.s+'px;"></span><span class="lbl">'+(a.short||a.name)+' '+a.mark+'</span><span class="st">'+a.state.split('。')[0]+'</span></button>').join('');
+  '<button type="button" class="orb" data-i="'+i+'" aria-label="'+(a.short||a.name)+' の説明を開く" style="left:'+px(a)+'%;top:'+py(a)+'%;"><span class="ball" style="--c:'+a.c+';--sp:'+(4.5+i*0.6)+'s;--d:'+(i*0.7)+'s;width:'+a.pos.s+'px;height:'+a.pos.s+'px;"></span><span class="lbl">'+(a.short||a.name)+' '+a.mark+'</span><span class="st">'+a.state.split('。')[0]+'</span></button>').join('');
  // v3: 球を押すと、その資産の説明(状態・何が効いているか)が吹き出しで出る
  const stage = document.getElementById('stage'), pop = document.getElementById('pop');
  const MARKWORD = {'◎':'強い(上昇トレンド)','○':'強いが過熱・注意','△':'拮抗・様子見','▼':'弱い(下降・重石あり)'};
@@ -255,7 +278,7 @@ async function loadMap(){
  stage.querySelectorAll('.orb').forEach(b=>b.addEventListener('click', e=>{ e.stopPropagation(); if(b.classList.contains('on')) closePop(); else openPop(b); }));
  document.addEventListener('click', e=>{ if(pop.classList.contains('show') && !pop.contains(e.target)) closePop(); });
  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePop(); });
- document.getElementById('gravLines').innerHTML = orbs.map(a=>'<line x1="50" y1="58" x2="'+a.pos.x+'" y2="'+a.pos.y+'"/>').join('');
+ document.getElementById('gravLines').innerHTML = orbs.map(a=>'<line x1="50" y1="58" x2="'+px(a)+'" y2="'+py(a)+'"/>').join('');
  const n = D.news, nb = document.getElementById('newsBox');
  if(n && nb){ nb.innerHTML = '<div class="news-card"><div class="nd">📰 '+n.date+' PICK</div><div class="nt">'+n.title+'</div><p class="ns">'+n.summary+'</p><div class="nchain">'+n.chain.map(c=>c[1]?'<span class="chip '+c[1]+'">'+c[0]+'</span>':'<span class="arr">'+c[0]+'</span>').join('')+'</div><div class="nlearn">'+n.learn+'</div><div class="nsrc">出典: <a href="'+n.url+'" target="_blank" rel="noopener">'+n.src+'</a></div></div>'; }
 
