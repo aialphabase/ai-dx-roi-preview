@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>強弱マップ 行動の変化</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--ink:#0f172a;--sub:#475569;--line:#e2e8f0;--good:#047857;--bad:#b91c1c;--acc:#0e7490;--chip:#f1f5f9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#111a2e;--ink:#e2e8f0;--sub:#94a3b8;--line:#1e293b;--good:#34d399;--bad:#f87171;--acc:#22d3ee;--chip:#1e293b}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#111a2e;--ink:#e2e8f0;--sub:#94a3b8;--line:#1e293b;--good:#34d399;--bad:#f87171;--acc:#22d3ee;--chip:#1e293b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;line-height:1.75}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:4px 0 2px}
+.meta{color:var(--sub);font-size:13px;margin:0 0 18px}
+h2{font-size:18px;margin:30px 0 10px;padding-left:10px;border-left:4px solid var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.verdict p{margin:6px 0}
+.ok{color:var(--good);font-weight:700}.ng{color:var(--bad);font-weight:700}
+.big{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.big div{background:var(--chip);border-radius:10px;padding:10px 8px;text-align:center}
+.big b{display:block;font-size:19px;line-height:1.25;white-space:nowrap}
+.big small{color:var(--sub);font-size:12px}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:460px}
+th,td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--sub);font-weight:600;font-size:12px}
+img{max-width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line)}
+figure{margin:12px 0}
+figcaption{color:var(--sub);font-size:13px;margin-top:6px}
+.bars{display:grid;gap:6px;font-size:13px}
+.bar{display:grid;grid-template-columns:76px 1fr 56px;align-items:center;gap:8px}
+.bar i{display:block;height:14px;border-radius:7px;background:var(--acc)}
+.bar i.y{background:#f59e0b}
+ul{padding-left:1.2em;margin:6px 0}
+li{margin:4px 0}
+.fix{border-left:4px solid #f59e0b}
+.note{font-size:13px;color:var(--sub)}
+details{margin:8px 0}
+summary{cursor:pointer;color:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+<h1>強弱マップ 行動の変化</h1>
+<p class="meta">運営用・2026-10-18 15:42 時点のデータ／改善前（〜10/4）・改善直後（10/4〜10/7）・スマホ最適化後（10/7〜今日）</p>
+
+<div class="card verdict">
+<p><span class="ok">効いた：</span>球が押されるようになった。<b>何か押した人 3/39人 → 12/20人</b>、滞在（中央）<b>33秒 → 91秒</b>。</p>
+<p><span class="ng">まだ：</span>開く回数は横ばい（1日 1.6 → 1.8回）で、今週（10/12〜）は<b>4回</b>に減った。半分まで読む人は 49% → 35%。</p>
+<p><span class="ng">空振り：</span>押しても何も起きない所が、まだ押された回数の半分近く（71回中32回）ある。</p>
+</div>
+
+<div class="big">
+<div><small>何か押した人</small><b>8%→60%</b><small>改善前→最適化後</small></div>
+<div><small>滞在（中央）</small><b>33→91秒</b><small>改善前→最適化後</small></div>
+<div><small>1日に開く回数</small><b>1.6→1.8</b><small>ほぼ横ばい</small></div>
+</div>
+
+<h2>押された場所（スマホ表示）</h2>
+<figure>
+<img src="compare_top.jpg" alt="改善前・改善直後・スマホ最適化後の3列で、強弱マップの上部に押された場所を赤で重ねた図" loading="lazy">
+<figcaption>赤いほど多く押された場所。③では球の上が赤くなった（球20回・吹き出しの中17回）。球の右側と下は空振り（18回）。</figcaption>
+</figure>
+<details><summary>③ スマホ最適化後だけを大きく見る</summary>
+<figure><img src="C_top.jpg" alt="スマホ最適化後の強弱マップ上部のヒートマップ" loading="lazy"></figure>
+</details>
+<details><summary>① 改善前・② 改善直後を大きく見る</summary>
+<figure><img src="A_top.jpg" alt="改善前の強弱マップ上部のヒートマップ" loading="lazy"></figure>
+<figure><img src="B_top.jpg" alt="改善直後の強弱マップ上部のヒートマップ" loading="lazy"></figure>
+</details>
+<details><summary>ページ全体（どこまで読んだか・緑の線）</summary>
+<figure><img src="compare_all.jpg" alt="ページ全体の縮小図。緑の点線がここまで読んだ人の割合" loading="lazy">
+<figcaption>下の方の赤は「ニュースの伝わり方」の色チップ（CPI→金利→株…）。ボタンに見えるが押しても何も起きない。</figcaption></figure>
+</details>
+
+<h2>数字の比較</h2>
+<div class="tbl"><table>
+<thead><tr><th></th><th>① 改善前</th><th>② 改善直後</th><th>③ 最適化後</th></tr></thead>
+<tbody>
+<tr><td>期間（日数）</td><td>9/11〜10/4（23.7）</td><td>10/4〜10/7（3.1）</td><td>10/7〜10/18（10.9）</td></tr>
+<tr><td>開いた回数</td><td>39</td><td>7</td><td>20</td></tr>
+<tr><td>1日あたり</td><td>1.6</td><td>2.3</td><td>1.8</td></tr>
+<tr><td>何か押した人</td><td>3（8%）</td><td>1（14%）</td><td>12（60%）</td></tr>
+<tr><td>押された回数</td><td>21</td><td>14</td><td>71</td></tr>
+<tr><td>滞在（中央）</td><td>33秒</td><td>226秒</td><td>91秒</td></tr>
+<tr><td>25%まで読んだ</td><td>69%</td><td>71%</td><td>75%</td></tr>
+<tr><td>50%まで</td><td>49%</td><td>29%</td><td>35%</td></tr>
+<tr><td>75%まで</td><td>36%</td><td>29%</td><td>30%</td></tr>
+<tr><td>90%まで</td><td>31%</td><td>29%</td><td>30%</td></tr>
+<tr><td>スマホの割合</td><td>49%</td><td>43%</td><td>70%</td></tr>
+<tr><td>平日投稿から来た</td><td>29</td><td>5</td><td>19</td></tr>
+<tr><td>ミニマップの表示※</td><td>36</td><td>6</td><td>16</td></tr>
+</tbody></table></div>
+<p class="note">※ハブとストーリーボードに埋め込んだ小さいマップの表示回数。開いた回数には入れていない。②は7回しかないので、傾向は①と③で見る。</p>
+
+<h2>③で押された中身（71回）</h2>
+<div class="bars">
+<div class="bar"><span>空振り</span><i class="y" style="width:100%"></i><span>32</span></div>
+<div class="bar"><span>球</span><i style="width:62%"></i><span>20</span></div>
+<div class="bar"><span>吹き出しの中</span><i style="width:53%"></i><span>17</span></div>
+<div class="bar"><span>題名・ニュース下</span><i style="width:6%"></i><span>2</span></div>
+</div>
+<ul class="note">
+<li>球：原油5・BTC5・ドル4・アルト3・株指数2・ゴールド1</li>
+<li>吹き出しの中：閉じる11・強弱ボードへ3・3つのルールへ3</li>
+<li>空振りの場所：球のまわり18・ニュースの色チップ5・ページ下（伝わり方のチップ〜3つのルール、1人が拡大して押した）7・題名あたり2</li>
+<li>ストーリーボードへの導線は③で0回（②で1回）</li>
+</ul>
+
+<h2>週ごとの開いた回数</h2>
+<div class="bars">
+<div class="bar"><span>9/14〜</span><i style="width:32%"></i><span>7</span></div>
+<div class="bar"><span>9/21〜</span><i style="width:100%"></i><span>22</span></div>
+<div class="bar"><span>9/28〜</span><i style="width:59%"></i><span>13</span></div>
+<div class="bar"><span>10/5〜</span><i style="width:95%"></i><span>21</span></div>
+<div class="bar"><span>10/12〜</span><i class="y" style="width:18%"></i><span>4</span></div>
+</div>
+<p class="note">10/13〜16の平日投稿4本すべてにマップのリンクは入っていた。それでも10/13・14は0回。</p>
+
+<h2>端末と来訪回数（③）</h2>
+<ul>
+<li>iPhone（Safari）11・Android（Chrome）5・Mac（Chrome）5・Windows（Edge）2</li>
+<li>そのブラウザで初めて7・2回目以上6（記録なし10）</li>
+<li>Macの5回のうち4回は同じ1つのタブ（運営本人の可能性あり）</li>
+</ul>
+
+<h2>完全版・ストーリーボードへの流入（go/ 経由）</h2>
+<div class="tbl"><table>
+<thead><tr><th>回</th><th>完全版 full</th><th>ストーリーボード sb</th></tr></thead>
+<tbody>
+<tr><td>第26回（9/13）</td><td>5</td><td>—</td></tr>
+<tr><td>第27回（9/20）</td><td>2</td><td>3</td></tr>
+<tr><td>第28回（9/27）</td><td>4</td><td>0</td></tr>
+<tr><td>第29回（10/4）</td><td>1</td><td>1</td></tr>
+<tr><td>第30回（10/11）</td><td>2</td><td>2</td></tr>
+<tr><td>第31回（10/18）</td><td>0</td><td>0</td></tr>
+</tbody></table></div>
+<p class="note">週1〜5回で横ばい、増えていない。第31回は公開から約3時間で m31full・m31sb とも0件（行き先の登録は確認済み）。第30回は公開当日に完全版2件が来ていた。</p>
+
+<h2>次に直す2点（OKが出たら実施）</h2>
+<div class="card fix">
+<p><b>① 空振りを「押せる」に変える</b></p>
+<ul>
+<li>球の名前（「BTC △」など）まで押せる範囲を広げる</li>
+<li>ニュース欄と伝わり方の色チップを押したら、その資産の球の吹き出しが開くようにする</li>
+</ul>
+<p class="note">空振り32回のうち23回がこの2か所（球のまわり18・ニュースの色チップ5）。押そうとする動きはもうあるので、受け止めるだけで済む。</p>
+</div>
+<div class="card fix">
+<p><b>② 「今日知るべきニュース」を毎週日曜に入れ替える</b></p>
+<ul>
+<li>今も <b>10/2 のニュース</b>が出ている（16日前）。球や「今の形」は10/16に更新されているのに、ここだけ古い</li>
+<li>ミライニュース公開の日曜に、その回の本編ニュースへ差し替える手順を足す</li>
+</ul>
+<p class="note">ニュースの下からストーリーボードへの導線は③で0回。中身が古いまま止まっていると、その先の導線も押されない。</p>
+</div>
+
+<h2>数え方</h2>
+<ul class="note">
+<li>除いたもの：check・selftest、ローカル描画、画面幅800の描画、運営の確認とみられる7回（10/4 16:45 公開直後のMac、10/7 17:43〜49 の連続来訪）、埋め込みミニマップ</li>
+<li>前回（10/4・10/7）の「閲覧59・79」はミニマップの表示を含んでいた。今回は外したので、数字は前回より小さく出る</li>
+<li>「開いた回数」はセッション数で、人数ではない。位置はおおよそ（画面幅で多少ずれる）</li>
+<li>データ：行動計測DB（track-mirai）を直接集計</li>
+</ul>
+</main>
+</body>
+</html>
