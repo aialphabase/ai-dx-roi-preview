@@ -60,6 +60,12 @@ footer{text-align:center;color:var(--text-2);font-size:12px;margin-top:40px;lett
 .core{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#bff3ff,#42ddff 45%,#0a2740 85%);box-shadow:0 0 30px rgba(66,221,255,.7),0 0 90px rgba(66,221,255,.25);animation:corePulse 3.2s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#03222e;text-align:center;line-height:1.3;z-index:3;}
 @keyframes corePulse{50%{box-shadow:0 0 48px rgba(66,221,255,.95),0 0 130px rgba(66,221,255,.4);transform:translate(-50%,-50%) scale(1.05);}}
 .orb{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:3;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit;}
+.orb::before{content:"";position:absolute;left:50%;top:50%;width:calc(100% + 24px);height:calc(100% + 20px);min-width:72px;min-height:72px;transform:translate(-50%,-50%);border-radius:24px;}
+button.core{border:0;padding:0;cursor:pointer;font-family:inherit;}
+button.core::before{content:"";position:absolute;inset:-12px;border-radius:50%;}
+button.chip{border:0;font-family:inherit;line-height:inherit;cursor:pointer;}
+button.chip::after{content:" ↗";font-size:11px;opacity:.7;}
+.chip-hint{font-size:11.5px;color:var(--cyan);margin:6px 0 0;}
 .orb:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:12px;}
 .orb.on .ball{box-shadow:0 0 0 3px rgba(255,255,255,.85),0 0 28px var(--c),0 16px 26px rgba(0,0,0,.55);}
 .pop{position:absolute;z-index:8;width:min(340px,calc(100% - 24px));background:rgba(5,10,18,.96);border:1px solid rgba(66,221,255,.45);border-radius:14px;padding:14px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;text-align:left;}
@@ -156,11 +162,11 @@ table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
   <span class="axis" style="bottom:12px;left:50%;transform:translateX(-120%);">← 安全資産</span>
   <span class="axis" style="bottom:12px;left:50%;transform:translateX(20%);">リスク資産 →</span>
   <svg class="hline" id="gravLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
-  <div class="core">金利<br>(重力)</div>
+  <button type="button" class="core" id="coreBtn" aria-label="金利 の説明を開く">金利<br>(重力)</button>
   <div id="orbLayer"></div>
   <div class="pop" id="pop" role="dialog" aria-live="polite"></div>
 </div>
-<p class="tap-hint">👆 球を押すと、その資産の「今の状態」と「何が効いているか」が出ます。</p>
+<p class="tap-hint">👆 球（真ん中の金利も）を押すと、その資産の「今の状態」と「何が効いているか」が出ます。</p>
 <div class="read"><span><b>球の色</b> = 強弱(緑=強い/水色=強いが注意/黄=拮抗/赤=弱い)</span><span><b>球の大きさ</b> = 市場への影響力</span><span><b>点線</b> = 金利の重力(全資産に効く)</span><span><b>揺れ</b> = 常に動いている=固定された答えはない</span></div>
 
 <h2><span class="num">TODAY'S PICK</span>今日知るべきニュース(1本だけ)</h2>
@@ -186,7 +192,7 @@ table.hist td .sh{font-size:11px;color:var(--text-2);display:block;}
 </div>
 
 <h2><span class="num">SECTION 02</span>ニュースはどこに効くのか(影響の流れ)</h2>
-<p class="sub">ニュースは「直接効く資産」と「そこを経由して波及する資産」があります。矢印の順番ごと覚えるのがコツです。</p>
+<p class="sub">ニュースは「直接効く資産」と「そこを経由して波及する資産」があります。矢印の順番ごと覚えるのがコツです。↗の付いた札を押すと、マップのその球の説明が開きます。</p>
 <div class="flow"><div class="row"><span class="chip c-violet">CPI・雇用統計</span><span class="arr">→</span><span class="chip c-cyan">金利(観測)</span><span class="arr">→</span><span class="chip c-green">株</span><span class="chip c-amber">金</span><span class="chip c-cyan">BTC</span></div><p class="why">物価や雇用が強い→「利上げされるかも」→金利上昇→利息を生まない金や、将来の利益で買われる株・BTCの重石に。弱い数字なら逆回転。</p></div>
 <div class="flow"><div class="row"><span class="chip c-violet">FRBの発言・FOMC議事録</span><span class="arr">→</span><span class="chip c-cyan">金利(観測)</span><span class="arr">→</span><span class="chip c-green">ほぼ全資産</span></div><p class="why">中央銀行の一言は金利観測を直接動かすので、全資産の「重力」が変わる。最優先で見るニュース。</p></div>
 <div class="flow"><div class="row"><span class="chip c-red">中東情勢・地政学</span><span class="arr">→</span><span class="chip c-amber">原油</span><span class="arr">→</span><span class="chip c-cyan">金利(インフレ経由)</span><span class="arr">＋</span><span class="chip c-amber">金(有事の買い)</span></div><p class="why">緊張→原油高→インフレ懸念→金利上昇圧力、という遠回りの悪影響と、「怖いから金を買う」直接の追い風が同時に起きる。</p></div>
@@ -258,9 +264,9 @@ async function loadMap(){
  const stage = document.getElementById('stage'), pop = document.getElementById('pop');
  const MARKWORD = {'◎':'強い(上昇トレンド)','○':'強いが過熱・注意','△':'拮抗・様子見','▼':'弱い(下降・重石あり)'};
  function closePop(){ pop.classList.remove('show'); pop.innerHTML=''; stage.querySelectorAll('.orb.on').forEach(o=>o.classList.remove('on')); }
- function openPop(btn){
-  const a = orbs[+btn.dataset.i]; if(!a) return;
-  stage.querySelectorAll('.orb.on').forEach(o=>o.classList.remove('on')); btn.classList.add('on');
+ function openPop(btn, asset){
+  const a = asset || orbs[+btn.dataset.i]; if(!a) return;
+  stage.querySelectorAll('.orb.on').forEach(o=>o.classList.remove('on')); if(btn.classList.contains('orb')) btn.classList.add('on');
   pop.innerHTML = '<button class="px" type="button" aria-label="閉じる">×</button>'+
    '<div class="ph"><span class="pn">'+a.name+deltaOf(a)+'</span><span class="pm '+a.cls+'">'+a.mark+'</span></div>'+
    '<div class="ps"><b>'+(MARKWORD[a.mark]||'')+'</b>　'+a.state+'</div>'+
@@ -273,14 +279,38 @@ async function loadMap(){
   let left = (r.left - sr.left) + r.width/2 + 14; if(left + pw > sr.width - 12) left = (r.left - sr.left) + r.width/2 - pw - 14; if(left < 12) left = 12;
   let top = (r.top - sr.top) - ph/2 + r.height/2; if(top < 56) top = 56; if(top + ph > sr.height - 12) top = Math.max(56, sr.height - ph - 12);
   pop.style.left = left+'px'; pop.style.top = top+'px';
-  pop.querySelector('.px').onclick = closePop; pop.querySelector('.pc').onclick = closePop;
+  pop.dataset.a = a.name; pop.querySelector('.px').onclick = closePop; pop.querySelector('.pc').onclick = closePop;
  }
  stage.querySelectorAll('.orb').forEach(b=>b.addEventListener('click', e=>{ e.stopPropagation(); if(b.classList.contains('on')) closePop(); else openPop(b); }));
+ // 中央の金利も押せる(10/18: 中央の空振りが多かった)
+ const rateA = D.assets.find(a=>!a.pos && /金利/.test(a.name)), coreBtn = document.getElementById('coreBtn');
+ if(rateA && coreBtn) coreBtn.addEventListener('click', e=>{ e.stopPropagation(); if(pop.classList.contains('show') && pop.dataset.a===rateA.name) closePop(); else openPop(coreBtn, rateA); });
+ // 色の札(ニュース・伝わり方)を押すと、その資産の球へ移動して説明を開く(10/18: 札の空振りが多かった)
+ const KEYS = [['アルト','アルト'],['BTC','BTC'],['ビットコイン','BTC'],['金利','金利'],['ゴールド','ゴールド'],['金','ゴールド'],['原油','原油'],['ナスダック','株指数'],['日経','株指数'],['ダウ','株指数'],['株','株指数'],['ドル','ドル']];
+ function assetOf(t){
+  let best=null, bi=1e9;
+  KEYS.forEach(([k,n])=>{ let i=t.indexOf(k); while(i>=0 && k==='金' && t.slice(i,i+2)==='金利') i=t.indexOf(k,i+1); if(i>=0 && i<bi){ bi=i; best=n; } });
+  if(!best) return null;
+  return best==='金利' ? rateA : D.assets.find(a=>(a.short||a.name)===best);
+ }
+ function linkChips(root){
+  if(!root) return;
+  root.querySelectorAll('span.chip').forEach(sp=>{
+   const a = assetOf(sp.textContent); if(!a) return;
+   const el = a.pos ? stage.querySelector('.orb[data-i="'+orbs.indexOf(a)+'"]') : coreBtn; if(!el) return;
+   const b = document.createElement('button'); b.type='button'; b.className=sp.className; b.textContent=sp.textContent;
+   b.setAttribute('aria-label', sp.textContent+'（'+(a.short||a.name)+'の説明を開く）');
+   b.addEventListener('click', e=>{ e.stopPropagation(); stage.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>openPop(el, a), 450); });
+   sp.replaceWith(b);
+  });
+ }
+ window.__linkChips = linkChips;
+ document.querySelectorAll('.flow').forEach(linkChips);
  document.addEventListener('click', e=>{ if(pop.classList.contains('show') && !pop.contains(e.target)) closePop(); });
  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePop(); });
  document.getElementById('gravLines').innerHTML = orbs.map(a=>'<line x1="50" y1="58" x2="'+px(a)+'" y2="'+py(a)+'"/>').join('');
  const n = D.news, nb = document.getElementById('newsBox');
- if(n && nb){ nb.innerHTML = '<div class="news-card"><div class="nd">📰 '+n.date+' PICK</div><div class="nt">'+n.title+'</div><p class="ns">'+n.summary+'</p><div class="nchain">'+n.chain.map(c=>c[1]?'<span class="chip '+c[1]+'">'+c[0]+'</span>':'<span class="arr">'+c[0]+'</span>').join('')+'</div><div class="nlearn">'+n.learn+'</div><div class="nsrc">出典: <a href="'+n.url+'" target="_blank" rel="noopener">'+n.src+'</a></div></div>'; }
+ if(n && nb){ nb.innerHTML = '<div class="news-card"><div class="nd">📰 '+n.date+' PICK</div><div class="nt">'+n.title+'</div><p class="ns">'+n.summary+'</p><div class="nchain">'+n.chain.map(c=>c[1]?'<span class="chip '+c[1]+'">'+c[0]+'</span>':'<span class="arr">'+c[0]+'</span>').join('')+'</div><div class="nlearn">'+n.learn+'</div><div class="nsrc">出典: <a href="'+n.url+'" target="_blank" rel="noopener">'+n.src+'</a></div></div>'; if(window.__linkChips){ window.__linkChips(nb); if(nb.querySelector('button.chip')) nb.querySelector('.nchain').insertAdjacentHTML('afterend','<p class="chip-hint">👆 ↗の札を押すと、その球の説明が開きます。</p>'); } }
 
  // v2: 先週の答え合わせ(answerCheckがある時だけ表示)
  const ac = D.answerCheck;
