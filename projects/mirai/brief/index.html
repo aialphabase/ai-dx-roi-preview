@@ -304,7 +304,9 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     if(hl && mk) hl.href = '../?m=' + encodeURIComponent(mk);
   })();
 
-  function el(id){ return document.getElementById(id); }
+  // titleParts（配列）があれば、まとまりごとに inline-block にして語の途中で折り返さない
+function setTitle(id,o){var t=el(id);if(Array.isArray(o.titleParts)){t.textContent='';o.titleParts.forEach(function(x){var sp=document.createElement('span');sp.style.display='inline-block';sp.textContent=x;t.appendChild(sp);});}else t.textContent=o.title||'';}
+function el(id){ return document.getElementById(id); }
   function esc(s){ var d=document.createElement('div'); d.textContent=String(s==null?'':s); return d.innerHTML; }
   // 信頼できるのは自分たちのJSONだけだが、b/strong以外は落とす軽いフィルタを通す
   function rich(s){
@@ -356,7 +358,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
       el('storyHero').style.display='';
       el('shapeHero').style.display='none';
       el('storyLabel').textContent=(d.story.label||'')+'　'+(d.issue||'');
-      el('storyTitle').textContent=d.story.title||'';
+      setTitle('storyTitle',d.story);
       el('storyBody').innerHTML=(d.story.paras||[]).map(function(t){return '<p>'+rich(t)+'</p>';}).join('');
       if(d.story.mitate){
         el('mitateBox').style.display='';
@@ -403,7 +405,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     if(d.tilt&&d.tilt.note) tw.insertAdjacentHTML('beforeend','<div class="mnote">'+rich(d.tilt.note)+'</div>');
 
     // 話題
-    el('topicsTitle').textContent=(d.topics&&d.topics.title)||'';
+    setTitle('topicsTitle',d.topics||{});
     el('topicsLede').textContent=(d.topics&&d.topics.lede)||'';
     var thead='<tr><th>話題</th>'+(d.topics.weeks||[]).map(function(w){return '<th style="text-align:right">'+esc(w)+'</th>';}).join('')+'</tr>';
     var tbody=(d.topics.rows||[]).map(function(r){
@@ -416,7 +418,7 @@ footer{padding:30px 0 0;border-top:1px solid var(--line);display:flex;flex-direc
     el('topicsLearn').innerHTML=rich(d.topics.learn||'');
 
     // 市場スパークライン
-    var m=d.market||{}; el('marketTitle').textContent=m.title||'';
+    var m=d.market||{}; setTitle('marketTitle',m);
     el('marketCaption').innerHTML=rich(m.caption||'');
     var s=m.series||[];
     if(s.length>1){
