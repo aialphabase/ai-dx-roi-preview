@@ -1,0 +1,43 @@
+name: mirai-publish
+# 日曜の公開ボタン（手動だけ。時刻では動かない）。Actions → mirai-publish → Run workflow。スマホの GitHub アプリからも押せる
+# 既定はテスト部屋。本番は target=prod と confirm に「本番」と入れたときだけ
+on:
+  workflow_dispatch:
+    inputs:
+      spec:
+        description: "中身のファイル（例 projects/mirai-ops/publish/2026-W45.json）"
+        default: "projects/mirai-ops/publish/test.json"
+        required: true
+      target:
+        description: "行き先"
+        type: choice
+        options: [test, prod]
+        default: test
+      confirm:
+        description: "本番のときだけ「本番」と入れる"
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: mirai-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: 本番の念押し
+        if: inputs.target == 'prod' && inputs.confirm != '本番'
+        run: echo "本番は confirm に「本番」と入れてください" && exit 1
+      - name: 公開
+        env:
+          DISCORD_WEBHOOK_URL: ${{ inputs.target == 'prod' && secrets.DISCORD_NEWS_WEBHOOK || secrets.DISCORD_TEST_WEBHOOK }}
+          SPEC: ${{ inputs.spec }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          set -o pipefail
+          git config user.name  "mirai-publish-bot"
+          git config user.email "bot@users.noreply.github.com"
+          python scripts/mirai_publish.py --spec "$SPEC" --target "$TARGET" --go | tee -a $GITHUB_STEP_SUMMARY
