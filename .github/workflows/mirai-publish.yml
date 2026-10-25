@@ -1,5 +1,5 @@
 name: mirai-publish
-# 日曜の公開ボタン（手動だけ。時刻では動かない）。Actions → mirai-publish → Run workflow。スマホの GitHub アプリからも押せる
+# 日曜の公開ボタン（起動は手動。post_at を入れると、その時刻まで GitHub 側で待って投稿＝PCを閉じていても出る）。Actions → mirai-publish → Run workflow。スマホの GitHub アプリからも押せる
 # 既定はテスト部屋。本番は target=prod と confirm に「本番」と入れたときだけ
 on:
   workflow_dispatch:
@@ -16,6 +16,12 @@ on:
       confirm:
         description: "本番のときだけ「本番」と入れる"
         default: ""
+      post_at:
+        description: "投稿の時刻 JST（例 2026-10-25 15:30）。空ならすぐ。サイトの公開はその6分前"
+        default: ""
+      branch:
+        description: "公開する中身の枝（例 pending/2026-W44）。空なら main のまま"
+        default: ""
 permissions:
   contents: write
 concurrency:
@@ -24,20 +30,45 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - name: 本番の念押し
         if: inputs.target == 'prod' && inputs.confirm != '本番'
         run: echo "本番は confirm に「本番」と入れてください" && exit 1
+      - name: 指定の時刻の6分前まで待つ
+        if: inputs.post_at != ''
+        env: { POST_AT: "${{ inputs.post_at }}" }
+        run: |
+          python3 - <<'PY'
+          import datetime as dt, os, time
+          JST = dt.timezone(dt.timedelta(hours=9))
+          at = dt.datetime.strptime(os.environ["POST_AT"], "%Y-%m-%d %H:%M").replace(tzinfo=JST)
+          w = (at - dt.timedelta(minutes=6) - dt.datetime.now(JST)).total_seconds()
+          print(f"{os.environ['POST_AT']} JST の6分前まで {max(0,int(w))} 秒待つ", flush=True)
+          if w > 5.5 * 3600: raise SystemExit("6時間を超える待ちは Actions の上限を超える（5.5時間以内で起動する）")
+          if w > 0: time.sleep(w)
+          PY
+      - name: 中身の枝を main に取り込む
+        if: inputs.branch != ''
+        env: { BR: "${{ inputs.branch }}" }
+        run: |
+          git config user.name  "mirai-publish-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git fetch origin "$BR" main
+          git merge --no-edit "origin/$BR"
+          git push origin HEAD:main
       - name: 公開
         env:
           DISCORD_WEBHOOK_URL: ${{ inputs.target == 'prod' && secrets.DISCORD_NEWS_WEBHOOK || secrets.DISCORD_TEST_WEBHOOK }}
           SPEC: ${{ inputs.spec }}
           TARGET: ${{ inputs.target }}
+          POST_AT: ${{ inputs.post_at }}
         run: |
           set -o pipefail
           git config user.name  "mirai-publish-bot"
           git config user.email "bot@users.noreply.github.com"
-          python scripts/mirai_publish.py --spec "$SPEC" --target "$TARGET" --go | tee -a $GITHUB_STEP_SUMMARY
+          python scripts/mirai_publish.py --spec "$SPEC" --target "$TARGET" --go ${POST_AT:+--post-at "$POST_AT"} | tee -a $GITHUB_STEP_SUMMARY

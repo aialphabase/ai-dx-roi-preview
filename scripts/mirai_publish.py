@@ -11,6 +11,7 @@
 spec（json）: {"ep": 33, "week": "2026-W45", "full_url": "…", "deadline": "2026-11-04 20:00",
                "body": "告知本文", "question": "問い", "answers": ["A …", "B …", "C …"]}  ※ TODO が残っていたら止まる
 GitHub のボタン: Actions → mirai-publish → Run workflow（スマホの GitHub アプリからも押せる）
+時刻指定: --post-at "2026-10-25 15:30"（Actions では post_at。サイト公開は6分前、投稿はその時刻。PC を閉じていても動く）
 """
 import argparse, datetime as dt, json, os, subprocess, sys, time, urllib.request
 
@@ -24,6 +25,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True); ap.add_argument("--target", choices=["test", "prod"], default="test")
     ap.add_argument("--hook-file"); ap.add_argument("--go", action="store_true")
+    ap.add_argument("--post-at", help="投稿する時刻 JST 'YYYY-MM-DD HH:MM'。公開と Pages 反映を済ませてから、この時刻まで待って投稿する")
     a = ap.parse_args()
     sp = json.load(open(a.spec, encoding="utf-8"))
     body, q, answers = sp["body"].strip(), sp["question"], sp["answers"]
@@ -57,6 +59,12 @@ def main():
                 print(f"Pages反映 ({i + 1})"); break
         else:
             sys.exit("Pages未反映。投稿は中止")
+    if a.post_at:   # 時刻指定: サイトの公開は先に済ませ、投稿だけ指定の時刻に（10/25〜）
+        at = dt.datetime.strptime(a.post_at, "%Y-%m-%d %H:%M").replace(tzinfo=JST)
+        wait = (at - dt.datetime.now(JST)).total_seconds()
+        print(f"投稿は {a.post_at} JST（あと {max(0, int(wait))} 秒待つ）", flush=True)
+        if wait > 0: time.sleep(wait)
+        hours = max(1, int((end - dt.datetime.now(JST)).total_seconds() // 3600))
     emoji = ["🅰️", "🅱️", "🇨"]
     payload = {"content": body, "poll": {"question": {"text": q},
                "answers": [{"poll_media": {"text": t, "emoji": {"name": e}}} for t, e in zip(answers, emoji)],
