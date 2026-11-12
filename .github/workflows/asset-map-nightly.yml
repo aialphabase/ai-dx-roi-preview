@@ -1,7 +1,8 @@
 name: asset-map-nightly
 on:
-  # Triggered by Xserver cron at 22:47 JST on weekdays.
-  workflow_dispatch:          # 手動実行も可（Actionsタブから）
+  # 予約は Xserver cron（平日22:47 JST・~/mirai-ops/trigger_asset_map.sh）から workflow_dispatch で起動する。
+  # GitHub の schedule は5〜9時間遅れたため 2026-11-12 に外した。
+  workflow_dispatch:          # Xserver cron と手動実行（Actionsタブ）
 permissions:
   contents: write
 concurrency:
